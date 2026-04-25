@@ -36,4 +36,3 @@ Disallow: /
 
 # Sitemap
 Sitemap: https://samtoolbox.com/sitemap.xml
-Sitemap: https://samtoolbox.com/sitemap-tools.xml
