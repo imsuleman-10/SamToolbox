@@ -35,4 +35,4 @@ User-agent: MJ12bot
 Disallow: /
 
 # Sitemap
-Sitemap: https://samtoolbox.com/sitemap.xml
+Sitemap: https://samtoolbox.vercel.app/sitemap.xml
