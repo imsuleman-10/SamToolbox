@@ -26,6 +26,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon.png",
     apple: "/favicon.png",
   },
+  verification: {
+    google: "LcebSxNpS-SRI0tWToRJ3zX9rYqZM4Ltokkil3HUdvU",
+  },
   openGraph: {
     title: "SamToolbox | Private Browser Utilities",
     description: "Convert, Compress, and Create with zero server uploads.",
