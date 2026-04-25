@@ -1,0 +1,6 @@
+Contact: security@samtoolbox.com
+Expires: 2027-04-25T00:00:00.000Z
+Preferred-Languages: en, ur
+Canonical: https://samtoolbox.com/.well-known/security.txt
+Policy: https://samtoolbox.com/privacy
+Acknowledgments: https://samtoolbox.com/acknowledgments

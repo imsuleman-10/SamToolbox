@@ -1,0 +1,39 @@
+# SamToolbox Robots.txt
+# Allow all crawlers with appropriate delays
+
+User-agent: *
+Allow: /
+Disallow: /private
+Disallow: /_next/
+Disallow: /.git/
+Crawl-delay: 1
+Request-rate: 30/1m
+
+# Google specific
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing specific
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Specific for other major crawlers
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: MJ12bot
+Disallow: /
+
+# Sitemap
+Sitemap: https://samtoolbox.com/sitemap.xml
+Sitemap: https://samtoolbox.com/sitemap-tools.xml

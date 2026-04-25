@@ -1,0 +1,8 @@
+# ads.txt for SamToolbox
+# SamToolbox is currently operating without ad networks
+# This file is here to prevent unauthorized ad space sales
+
+# Direct sales contact
+# contact@samtoolbox.com
+
+# Format: domain, publisher_id, relationship_type, certification_authority_id
