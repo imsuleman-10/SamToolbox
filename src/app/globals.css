@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
+  --color-brand-950: #172554;
+  
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Base custom classes if needed */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.rotate-y-minus-12 {
+  transform: rotateY(-12deg);
+}
+
+.rotate-x-5 {
+  transform: rotateX(5deg);
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-200%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(300%); opacity: 0; }
+}
+
+@keyframes breathing {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.05); filter: brightness(1.2); }
+}
+
+.animate-scanline {
+  animation: scanline 3s linear infinite;
+}
+
+.animate-breathing {
+  animation: breathing 4s ease-in-out infinite;
+}
+
+.drop-shadow-brand {
+  filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.5));
+}
