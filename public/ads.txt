@@ -6,6 +6,6 @@
 google.com, pub-6367920112912612, DIRECT, f08c47fec0942fa0
 
 # Direct sales contact
-# contact@samtoolbox.com
+# sulemanzaheer09@gmail.com
 
 # Format: domain, publisher_id, relationship_type, certification_authority_id

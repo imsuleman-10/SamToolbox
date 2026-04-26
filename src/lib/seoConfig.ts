@@ -5,8 +5,8 @@
 
 export const SEO_CONFIG = {
   // Domain configuration
-  domain: "https://samtoolbox.com",
-  alternateDomain: "https://www.samtoolbox.com",
+  domain: "https://samtoolbox.vercel.app",
+  alternateDomain: "https://www.samtoolbox.vercel.app",
 
   // Site branding
   siteName: "SamToolbox",

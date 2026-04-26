@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description:
       "15+ professional browser tools. Zero uploads. Zero servers. Zero compromise on privacy.",
     type: "website",
-    url: "https://samtoolbox.com",
+    url: "https://samtoolbox.vercel.app",
   },
 };
 
@@ -169,7 +169,7 @@ export default function Home() {
     "@type": "WebApplication",
     "name": "SamToolbox",
     "description": "Free online browser tools for PDF, image, and document processing. 100% privacy-first with zero server uploads.",
-    "url": "https://samtoolbox.com",
+    "url": "https://samtoolbox.vercel.app",
     "applicationCategory": "Utility",
     "operatingSystem": "Web Browser",
     "offers": {
