@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import AdSenseAdUnit from "@/components/AdSenseAdUnit";
 import {
   QrCode, Type, ALargeSmall, FileText, Image as ImageIcon,
   ShieldCheck, Zap, Cpu, ArrowRight, Sparkles, Lock, Globe2,
@@ -286,6 +287,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <AdSenseAdUnit />
 
       {/* ══════════════════════════════════════════
           FEATURED TOOLS GRID
