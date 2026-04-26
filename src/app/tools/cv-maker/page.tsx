@@ -256,9 +256,9 @@ export default function CvMakerPage() {
             RIGHT PANEL — Live Preview
         ════════════════════════════════ */}
         <div className="flex-1 min-w-0 w-full">
-          <div className="bg-slate-100 border border-slate-200 rounded-xl sm:rounded-2xl shadow-inner p-3 sm:p-4 md:p-6 lg:p-8 overflow-x-auto flex justify-center min-h-[400px] sm:min-h-[500px] md:min-h-[600px]">
+          <div className="bg-slate-100 border border-slate-200 rounded-xl sm:rounded-2xl shadow-inner p-2 sm:p-3 md:p-4 lg:p-6 overflow-x-auto overflow-y-auto flex justify-center min-h-[350px] xs:min-h-[400px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[700px]">
             <div
-              className="inline-flex origin-top scale-[0.25] xs:scale-[0.30] sm:scale-[0.38] md:scale-[0.50] lg:scale-[0.65] xl:scale-[0.75]"
+              className="inline-flex origin-top scale-[0.22] xs:scale-[0.26] sm:scale-[0.36] md:scale-[0.48] lg:scale-[0.62] xl:scale-[0.72]"
               style={{ transformOrigin: "top center", width: "210mm", minHeight: "297mm" }}
             >
               <div
@@ -270,8 +270,8 @@ export default function CvMakerPage() {
               </div>
             </div>
           </div>
-          <p className="text-center text-[9px] sm:text-[11px] text-slate-400 font-medium mt-2 sm:mt-3 uppercase tracking-widest">
-            Print Quality Render · A4 Layout · 300 DPI Optimized
+          <p className="text-center text-[8px] xs:text-[9px] sm:text-[10px] text-slate-400 font-medium mt-2 sm:mt-3 uppercase tracking-widest">
+            ✓ Print Quality · A4 Format · 300 DPI
           </p>
         </div>
       </div>
