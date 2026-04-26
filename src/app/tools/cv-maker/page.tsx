@@ -93,55 +93,55 @@ export default function CvMakerPage() {
   ];
 
   return (
-    <div className="max-w-[1700px] mx-auto py-6 px-4">
+    <div className="max-w-full mx-auto py-4 sm:py-6 px-3 sm:px-4 md:px-6 lg:px-8">
 
       {/* Page Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col gap-3 sm:gap-4 md:flex-row items-start md:items-center justify-between mb-4 sm:mb-6">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight">Executive CV Maker</h1>
-          <p className="text-sm text-slate-500 font-medium mt-1">Professional templates designed for elite career advancement.</p>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Executive CV Maker</h1>
+          <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">Professional templates designed for elite career advancement.</p>
         </div>
         <button
           onClick={downloadPDF}
           disabled={isGenerating}
-          className="flex items-center gap-2.5 px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-black uppercase tracking-widest text-xs rounded-xl shadow-lg shadow-brand-600/25 transition-all hover:scale-105 active:scale-95 disabled:opacity-60"
+          className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-4 sm:px-6 py-2.5 sm:py-3 bg-brand-600 hover:bg-brand-700 text-white font-black uppercase tracking-widest text-xs rounded-xl shadow-lg shadow-brand-600/25 transition-all hover:scale-105 active:scale-95 disabled:opacity-60"
         >
           <Download size={15} />
           {isGenerating ? "Exporting..." : "Download PDF"}
         </button>
       </div>
 
-      <div className="flex flex-col xl:flex-row gap-6 items-start">
+      <div className="flex flex-col xl:flex-row gap-4 sm:gap-6 items-start">
 
         {/* ════════════════════════════════
             LEFT PANEL — Editor
         ════════════════════════════════ */}
-        <div className="w-full xl:w-[380px] shrink-0 space-y-4">
+        <div className="w-full xl:w-[380px] shrink-0 space-y-3 sm:space-y-4">
 
           {/* Template Picker */}
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-md p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 bg-slate-900 rounded-lg flex items-center justify-center">
-                <LayoutTemplate size={13} className="text-white" />
+          <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-100 shadow-md p-3 sm:p-5">
+            <div className="flex items-center gap-2 mb-3 sm:mb-4">
+              <div className="w-6 h-6 sm:w-7 sm:h-7 bg-slate-900 rounded-lg flex items-center justify-center">
+                <LayoutTemplate size={12} className="text-white" />
               </div>
-              <h2 className="text-sm font-black text-slate-900 uppercase tracking-widest">Select Template</h2>
+              <h2 className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-widest">Select Template</h2>
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-2">
               {templates.map((t) => (
                 <button
                   key={t.id}
                   onClick={() => setTemplate(t.id)}
-                  className={`relative p-3 rounded-xl border text-left transition-all ${
+                  className={`relative p-2 sm:p-3 rounded-lg sm:rounded-xl border text-left transition-all ${
                     template === t.id
                       ? "bg-slate-900 border-slate-900 text-white shadow-xl"
                       : "bg-slate-50 border-slate-200 text-slate-700 hover:border-brand-300"
                   }`}
                 >
                   {template === t.id && (
-                    <CheckCircle2 size={12} className="absolute top-2 right-2 text-brand-400" />
+                    <CheckCircle2 size={10} className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 text-brand-400" />
                   )}
-                  <div className="font-black text-[11px] uppercase tracking-wider mb-0.5">{t.label}</div>
-                  <div className={`text-[9px] font-medium leading-tight ${template === t.id ? "text-slate-400" : "text-slate-400"}`}>
+                  <div className="font-black text-[10px] sm:text-[11px] uppercase tracking-wider mb-0.5">{t.label}</div>
+                  <div className={`text-[8px] sm:text-[9px] font-medium leading-tight ${template === t.id ? "text-slate-400" : "text-slate-400"}`}>
                     {t.desc}
                   </div>
                 </button>
@@ -150,13 +150,13 @@ export default function CvMakerPage() {
           </div>
 
           {/* Section Nav Tabs */}
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-md overflow-hidden">
+          <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-100 shadow-md overflow-hidden">
             <div className="flex border-b border-slate-100">
               {sections.map((s) => (
                 <button
                   key={s.id}
                   onClick={() => setActiveSection(s.id)}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 text-[11px] font-black uppercase tracking-wider transition-all ${
+                  className={`flex-1 flex items-center justify-center gap-1 sm:gap-1.5 py-2.5 sm:py-3 text-[10px] sm:text-[11px] font-black uppercase tracking-wider transition-all ${
                     activeSection === s.id
                       ? "text-brand-600 border-b-2 border-brand-600 bg-brand-50/50"
                       : "text-slate-400 hover:text-slate-600"
@@ -164,35 +164,36 @@ export default function CvMakerPage() {
                 >
                   {s.icon}
                   <span className="hidden sm:inline">{s.label}</span>
+                  <span className="sm:hidden text-[9px]">{s.label.slice(0, 3)}</span>
                 </button>
               ))}
             </div>
 
-            <div className="p-5 space-y-4 max-h-[62vh] overflow-y-auto">
+            <div className="p-3 sm:p-5 space-y-3 sm:space-y-4 max-h-[50vh] sm:max-h-[62vh] overflow-y-auto">
 
               {/* PERSONAL */}
               {activeSection === "personal" && (
                 <>
                   {/* Photo Upload */}
                   <div>
-                    <label className="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-2">
+                    <label className="block text-[10px] sm:text-[11px] font-black text-slate-500 uppercase tracking-widest mb-2">
                       Profile Photo
                     </label>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
                       {data.photoUrl ? (
                         <div className="relative">
-                          <img src={data.photoUrl} alt="Profile" className="w-14 h-14 rounded-xl object-cover border-2 border-slate-200" />
+                          <img src={data.photoUrl} alt="Profile" className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl object-cover border-2 border-slate-200" />
                           <button
                             onClick={() => setData({ ...data, photoUrl: null })}
-                            className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center font-black"
+                            className="absolute -top-1.5 -right-1.5 w-4 h-4 sm:w-5 sm:h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center font-black"
                           >×</button>
                         </div>
                       ) : (
-                        <div className="w-14 h-14 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400">
                           <User size={20} />
                         </div>
                       )}
-                      <label className="cursor-pointer flex items-center gap-2 px-4 py-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-sm font-bold text-slate-700 transition">
+                      <label className="cursor-pointer flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold text-slate-700 transition">
                         <Upload size={14} /> Upload
                         <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />
                       </label>
@@ -254,21 +255,22 @@ export default function CvMakerPage() {
         {/* ════════════════════════════════
             RIGHT PANEL — Live Preview
         ════════════════════════════════ */}
-        <div className="flex-1 min-w-0">
-          <div className="bg-slate-100 border border-slate-200 rounded-2xl shadow-inner p-6 flex justify-center overflow-hidden">
+        <div className="flex-1 min-w-0 w-full">
+          <div className="bg-slate-100 border border-slate-200 rounded-xl sm:rounded-2xl shadow-inner p-3 sm:p-4 md:p-6 lg:p-8 overflow-x-auto flex justify-center min-h-[400px] sm:min-h-[500px] md:min-h-[600px]">
             <div
-              className="origin-top-left"
-              style={{ transform: "scale(0.62)", transformOrigin: "top center", width: "210mm", minHeight: "297mm" }}
+              className="inline-flex origin-top scale-[0.25] xs:scale-[0.30] sm:scale-[0.38] md:scale-[0.50] lg:scale-[0.65] xl:scale-[0.75]"
+              style={{ transformOrigin: "top center", width: "210mm", minHeight: "297mm" }}
             >
               <div
                 ref={cvRef}
-                className="bg-white w-[210mm] min-h-[297mm] shadow-2xl overflow-hidden"
+                className="bg-white shadow-2xl overflow-hidden"
+                style={{ width: "210mm", minHeight: "297mm" }}
               >
                 <CvTemplate template={template} data={data} />
               </div>
             </div>
           </div>
-          <p className="text-center text-[11px] text-slate-400 font-medium mt-3 uppercase tracking-widest">
+          <p className="text-center text-[9px] sm:text-[11px] text-slate-400 font-medium mt-2 sm:mt-3 uppercase tracking-widest">
             Print Quality Render · A4 Layout · 300 DPI Optimized
           </p>
         </div>
@@ -292,7 +294,7 @@ interface FieldProps {
 
 const InputField = ({ label, icon, value, onChange, placeholder }: FieldProps) => (
   <div>
-    <label className="flex items-center gap-1.5 text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">
+    <label className="flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1 sm:mb-1.5">
       {icon && <span className="text-slate-400">{icon}</span>}
       {label}
     </label>
@@ -301,14 +303,14 @@ const InputField = ({ label, icon, value, onChange, placeholder }: FieldProps) =
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/10 outline-none text-slate-800 text-sm font-medium transition-all placeholder:text-slate-300"
+      className="w-full px-3 sm:px-3.5 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/10 outline-none text-slate-800 text-xs sm:text-sm font-medium transition-all placeholder:text-slate-300"
     />
   </div>
 );
 
 const TextAreaField = ({ label, icon, value, onChange, placeholder, rows = 4, hint }: FieldProps) => (
   <div>
-    <label className="flex items-center gap-1.5 text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1.5">
+    <label className="flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] font-black text-slate-500 uppercase tracking-widest mb-1 sm:mb-1.5">
       {icon && <span className="text-slate-400">{icon}</span>}
       {label}
     </label>
@@ -317,9 +319,9 @@ const TextAreaField = ({ label, icon, value, onChange, placeholder, rows = 4, hi
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/10 outline-none text-slate-800 text-sm font-medium transition-all resize-none placeholder:text-slate-300"
+      className="w-full px-3 sm:px-3.5 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/10 outline-none text-slate-800 text-xs sm:text-sm font-medium transition-all resize-none placeholder:text-slate-300"
     />
-    {hint && <p className="text-[10px] text-slate-400 mt-1.5 leading-relaxed font-medium">{hint}</p>}
+    {hint && <p className="text-[9px] sm:text-[10px] text-slate-400 mt-1 sm:mt-1.5 leading-relaxed font-medium">{hint}</p>}
   </div>
 );
 
@@ -337,7 +339,7 @@ const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }
         {/* Left Sidebar */}
         <div className="w-[32%] bg-[#1e293b] text-white px-8 py-10 flex flex-col shrink-0">
           {data.photoUrl ? (
-            <div className="w-32 h-32 rounded-2xl overflow-hidden border-4 border-slate-700 mx-auto mb-8 shadow-2xl rotate-2">
+            <div className="w-32 h-32 rounded-2xl overflow-hidden border-4 border-slate-700 mx-auto mb-8 shadow-2xl">
               <img src={data.photoUrl} alt="Profile" className="w-full h-full object-cover" />
             </div>
           ) : (
@@ -352,9 +354,9 @@ const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" /> Contact
               </h3>
               <div className="space-y-3 text-[10px] font-medium leading-relaxed opacity-80">
-                {data.email && <p className="flex items-center gap-2.5"><Mail size={11} className="text-brand-400" /> {data.email}</p>}
-                {data.phone && <p className="flex items-center gap-2.5"><Phone size={11} className="text-brand-400" /> {data.phone}</p>}
-                {data.location && <p className="flex items-center gap-2.5"><MapPin size={11} className="text-brand-400" /> {data.location}</p>}
+                {data.email && <p className="flex items-center gap-2.5"><Mail size={11} className="text-brand-400 shrink-0" /> <span className="break-all">{data.email}</span></p>}
+                {data.phone && <p className="flex items-center gap-2.5"><Phone size={11} className="text-brand-400 shrink-0" /> {data.phone}</p>}
+                {data.location && <p className="flex items-center gap-2.5"><MapPin size={11} className="text-brand-400 shrink-0" /> <span className="break-all">{data.location}</span></p>}
               </div>
             </section>
 
@@ -398,7 +400,7 @@ const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }
         {/* Main Content */}
         <div className="flex-1 px-12 py-12 bg-white">
           <header className="mb-12">
-            <h1 className="text-[42px] font-black text-slate-900 leading-none tracking-tighter mb-3 uppercase">{data.name || "Identity Name"}</h1>
+            <h1 className="text-[40px] font-black text-slate-900 leading-none tracking-tighter mb-3 uppercase">{data.name || "Identity Name"}</h1>
             <div className="h-1.5 w-24 bg-brand-600 mb-5" />
             <p className="text-xl font-bold text-slate-400 uppercase tracking-[0.2em]">{data.title || "Elite Professional"}</p>
           </header>
@@ -451,29 +453,29 @@ const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }
   if (template === "industrial") {
     return (
       <div className="bg-[#fcfcfc] min-h-[297mm] p-12 text-slate-900 border-[16px] border-slate-900" style={{ fontFamily: "Inter, system-ui, sans-serif" }}>
-        <div className="flex justify-between items-start mb-16">
-          <div className="max-w-2xl">
-            <h1 className="text-[52px] font-black tracking-[-0.05em] leading-[0.9] text-slate-900 mb-6 uppercase italic">
+        <div className="flex flex-col lg:flex-row justify-between items-start mb-16">
+          <div className="max-w-2xl mb-6 lg:mb-0">
+            <h1 className="text-[50px] font-black tracking-[-0.05em] leading-[0.9] text-slate-900 mb-6 uppercase italic">
               {data.name?.split(" ").map((n, i) => (
                 <span key={i} className={i % 2 === 1 ? "text-brand-600" : ""}>{n} </span>
               ))}
             </h1>
-            <div className="flex gap-4 items-center mb-6">
+            <div className="flex flex-wrap gap-4 items-center mb-6">
               <span className="px-4 py-1.5 bg-slate-900 text-white font-black uppercase text-xs tracking-widest">{data.title}</span>
-              <div className="h-px w-20 bg-slate-200" />
+              <div className="h-px w-20 bg-slate-200 hidden lg:block" />
               <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">{data.location}</div>
             </div>
             <p className="text-[13px] leading-relaxed font-medium text-slate-600 border-l-4 border-brand-500 pl-6 py-2 italic">{data.summary}</p>
           </div>
-          <div className="text-right text-[10px] font-black uppercase tracking-[0.2em] leading-relaxed text-slate-900">
+          <div className="text-left lg:text-right text-[10px] font-black uppercase tracking-[0.2em] leading-relaxed text-slate-900">
             <p>{data.email}</p>
             <p>{data.phone}</p>
             <p className="text-brand-600">{data.website}</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-12 gap-12">
-          <div className="col-span-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="lg:col-span-8">
             <h3 className="text-xs font-black uppercase tracking-[0.4em] mb-8 bg-slate-100 px-4 py-2 text-slate-900 inline-block">Experience Logs</h3>
             <div className="space-y-10">
               {data.experience.split("\n\n").map((e, i) => (
@@ -491,7 +493,7 @@ const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }
               ))}
             </div>
           </div>
-          <div className="col-span-4 space-y-12">
+          <div className="lg:col-span-4 space-y-12">
             <section>
               <h3 className="text-xs font-black uppercase tracking-[0.4em] mb-6 text-slate-300">Technical Ops</h3>
               <div className="flex flex-col gap-2">
@@ -529,7 +531,7 @@ const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }
           </div>
           <div className="absolute top-1/2 left-0 right-0 h-px bg-slate-100 -z-0" />
           <p className="mt-8 text-[11px] font-black uppercase tracking-[0.8em] text-slate-400">{data.title}</p>
-          <div className="mt-6 flex justify-center gap-8 text-[9px] font-bold uppercase tracking-widest text-slate-600">
+          <div className="mt-6 flex justify-center gap-8 text-[10px] font-bold uppercase tracking-widest text-slate-600">
             <span>{data.email}</span>
             <span className="text-brand-500">/</span>
             <span>{data.phone}</span>
@@ -538,8 +540,8 @@ const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }
           </div>
         </header>
 
-        <div className="grid grid-cols-12 gap-16">
-          <div className="col-span-4 space-y-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          <div className="lg:col-span-4 space-y-12">
             <section>
               <h3 className="text-[10px] font-black uppercase tracking-[0.4em] mb-4 text-slate-300">Bio</h3>
               <p className="text-[12px] text-slate-500 font-medium leading-[2] text-justify">{data.summary}</p>
@@ -553,7 +555,7 @@ const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }
               </div>
             </section>
           </div>
-          <div className="col-span-8 flex flex-col gap-16">
+          <div className="lg:col-span-8 flex flex-col gap-16">
             <section>
               <h3 className="text-[10px] font-black uppercase tracking-[0.4em] mb-8 text-slate-300">Career Progress</h3>
               <div className="space-y-12">
@@ -594,14 +596,14 @@ const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }
           )}
         </div>
 
-        <div className="flex flex-1">
-          <div className="w-1/3 bg-slate-50 p-10 border-r border-slate-100">
+        <div className="flex flex-col lg:flex-row flex-1">
+          <div className="lg:w-1/3 bg-slate-50 p-10 border-b lg:border-b-0 lg:border-r border-slate-100">
             <section className="mb-10">
               <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] mb-6 border-b border-slate-200 pb-2">Direct</h3>
               <div className="space-y-4 text-[11px] font-bold text-slate-600 uppercase tracking-wider">
-                <p className="flex items-center gap-3"><Mail size={12} className="text-brand-600" /> {data.email}</p>
+                <p className="flex items-center gap-3"><Mail size={12} className="text-brand-600" /> <span className="break-all">{data.email}</span></p>
                 <p className="flex items-center gap-3"><Phone size={12} className="text-brand-600" /> {data.phone}</p>
-                <p className="flex items-center gap-3"><MapPin size={12} className="text-brand-600" /> {data.location}</p>
+                <p className="flex items-center gap-3"><MapPin size={12} className="text-brand-600" /> <span className="break-all">{data.location}</span></p>
                 <p className="flex items-center gap-3"><Globe size={12} className="text-brand-600" /> {data.website}</p>
               </div>
             </section>
@@ -621,7 +623,7 @@ const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }
           <div className="flex-1 p-12">
             <section className="mb-12">
               <h3 className="text-[11px] font-black text-brand-600 uppercase tracking-[0.4em] mb-6 px-4 py-1.5 bg-brand-50 inline-block rounded-full">Background</h3>
-              <p className="text-[13px] text-slate-600 leading-relax font-medium">{data.summary}</p>
+              <p className="text-[13px] text-slate-600 leading-relaxed font-medium">{data.summary}</p>
             </section>
 
             <section>
