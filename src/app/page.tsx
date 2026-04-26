@@ -277,9 +277,9 @@ export default function Home() {
           </div>
 
           {/* Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 opacity-80 border-t border-white/5 pt-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 opacity-80 border-t border-white/56 pt-5">
             {stats.map((s, i) => (
-              <div key={i} className="flex flex-col items-center">
+              <div key={i} className="flex flex-col items-center mb-5">
                 <div className="text-2xl md:text-3xl font-black text-white tracking-tighter mb-1">{s.value}</div>
                 <div className="text-[8px] font-bold text-slate-500 uppercase tracking-[0.3em]">{s.label}</div>
               </div>
@@ -435,6 +435,7 @@ export default function Home() {
         </div>
       </section>
 
-    </div>
+     </div>
+    </>
   );
 }
