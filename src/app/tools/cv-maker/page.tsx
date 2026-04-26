@@ -111,12 +111,12 @@ export default function CvMakerPage() {
         </button>
       </div>
 
-      <div className="flex flex-col xl:flex-row gap-4 sm:gap-6 items-start">
+      <div className="flex flex-col lg:flex-row gap-3 sm:gap-4 lg:gap-6 items-start">
 
         {/* ════════════════════════════════
             LEFT PANEL — Editor
         ════════════════════════════════ */}
-        <div className="w-full xl:w-[380px] shrink-0 space-y-3 sm:space-y-4">
+        <div className="w-full lg:w-[360px] shrink-0 space-y-3 sm:space-y-4">
 
           {/* Template Picker */}
           <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-100 shadow-md p-3 sm:p-5">
@@ -256,22 +256,22 @@ export default function CvMakerPage() {
             RIGHT PANEL — Live Preview
         ════════════════════════════════ */}
         <div className="flex-1 min-w-0 w-full">
-          <div className="bg-slate-100 border border-slate-200 rounded-xl sm:rounded-2xl shadow-inner p-2 sm:p-3 md:p-4 lg:p-6 overflow-x-auto overflow-y-auto flex justify-center min-h-[350px] xs:min-h-[400px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[700px]">
+          <div className="bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-xl sm:rounded-2xl shadow-inner p-1 sm:p-2 md:p-3 lg:p-4 overflow-y-auto flex justify-center items-start min-h-[450px] xs:min-h-[550px] sm:min-h-[650px] md:min-h-[750px] lg:min-h-[800px]">
             <div
-              className="inline-flex origin-top scale-[0.22] xs:scale-[0.26] sm:scale-[0.36] md:scale-[0.48] lg:scale-[0.62] xl:scale-[0.72]"
+              className="inline-flex origin-top scale-[0.45] xs:scale-[0.50] sm:scale-[0.60] md:scale-[0.70] lg:scale-[0.75] xl:scale-[0.85] mt-4 sm:mt-6"
               style={{ transformOrigin: "top center", width: "210mm", minHeight: "297mm" }}
             >
               <div
                 ref={cvRef}
-                className="bg-white shadow-2xl overflow-hidden"
+                className="bg-white shadow-2xl overflow-hidden rounded-sm"
                 style={{ width: "210mm", minHeight: "297mm" }}
               >
                 <CvTemplate template={template} data={data} />
               </div>
             </div>
           </div>
-          <p className="text-center text-[8px] xs:text-[9px] sm:text-[10px] text-slate-400 font-medium mt-2 sm:mt-3 uppercase tracking-widest">
-            ✓ Print Quality · A4 Format · 300 DPI
+          <p className="text-center text-[7px] xs:text-[8px] sm:text-[9px] text-slate-400 font-medium mt-2 sm:mt-3 uppercase tracking-widest">
+            ✓ Live Preview · Print Optimized · 300 DPI
           </p>
         </div>
       </div>
