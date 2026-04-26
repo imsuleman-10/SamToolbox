@@ -33,7 +33,7 @@ export const SEO_CONFIG = {
   supportedLanguages: ["en", "ur"],
 
   // Analytics and tracking (add when ready)
-  googleAnalyticsId: "",
+  googleAnalyticsId: "G-XXXXXXXXXX", // Add your GA4 ID here
   googleSearchConsoleVerification: "LcebSxNpS-SRI0tWToRJ3zX9rYqZM4Ltokkil3HUdvU",
 
   // Crawling directives

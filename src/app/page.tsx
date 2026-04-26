@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import {
   QrCode, Type, ALargeSmall, FileText, Image as ImageIcon,
   ShieldCheck, Zap, Cpu, ArrowRight, Sparkles, Lock, Globe2,
@@ -163,8 +164,47 @@ const stats = [
 ];
 
 export default function Home() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "SamToolbox",
+    "description": "Free online browser tools for PDF, image, and document processing. 100% privacy-first with zero server uploads.",
+    "url": "https://samtoolbox.com",
+    "applicationCategory": "Utility",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "CV/Resume Maker",
+      "QR Code Generator",
+      "Image Converter",
+      "PDF Tools",
+      "Document Readers",
+      "Text Utilities"
+    ],
+    "author": {
+      "@type": "Person",
+      "name": "SamToolbox Team"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SamToolbox"
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center bg-white selection:bg-brand-100 selection:text-brand-900">
+    <>
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
+      <div className="flex flex-col items-center bg-white selection:bg-brand-100 selection:text-brand-900">
 
       {/* ══════════════════════════════════════════
           HERO SECTION
