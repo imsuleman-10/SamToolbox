@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google"; // Using more premium fonts
+import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Preloader from "@/components/Preloader";
@@ -76,6 +77,11 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${outfit.variable} h-full antialiased`}
     >
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6367920112912612"
+        crossOrigin="anonymous"
+      />
       <body className="min-h-full flex flex-col font-sans bg-white text-slate-900">
         <Preloader />
         <Navbar />
