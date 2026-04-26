@@ -26,6 +26,7 @@ export const metadata: Metadata = {
   authors: [{ name: "SamToolbox" }],
   creator: "SamToolbox",
   publisher: "SamToolbox",
+  metadataBase: new URL("https://samtoolbox.vercel.app"),
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
@@ -37,17 +38,19 @@ export const metadata: Metadata = {
   },
   other: {
     "google-adsense-account": "ca-pub-6367920112912612",
+    "application-name": "SamToolbox",
+    "apple-mobile-web-app-title": "SamToolbox",
   },
   openGraph: {
     title: "SamToolbox | Private Browser Utilities",
     description: "Convert, Compress, and Create with zero server uploads. 100% privacy-first online tools.",
-    url: "https://samtoolbox.com",
+    url: "https://samtoolbox.vercel.app",
     siteName: "SamToolbox",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "https://samtoolbox.com/logo.jpg",
+        url: "https://samtoolbox.vercel.app/logo.jpg",
         width: 1200,
         height: 630,
         alt: "SamToolbox Logo",
@@ -58,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SamToolbox | Premium Browser Tools",
     description: "Free, privacy-first online tools for conversions, compression, and document handling.",
-    images: ["https://samtoolbox.com/logo.jpg"],
+    images: ["https://samtoolbox.vercel.app/logo.jpg"],
   },
   robots: {
     index: true,
@@ -89,15 +92,27 @@ export default function RootLayout({
         src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
         strategy="afterInteractive"
       />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-XXXXXXXXXX');
-        `}
-      </Script>
-      <body className="min-h-full flex flex-col font-sans bg-white text-slate-900">
+       <Script id="google-analytics" strategy="afterInteractive">
+         {`
+           window.dataLayer = window.dataLayer || [];
+           function gtag(){dataLayer.push(arguments);}
+           gtag('js', new Date());
+           gtag('config', 'G-XXXXXXXXXX');
+         `}
+       </Script>
+       <Script
+         id="website-structured-data"
+         type="application/ld+json"
+         dangerouslySetInnerHTML={{
+           __html: JSON.stringify({
+             "@context": "https://schema.org",
+             "@type": "WebSite",
+             "name": "SamToolbox",
+             "url": "https://samtoolbox.vercel.app/",
+           }),
+         }}
+       />
+       <body className="min-h-full flex flex-col font-sans bg-white text-slate-900">
         <Preloader />
         <Navbar />
         {/* Removed max-w-7xl and padding here to allow full-width heroes/sections per-page */}
