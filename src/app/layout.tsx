@@ -35,6 +35,9 @@ export const metadata: Metadata = {
   verification: {
     google: "LcebSxNpS-SRI0tWToRJ3zX9rYqZM4Ltokkil3HUdvU",
   },
+  other: {
+    "google-adsense-account": "ca-pub-6367920112912612",
+  },
   openGraph: {
     title: "SamToolbox | Private Browser Utilities",
     description: "Convert, Compress, and Create with zero server uploads. 100% privacy-first online tools.",
