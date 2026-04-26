@@ -1,6 +1,9 @@
 # ads.txt for SamToolbox
-# SamToolbox is currently operating without ad networks
-# This file is here to prevent unauthorized ad space sales
+# SamToolbox uses Google AdSense for monetization
+# Publisher ID: ca-pub-6367920112912612
+
+# Google AdSense
+google.com, pub-6367920112912612, DIRECT, f08c47fec0942fa0
 
 # Direct sales contact
 # contact@samtoolbox.com
