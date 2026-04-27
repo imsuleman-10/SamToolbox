@@ -9,95 +9,129 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-[100] w-full bg-white/95 backdrop-blur-2xl border-b border-slate-200/60 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
+    <nav className="sticky top-0 z-[100] w-full bg-white border-b border-slate-200/60 shadow-sm transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between h-16 sm:h-20 items-center">
+          {/* Logo Section */}
           <div className="flex shrink-0 items-center">
-            <Link href="/" className="flex items-center gap-2 sm:gap-4 group">
-              <div className="relative w-12 sm:w-16 h-12 sm:h-16 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-2xl shadow-brand-600/20 group-hover:scale-110 transition-all duration-500 border border-slate-200 bg-white">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 group" onClick={() => setIsOpen(false)}>
+              <div className="relative w-10 sm:w-12 h-10 sm:h-12 rounded-xl overflow-hidden shadow-sm border border-slate-100 bg-white">
                 <Image
                   src="/logo.jpg"
                   alt="SamToolbox Logo"
                   fill
                   priority
-                  className="object-cover scale-110 group-hover:scale-125 transition-all duration-700"
+                  className="object-cover"
                 />
               </div>
-              <span className="font-extrabold text-xl sm:text-3xl tracking-tighter text-slate-900 flex items-center">
-                <span className="hidden xs:inline">SAM</span><span className="text-brand-600">TOOLBOX</span>
-                <div className="ml-1 sm:ml-2 w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-brand-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </span>
+              <div className="flex flex-col">
+                <span className="font-black text-lg sm:text-2xl tracking-tighter text-slate-900 leading-none uppercase">
+                  Sam<span className="text-brand-600">Toolbox</span>
+                </span>
+                <span className="text-[8px] font-bold text-slate-400 uppercase tracking-[0.3em] mt-1 hidden sm:block">Industrial Tools</span>
+              </div>
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center gap-6 lg:gap-10">
+          {/* Desktop Navigation (Visible on Large Screens) */}
+          <div className="hidden lg:flex items-center gap-8 xl:gap-12">
             {[
-              { label: "All Tools", href: "/tools" },
+              { label: "Tools", href: "/tools" },
               { label: "About", href: "/about" },
               { label: "Contact", href: "/contact" },
             ].map((link) => (
               <Link 
                 key={link.label}
                 href={link.href} 
-                className="relative text-[11px] lg:text-sm font-black text-slate-600 hover:text-brand-600 transition-colors uppercase tracking-[0.15em] group py-2"
+                className="text-xs font-black text-slate-500 hover:text-brand-600 transition-colors uppercase tracking-widest"
               >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-1 bg-brand-600 transition-all duration-300 group-hover:w-full rounded-full" />
               </Link>
             ))}
             
             <Link 
               href="/tools/cv-maker" 
-              className="bg-brand-600 hover:bg-brand-700 text-white px-5 lg:px-6 py-2.5 lg:py-3 rounded-lg lg:rounded-xl text-[10px] font-black uppercase tracking-[0.15em] transition-all hover:shadow-[0_12px_32px_rgba(37,99,235,0.3)] active:scale-95 flex items-center gap-2 group"
+              className="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-lg shadow-brand-200 active:scale-95 flex items-center gap-2"
             >
-              <span className="hidden lg:inline">Build</span> CV
-              <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              Build CV
+              <ChevronRight size={14} />
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button 
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-slate-100 hover:bg-slate-200 transition-all active:scale-95"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={20} className="text-slate-900" /> : <Menu size={20} className="text-slate-900" />}
-          </button>
+          {/* Mobile/Tablet Menu Toggle */}
+          <div className="flex lg:hidden items-center gap-3">
+            <Link 
+              href="/tools/cv-maker" 
+              className="sm:flex hidden bg-slate-900 text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest active:scale-95 transition-all"
+            >
+              CV Maker
+            </Link>
+            <button 
+              onClick={() => setIsOpen(!isOpen)}
+              className="w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-xl bg-slate-50 border border-slate-200 active:scale-95 transition-all"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={20} className="text-brand-600" /> : <Menu size={20} className="text-slate-900" />}
+            </button>
+          </div>
         </div>
+      </div>
 
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden fixed inset-0 top-16 sm:top-20 left-0 right-0 bg-white border-t border-slate-200 animate-in fade-in slide-in-from-top-2 duration-300 z-50">
-            <div className="flex flex-col gap-1 px-4 py-4">
+      {/* Mobile/Tablet Menu Overlay */}
+      {isOpen && (
+        <div className="lg:hidden fixed inset-0 z-[101] bg-white pt-[env(safe-area-inset-top)] animate-in slide-in-from-top duration-300">
+          <div className="flex flex-col h-full">
+            {/* Menu Header */}
+            <div className="flex items-center justify-between px-6 h-16 border-b border-slate-100">
+              <span className="font-black text-lg tracking-tighter text-slate-900 uppercase">
+                Menu <span className="text-brand-600">Options</span>
+              </span>
+              <button 
+                onClick={() => setIsOpen(false)} 
+                className="p-2 rounded-xl bg-slate-50 border border-slate-200"
+              >
+                <X size={22} className="text-slate-900" />
+              </button>
+            </div>
+
+            {/* Navigation List */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-4">
               {[
                 { label: "All Tools", href: "/tools" },
-                { label: "About", href: "/about" },
-                { label: "Contact", href: "/contact" },
+                { label: "About Us", href: "/about" },
+                { label: "Contact Us", href: "/contact" },
               ].map((link) => (
-                <Link 
+                <Link
                   key={link.label}
-                  href={link.href} 
-                  className="text-sm font-bold text-slate-700 hover:text-brand-600 hover:bg-brand-50 transition-all uppercase tracking-widest py-3 px-3 rounded-lg"
+                  href={link.href}
+                  className="flex items-center justify-between p-5 rounded-2xl bg-slate-50 border border-slate-100/50 active:bg-slate-100 transition-all group"
                   onClick={() => setIsOpen(false)}
                 >
-                  {link.label}
+                  <span className="text-sm font-black text-slate-900 uppercase tracking-widest">{link.label}</span>
+                  <ChevronRight size={18} className="text-slate-300 group-hover:text-brand-600 transition-colors" />
                 </Link>
               ))}
-              
-              <div className="h-px bg-slate-100 my-3" />
-              
-              <Link 
-                href="/tools/cv-maker" 
-                className="bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-lg text-sm font-black uppercase tracking-wider transition-all active:scale-95 flex items-center justify-center gap-2 group"
-                onClick={() => setIsOpen(false)}
-              >
-                Build CV
-                <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
+
+              <div className="pt-4">
+                <Link
+                  href="/tools/cv-maker"
+                  className="flex items-center justify-center gap-3 w-full py-5 rounded-2xl bg-brand-600 text-white font-black uppercase tracking-widest text-sm shadow-xl shadow-brand-200 active:scale-[0.98] transition-all"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Build CV Maker
+                  <ChevronRight size={18} />
+                </Link>
+              </div>
+            </div>
+
+            <div className="p-8 border-t border-slate-50 text-center">
+              <p className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.5em]">
+                SamToolbox v2.0
+              </p>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   );
 }

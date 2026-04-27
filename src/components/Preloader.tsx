@@ -10,8 +10,8 @@ export default function Preloader() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setFadeOut(true);
-      setTimeout(() => setLoading(false), 800);
-    }, 2800); // Slightly longer for 'Premium' feel
+      setTimeout(() => setLoading(false), 300);
+    }, 300); // Super fast load for professional feel
 
     return () => clearTimeout(timer);
   }, []);
@@ -45,6 +45,7 @@ export default function Preloader() {
                 fill
                 className="object-cover"
                 priority
+                quality={50}
               />
             </div>
             {/* Scanner line effect */}

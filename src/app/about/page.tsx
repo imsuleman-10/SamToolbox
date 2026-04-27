@@ -66,16 +66,17 @@ export default function AboutPage() {
           HERO SECTION
       ══════════════════════════════════════ */}
       <section className="relative w-full pt-32 pb-48 px-6 overflow-hidden">
-        {/* Video Background */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none"
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
+        {/* Static Professional Background */}
+        <div className="absolute inset-0 bg-[#020617] pointer-events-none" />
+        
+        {/* Ambient Gradient */}
+        <div 
+          className="absolute inset-0 opacity-[0.4] pointer-events-none"
+          style={{
+            background: `radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.2) 0, transparent 50%), 
+                        radial-gradient(at 100% 100%, rgba(79, 70, 229, 0.2) 0, transparent 50%)`
+          }}
+        />
 
         {/* Background Aesthetics */}
         <div className="absolute inset-0 bg-[#020617]/70 pointer-events-none" />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Trash2, Type, Settings2, Zap, ShieldCheck } from "lucide-react";
+import { Copy, Trash2, Type, Settings2, Zap, ShieldCheck, BookOpen, HelpCircle } from "lucide-react";
 
 export default function CaseConverterPage() {
   const [text, setText] = useState("");
@@ -57,23 +57,24 @@ export default function CaseConverterPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-8">
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-[10px] font-black uppercase tracking-[0.2em] mb-8 border border-slate-200">
+    <>
+      <div className="max-w-4xl mx-auto py-8 sm:py-12 px-4">
+      <div className="text-center mb-8 sm:mb-12">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-[10px] font-black uppercase tracking-[0.2em] mb-6 sm:mb-8 border border-slate-200">
           <Settings2 size={14} />
           <span>Text Formatting Simplified</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-black text-slate-800 mb-4 tracking-tight">
           Smart <span className="text-slate-900">Case Converter</span>
         </h1>
-        <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
+        <p className="text-sm sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
           Transform text between uppercase, lowercase, title case, sentence case, camelCase, and snake_case in one click.
-          <span className="text-slate-900 font-semibold"> Perfect for developers, writers, and content creators who need consistent formatting — all processed locally.</span>
+          <span className="text-slate-900 font-semibold"> Perfect for developers, writers, and content creators. All processed locally.</span>
         </p>
       </div>
 
       {/* Conversion Buttons */}
-      <div className="flex flex-wrap gap-3 justify-center mb-8">
+      <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
         <CaseButton onClick={() => convertCase("sentencecase")} label="Sentence case" />
         <CaseButton onClick={() => convertCase("lowercase")} label="lower case" />
         <CaseButton onClick={() => convertCase("uppercase")} label="UPPER CASE" />
@@ -83,26 +84,26 @@ export default function CaseConverterPage() {
       </div>
 
       {/* Editor */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
-        <div className="bg-slate-50 border-b border-slate-100 p-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
+      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden mx-[-1rem] sm:mx-0">
+        <div className="bg-slate-50 border-b border-slate-100 p-3 sm:p-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-3 w-full sm:w-auto">
             <div className="bg-slate-100 p-2 rounded-lg text-slate-600">
               <Type size={20} />
             </div>
-            <span className="font-semibold text-slate-700">Your Text</span>
+            <span className="font-semibold text-slate-700 text-sm sm:text-base">Your Text</span>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 w-full sm:w-auto">
             <button
               onClick={handleCopy}
               disabled={!text}
-              className="flex items-center gap-2 px-4 py-1.5 text-sm font-medium text-brand-600 bg-brand-50 hover:bg-brand-100 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-brand-600 bg-brand-50 hover:bg-brand-100 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition"
             >
               <Copy size={16} /> Copy
             </button>
             <button
               onClick={handleClear}
               disabled={!text}
-              className="flex items-center gap-2 px-4 py-1.5 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition"
             >
               <Trash2 size={16} /> Clear
             </button>
@@ -112,7 +113,7 @@ export default function CaseConverterPage() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Paste or type your text here, then click any case button above to transform it instantly. Works with code snippets, paragraphs, lists, and more."
-          className="w-full h-80 p-6 focus:outline-none resize-none text-slate-700 text-lg font-medium bg-white"
+          className="w-full h-64 sm:h-80 p-4 sm:p-6 focus:outline-none resize-none text-slate-700 text-base sm:text-lg font-medium bg-white"
           autoFocus
         />
       </div>
@@ -148,6 +149,63 @@ export default function CaseConverterPage() {
         </div>
       </div>
     </div>
+
+      {/* Information Section */}
+      <div className="max-w-4xl mx-auto px-4 mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
+        <div className="space-y-8">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="p-2 bg-brand-50 rounded-xl text-brand-600">
+              <BookOpen size={20} />
+            </div>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Transformation Protocol</h2>
+          </div>
+          
+          <div className="space-y-6">
+            {[
+              { step: "01", title: "Text Entry", desc: "Paste or type the text you wish to transform into the editor. It supports paragraphs, code, and lists." },
+              { step: "02", title: "Select Case", desc: "Choose your target format from the dashboard. Options include standard text and programming conventions." },
+              { step: "03", title: "Instant Engine", desc: "The transformation logic executes immediately in your browser with zero latency or server requests." },
+              { step: "04", title: "Export Result", desc: "Use the global copy control to move your reformatted text back to your primary editor or documentation." }
+            ].map((item, i) => (
+              <div key={i} className="flex gap-6 group">
+                <span className="text-3xl font-black text-slate-100 group-hover:text-brand-100 transition-colors duration-300">{item.step}</span>
+                <div className="space-y-1">
+                  <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-8">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="p-2 bg-slate-900 rounded-xl text-white">
+              <HelpCircle size={20} />
+            </div>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Linguistic FAQ</h2>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              { q: "What is camelCase?", a: "A naming convention where the first letter of each word is capitalized except for the first word, common in coding." },
+              { q: "Supports special characters?", a: "Yes. Our engine preserves punctuation and numeric data while identifying word boundaries for case logic." },
+              { q: "Is there a length limit?", a: "No. Since processing is 100% local, the tool can handle massive text blocks without performance degradation." },
+              { q: "Privacy guarantee?", a: "Your text never leaves your browser. We utilize local state management to ensure complete data isolation." }
+            ].map((faq, i) => (
+              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
+                <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
+                  {faq.q}
+                </h3>
+                <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      </div>
+    </>
   );
 }
 

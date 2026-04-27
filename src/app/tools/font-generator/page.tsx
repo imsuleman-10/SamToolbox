@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Type, Copy, RefreshCw, Sparkles } from "lucide-react";
+import { Type, Copy, RefreshCw, Sparkles, BookOpen, HelpCircle } from "lucide-react";
 
 const UNICODE_FONTS = [
   {
@@ -148,20 +148,59 @@ export default function FontGeneratorPage() {
         })}
       </div>
 
-      {/* How to Use */}
-      <div className="mt-12 bg-slate-50 rounded-2xl p-6 border border-slate-200">
-        <h3 className="text-sm font-black text-slate-800 mb-3 uppercase tracking-wider flex items-center gap-2">
-          <span className="w-2 h-2 bg-brand-500 rounded-full"></span>
-          How to Use
-        </h3>
-        <ol className="list-decimal list-inside space-y-2 text-sm text-slate-600 font-medium">
-          <li>Type or paste your text in the box above</li>
-          <li>Scroll through the font styles and click <strong>Copy</strong> on any style you like</li>
-          <li>Paste the copied text anywhere — Instagram, Twitter, Discord, games, etc.</li>
-        </ol>
-        <p className="text-xs text-slate-500 mt-3 italic">
-          All conversions happen locally. No data is collected or stored — complete privacy guaranteed.
-        </p>
+      {/* Information Section */}
+      <div className="max-w-7xl mx-auto mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
+        <div className="space-y-8">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="p-2 bg-brand-50 rounded-xl text-brand-600">
+              <BookOpen size={20} />
+            </div>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Styling Protocol</h2>
+          </div>
+          
+          <div className="space-y-6">
+            {[
+              { step: "01", title: "Character Injection", desc: "Enter your phrase into the primary workspace. Our engine maps your input to specialized Unicode planes in real-time." },
+              { step: "02", title: "Visual Selection", desc: "Choose from Bold, Script, or Bubble styles. These are unique character sets that maintain styling across all platforms." },
+              { step: "03", title: "Rapid Deployment", desc: "Utilize the one-click copy mechanism. The styled text is stored in your clipboard, ready for instant social media integration." },
+              { step: "04", title: "Privacy Integrity", desc: "Every character transformation is performed via local JavaScript. No keystrokes are logged, ensuring total privacy." }
+            ].map((item, i) => (
+              <div key={i} className="flex gap-6 group">
+                <span className="text-3xl font-black text-slate-100 group-hover:text-brand-100 transition-colors duration-300">{item.step}</span>
+                <div className="space-y-1">
+                  <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-8">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="p-2 bg-slate-900 rounded-xl text-white">
+              <HelpCircle size={20} />
+            </div>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Typography FAQ</h2>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              { q: "Why does it work everywhere?", a: "These aren't font files; we use 'Mathematical Alphanumeric Symbols', which are natively supported by modern operating systems." },
+              { q: "Is it safe for bios?", a: "Yes. Copying these characters into your Instagram, Twitter, or LinkedIn bio is safe and helps your profile stand out visually." },
+              { q: "Why do some characters shift?", a: "Certain Unicode styles utilize specialized symbols that might have slight variations depending on the system's rendering engine." },
+              { q: "Can I use this for gaming?", a: "Absolutely. These styles are perfect for gaming tags or handles, provided the platform supports Unicode character sets." }
+            ].map((faq, i) => (
+              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
+                <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
+                  {faq.q}
+                </h3>
+                <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

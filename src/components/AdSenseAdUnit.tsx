@@ -5,14 +5,7 @@ import Script from "next/script";
 
 export default function AdSenseAdUnit() {
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      try {
-        (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-        (window as any).adsbygoogle.push({});
-      } catch (error) {
-        console.error("Adsense init error:", error);
-      }
-    }
+    // AdSense script is handled by the Script component below
   }, []);
 
   return (

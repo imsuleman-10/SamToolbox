@@ -5,7 +5,9 @@ import Link from "next/link";
 import { 
   QrCode, Type, ALargeSmall, FileText, Image as ImageIcon, 
   ArrowRight, Zap, ShieldCheck, Cpu, Database, Binary, 
-  Layers, Settings2, Sparkles, Wand2, Search, X
+  Layers, Settings2, Sparkles, Wand2, Search, X,
+  Target, Timer, BookOpen, FileCheck, Lock, GraduationCap,
+  Calendar, Brain, Globe, Shield
 } from "lucide-react";
 
 export default function ToolsPage() {
@@ -150,6 +152,92 @@ export default function ToolsPage() {
       ],
     },
     {
+      name: "STUDENT SUITE",
+      icon: <GraduationCap size={16} />,
+      color: "text-emerald-500",
+      tools: [
+        {
+          title: "Resume Score Checker",
+          description: "ATS resume analysis with scoring and improvement suggestions.",
+          icon: <FileCheck size={24} />,
+          href: "/tools/resume-score",
+          tag: "NEW",
+          tagColor: "bg-emerald-500/10 text-emerald-600",
+          keywords: "resume score checker ats analysis cv improvement"
+        },
+        {
+          title: "GPA Calculator",
+          description: "Calculate semester and cumulative GPA for Pakistani universities.",
+          icon: <GraduationCap size={24} />,
+          href: "/tools/gpa-calculator",
+          tag: "NEW",
+          tagColor: "bg-emerald-500/10 text-emerald-600",
+          keywords: "gpa calculator semester cgpa university grading"
+        },
+        {
+          title: "Study Timer",
+          description: "Pomodoro timer with productivity tracking and session history.",
+          icon: <Timer size={24} />,
+          href: "/tools/study-timer",
+          tag: "NEW",
+          tagColor: "bg-emerald-500/10 text-emerald-600",
+          keywords: "study timer pomodoro productivity focus session tracking"
+        },
+        {
+          title: "Goal Planner",
+          description: "Set and track daily and weekly goals with progress monitoring.",
+          icon: <Target size={24} />,
+          href: "/tools/goal-planner",
+          tag: "NEW",
+          tagColor: "bg-emerald-500/10 text-emerald-600",
+          keywords: "goal planner daily weekly tracker productivity"
+        },
+        {
+          title: "Question Generator",
+          description: "Random MCQs and quiz questions for exam preparation.",
+          icon: <Brain size={24} />,
+          href: "/tools/question-generator",
+          tag: "NEW",
+          tagColor: "bg-emerald-500/10 text-emerald-600",
+          keywords: "question generator quiz mcq exam practice study"
+        },
+      ],
+    },
+    {
+      name: "PRODUCTIVITY TOOLS",
+      icon: <Settings2 size={16} />,
+      color: "text-cyan-500",
+      tools: [
+        {
+          title: "Assignment Formatter",
+          description: "Auto-format assignments and export to professional PDFs.",
+          icon: <FileText size={24} />,
+          href: "/tools/assignment-formatter",
+          tag: "NEW",
+          tagColor: "bg-cyan-500/10 text-cyan-600",
+          keywords: "assignment formatter pdf export formatting title page"
+        },
+        {
+          title: "Notes to PDF",
+          description: "Convert messy notes into beautifully formatted PDF documents.",
+          icon: <BookOpen size={24} />,
+          href: "/tools/notes-to-pdf",
+          tag: "NEW",
+          tagColor: "bg-cyan-500/10 text-cyan-600",
+          keywords: "notes to pdf converter formatter clean document"
+        },
+        {
+          title: "Password Strength Checker",
+          description: "Analyze password security with crack time estimation.",
+          icon: <Lock size={24} />,
+          href: "/tools/password-strength",
+          tag: "NEW",
+          tagColor: "bg-cyan-500/10 text-cyan-600",
+          keywords: "password strength checker security crack time analysis"
+        },
+      ],
+    },
+    {
       name: "OFFICE SUITE",
       icon: <FileText size={16} />,
       color: "text-emerald-500",
@@ -174,6 +262,31 @@ export default function ToolsPage() {
           icon: <Layers size={24} />,
           href: "/tools/ppt-reader",
           keywords: "ppt reader powerpoint slides presentation view"
+        },
+      ],
+    },
+    {
+      name: "SEO POWER SUITE",
+      icon: <Search size={16} />,
+      color: "text-blue-500",
+      tools: [
+        {
+          title: "SEO Meta Generator",
+          description: "Generate perfectly optimized meta tags for high search rankings.",
+          icon: <Globe size={24} />,
+          href: "/tools/seo-meta-generator",
+          tag: "SEO",
+          tagColor: "bg-blue-500/10 text-blue-600",
+          keywords: "seo meta generator tags title description keywords"
+        },
+        {
+          title: "Robots.txt Builder",
+          description: "Create secure and optimized robots.txt files for search crawlers.",
+          icon: <Shield size={24} />,
+          href: "/tools/robots-txt-builder",
+          tag: "TECH",
+          tagColor: "bg-emerald-500/10 text-emerald-600",
+          keywords: "robots.txt builder generator seo crawler bot control"
         },
       ],
     },

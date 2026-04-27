@@ -89,6 +89,56 @@ export const toolsMetadata = {
     description: "View PowerPoint presentations (.pptx, .ppt) directly in your browser. Perfect for checking slides on the go without heavy software. Fast loading, slide navigation, and high-quality rendering. Your presentations remain private and secure.",
     keywords: "PPT reader, PowerPoint viewer, view presentations, online presentation viewer, free PPT reader, open pptx online, slide viewer, powerpoint slide reader, read ppt without office, SamToolbox ppt tool, presentation slide viewer",
   },
+  "question-generator": {
+    title: "MCQ & Question Generator - Create Custom Quizzes | SamToolbox",
+    description: "Generate high-quality multiple choice questions and quizzes instantly. Perfect for teachers, students, and examiners. Create assessment materials with expert formatting and export to PDF. 100% private and offline capable.",
+    keywords: "question generator, MCQ maker, quiz creator, exam builder, test generator, multiple choice questions, educational tools, teacher resources, student assessment, PDF quiz export, SamToolbox questions",
+  },
+  "goal-planner": {
+    title: "Goal Planner & Productivity Tracker - Achieve More | SamToolbox",
+    description: "Plan your daily goals and track your progress with our professional productivity tool. Set milestones, organize tasks, and maintain focus with local storage persistence. No signup required, zero tracking.",
+    keywords: "goal planner, productivity tracker, habit tracker, daily planner, achievement tool, task manager, milestone tracker, self-improvement, focus tool, private planner, SamToolbox goals",
+  },
+  "notes-to-pdf": {
+    title: "Notes to PDF Converter - Format & Export Digital Notes | SamToolbox",
+    description: "Transform your plain text notes into beautifully formatted PDF documents. Professional styling, clean typography, and instant download. Best for students, researchers, and professional documentation.",
+    keywords: "notes to pdf, text to pdf, document formatter, pdf creator, digital notes, academic tools, research documentation, clean pdf export, student tools, SamToolbox notes",
+  },
+  "resume-score": {
+    title: "ATS Resume Checker - Score Your CV for Job Success | SamToolbox",
+    description: "Get an instant ATS compatibility score for your resume. Analyze keywords, formatting, and content density to increase your interview chances. Professional feedback based on modern hiring standards.",
+    keywords: "resume score, ATS checker, resume analyzer, CV feedback, job application tools, career growth, resume optimizer, hiring standards, interview preparation, SamToolbox resume",
+  },
+  "gpa-calculator": {
+    title: "University GPA Calculator - Track Your Academic Progress | SamToolbox",
+    description: "Calculate your Semester and Cumulative GPA accurately. Supports multiple grading systems and weightage. Plan your grades and achieve your academic goals with our responsive calculator.",
+    keywords: "GPA calculator, grade point average, university grades, CGPA calculator, academic tracker, semester gpa, student tools, grade planner, SamToolbox GPA",
+  },
+  "study-timer": {
+    title: "Focus Study Timer - Pomodoro & Deep Work Clock | SamToolbox",
+    description: "Boost your productivity with our customizable study timer. Based on the Pomodoro technique for maximum focus and efficient breaks. Clean, distraction-free interface for serious learners.",
+    keywords: "study timer, focus clock, pomodoro timer, deep work, productivity clock, learning tools, concentration timer, break manager, student focus, SamToolbox timer",
+  },
+  "password-strength": {
+    title: "Secure Password Strength Checker - Audit Your Security | SamToolbox",
+    description: "Verify the strength of your passwords with our local-only entropy analyzer. Get instant feedback on complexity, crack time, and security best practices. Zero telemetry, 100% private.",
+    keywords: "password checker, security audit, password strength, cybersecurity, entropy analyzer, secure password, crack time calculator, privacy tools, SamToolbox security",
+  },
+  "assignment-formatter": {
+    title: "Academic Assignment Formatter - Perfect Submission Styling | SamToolbox",
+    description: "Format your college and university assignments to meet professional standards. Clean layouts, consistent styling, and PDF export. The ultimate tool for academic excellence.",
+    keywords: "assignment formatter, academic styling, paper formatter, university submission, student documentation, professional formatting, pdf assignment, SamToolbox formatter",
+  },
+  "seo-meta-generator": {
+    title: "SEO Meta Tag Generator - Optimize Your Website | SamToolbox",
+    description: "Generate perfectly optimized title tags, meta descriptions, and OpenGraph data. Improve your search engine rankings and social media appearance with our industrial-grade generator.",
+    keywords: "seo meta generator, meta tags maker, title tag creator, search engine optimization, og tags, social media metadata, web dev tools, SamToolbox SEO",
+  },
+  "robots-txt-builder": {
+    title: "Robots.txt Builder - Control Search Crawler Access | SamToolbox",
+    description: "Build secure and optimized robots.txt files to manage how search engines crawl your site. Protect sensitive directories and set crawl delays with ease. 100% technical SEO compliance.",
+    keywords: "robots.txt builder, robots generator, crawler control, tech seo, search console tools, bot management, sitemap link, SamToolbox robots",
+  },
 };
 
 /**

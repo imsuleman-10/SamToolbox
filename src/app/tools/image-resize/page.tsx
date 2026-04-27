@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Upload, Download, FileImage, Settings, Settings2, Zap, ShieldCheck } from "lucide-react";
+import { Upload, Download, FileImage, Settings, Settings2, Zap, ShieldCheck, BookOpen, HelpCircle } from "lucide-react";
 
 export default function ImageResizerPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -69,7 +69,8 @@ export default function ImageResizerPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-8">
+    <>
+      <div className="max-w-4xl mx-auto py-8">
       <div className="text-center mb-12">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-50 text-cyan-700 text-[10px] font-black uppercase tracking-[0.2em] mb-8 border border-cyan-100">
           <Settings size={14} />
@@ -200,5 +201,65 @@ export default function ImageResizerPage() {
         </div>
       )}
     </div>
+
+      {/* Information Section */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
+          <div className="space-y-8">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-cyan-50 rounded-xl text-cyan-600">
+                <BookOpen size={20} />
+              </div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Resizing Protocol</h2>
+            </div>
+            
+            <div className="space-y-6">
+              {[
+                { step: "01", title: "Import Asset", desc: "Select your image from your local drive. The engine supports all standard formats including RAW raster files like high-res JPG and PNG." },
+                { step: "02", title: "Define Parameters", desc: "Input your target width or height. We recommend enabling 'Aspect Ratio Lock' to maintain the original composition without stretching." },
+                { step: "03", title: "Observe Scaling", desc: "Our engine uses bicubic interpolation algorithms locally to ensure smooth pixel transitions during the scaling process." },
+                { step: "04", title: "Final Export", desc: "Download your resized asset instantly. The process is finalized in-memory and the file is served directly to your downloads." }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-6 group">
+                  <span className="text-3xl font-black text-slate-100 group-hover:text-cyan-100 transition-colors duration-300">{item.step}</span>
+                  <div className="space-y-1">
+                    <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-8">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-slate-900 rounded-xl text-white">
+                <HelpCircle size={20} />
+              </div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Scaling FAQ</h2>
+            </div>
+
+            <div className="space-y-4">
+              {[
+                { q: "Will resizing make my image blurry?", a: "Scaling down is usually very sharp. However, scaling up beyond the original pixel count will cause interpolation artifacts (blurriness)." },
+                { q: "Is there an aspect ratio limit?", a: "No. You can resize to any custom dimension. If 'Lock Aspect Ratio' is disabled, you can create custom crops or stretched effects." },
+                { q: "Are files sent to a server?", a: "Never. All resizing operations are performed 100% in your browser's local memory using the hardware-accelerated Canvas 2D API." },
+                { q: "Which formats are supported?", a: "We support all standard web formats (JPEG, PNG, WebP) for both input and output, ensuring compatibility with all modern platforms." }
+              ].map((faq, i) => (
+                <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
+                  <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+                    {faq.q}
+                  </h3>
+                  <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </>
   );
 }

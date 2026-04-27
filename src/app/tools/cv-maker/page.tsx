@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { toCanvas } from "html-to-image";
-import { jsPDF } from "jspdf";
+import { useState, useRef, useMemo, useCallback, useEffect } from "react";
 import {
   Download, Upload, Image as ImageIcon, User, Edit3,
   Mail, Phone, MapPin, LayoutTemplate, Globe, Link,
-  Briefcase, GraduationCap, Wrench, FileText, CheckCircle2,
+  Briefcase, GraduationCap, Wrench, FileText, CheckCircle2, Zap,
+  BookOpen, HelpCircle
 } from "lucide-react";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
-type TemplateType = "plain" | "modern" | "minimal" | "executive" | "industrial" | "cleantech";
+type TemplateType = "plain" | "modern" | "minimal" | "executive" | "industrial" | "cleantech" | "swiss";
 
 interface CVData {
   name: string;
@@ -27,10 +27,12 @@ interface CVData {
 }
 
 export default function CvMakerPage() {
-  const [template, setTemplate] = useState<TemplateType>("executive");
+  const [template, setTemplate] = useState<TemplateType>("industrial");
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeSection, setActiveSection] = useState("personal");
+  const [previewScale, setPreviewScale] = useState(0.5);
   const cvRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const [data, setData] = useState<CVData>({
     name: "Suleman Mughal",
@@ -47,19 +49,40 @@ export default function CvMakerPage() {
     linkedin: "linkedin.com/in/suleman-mughal",
   });
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const schema = useMemo(() => generateSoftwareApplicationSchema("cv-maker", "Industrial-grade CV architect for elite professional representation."), []);
+
+  // Dynamic Scaling Logic
+  useEffect(() => {
+    const updateScale = () => {
+      if (!containerRef.current) return;
+      const containerWidth = containerRef.current.clientWidth;
+      const targetWidth = 794; // 210mm
+      const newScale = (containerWidth - 40) / targetWidth; // Slightly more margin for small screens
+      setPreviewScale(Math.min(newScale, 1));
+    };
+
+    const observer = new ResizeObserver(updateScale);
+    if (containerRef.current) observer.observe(containerRef.current);
+    updateScale();
+    return () => observer.disconnect();
+  }, []);
+
+  const handlePhotoUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const url = URL.createObjectURL(e.target.files[0]);
-      setData({ ...data, photoUrl: url });
+      setData(prev => ({ ...prev, photoUrl: url }));
     }
-  };
+  }, []);
 
-  const downloadPDF = async () => {
+  const downloadPDF = useCallback(async () => {
     if (!cvRef.current) return;
     setIsGenerating(true);
     try {
+      const { toCanvas } = await import("html-to-image");
+      const { jsPDF } = await import("jspdf");
+      
       const canvas = await toCanvas(cvRef.current, {
-        pixelRatio: 2,
+        pixelRatio: 3,
         backgroundColor: "#ffffff",
       });
       const imgData = canvas.toDataURL("image/jpeg", 1.0);
@@ -74,208 +97,256 @@ export default function CvMakerPage() {
     } finally {
       setIsGenerating(false);
     }
-  };
+  }, [data.name]);
 
-  const sections = [
+  const sections = useMemo(() => [
     { id: "personal", label: "Personal", icon: <User size={15} /> },
     { id: "experience", label: "Experience", icon: <Briefcase size={15} /> },
     { id: "education", label: "Education", icon: <GraduationCap size={15} /> },
     { id: "skills", label: "Skills", icon: <Wrench size={15} /> },
-  ];
+  ], []);
 
-  const templates = [
-    { id: "executive" as TemplateType, label: "Executive", desc: "Premium Corporate" },
+  const templates = useMemo(() => [
     { id: "industrial" as TemplateType, label: "Industrial", desc: "Bold Architectural" },
+    { id: "executive" as TemplateType, label: "Executive", desc: "Premium Corporate" },
     { id: "cleantech" as TemplateType, label: "CleanTech", desc: "Modern Minimal" },
     { id: "modern" as TemplateType, label: "Modern", desc: "Two-Column Pro" },
-    { id: "minimal" as TemplateType, label: "Minimal", desc: "Swiss Clean" },
+    { id: "minimal" as TemplateType, label: "Minimal", desc: "Minimalist Pro" },
+    { id: "swiss" as TemplateType, label: "Swiss Clean", desc: "Grid Master" },
     { id: "plain" as TemplateType, label: "Classic", desc: "Academic Serif" },
-  ];
+  ], []);
 
   return (
-    <div className="max-w-full mx-auto py-4 sm:py-6 px-3 sm:px-4 md:px-6 lg:px-8">
+    <>
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
 
-      {/* Page Header */}
-      <div className="flex flex-col gap-3 sm:gap-4 md:flex-row items-start md:items-center justify-between mb-4 sm:mb-6">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Executive CV Maker</h1>
-          <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">Professional templates designed for elite career advancement.</p>
+      {/* Header */}
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-16">
+        <div className="space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em]">
+            <Briefcase size={12} className="text-brand-400" />
+            <span>Career Architecture Protocol</span>
+          </div>
+          <h1 className="text-6xl font-black text-slate-900 tracking-tighter leading-none">
+            Resume <span className="text-brand-600">Forge</span>
+          </h1>
+          <p className="text-slate-500 font-medium max-w-md">
+            Engineer a high-impact professional dossier designed to dominate modern hiring systems.
+          </p>
         </div>
+
         <button
           onClick={downloadPDF}
           disabled={isGenerating}
-          className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-4 sm:px-6 py-2.5 sm:py-3 bg-brand-600 hover:bg-brand-700 text-white font-black uppercase tracking-widest text-xs rounded-xl shadow-lg shadow-brand-600/25 transition-all hover:scale-105 active:scale-95 disabled:opacity-60"
+          className="w-full lg:w-auto group relative flex items-center justify-center gap-4 px-10 py-5 bg-slate-900 text-white rounded-[2rem] font-black uppercase tracking-[0.3em] text-xs shadow-2xl transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 overflow-hidden"
         >
-          <Download size={15} />
-          {isGenerating ? "Exporting..." : "Download PDF"}
+          <div className="absolute inset-0 bg-brand-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+          <span className="relative z-10 flex items-center gap-3">
+             {isGenerating ? <Zap size={18} className="animate-pulse" /> : <Download size={18} />}
+             {isGenerating ? "FORGING PDF..." : "EXPORT DOSSIER"}
+          </span>
         </button>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-3 sm:gap-4 lg:gap-6 items-start">
-
-        {/* ════════════════════════════════
-            LEFT PANEL — Editor
-        ════════════════════════════════ */}
-        <div className="w-full lg:w-[360px] shrink-0 space-y-3 sm:space-y-4">
-
-          {/* Template Picker */}
-          <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-100 shadow-md p-3 sm:p-5">
-            <div className="flex items-center gap-2 mb-3 sm:mb-4">
-              <div className="w-6 h-6 sm:w-7 sm:h-7 bg-slate-900 rounded-lg flex items-center justify-center">
-                <LayoutTemplate size={12} className="text-white" />
+      <div className="grid lg:grid-cols-12 gap-12">
+        {/* Editor Side */}
+        <div className="lg:col-span-4 space-y-8">
+           {/* Section Tabs */}
+           <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden">
+              <div className="flex overflow-x-auto scrollbar-hide border-b border-slate-100">
+                {sections.map((s) => (
+                  <button
+                    key={s.id}
+                    onClick={() => setActiveSection(s.id)}
+                    className={`flex-1 min-w-[80px] flex flex-col items-center justify-center gap-2 py-5 sm:py-6 transition-all ${
+                      activeSection === s.id
+                        ? "bg-slate-50 text-brand-600 border-b-2 border-brand-600"
+                        : "text-slate-300 hover:text-slate-500"
+                    }`}
+                  >
+                    {s.icon}
+                    <span className="text-[7px] sm:text-[8px] font-black uppercase tracking-widest">{s.label}</span>
+                  </button>
+                ))}
               </div>
-              <h2 className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-widest">Select Template</h2>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 gap-2">
-              {templates.map((t) => (
-                <button
-                  key={t.id}
-                  onClick={() => setTemplate(t.id)}
-                  className={`relative p-2 sm:p-3 rounded-lg sm:rounded-xl border text-left transition-all ${
-                    template === t.id
-                      ? "bg-slate-900 border-slate-900 text-white shadow-xl"
-                      : "bg-slate-50 border-slate-200 text-slate-700 hover:border-brand-300"
-                  }`}
-                >
-                  {template === t.id && (
-                    <CheckCircle2 size={10} className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 text-brand-400" />
-                  )}
-                  <div className="font-black text-[10px] sm:text-[11px] uppercase tracking-wider mb-0.5">{t.label}</div>
-                  <div className={`text-[8px] sm:text-[9px] font-medium leading-tight ${template === t.id ? "text-slate-400" : "text-slate-400"}`}>
-                    {t.desc}
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
 
-          {/* Section Nav Tabs */}
-          <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-100 shadow-md overflow-hidden">
-            <div className="flex border-b border-slate-100">
-              {sections.map((s) => (
-                <button
-                  key={s.id}
-                  onClick={() => setActiveSection(s.id)}
-                  className={`flex-1 flex items-center justify-center gap-1 sm:gap-1.5 py-2.5 sm:py-3 text-[10px] sm:text-[11px] font-black uppercase tracking-wider transition-all ${
-                    activeSection === s.id
-                      ? "text-brand-600 border-b-2 border-brand-600 bg-brand-50/50"
-                      : "text-slate-400 hover:text-slate-600"
-                  }`}
-                >
-                  {s.icon}
-                  <span className="hidden sm:inline">{s.label}</span>
-                  <span className="sm:hidden text-[9px]">{s.label.slice(0, 3)}</span>
-                </button>
-              ))}
-            </div>
-
-            <div className="p-3 sm:p-5 space-y-3 sm:space-y-4 max-h-[50vh] sm:max-h-[62vh] overflow-y-auto">
-
-              {/* PERSONAL */}
-              {activeSection === "personal" && (
-                <>
-                  {/* Photo Upload */}
-                  <div>
-                    <label className="block text-[10px] sm:text-[11px] font-black text-slate-500 uppercase tracking-widest mb-2">
-                      Profile Photo
-                    </label>
-                    <div className="flex items-center gap-3 sm:gap-4">
-                      {data.photoUrl ? (
-                        <div className="relative">
-                          <img src={data.photoUrl} alt="Profile" className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl object-cover border-2 border-slate-200" />
-                          <button
-                            onClick={() => setData({ ...data, photoUrl: null })}
-                            className="absolute -top-1.5 -right-1.5 w-4 h-4 sm:w-5 sm:h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center font-black"
-                          >×</button>
-                        </div>
-                      ) : (
-                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400">
-                          <User size={20} />
-                        </div>
-                      )}
-                      <label className="cursor-pointer flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold text-slate-700 transition">
-                        <Upload size={14} /> Upload
-                        <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />
-                      </label>
+              <div className="p-8 max-h-[600px] overflow-y-auto scrollbar-hide">
+                 {activeSection === "personal" && (
+                    <div className="space-y-6">
+                       <div className="flex items-center gap-6 mb-8">
+                          {data.photoUrl ? (
+                            <div className="relative group">
+                               <img src={data.photoUrl} alt="Profile" className="w-20 h-20 rounded-3xl object-cover border-2 border-slate-100 shadow-lg" />
+                               <button 
+                                 onClick={() => setData({ ...data, photoUrl: null })}
+                                 className="absolute -top-2 -right-2 bg-rose-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                               >×</button>
+                            </div>
+                          ) : (
+                            <label className="w-20 h-20 rounded-3xl bg-slate-50 border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-300 hover:border-brand-300 hover:text-brand-500 cursor-pointer transition-all">
+                               <Upload size={20} />
+                               <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />
+                            </label>
+                          )}
+                          <div>
+                             <p className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Profile Identity</p>
+                             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tight mt-1">Industrial Portrait Ready</p>
+                          </div>
+                       </div>
+                       
+                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <InputField label="Full Name" value={data.name} onChange={(v) => setData({ ...data, name: v })} placeholder="e.g. Suleman Mughal" />
+                          <InputField label="Professional Title" value={data.title} onChange={(v) => setData({ ...data, title: v })} placeholder="e.g. Systems Architect" />
+                       </div>
+                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <InputField label="Email" value={data.email} onChange={(v) => setData({ ...data, email: v })} placeholder="suleman@email.com" />
+                          <InputField label="Phone" value={data.phone} onChange={(v) => setData({ ...data, phone: v })} placeholder="+92 ..." />
+                       </div>
+                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <InputField label="Location" value={data.location} onChange={(v) => setData({ ...data, location: v })} placeholder="City, Country" />
+                          <InputField label="Website" value={data.website || ""} onChange={(v) => setData({ ...data, website: v })} placeholder="portfolio.com" />
+                       </div>
+                       <InputField label="LinkedIn" value={data.linkedin || ""} onChange={(v) => setData({ ...data, linkedin: v })} placeholder="linkedin.com/in/..." />
+                       <TextAreaField label="Executive Summary" value={data.summary} onChange={(v) => setData({ ...data, summary: v })} rows={5} />
                     </div>
-                  </div>
+                 )}
 
-                  <div className="h-px bg-slate-100" />
+                 {activeSection === "experience" && (
+                    <TextAreaField label="Logs" value={data.experience} onChange={(v) => setData({ ...data, experience: v })} rows={18} hint="Role at Company (Date)\n- Achievement" />
+                 )}
+                 {activeSection === "education" && (
+                    <TextAreaField label="Academy" value={data.education} onChange={(v) => setData({ ...data, education: v })} rows={10} />
+                 )}
+                 {activeSection === "skills" && (
+                    <TextAreaField label="Toolstack" value={data.skills} onChange={(v) => setData({ ...data, skills: v })} rows={8} hint="Comma separated" />
+                 )}
+              </div>
+           </div>
 
-                  <InputField label="Full Name" icon={<User size={13} />} value={data.name} onChange={(v) => setData({ ...data, name: v })} placeholder="e.g. John Doe" />
-                  <InputField label="Professional Title" icon={<Briefcase size={13} />} value={data.title} onChange={(v) => setData({ ...data, title: v })} placeholder="e.g. Software Engineer" />
-                  <InputField label="Email Address" icon={<Mail size={13} />} value={data.email} onChange={(v) => setData({ ...data, email: v })} placeholder="john@email.com" />
-                  <InputField label="Phone" icon={<Phone size={13} />} value={data.phone} onChange={(v) => setData({ ...data, phone: v })} placeholder="+1 234 567 890" />
-                  <InputField label="Location" icon={<MapPin size={13} />} value={data.location} onChange={(v) => setData({ ...data, location: v })} placeholder="City, Country" />
-                  <InputField label="Website" icon={<Globe size={13} />} value={data.website || ""} onChange={(v) => setData({ ...data, website: v })} placeholder="www.yoursite.com" />
-                  <InputField label="LinkedIn" icon={<Link size={13} />} value={data.linkedin || ""} onChange={(v) => setData({ ...data, linkedin: v })} placeholder="linkedin.com/in/username" />
-                  <TextAreaField label="Professional Summary" icon={<FileText size={13} />} value={data.summary} onChange={(v) => setData({ ...data, summary: v })} rows={4} />
-                </>
-              )}
-
-              {/* EXPERIENCE */}
-              {activeSection === "experience" && (
-                <TextAreaField
-                  label="Work Experience"
-                  icon={<Briefcase size={13} />}
-                  value={data.experience}
-                  onChange={(v) => setData({ ...data, experience: v })}
-                  rows={14}
-                  hint='Format: "Role at Company (Date)\n- Bullet points\n\nNext Job..."'
-                />
-              )}
-
-              {/* EDUCATION */}
-              {activeSection === "education" && (
-                <TextAreaField
-                  label="Education"
-                  icon={<GraduationCap size={13} />}
-                  value={data.education}
-                  onChange={(v) => setData({ ...data, education: v })}
-                  rows={8}
-                  hint='Format: "Degree Name\nInstitution (Year - Year)"'
-                />
-              )}
-
-              {/* SKILLS */}
-              {activeSection === "skills" && (
-                <TextAreaField
-                  label="Skills"
-                  icon={<Wrench size={13} />}
-                  value={data.skills}
-                  onChange={(v) => setData({ ...data, skills: v })}
-                  rows={5}
-                  hint="Enter skills separated by commas: React, Node.js, Python..."
-                />
-              )}
-            </div>
-          </div>
+           {/* Template Grid */}
+           <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white shadow-2xl">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
+                 <LayoutTemplate size={16} className="text-brand-400" />
+                 Core Architectures
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                 {templates.map((t) => (
+                    <button
+                      key={t.id}
+                      onClick={() => setTemplate(t.id)}
+                      className={`p-4 rounded-2xl border transition-all text-left group ${
+                        template === t.id ? "bg-brand-600 border-brand-500 shadow-lg shadow-brand-900/50" : "bg-white/5 border-white/10 hover:bg-white/10"
+                      }`}
+                    >
+                       <p className="text-[10px] font-black uppercase tracking-widest leading-none mb-1">{t.label}</p>
+                       <p className="text-[8px] font-bold opacity-40 uppercase tracking-tight">{t.desc}</p>
+                    </button>
+                 ))}
+              </div>
+           </div>
         </div>
 
-        {/* ════════════════════════════════
-            RIGHT PANEL — Live Preview
-        ════════════════════════════════ */}
-        <div className="flex-1 min-w-0 w-full">
-          <div className="bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-xl sm:rounded-2xl shadow-inner p-1 sm:p-2 md:p-3 lg:p-4 overflow-y-auto flex justify-center items-start min-h-[450px] xs:min-h-[550px] sm:min-h-[650px] md:min-h-[750px] lg:min-h-[800px]">
-            <div
-              className="inline-flex origin-top scale-[0.45] xs:scale-[0.50] sm:scale-[0.60] md:scale-[0.70] lg:scale-[0.75] xl:scale-[0.85] mt-4 sm:mt-6"
-              style={{ transformOrigin: "top center", width: "210mm", minHeight: "297mm" }}
-            >
-              <div
-                ref={cvRef}
-                className="bg-white shadow-2xl overflow-hidden rounded-sm"
-                style={{ width: "210mm", minHeight: "297mm" }}
+        {/* Preview Side */}
+        <div className="lg:col-span-8">
+           <div 
+             ref={containerRef}
+             className="bg-slate-50 rounded-[3rem] border border-slate-100 shadow-inner p-6 sm:p-12 flex justify-center items-start overflow-hidden relative min-h-[600px]"
+           >
+              {/* Dynamic Scaling Wrapper */}
+              <div 
+                className="relative bg-white shadow-2xl origin-top transition-transform duration-500 ease-out"
+                style={{ 
+                  width: "210mm", 
+                  height: "285mm", // Slightly reduced height as requested to avoid excessive scrolling
+                  transform: `scale(${previewScale})`,
+                  marginBottom: `calc((285mm * ${previewScale}) - 285mm)`
+                }}
               >
-                <CvTemplate template={template} data={data} />
+                <div ref={cvRef} className="w-full h-full overflow-hidden">
+                   <CvTemplate template={template} data={data} />
+                </div>
               </div>
-            </div>
-          </div>
-          <p className="text-center text-[7px] xs:text-[8px] sm:text-[9px] text-slate-400 font-medium mt-2 sm:mt-3 uppercase tracking-widest">
-            ✓ Live Preview · Print Optimized · 300 DPI
-          </p>
+
+              {/* Specs Badge */}
+              <div className="absolute bottom-8 right-8 bg-slate-900/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 flex items-center gap-3">
+                 <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                 <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">A4 • 210x297mm • 300DPI</span>
+              </div>
+           </div>
         </div>
       </div>
-    </div>
+
+      {/* Professional Documentation Section */}
+      <div className="mt-32 max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="grid lg:grid-cols-2 gap-20 border-t border-slate-100 pt-20">
+          <div className="space-y-12">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-brand-50 flex items-center justify-center text-brand-600">
+                <BookOpen size={24} />
+              </div>
+              <h2 className="text-4xl font-black text-slate-900 tracking-tighter">Professional <span className="text-brand-600">Protocol</span></h2>
+              <p className="text-slate-500 font-medium leading-relaxed">
+                Follow the industry-standard workflow to engineer a high-impact dossier that captures recruiter attention in seconds.
+              </p>
+            </div>
+            
+            <div className="space-y-8">
+              {[
+                { title: "Define Your Identity", desc: "Start with your core professional title and a high-fidelity summary. Focus on quantifiable achievements." },
+                { title: "Select Architecture", desc: "Choose a design architecture (Minimal, Swiss, or Classic) that aligns with your industry's culture." },
+                { title: "Map Experience History", desc: "Use reverse-chronological order. Ensure every bullet point starts with a powerful action verb." },
+                { title: "Technical Verification", desc: "Audit your expertise matrix. Include industry-relevant keywords for modern ATS compatibility." }
+              ].map((step, i) => (
+                <div key={i} className="flex gap-6 group">
+                  <div className="w-10 h-10 rounded-full border-2 border-slate-100 flex items-center justify-center text-slate-300 font-black text-sm group-hover:border-brand-600 group-hover:text-brand-600 transition-all">
+                    {i + 1}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 mb-1">{step.title}</h3>
+                    <p className="text-sm text-slate-500 leading-relaxed">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-12">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center text-white">
+                <HelpCircle size={24} />
+              </div>
+              <h2 className="text-4xl font-black text-slate-900 tracking-tighter text-right">Forge <span className="text-slate-400">Intelligence</span></h2>
+            </div>
+
+            <div className="space-y-6">
+              {[
+                { q: "Is my data privacy guaranteed?", a: "SAMToolBox operates on a zero-knowledge protocol. All CV data is processed locally in your browser and never touches our servers." },
+                { q: "Which template is best for high-end roles?", a: "The 'Swiss Master' (Basel Grid) is ideal for design and engineering, while 'Luxe Minimal' suits executive and boutique roles." },
+                { q: "How do I handle multi-page CVs?", a: "The generator automatically optimizes layout density. For very long histories, the PDF export handles pagination seamlessly." },
+                { q: "Is the PDF export print-ready?", a: "Yes, we export at 300DPI using high-fidelity vector rendering to ensure crisp text at any print size." }
+              ].map((faq, i) => (
+                <div key={i} className="p-8 rounded-3xl bg-white border border-slate-100 hover:border-brand-200 hover:shadow-xl hover:shadow-slate-200/50 transition-all group">
+                  <h3 className="font-bold text-slate-900 mb-3 flex items-center justify-between">
+                    {faq.q}
+                    <Zap size={16} className="text-slate-100 group-hover:text-brand-400 transition-colors" />
+                  </h3>
+                  <p className="text-sm text-slate-500 leading-relaxed font-medium">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        <div className="mt-32 text-center pb-20">
+           <p className="text-slate-300 text-xs font-bold uppercase tracking-[0.5em]">SAMToolBox Professional Suite • v4.0 • Secure Browser Utility</p>
+        </div>
+      </div>
+      </div>
+    </>
   );
 }
 
@@ -329,25 +400,20 @@ const TextAreaField = ({ label, icon, value, onChange, placeholder, rows = 4, hi
    CV TEMPLATE RENDERER
 ═══════════════════════════════════════════ */
 const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }) => {
-
-  const accentColor = "#2563eb"; // Brand Blue
+  const skillsList = useMemo(() => data.skills.split(",").map(s => s.trim()), [data.skills]);
+  const educationList = useMemo(() => data.education.split("\n\n"), [data.education]);
+  const experienceList = useMemo(() => data.experience.split("\n\n"), [data.experience]);
 
   /* ─── EXECUTIVE ELITE (Solid Sidebar, High Contrast) ─── */
   if (template === "executive") {
     return (
-      <div className="flex min-h-[297mm]" style={{ fontFamily: "'Inter', sans-serif" }}>
-        {/* Left Sidebar */}
-        <div className="w-[32%] bg-[#1e293b] text-white px-8 py-10 flex flex-col shrink-0">
-          {data.photoUrl ? (
-            <div className="w-32 h-32 rounded-2xl overflow-hidden border-4 border-slate-700 mx-auto mb-8 shadow-2xl">
+      <div className="flex w-[210mm] h-[297mm] overflow-hidden bg-white" style={{ fontFamily: "'Inter', sans-serif" }}>
+        <div className="w-[32%] bg-[#1e293b] text-white px-8 py-8 flex flex-col shrink-0">
+          {data.photoUrl && (
+            <div className="w-24 h-24 rounded-2xl overflow-hidden border-4 border-slate-700 mx-auto mb-6 shadow-2xl">
               <img src={data.photoUrl} alt="Profile" className="w-full h-full object-cover" />
             </div>
-          ) : (
-            <div className="w-32 h-32 rounded-2xl bg-slate-800 flex items-center justify-center mx-auto mb-8 border-4 border-slate-700 shadow-2xl">
-              <span className="text-5xl font-black text-slate-600">{(data.name || "?").charAt(0)}</span>
-            </div>
           )}
-
           <div className="space-y-8">
             <section>
               <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-400 mb-4 flex items-center gap-2">
@@ -356,288 +422,49 @@ const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }
               <div className="space-y-3 text-[10px] font-medium leading-relaxed opacity-80">
                 {data.email && <p className="flex items-center gap-2.5"><Mail size={11} className="text-brand-400 shrink-0" /> <span className="break-all">{data.email}</span></p>}
                 {data.phone && <p className="flex items-center gap-2.5"><Phone size={11} className="text-brand-400 shrink-0" /> {data.phone}</p>}
-                {data.location && <p className="flex items-center gap-2.5"><MapPin size={11} className="text-brand-400 shrink-0" /> <span className="break-all">{data.location}</span></p>}
+                {data.location && <p className="flex items-center gap-2.5"><MapPin size={11} className="text-brand-400 shrink-0" /> {data.location}</p>}
               </div>
             </section>
-
-            {data.skills && (
-              <section>
-                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-400 mb-4 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-400" /> Expertise
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {data.skills.split(",").map((s, i) => (
-                    <span key={i} className="text-[9px] font-black px-2 py-1 bg-slate-800 rounded-md border border-slate-700 uppercase tracking-widest text-slate-300">
-                      {s.trim()}
-                    </span>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {data.education && (
-              <section>
-                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-400 mb-4 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-400" /> Academy
-                </h3>
-                <div className="space-y-4">
-                  {data.education.split("\n\n").map((e, i) => (
-                    <div key={i} className="border-l-2 border-brand-500/30 pl-3">
-                      <p className="text-[11px] font-black leading-tight text-white">{e.split("\n")[0]}</p>
-                      <p className="text-[9px] font-medium text-slate-400 mt-1 opacity-70">{e.split("\n")[1]}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-          </div>
-
-          <div className="mt-auto pt-10 opacity-30 text-center">
-            <p className="text-[8px] font-black uppercase tracking-[0.5em]">SamToolbox Elite</p>
+            <section>
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-400 mb-4 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-400" /> Expertise
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {skillsList.map((s, i) => (
+                  <span key={i} className="text-[9px] font-black px-2 py-1 bg-slate-800 rounded-md border border-slate-700 uppercase tracking-widest text-slate-300">{s}</span>
+                ))}
+              </div>
+            </section>
           </div>
         </div>
-
-        {/* Main Content */}
-        <div className="flex-1 px-12 py-12 bg-white">
-          <header className="mb-12">
-            <h1 className="text-[40px] font-black text-slate-900 leading-none tracking-tighter mb-3 uppercase">{data.name || "Identity Name"}</h1>
+        <div className="flex-1 px-10 py-10 bg-white overflow-hidden">
+          <header className="mb-10">
+            <h1 className="text-[36px] font-black text-slate-900 leading-none tracking-tighter mb-3 uppercase">{data.name}</h1>
             <div className="h-1.5 w-24 bg-brand-600 mb-5" />
-            <p className="text-xl font-bold text-slate-400 uppercase tracking-[0.2em]">{data.title || "Elite Professional"}</p>
+            <p className="text-xl font-bold text-slate-400 uppercase tracking-[0.2em]">{data.title}</p>
           </header>
-
-          <div className="space-y-12">
-            {data.summary && (
-              <section>
-                <h2 className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-300 mb-4">01 Executive Summary</h2>
-                <p className="text-[13px] text-slate-600 leading-[1.8] font-medium">{data.summary}</p>
-              </section>
-            )}
-
-            {data.experience && (
-              <section>
-                <h2 className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-300 mb-6">02 Experience History</h2>
-                <div className="space-y-8">
-                  {data.experience.split("\n\n").map((block, i) => {
-                    const lines = block.split("\n");
-                    const head = lines[0];
-                    const pts = lines.slice(1);
-                    return (
-                      <div key={i}>
-                        <div className="flex justify-between items-baseline mb-3">
-                          <h4 className="text-lg font-black text-slate-800">{head.split("(")[0].trim()}</h4>
-                          <span className="text-[10px] font-black text-brand-600 px-3 py-1 bg-brand-50 rounded-full uppercase tracking-widest leading-none">
-                            {head.includes("(") ? head.match(/\((.*?)\)/)?.[1] : "Timeline"}
-                          </span>
-                        </div>
-                        <ul className="space-y-2">
-                          {pts.map((p, pi) => (
-                            <li key={pi} className="flex gap-4">
-                              <span className="w-1.5 h-1.5 bg-slate-200 rounded-full mt-2 shrink-0" />
-                              <span className="text-[12px] text-slate-600 leading-relaxed font-medium">{p.replace(/^[-•*]\s*/, "")}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    );
-                  })}
-                </div>
-              </section>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  /* ─── INDUSTRIAL SLATE (Bold Engineering Style) ─── */
-  if (template === "industrial") {
-    return (
-      <div className="bg-[#fcfcfc] min-h-[297mm] p-12 text-slate-900 border-[16px] border-slate-900" style={{ fontFamily: "Inter, system-ui, sans-serif" }}>
-        <div className="flex flex-col lg:flex-row justify-between items-start mb-16">
-          <div className="max-w-2xl mb-6 lg:mb-0">
-            <h1 className="text-[50px] font-black tracking-[-0.05em] leading-[0.9] text-slate-900 mb-6 uppercase italic">
-              {data.name?.split(" ").map((n, i) => (
-                <span key={i} className={i % 2 === 1 ? "text-brand-600" : ""}>{n} </span>
-              ))}
-            </h1>
-            <div className="flex flex-wrap gap-4 items-center mb-6">
-              <span className="px-4 py-1.5 bg-slate-900 text-white font-black uppercase text-xs tracking-widest">{data.title}</span>
-              <div className="h-px w-20 bg-slate-200 hidden lg:block" />
-              <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">{data.location}</div>
-            </div>
-            <p className="text-[13px] leading-relaxed font-medium text-slate-600 border-l-4 border-brand-500 pl-6 py-2 italic">{data.summary}</p>
-          </div>
-          <div className="text-left lg:text-right text-[10px] font-black uppercase tracking-[0.2em] leading-relaxed text-slate-900">
-            <p>{data.email}</p>
-            <p>{data.phone}</p>
-            <p className="text-brand-600">{data.website}</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-8">
-            <h3 className="text-xs font-black uppercase tracking-[0.4em] mb-8 bg-slate-100 px-4 py-2 text-slate-900 inline-block">Experience Logs</h3>
-            <div className="space-y-10">
-              {data.experience.split("\n\n").map((e, i) => (
-                <div key={i} className="relative pl-10 border-l-4 border-slate-200">
-                  <div className="absolute top-0 -left-[10px] w-4 h-4 bg-slate-900 rounded-sm" />
-                  <div className="flex justify-between items-center mb-2">
-                    <h4 className="text-base font-black uppercase italic tracking-tighter">{e.split("\n")[0]}</h4>
-                  </div>
-                  <ul className="space-y-2">
-                    {e.split("\n").slice(1).map((p, pi) => (
-                      <li key={pi} className="text-[12px] text-slate-600 leading-relaxed font-medium">{p}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="lg:col-span-4 space-y-12">
+          <div className="space-y-10">
             <section>
-              <h3 className="text-xs font-black uppercase tracking-[0.4em] mb-6 text-slate-300">Technical Ops</h3>
-              <div className="flex flex-col gap-2">
-                {data.skills.split(",").map((s, i) => (
-                  <div key={i} className="flex justify-between items-center text-[11px] font-black uppercase tracking-wider text-slate-700 bg-slate-50 px-3 py-2 border-r-4 border-brand-600">
-                    {s.trim()}
-                  </div>
-                ))}
-              </div>
+              <h2 className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-300 mb-4">01 Summary</h2>
+              <p className="text-[13px] text-slate-600 leading-[1.8] font-medium">{data.summary}</p>
             </section>
             <section>
-              <h3 className="text-xs font-black uppercase tracking-[0.4em] mb-6 text-slate-300">Qualifications</h3>
-              <div className="space-y-4">
-                {data.education.split("\n\n").map((ed, i) => (
-                  <div key={i} className="text-[12px] font-bold text-slate-800 leading-tight">
-                    <p className="text-slate-400 text-[10px] mb-1 font-black uppercase tracking-widest">{ed.split("\n")[1]}</p>
-                    <p>{ed.split("\n")[0]}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  /* ─── CLEANTECH (Ultra-Modern Minimal) ─── */
-  if (template === "cleantech") {
-    return (
-      <div className="bg-white min-h-[297mm] p-16 text-slate-900 border-x-[40px] border-white" style={{ fontFamily: "'Inter', sans-serif" }}>
-        <header className="mb-20 text-center relative">
-          <div className="inline-block px-12 py-4 border-[3px] border-slate-900 relative z-10 bg-white">
-            <h1 className="text-4xl font-black tracking-[-0.08em] uppercase leading-none">{data.name}</h1>
-          </div>
-          <div className="absolute top-1/2 left-0 right-0 h-px bg-slate-100 -z-0" />
-          <p className="mt-8 text-[11px] font-black uppercase tracking-[0.8em] text-slate-400">{data.title}</p>
-          <div className="mt-6 flex justify-center gap-8 text-[10px] font-bold uppercase tracking-widest text-slate-600">
-            <span>{data.email}</span>
-            <span className="text-brand-500">/</span>
-            <span>{data.phone}</span>
-            <span className="text-brand-500">/</span>
-            <span>{data.location}</span>
-          </div>
-        </header>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-          <div className="lg:col-span-4 space-y-12">
-            <section>
-              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] mb-4 text-slate-300">Bio</h3>
-              <p className="text-[12px] text-slate-500 font-medium leading-[2] text-justify">{data.summary}</p>
-            </section>
-            <section>
-              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] mb-4 text-slate-300">Stack</h3>
-              <div className="flex flex-wrap gap-2">
-                {data.skills.split(",").map((s, i) => (
-                  <span key={i} className="text-[10px] font-bold text-slate-900 border-b border-slate-200 pb-1">{s.trim()}</span>
-                ))}
-              </div>
-            </section>
-          </div>
-          <div className="lg:col-span-8 flex flex-col gap-16">
-            <section>
-              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] mb-8 text-slate-300">Career Progress</h3>
-              <div className="space-y-12">
-                {data.experience.split("\n\n").map((e, i) => (
-                  <div key={i} className="grid grid-cols-6 gap-4">
-                    <div className="col-span-2 text-[10px] font-black text-slate-300 uppercase italic">{e.match(/\((.*?)\)/)?.[1] || "—"}</div>
-                    <div className="col-span-4">
-                      <h4 className="text-sm font-black text-slate-900 mb-2 uppercase">{e.split("\n")[0].split("(")[0]}</h4>
-                      <ul className="space-y-3">
-                        {e.split("\n").slice(1).map((p, pi) => (
-                          <li key={pi} className="text-[12px] text-slate-500 font-medium leading-relaxed">• {p.replace(/^[-•*]\s*/, "")}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  /* ─── MODERN (Refined Pro 2-Column) ─── */
-  if (template === "modern") {
-    return (
-      <div className="flex flex-col min-h-[297mm] bg-white" style={{ fontFamily: "Inter, system-ui, sans-serif" }}>
-        <div className="bg-slate-900 text-white p-12 flex justify-between items-center pr-20">
-          <div>
-            <h1 className="text-4xl font-black tracking-tight mb-2 uppercase">{data.name}</h1>
-            <p className="text-lg font-bold text-brand-400 uppercase tracking-widest">{data.title}</p>
-          </div>
-          {data.photoUrl && (
-            <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20">
-              <img src={data.photoUrl} alt="Photo" className="w-full h-full object-cover" />
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-col lg:flex-row flex-1">
-          <div className="lg:w-1/3 bg-slate-50 p-10 border-b lg:border-b-0 lg:border-r border-slate-100">
-            <section className="mb-10">
-              <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] mb-6 border-b border-slate-200 pb-2">Direct</h3>
-              <div className="space-y-4 text-[11px] font-bold text-slate-600 uppercase tracking-wider">
-                <p className="flex items-center gap-3"><Mail size={12} className="text-brand-600" /> <span className="break-all">{data.email}</span></p>
-                <p className="flex items-center gap-3"><Phone size={12} className="text-brand-600" /> {data.phone}</p>
-                <p className="flex items-center gap-3"><MapPin size={12} className="text-brand-600" /> <span className="break-all">{data.location}</span></p>
-                <p className="flex items-center gap-3"><Globe size={12} className="text-brand-600" /> {data.website}</p>
-              </div>
-            </section>
-
-            <section className="mb-10">
-              <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] mb-6 border-b border-slate-200 pb-2">Hard Skills</h3>
-              <div className="flex flex-wrap gap-2">
-                {data.skills.split(",").map((s, i) => (
-                  <span key={i} className="px-3 py-1.5 bg-white border border-slate-200 text-[9px] font-black rounded-sm uppercase tracking-widest text-slate-700">
-                    {s.trim()}
-                  </span>
-                ))}
-              </div>
-            </section>
-          </div>
-
-          <div className="flex-1 p-12">
-            <section className="mb-12">
-              <h3 className="text-[11px] font-black text-brand-600 uppercase tracking-[0.4em] mb-6 px-4 py-1.5 bg-brand-50 inline-block rounded-full">Background</h3>
-              <p className="text-[13px] text-slate-600 leading-relaxed font-medium">{data.summary}</p>
-            </section>
-
-            <section>
-              <h3 className="text-[11px] font-black text-brand-600 uppercase tracking-[0.4em] mb-10 px-4 py-1.5 bg-brand-50 inline-block rounded-full">Experience</h3>
-              <div className="space-y-10">
-                {data.experience.split("\n\n").map((e, i) => (
+              <h2 className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-300 mb-6">02 Experience</h2>
+              <div className="space-y-6">
+                {experienceList.map((block, i) => (
                   <div key={i}>
-                    <h4 className="text-base font-black text-slate-900 flex justify-between mb-2">
-                      {e.split("\n")[0].split("(")[0]}
-                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{e.match(/\((.*?)\)/)?.[1]}</span>
-                    </h4>
-                    <ul className="space-y-2 mt-4">
-                      {e.split("\n").slice(1).map((p, pi) => (
-                        <li key={pi} className="text-[12px] text-slate-500 font-medium leading-relaxed">• {p.replace(/^[-•*]\s*/, "")}</li>
+                    <div className="flex justify-between items-baseline mb-2">
+                      <h4 className="text-lg font-black text-slate-800">{block.split("\n")[0].split("(")[0]}</h4>
+                      <span className="text-[10px] font-black text-brand-600 px-3 py-1 bg-brand-50 rounded-full uppercase tracking-widest leading-none">
+                        {block.match(/\((.*?)\)/)?.[1] || ""}
+                      </span>
+                    </div>
+                    <ul className="space-y-1.5">
+                      {block.split("\n").slice(1).map((p, pi) => (
+                        <li key={pi} className="flex gap-4">
+                          <span className="w-1.5 h-1.5 bg-slate-200 rounded-full mt-2 shrink-0" />
+                          <span className="text-[12px] text-slate-600 leading-relaxed font-medium">{p.replace(/^[-•*]\s*/, "")}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -650,192 +477,164 @@ const CvTemplate = ({ template, data }: { template: TemplateType; data: CVData }
     );
   }
 
-  /* ─── MINIMAL (Swiss-style) ─── */
+  /* ─── MINIMAL (Luxe Boutique) ─── */
   if (template === "minimal") {
     return (
-      <div className="p-14 bg-white min-h-[297mm] text-slate-800" style={{ fontFamily: "'Inter', sans-serif" }}>
-        <div className="flex justify-between items-start mb-14 border-b-2 border-slate-900 pb-10">
-          <div className="max-w-[58%]">
-            <h1 className="text-5xl font-black tracking-tighter uppercase mb-3 text-slate-900 leading-none">{data.name || "Your Name"}</h1>
-            <p className="text-base font-medium tracking-[0.15em] uppercase text-slate-500">{data.title || "Professional Title"}</p>
+      <div className="bg-white w-[210mm] h-[297mm] overflow-hidden text-[#1a1a1a] flex flex-col p-20" style={{ fontFamily: "'Outfit', sans-serif" }}>
+        <header className="mb-20 text-center">
+          <h1 className="text-[48px] font-extralight tracking-[0.12em] text-[#0a0a0a] uppercase mb-4 leading-none">{data.name}</h1>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.4em] text-slate-400 mb-10">{data.title}</p>
+          <div className="flex justify-center gap-12 text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
+             <span>{data.email}</span>
+             <span>{data.phone}</span>
+             <span>{data.website}</span>
           </div>
-          <div className="text-right text-[11px] font-bold tracking-widest leading-loose text-slate-600 uppercase">
-            {data.email && <p>{data.email}</p>}
-            {data.phone && <p>{data.phone}</p>}
-            {data.location && <p>{data.location}</p>}
-            {data.website && <p>{data.website}</p>}
-          </div>
-        </div>
-
-        {data.summary && (
-          <div className="mb-12">
-            <h3 className="text-[11px] font-black uppercase tracking-[0.35em] text-slate-900 mb-4">Summary</h3>
-            <p className="text-[13px] leading-relaxed text-slate-600 max-w-3xl">{data.summary}</p>
-          </div>
-        )}
-
-        {data.experience && (
-          <div className="mb-12">
-            <h3 className="text-[11px] font-black uppercase tracking-[0.35em] text-slate-900 mb-6">Experience</h3>
-            <div className="space-y-8">
-              {data.experience.split("\n\n").map((block, i) => {
-                const lines = block.split("\n");
-                const first = lines[0];
-                const rest = lines.slice(1);
-                const dateMatch = first.match(/\(([^)]+)\)\s*$/);
-                const dates = dateMatch ? dateMatch[1] : "";
-                const titlePart = first.replace(/\([^)]+\)\s*$/, "").trim();
-                const atIdx = titlePart.lastIndexOf(" at ");
-                const role = atIdx >= 0 ? titlePart.slice(0, atIdx) : titlePart;
-                const company = atIdx >= 0 ? titlePart.slice(atIdx + 4) : "";
-                return (
-                  <div key={i} className="grid grid-cols-12 gap-4">
-                    <div className="col-span-3 text-[10px] font-black text-slate-400 uppercase tracking-widest pt-0.5">{dates}</div>
-                    <div className="col-span-9">
-                      <h4 className="text-[15px] font-bold text-slate-900 mb-0.5">{role}</h4>
-                      {company && <p className="text-[12px] font-medium text-slate-500 mb-3">{company}</p>}
-                      <ul className="space-y-1.5">
-                        {rest.map((line, li) => {
-                          const clean = line.replace(/^[-•*]\s*/, "").trim();
-                          if (!clean) return null;
-                          return (
-                            <li key={li} className="text-[12px] text-slate-600 leading-relaxed flex items-center gap-3">
-                              <span className="w-2 h-px bg-slate-400 shrink-0" />
-                              {clean}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
+          <div className="mt-12 h-px w-24 bg-slate-100 mx-auto" />
+        </header>
+        <div className="flex-1 space-y-16">
+          <section className="max-w-2xl mx-auto text-center italic text-slate-500 text-[14px] leading-[1.8]">
+             {data.summary}
+          </section>
+          <section className="max-w-3xl mx-auto">
+            <h3 className="text-[9px] font-bold uppercase tracking-[0.6em] text-slate-900 mb-10 text-center">Engagement</h3>
+            <div className="space-y-12">
+              {experienceList.map((e, i) => (
+                <div key={i}>
+                  <div className="flex justify-between items-baseline mb-4 border-b border-slate-50 pb-2">
+                    <h4 className="text-[17px] font-semibold text-[#1a1a1a] tracking-tight">{e.split("\n")[0].split("(")[0]}</h4>
+                    <span className="text-[10px] font-medium text-slate-300 uppercase tracking-widest tabular-nums">{e.match(/\((.*?)\)/)?.[1] || ""}</span>
                   </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {data.education && (
-          <div className="mb-12">
-            <h3 className="text-[11px] font-black uppercase tracking-[0.35em] text-slate-900 mb-5">Education</h3>
-            <div className="space-y-3">
-              {data.education.split("\n\n").map((block, i) => {
-                const lines = block.split("\n");
-                const first = lines[0];
-                const dateMatch = first.match(/\(([^)]+)\)\s*$/);
-                const dates = dateMatch ? dateMatch[1] : "";
-                const degree = first.replace(/\([^)]+\)\s*$/, "").trim();
-                return (
-                  <div key={i} className="flex justify-between items-baseline">
-                    <p className="text-[13.5px] font-bold text-slate-800">{degree}</p>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{dates}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {data.skills && (
-          <div className="border-t border-slate-100 pt-8">
-            <h3 className="text-[11px] font-black uppercase tracking-[0.35em] text-slate-900 mb-4 text-center">Core Expertise</h3>
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
-              {data.skills.split(",").map((s, i) => (
-                <span key={i} className="text-[11.5px] font-bold text-slate-500 uppercase tracking-widest">{s.trim()}</span>
+                  <ul className="space-y-3">
+                    {e.split("\n").slice(1).map((p, pi) => (
+                      <li key={pi} className="text-[13px] text-slate-500 leading-relaxed text-justify">
+                        {p.replace(/^[-•*]\s*/, "")}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
             </div>
-          </div>
-        )}
+          </section>
+        </div>
       </div>
     );
   }
 
-  /* ─── PLAIN (Classic Academic) ─── */
-  return (
-    <div className="p-16 bg-white min-h-[297mm] text-[#1a1a1a]" style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}>
-      <div className="text-center mb-10">
-        <h1 className="text-4xl font-normal tracking-wide mb-2">{data.name || "YOUR NAME"}</h1>
-        <div className="flex justify-center flex-wrap gap-3 text-xs italic text-slate-600 border-y border-slate-200 py-3 mb-6 uppercase tracking-wider">
-          {data.location && <span>{data.location}</span>}
-          {data.phone && <><span>•</span><span>{data.phone}</span></>}
-          {data.email && <><span>•</span><span>{data.email}</span></>}
+  /* ─── SWISS MASTER (The Basel Grid) ─── */
+  if (template === "swiss") {
+    return (
+      <div className="bg-white w-[210mm] h-[297mm] overflow-hidden text-black flex flex-col p-16" style={{ fontFamily: "'Inter', sans-serif" }}>
+        <header className="mb-20 grid grid-cols-12 gap-8 items-end">
+          <div className="col-span-8">
+            <h1 className="text-[68px] font-black uppercase tracking-[-0.06em] leading-[0.75] mb-4">{data.name}</h1>
+            <p className="text-[15px] font-black uppercase tracking-[0.5em] text-black/30">{data.title}</p>
+          </div>
+          <div className="col-span-4 text-right text-[10px] font-black uppercase tracking-[0.2em] space-y-1">
+            <p>{data.email}</p>
+            <p>{data.phone}</p>
+            <p className="text-brand-600 underline underline-offset-4">{data.website}</p>
+          </div>
+        </header>
+        <div className="flex-1 space-y-16">
+          <div className="grid grid-cols-12 gap-12 border-t-8 border-black pt-10">
+             <div className="col-span-3 text-[11px] font-black uppercase tracking-[0.3em]">01. Profile</div>
+             <div className="col-span-9 text-[16px] font-medium leading-relaxed text-black/80">{data.summary}</div>
+          </div>
+          <div className="grid grid-cols-12 gap-12 border-t-2 border-black pt-10">
+             <div className="col-span-3 text-[11px] font-black uppercase tracking-[0.3em]">02. Experience</div>
+             <div className="col-span-9 space-y-16">
+                {experienceList.map((e, i) => (
+                  <div key={i} className="grid grid-cols-8 gap-4">
+                     <div className="col-span-2 text-[11px] font-black text-black/20">{e.match(/\((.*?)\)/)?.[1] || ""}</div>
+                     <div className="col-span-6">
+                        <h4 className="text-[22px] font-black uppercase tracking-tight mb-4">{e.split("\n")[0].split("(")[0]}</h4>
+                        <ul className="space-y-4">
+                           {e.split("\n").slice(1).map((p, pi) => (
+                              <li key={pi} className="text-[14px] text-black/60 leading-normal flex gap-5">
+                                 <div className="w-2.5 h-2.5 bg-black shrink-0 mt-[5px]" />
+                                 <span>{p.replace(/^[-•*]\s*/, "")}</span>
+                              </li>
+                           ))}
+                        </ul>
+                     </div>
+                  </div>
+                ))}
+             </div>
+          </div>
         </div>
       </div>
+    );
+  }
 
-      <div className="space-y-10">
-        {data.summary && (
+  /* ─── CLASSIC (Ivy League Academic) ─── */
+  if (template === "plain") {
+    return (
+      <div className="bg-white w-[210mm] h-[297mm] overflow-hidden text-[#1a1a1a] p-20" style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}>
+        <header className="text-center border-b-[1.5px] border-black pb-8 mb-12">
+          <h1 className="text-[32px] font-bold mb-3 uppercase tracking-[0.05em]">{data.name}</h1>
+          <div className="text-[13px] flex justify-center gap-6 font-medium italic">
+            <span>{data.email}</span>
+            <span className="text-slate-300">|</span>
+            <span>{data.phone}</span>
+            <span className="text-slate-300">|</span>
+            <span>{data.location}</span>
+          </div>
+        </header>
+        <div className="space-y-12 text-[14px] leading-[1.6]">
           <section>
-            <h2 className="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-800 mb-3 border-b-2 border-slate-900 pb-1">Career Objective</h2>
-            <p className="text-[13px] leading-relaxed text-slate-700 italic">{data.summary}</p>
+            <h2 className="text-[13px] font-bold uppercase tracking-[0.2em] border-b border-black mb-4 pb-1">Summary</h2>
+            <p className="text-justify italic">{data.summary}</p>
           </section>
-        )}
-
-        {data.experience && (
           <section>
-            <h2 className="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-800 mb-5 border-b-2 border-slate-900 pb-1">Professional Experience</h2>
-            <div className="space-y-7">
-              {data.experience.split("\n\n").map((block, i) => {
-                const lines = block.split("\n");
-                const first = lines[0];
-                const rest = lines.slice(1);
-                const dateMatch = first.match(/\(([^)]+)\)\s*$/);
-                const dates = dateMatch ? dateMatch[1] : "";
-                const titlePart = first.replace(/\([^)]+\)\s*$/, "").trim();
-                const atIdx = titlePart.lastIndexOf(" at ");
-                const role = atIdx >= 0 ? titlePart.slice(0, atIdx) : titlePart;
-                const company = atIdx >= 0 ? titlePart.slice(atIdx + 4) : "";
-                return (
-                  <div key={i}>
-                    <div className="flex justify-between items-baseline mb-1">
-                      <h4 className="text-[15px] font-bold">{role}</h4>
-                      <span className="text-[12px] font-bold italic">{dates}</span>
-                    </div>
-                    {company && <p className="text-[13px] font-bold text-slate-600 mb-2 uppercase tracking-wide">{company}</p>}
-                    <ul className="space-y-1.5 pl-4 list-disc marker:text-slate-400">
-                      {rest.map((line, li) => {
-                        const clean = line.replace(/^[-•*]\s*/, "").trim();
-                        if (!clean) return null;
-                        return <li key={li} className="text-[13px] text-slate-700 leading-normal pl-1">{clean}</li>;
-                      })}
-                    </ul>
+            <h2 className="text-[13px] font-bold uppercase tracking-[0.2em] border-b border-black mb-6 pb-1">Experience</h2>
+            <div className="space-y-10">
+              {experienceList.map((e, i) => (
+                <div key={i}>
+                  <div className="flex justify-between items-baseline mb-2">
+                    <h4 className="font-bold">{e.split("\n")[0].split("(")[0].trim()}</h4>
+                    <span className="italic font-medium">{e.match(/\((.*?)\)/)?.[1] || ""}</span>
                   </div>
-                );
-              })}
-            </div>
-          </section>
-        )}
-
-        {data.education && (
-          <section>
-            <h2 className="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-800 mb-4 border-b-2 border-slate-900 pb-1">Education</h2>
-            <div className="space-y-3">
-              {data.education.split("\n\n").map((block, i) => {
-                const lines = block.split("\n");
-                const first = lines[0];
-                const parts = first.split(" (");
-                const degree = parts[0];
-                const dates = parts[1] ? parts[1].replace(")", "") : "";
-                return (
-                  <div key={i} className="flex justify-between items-baseline">
-                    <p className="text-[14px] font-bold italic">{degree}</p>
-                    <span className="text-[12px] font-bold">{dates}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-        )}
-
-        {data.skills && (
-          <section>
-            <h2 className="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-800 mb-3 border-b-2 border-slate-900 pb-1">Skills &amp; Competencies</h2>
-            <p className="text-[13px] leading-relaxed text-slate-700 tracking-tight">
-              {data.skills.split(",").map((s, i) => (
-                <span key={i} className="after:content-['|'] after:mx-2 after:text-slate-300 last:after:content-['']">{s.trim()}</span>
+                  <ul className="list-disc ml-5 space-y-2">
+                    {e.split("\n").slice(1).map((p, pi) => (
+                      <li key={pi} className="pl-2">{p.replace(/^[-•*]\s*/, "")}</li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </p>
+            </div>
           </section>
-        )}
+        </div>
       </div>
+    );
+  }
+
+  /* Default Industrial */
+  return (
+    <div className="bg-white w-[210mm] h-[297mm] overflow-hidden p-16 text-slate-900" style={{ fontFamily: "'Inter', sans-serif" }}>
+       <h1 className="text-5xl font-black tracking-tighter uppercase mb-4">{data.name}</h1>
+       <p className="text-xl font-bold text-brand-600 uppercase tracking-widest mb-10">{data.title}</p>
+       <div className="grid grid-cols-12 gap-12">
+          <div className="col-span-8">
+             <h3 className="text-xs font-black uppercase tracking-[0.4em] text-slate-300 mb-6">History</h3>
+             <div className="space-y-8">
+                {experienceList.map((e, i) => (
+                   <div key={i} className="border-l-4 border-slate-100 pl-6">
+                      <h4 className="text-lg font-black uppercase">{e.split("\n")[0].split("(")[0]}</h4>
+                      <p className="text-sm text-slate-600 mt-2">{e.split("\n").slice(1)[0]?.replace(/^[-•*]\s*/, "")}</p>
+                   </div>
+                ))}
+             </div>
+          </div>
+          <div className="col-span-4">
+             <h3 className="text-xs font-black uppercase tracking-[0.4em] text-slate-300 mb-6">Expertise</h3>
+             <div className="flex flex-wrap gap-2">
+                {skillsList.map((s, i) => (
+                   <span key={i} className="text-[10px] font-black uppercase tracking-widest px-2 py-1 bg-slate-900 text-white">{s}</span>
+                ))}
+             </div>
+          </div>
+       </div>
     </div>
   );
 };
+

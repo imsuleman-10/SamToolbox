@@ -23,9 +23,9 @@ export const SEO_CONFIG = {
 
   // Contact information
   contact: {
-    email: "contact@samtoolbox.com",
-    supportEmail: "support@samtoolbox.com",
-    securityEmail: "security@samtoolbox.com",
+    email: "sulemanzaheer09@gmail.com",
+    supportEmail: "sulemanzaheer09@gmail.com",
+    securityEmail: "sulemanzaheer09@gmail.com",
   },
 
   // Localization
@@ -42,7 +42,7 @@ export const SEO_CONFIG = {
   maxCrawlDelay: 10, // seconds
 
   // Open Graph defaults
-  ogImage: "https://samtoolbox.com/logo.jpg",
+  ogImage: "https://samtoolbox.vercel.app/logo.jpg",
   ogImageWidth: 1200,
   ogImageHeight: 630,
 
@@ -51,7 +51,7 @@ export const SEO_CONFIG = {
   twitterCardType: "summary_large_image",
 
   // SEO best practices
-  preferredDomain: "samtoolbox.com", // without www
+  preferredDomain: "samtoolbox.vercel.app", // without www
   useTrailingSlash: false,
   maxDescriptionLength: 160,
   maxTitleLength: 60,
@@ -64,7 +64,7 @@ export const SEO_CONFIG = {
   robotsUrl: "/robots.txt",
 
   // Canonical domain (for preventing duplicate content)
-  canonicalDomain: "samtoolbox.com",
+  canonicalDomain: "samtoolbox.vercel.app",
 };
 
 /**

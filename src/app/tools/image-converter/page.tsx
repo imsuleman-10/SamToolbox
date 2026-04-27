@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Upload, Download, Settings2, FileImage, ShieldCheck, Zap, AlertCircle, X } from "lucide-react";
+import { Upload, Download, Settings2, FileImage, ShieldCheck, Zap, AlertCircle, X, HelpCircle, BookOpen } from "lucide-react";
 
 export default function ImageConverterPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -59,19 +59,20 @@ export default function ImageConverterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] py-16 px-4">
+    <>
+      <div className="max-w-7xl mx-auto py-8 sm:py-16 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         
         {/* Pro Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-700 text-xs font-black uppercase tracking-[0.2em] mb-8 border border-brand-100">
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-700 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] mb-6 sm:mb-8 border border-brand-100">
             <ShieldCheck size={14} />
             <span>Industrial Secure Processing</span>
           </div>
-          <h1 className="text-6xl font-black text-slate-900 mb-6 tracking-tight">
+          <h1 className="text-4xl sm:text-6xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tight">
             Universal Image <span className="text-brand-600">Forge</span>
           </h1>
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto font-medium">
+          <p className="text-sm sm:text-lg text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
             Professional-grade image transcoding with zero server latency. 
             Privacy-first execution directly in your hardware.
           </p>
@@ -83,16 +84,16 @@ export default function ImageConverterPage() {
             className="group relative max-w-3xl mx-auto"
             onClick={() => fileInputRef.current?.click()}
           >
-            <div className="absolute -inset-1 bg-gradient-to-r from-brand-600 to-blue-600 rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-            <div className="relative bg-white border-2 border-dashed border-slate-200 rounded-[2.5rem] p-16 text-center cursor-pointer transition-all duration-300 hover:border-brand-500 hover:bg-slate-50/50">
-              <div className="w-20 h-20 bg-brand-50 rounded-3xl flex items-center justify-center mx-auto mb-8 text-brand-600 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+            <div className="absolute -inset-1 bg-gradient-to-r from-brand-600 to-blue-600 rounded-[1.5rem] sm:rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+            <div className="relative bg-white border-2 border-dashed border-slate-200 rounded-[1.5rem] sm:rounded-[2.5rem] p-8 sm:p-16 text-center cursor-pointer transition-all duration-300 hover:border-brand-500 hover:bg-slate-50/50">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-brand-50 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-6 sm:mb-8 text-brand-600 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
                 <Upload size={32} strokeWidth={2.5} />
               </div>
-              <h3 className="text-2xl font-black text-slate-800 mb-3">Initialize Sequence</h3>
-              <p className="text-slate-500 font-medium mb-0">Drag and drop or click to select RAW/Raster images</p>
-              <div className="mt-8 flex justify-center gap-6">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-800 mb-2 sm:mb-3">Initialize Sequence</h3>
+              <p className="text-xs sm:text-sm text-slate-500 font-medium mb-0">Drag and drop or click to select RAW/Raster images</p>
+              <div className="mt-6 sm:mt-8 flex flex-wrap justify-center gap-4 sm:gap-6">
                 {['JPG', 'PNG', 'WEBP', 'GIF', 'AVIF'].map(fmt => (
-                  <span key={fmt} className="text-[10px] font-black text-slate-300 tracking-widest">{fmt}</span>
+                  <span key={fmt} className="text-[9px] sm:text-[10px] font-black text-slate-300 tracking-widest">{fmt}</span>
                 ))}
               </div>
             </div>
@@ -123,18 +124,18 @@ export default function ImageConverterPage() {
 
             {/* Right: Engine Settings */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="bg-white p-8 rounded-[2rem] shadow-2xl shadow-slate-200/50 border border-white">
-                <div className="flex items-center gap-3 mb-8">
+              <div className="bg-white p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] shadow-2xl shadow-slate-200/50 border border-white">
+                <div className="flex items-center gap-3 mb-6 sm:mb-8">
                   <div className="p-2 bg-brand-50 rounded-lg text-brand-600">
                     <Settings2 size={24} />
                   </div>
-                  <h2 className="text-2xl font-black text-slate-800 tracking-tight">Output Parameters</h2>
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">Output Parameters</h2>
                 </div>
                 
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                   <div>
-                    <label className="block text-[11px] font-black uppercase text-slate-400 tracking-widest mb-4">Encoding Format</label>
-                    <div className="grid grid-cols-3 gap-4">
+                    <label className="block text-[10px] sm:text-[11px] font-black uppercase text-slate-400 tracking-widest mb-4">Encoding Format</label>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                       {[
                         { id: "image/jpeg", label: "JPEG", icon: "Best for Photos" },
                         { id: "image/png", label: "PNG", icon: "Lossless / Clear" },
@@ -143,18 +144,18 @@ export default function ImageConverterPage() {
                         <button
                           key={format.id}
                           onClick={() => setTargetFormat(format.id)}
-                          className={`relative p-5 rounded-3xl border-2 text-left transition-all duration-300 ${
+                          className={`relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl border-2 text-left transition-all duration-300 ${
                             targetFormat === format.id 
                               ? "border-brand-600 bg-brand-50/50 ring-4 ring-brand-50" 
                               : "border-slate-100 bg-slate-50 hover:border-slate-200"
                           }`}
                         >
-                          <div className={`text-xl font-black mb-1 ${targetFormat === format.id ? "text-brand-700" : "text-slate-700"}`}>
+                          <div className={`text-lg sm:text-xl font-black mb-0.5 sm:mb-1 ${targetFormat === format.id ? "text-brand-700" : "text-slate-700"}`}>
                             {format.label}
                           </div>
-                          <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{format.icon}</div>
+                          <div className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-tight">{format.icon}</div>
                           {targetFormat === format.id && (
-                            <div className="absolute top-4 right-4 w-5 h-5 bg-brand-600 rounded-full flex items-center justify-center text-white">
+                            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-4 h-4 sm:w-5 sm:h-5 bg-brand-600 rounded-full flex items-center justify-center text-white">
                               <Zap size={10} fill="currentColor" />
                             </div>
                           )}
@@ -209,8 +210,62 @@ export default function ImageConverterPage() {
         {/* Hidden Components */}
         <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleFileChange} />
         <canvas ref={canvasRef} className="hidden"></canvas>
+        {/* Information Section */}
+        <div className="mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-200 pt-16">
+          <div className="space-y-8">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-brand-50 rounded-xl text-brand-600">
+                <BookOpen size={20} />
+              </div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Forge Protocol</h2>
+            </div>
+            
+            <div className="space-y-6">
+              {[
+                { step: "01", title: "Initialize Sequence", desc: "Drag and drop or click the upload zone to select your source image. We support most raster formats including JPG, PNG, and WebP." },
+                { step: "02", title: "Select Output", desc: "Choose your target encoding format. Each format serves a specific use case from web optimization to high-fidelity printing." },
+                { step: "03", title: "Hardware Transcoding", desc: "Our engine utilizes your local GPU/CPU via the Canvas API to process pixels instantly without any network overhead." },
+                { step: "04", title: "Local Export", desc: "Once the 'Forge' button is triggered, the final asset is generated as a blob and downloaded directly to your device." }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-6 group">
+                  <span className="text-3xl font-black text-slate-200 group-hover:text-brand-200 transition-colors duration-300">{item.step}</span>
+                  <div className="space-y-1">
+                    <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-8">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-slate-900 rounded-xl text-white">
+                <HelpCircle size={20} />
+              </div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Intelligence FAQ</h2>
+            </div>
+
+            <div className="space-y-4">
+              {[
+                { q: "Are my images private?", a: "Yes. This is an 'Air-Gapped' tool. All transcoding happens in-memory. No data is ever transmitted to a server or stored externally." },
+                { q: "Which format is best for the web?", a: "WebP is the industry standard for web performance, offering up to 30% better compression than JPEG with comparable quality." },
+                { q: "Why did my transparency disappear?", a: "JPEG does not support alpha channels. If you convert a transparent PNG to JPEG, the background will automatically be flattened to solid white." },
+                { q: "Is there a limit to image resolution?", a: "The limit is defined by your browser's memory allocation (usually 4K to 8K resolution). Most standard professional photography is fully supported." }
+              ].map((faq, i) => (
+                <div key={i} className="p-6 bg-white rounded-2xl border border-slate-100 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
+                  <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
+                    {faq.q}
+                  </h3>
+                  <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

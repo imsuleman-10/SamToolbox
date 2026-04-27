@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Copy, Trash2, FileText, Clock, Hash, AlignLeft, Layers, ShieldCheck, Zap } from "lucide-react";
+import { Copy, Trash2, FileText, Clock, Hash, AlignLeft, Layers, ShieldCheck, Zap, HelpCircle, BookOpen } from "lucide-react";
 
 export default function WordCounterPage() {
   const [text, setText] = useState("");
@@ -79,20 +79,20 @@ export default function WordCounterPage() {
             <div className="bg-slate-50/80 backdrop-blur-md border-b border-slate-100 p-6 flex justify-between items-center">
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
-                <span className="text-xs font-black text-slate-800 uppercase tracking-widest">Live Text Engine</span>
+                <span className="text-[10px] sm:text-xs font-black text-slate-800 uppercase tracking-widest">Live Text Engine</span>
               </div>
-              <div className="flex gap-3">
+              <div className="flex gap-2 sm:gap-3">
                 <button
                   onClick={handleCopy}
-                  className="flex items-center gap-2 px-6 py-2.5 text-[11px] font-black uppercase tracking-widest text-slate-700 bg-white border border-slate-200 hover:border-brand-500 hover:text-brand-600 rounded-xl transition-all shadow-sm active:scale-95"
+                  className="flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-2.5 text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-slate-700 bg-white border border-slate-200 hover:border-brand-500 hover:text-brand-600 rounded-xl transition-all shadow-sm active:scale-95"
                 >
-                  <Copy size={14} /> Copy All Text
+                  <Copy size={12} className="sm:w-[14px] sm:h-[14px]" /> <span className="hidden sm:inline">Copy All Text</span><span className="sm:hidden">Copy</span>
                 </button>
                 <button
                   onClick={handleClear}
-                  className="flex items-center gap-2 px-6 py-2.5 text-[11px] font-black uppercase tracking-widest text-white bg-slate-900 hover:bg-red-600 rounded-xl transition-all shadow-lg active:scale-95"
+                  className="flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-2.5 text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-white bg-slate-900 hover:bg-red-600 rounded-xl transition-all shadow-lg active:scale-95"
                 >
-                  <Trash2 size={14} /> Clear Text
+                  <Trash2 size={12} className="sm:w-[14px] sm:h-[14px]" /> <span className="hidden sm:inline">Clear Text</span><span className="sm:hidden">Clear</span>
                 </button>
               </div>
             </div>
@@ -147,6 +147,61 @@ export default function WordCounterPage() {
           </div>
         </div>
 
+        {/* Information Section */}
+        <div className="mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
+          <div className="space-y-8">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-brand-50 rounded-xl text-brand-600">
+                <BookOpen size={20} />
+              </div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Analysis Protocol</h2>
+            </div>
+            
+            <div className="space-y-6">
+              {[
+                { step: "01", title: "Content Input", desc: "Paste or type your text into the Live Text Engine. The analyzer starts processing your content in real-time." },
+                { step: "02", title: "Observe Analytics", desc: "Review the primary metrics including word count, character count, and reading time in the top dashboard." },
+                { step: "03", title: "Structural Insights", desc: "Check sentence and paragraph density to understand the flow and structural complexity of your writing." },
+                { step: "04", title: "Clipboard Sync", desc: "Use the built-in copy controls to instantly move your analyzed text back to your primary document or editor." }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-6 group">
+                  <span className="text-3xl font-black text-slate-100 group-hover:text-brand-100 transition-colors duration-300">{item.step}</span>
+                  <div className="space-y-1">
+                    <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-8">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-slate-900 rounded-xl text-white">
+                <HelpCircle size={20} />
+              </div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Linguistic FAQ</h2>
+            </div>
+
+            <div className="space-y-4">
+              {[
+                { q: "Is there a character limit?", a: "The analyzer is limited only by your browser's RAM. We've successfully tested documents with 100,000+ words." },
+                { q: "How is reading time calculated?", a: "We use a professional standard of 225 words per minute, which accounts for technical and academic reading speeds." },
+                { q: "Can I use this for SEO metadata?", a: "Yes. The real-time character counter is perfect for ensuring meta titles and descriptions stay within search engine limits." },
+                { q: "Is my text data private?", a: "Yes. Analysis is performed 100% locally. No text is ever uploaded to a server or stored in any external database." }
+              ].map((faq, i) => (
+                <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
+                  <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
+                    {faq.q}
+                  </h3>
+                  <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );
@@ -165,4 +220,3 @@ function StatCard({ label, value, icon, gradient }: { label: string; value: stri
     </div>
   );
 }
-

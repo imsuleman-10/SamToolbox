@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import QRCode from "qrcode";
-import { Download, RefreshCw, Type, Palette, Layout, Settings2 } from "lucide-react";
+import { Download, RefreshCw, Type, Palette, Layout, Settings2, HelpCircle, BookOpen } from "lucide-react";
 
 export default function QrGeneratorPage() {
-  const [text, setText] = useState("https://samtoolbox.com");
+  const [text, setText] = useState("https://samtoolbox.vercel.app");
   const [colorLight, setColorLight] = useState("#ffffff");
   const [colorDark, setColorDark] = useState("#0f172a"); // Deep Slate
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -18,6 +17,7 @@ export default function QrGeneratorPage() {
     if (!canvasRef.current) return;
     
     try {
+      const QRCode = (await import("qrcode")).default;
       await QRCode.toCanvas(canvasRef.current, text || " ", {
         width: 300,
         margin: 2,
@@ -179,6 +179,60 @@ export default function QrGeneratorPage() {
             </div>
           </div>
 
+        </div>
+        {/* Information Section */}
+        <div className="mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-200 pt-16">
+          <div className="space-y-8">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-brand-50 rounded-xl text-brand-600">
+                <BookOpen size={20} />
+              </div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Generation Protocol</h2>
+            </div>
+            
+            <div className="space-y-6">
+              {[
+                { step: "01", title: "Content Logic", desc: "Input your target URL, plain text, or contact data. The engine encodes information into a static matrix in real-time." },
+                { step: "02", title: "Aesthetic Tuning", desc: "Select your brand colors. Always ensure the 'QR Data Color' is significantly darker than the 'Base Canvas' for readability." },
+                { step: "03", title: "Contrast Validation", desc: "The engine utilizes a high-contrast rendering buffer. We recommend a minimum contrast ratio of 4.5:1 for guaranteed scanning." },
+                { step: "04", title: "Final Export", desc: "Download an ultra-high-definition 3000px PNG. This resolution is suitable for everything from business cards to billboards." }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-6 group">
+                  <span className="text-3xl font-black text-slate-200 group-hover:text-brand-200 transition-colors duration-300">{item.step}</span>
+                  <div className="space-y-1">
+                    <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-8">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-slate-900 rounded-xl text-white">
+                <HelpCircle size={20} />
+              </div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Security FAQ</h2>
+            </div>
+
+            <div className="space-y-4">
+              {[
+                { q: "Are these QR codes permanent?", a: "Yes. These are static QR codes. They do not expire and will work forever as long as the content they point to exists." },
+                { q: "Can I use light colors for the data?", a: "Technically yes, but it is not recommended. Most scanners expect dark patterns on light backgrounds. Use dark colors for 100% reliability." },
+                { q: "Is my data tracked or logged?", a: "No. Unlike 'Dynamic QR' providers, we do not intercept scans. Your data is encoded directly into the pixels without any tracking pixels." },
+                { q: "What is the maximum data limit?", a: "QR codes can hold up to 4,296 alphanumeric characters. However, shorter strings create cleaner, easier-to-scan codes." }
+              ].map((faq, i) => (
+                <div key={i} className="p-6 bg-white rounded-2xl border border-slate-100 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
+                  <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
+                    {faq.q}
+                  </h3>
+                  <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

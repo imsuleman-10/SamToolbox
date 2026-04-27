@@ -211,16 +211,19 @@ export default function Home() {
           HERO SECTION
       ══════════════════════════════════════════ */}
       <section className="w-full bg-slate-900 text-white min-h-[calc(100vh-81px)] flex flex-col justify-center items-center px-6 rounded-b-[3rem] md:rounded-b-[5rem] shadow-[0_30px_80px_rgba(0,0,0,0.3)] relative overflow-hidden">
-        {/* Video Background */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
+        {/* Static Professional Background */}
+        <div className="absolute inset-0 bg-[#020617] pointer-events-none" />
+        
+        {/* Animated Mesh Gradient for Industrial Feel */}
+        <div 
+          className="absolute inset-0 opacity-[0.4] pointer-events-none"
+          style={{
+            background: `radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.3) 0, transparent 50%), 
+                        radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.2) 0, transparent 50%),
+                        radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.2) 0, transparent 50%),
+                        radial-gradient(at 0% 100%, rgba(79, 70, 229, 0.3) 0, transparent 50%)`
+          }}
+        />
 
         {/* Ambient Light Blobs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">

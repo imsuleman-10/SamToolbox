@@ -7,8 +7,8 @@ export const generateOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "SamToolbox",
-  url: "https://samtoolbox.com",
-  logo: "https://samtoolbox.com/logo.jpg",
+  url: "https://samtoolbox.vercel.app",
+  logo: "https://samtoolbox.vercel.app/logo.jpg",
   description: "Premium industrial-grade browser tools for document conversion, compression, and creation",
   sameAs: [
     "https://github.com/imsuleman-10/SamToolbox",
@@ -16,21 +16,21 @@ export const generateOrganizationSchema = () => ({
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "Customer Support",
-    url: "https://samtoolbox.com/contact",
+    url: "https://samtoolbox.vercel.app/contact",
   },
 });
 
 export const generateWebsiteSchema = () => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
-  url: "https://samtoolbox.com",
+  url: "https://samtoolbox.vercel.app",
   name: "SamToolbox",
   description: "Premium industrial-grade browser tools",
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://samtoolbox.com/tools?q={search_term_string}",
+      urlTemplate: "https://samtoolbox.vercel.app/tools?q={search_term_string}",
     },
     "query-input": "required name=search_term_string",
   },
@@ -52,7 +52,7 @@ export const generateSoftwareApplicationSchema = (toolName: string, description:
   "@type": "SoftwareApplication",
   name: toolName,
   description: description,
-  url: `https://samtoolbox.com/tools/${toolName}`,
+  url: `https://samtoolbox.vercel.app/tools/${toolName}`,
   applicationCategory: "Utility",
   operatingSystem: "Web Browser",
   offers: {
@@ -64,7 +64,7 @@ export const generateSoftwareApplicationSchema = (toolName: string, description:
   author: {
     "@type": "Organization",
     name: "SamToolbox",
-    url: "https://samtoolbox.com",
+    url: "https://samtoolbox.vercel.app",
   },
 });
 
