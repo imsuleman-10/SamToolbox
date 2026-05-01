@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { 
   Mail, MessageSquare, Send, ShieldCheck, 
-  Clock, MapPin, Sparkles, ArrowRight 
+  Clock, MapPin, Sparkles, ArrowRight, Zap,
+  Activity, Globe, Terminal
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -12,28 +13,27 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="bg-white min-h-screen selection:bg-brand-100 selection:text-brand-900">
+    <div className="bg-[#020617] min-h-screen selection:bg-rose-500/30 selection:text-rose-200 font-sans">
       
       {/* ══════════════════════════════════════
           HERO / HEADER
       ══════════════════════════════════════ */}
-      <section className="relative pt-24 pb-20 px-6 overflow-hidden bg-slate-900">
-         {/* Background Decoration */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-500/10 blur-[150px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-500/10 blur-[120px] rounded-full pointer-events-none" />
+      <section className="relative pt-48 pb-32 px-6 overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         
-        <div className="max-w-5xl mx-auto relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-brand-400 font-bold text-[10px] uppercase tracking-[0.4em] mb-8">
-            <MessageSquare size={12} />
-            Get In Touch
+        <div className="max-w-6xl mx-auto relative z-10 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-rose-500/10 border border-rose-500/20 rounded-full text-rose-400 font-black text-[10px] uppercase tracking-[0.4em] mb-12 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-700">
+            <MessageSquare size={14} />
+            Signal Input Terminal
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-6">
+          <h1 className="text-6xl md:text-[8rem] font-black text-white tracking-tighter mb-10 leading-[0.8] animate-in fade-in slide-in-from-bottom-8 duration-700">
             Let's start a<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-400">conversation.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-orange-500 italic">conversation.</span>
           </h1>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto font-medium">
+          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto font-medium leading-relaxed animate-in fade-in duration-1000 delay-300">
             Have a suggestion, found a bug, or want to discuss a custom integration? 
-            Our team typically responds within 24 hours.
+            Our engineering team typically responds within <span className="text-white font-black italic">24 cycles.</span>
           </p>
         </div>
       </section>
@@ -41,127 +41,132 @@ export default function ContactPage() {
       {/* ══════════════════════════════════════
           CONTACT GRID
       ══════════════════════════════════════ */}
-      <section className="max-w-6xl mx-auto px-6 -mt-12 relative z-20 pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <section className="max-w-[1400px] mx-auto px-6 -mt-16 relative z-20 pb-40">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
           {/* Contact Information Side */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-xl">
-              <h3 className="text-xl font-black text-slate-900 mb-6">Contact Info</h3>
+          <div className="lg:col-span-4 space-y-8 animate-in fade-in slide-in-from-left-12 duration-700">
+            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 p-12 shadow-3xl shadow-black relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-rose-600/5 rounded-full blur-3xl" />
+               <h3 className="text-2xl font-black text-white mb-10 uppercase tracking-tighter italic">Signal Points</h3>
               
-              <div className="space-y-8">
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center shrink-0">
-                    <Mail size={20} />
+               <div className="space-y-10">
+                  <div className="flex gap-6 group/item">
+                    <div className="w-14 h-14 bg-rose-500/10 text-rose-500 border border-rose-500/20 rounded-2xl flex items-center justify-center shrink-0 group-hover/item:scale-110 group-hover/item:bg-rose-500 group-hover/item:text-white transition-all duration-500">
+                      <Mail size={24} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5">Direct Buffer</p>
+                      <p className="text-white font-black text-lg tracking-tight">samstacktechs@gmail.com</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Email Us</p>
-                    <p className="text-slate-900 font-bold">samstacktechs@gmail.com</p>
-                  </div>
-                </div>
 
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center shrink-0">
-                    <Clock size={20} />
+                  <div className="flex gap-6 group/item">
+                    <div className="w-14 h-14 bg-rose-500/10 text-rose-500 border border-rose-500/20 rounded-2xl flex items-center justify-center shrink-0 group-hover/item:scale-110 group-hover/item:bg-rose-500 group-hover/item:text-white transition-all duration-500">
+                      <Clock size={24} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5">Processing Time</p>
+                      <p className="text-white font-black text-lg tracking-tight">24 - 48 Standard Cycles</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Response Time</p>
-                    <p className="text-slate-900 font-bold">Within 24-48 Hours</p>
-                  </div>
-                </div>
 
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
-                    <MapPin size={20} />
+                  <div className="flex gap-6 group/item">
+                    <div className="w-14 h-14 bg-rose-500/10 text-rose-500 border border-rose-500/20 rounded-2xl flex items-center justify-center shrink-0 group-hover/item:scale-110 group-hover/item:bg-rose-500 group-hover/item:text-white transition-all duration-500">
+                      <Globe size={24} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5">Origin Station</p>
+                      <p className="text-white font-black text-lg tracking-tight">Global / Remote Sovereign</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Location</p>
-                    <p className="text-slate-900 font-bold">Global / Remote</p>
-                  </div>
-                </div>
-              </div>
+               </div>
             </div>
 
-            <div className="bg-brand-600 rounded-3xl p-8 text-white shadow-xl shadow-brand-600/20 relative overflow-hidden group">
-              <div className="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 transition-transform duration-500">
-                <ShieldCheck size={160} />
-              </div>
-              <h4 className="text-xl font-black mb-4 relative z-10">Your privacy is safe.</h4>
-              <p className="text-brand-100 text-sm leading-relaxed mb-6 relative z-10">
-                We never store your personal data or the contents of your messages on public servers for longer than necessary to help you.
-              </p>
-              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest relative z-10">
-                <Sparkles size={14} className="text-brand-200" />
-                100% Secure Encoding
-              </div>
+            <div className="bg-gradient-to-br from-rose-600 to-orange-700 rounded-[3.5rem] p-12 text-white shadow-3xl shadow-black relative overflow-hidden group">
+               <ShieldCheck size={180} className="absolute -right-10 -bottom-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000" />
+               <h4 className="text-2xl font-black mb-6 relative z-10 italic uppercase tracking-tighter leading-none">Integrity Lock</h4>
+               <p className="text-rose-100 font-medium text-lg leading-relaxed mb-8 relative z-10">
+                  All signal transmissions are encrypted. We never persist metadata longer than required for resolution.
+               </p>
+               <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em] relative z-10 bg-black/20 w-fit px-4 py-2 rounded-full border border-white/10">
+                 <Sparkles size={14} className="text-rose-200 animate-pulse" />
+                 Sovereign Encryption Active
+               </div>
             </div>
           </div>
 
           {/* Contact Form Side */}
-          <div className="lg:col-span-8">
-            <div className="bg-white rounded-[2.5rem] border border-slate-200 p-8 md:p-12 shadow-2xl">
-              <form className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-2">
-                    <label htmlFor="first_name" className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">First Name</label>
+          <div className="lg:col-span-8 animate-in fade-in slide-in-from-right-12 duration-700">
+            <div className="bg-[#0f172a] rounded-[4rem] border border-white/5 p-10 md:p-20 shadow-3xl shadow-black relative overflow-hidden">
+               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-rose-500/50 to-transparent" />
+               <form className="space-y-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <div className="space-y-3">
+                    <label htmlFor="first_name" className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-4 italic">First Name</label>
                     <input 
                       type="text" 
                       id="first_name"
-                      placeholder="Jane"
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all font-medium text-slate-900"
+                      placeholder="JANE"
+                      className="w-full px-8 py-6 bg-black/40 border border-white/5 rounded-2xl focus:border-rose-500/30 outline-none transition-all font-black text-white uppercase tracking-widest text-sm placeholder:text-slate-800"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label htmlFor="last_name" className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Last Name</label>
+                  <div className="space-y-3">
+                    <label htmlFor="last_name" className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-4 italic">Last Name</label>
                     <input 
                       type="text" 
                       id="last_name"
-                      placeholder="Smith"
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all font-medium text-slate-900"
+                      placeholder="SMITH"
+                      className="w-full px-8 py-6 bg-black/40 border border-white/5 rounded-2xl focus:border-rose-500/30 outline-none transition-all font-black text-white uppercase tracking-widest text-sm placeholder:text-slate-800"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
-                  <input 
-                    type="email" 
-                    id="email"
-                    placeholder="jane@example.com"
-                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all font-medium text-slate-900"
-                  />
+                <div className="space-y-3">
+                  <label htmlFor="email" className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-4 italic">Signal Address</label>
+                  <div className="relative group">
+                    <Mail size={18} className="absolute left-8 top-1/2 -translate-y-1/2 text-slate-700 group-focus-within:text-rose-500 transition-colors" />
+                    <input 
+                      type="email" 
+                      id="email"
+                      placeholder="JANE@SOVEREIGN.IO"
+                      className="w-full pl-20 pr-8 py-6 bg-black/40 border border-white/5 rounded-2xl focus:border-rose-500/30 outline-none transition-all font-black text-white uppercase tracking-widest text-sm placeholder:text-slate-800"
+                    />
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="subject" className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Subject</label>
-                  <select 
-                    id="subject"
-                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all font-medium text-slate-900 appearance-none"
-                  >
-                    <option>General Inquiry</option>
-                    <option>Technical Support</option>
-                    <option>Feature Request</option>
-                    <option>Bug Report</option>
-                    <option>Partnership</option>
-                  </select>
+                <div className="space-y-3">
+                  <label htmlFor="subject" className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-4 italic">Subject Vector</label>
+                  <div className="relative group">
+                    <Activity size={18} className="absolute left-8 top-1/2 -translate-y-1/2 text-slate-700 group-focus-within:text-rose-500 transition-colors" />
+                    <select 
+                      id="subject"
+                      className="w-full pl-20 pr-8 py-6 bg-black/40 border border-white/5 rounded-2xl focus:border-rose-500/30 outline-none transition-all font-black text-white uppercase tracking-widest text-sm appearance-none cursor-pointer"
+                    >
+                      <option className="bg-[#0f172a]">GENERAL INQUIRY</option>
+                      <option className="bg-[#0f172a]">TECHNICAL SUPPORT</option>
+                      <option className="bg-[#0f172a]">FEATURE SYNTHESIS</option>
+                      <option className="bg-[#0f172a]">ANOMALY REPORT</option>
+                    </select>
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Message</label>
+                <div className="space-y-3">
+                  <label htmlFor="message" className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-4 italic">Payload Data</label>
                   <textarea 
                     id="message"
                     rows={6}
-                    placeholder="How can we help you today?"
-                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all font-medium text-slate-900 resize-none"
+                    placeholder="INITIATING TRANSMISSION..."
+                    className="w-full px-8 py-6 bg-black/40 border border-white/5 rounded-[2rem] focus:border-rose-500/30 outline-none transition-all font-medium text-white resize-none min-h-[200px] placeholder:text-slate-800"
                   ></textarea>
                 </div>
 
                 <button 
                   type="button"
-                  className="group w-full inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-600 hover:bg-brand-500 text-white font-black uppercase tracking-widest text-xs rounded-2xl shadow-xl shadow-brand-600/40 transition-all hover:scale-[1.02] active:scale-95"
+                  className="group w-full inline-flex items-center justify-center gap-4 px-12 py-8 bg-white text-slate-900 font-black uppercase tracking-[0.4em] text-[11px] rounded-[2rem] shadow-3xl transition-all hover:scale-[1.02] active:scale-95 shadow-black"
                 >
-                  Send Message
-                  <Send size={16} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  Broadcast Signal
+                  <Send size={20} className="transition-transform group-hover:translate-x-2 group-hover:-translate-y-2" />
                 </button>
               </form>
             </div>
@@ -172,21 +177,28 @@ export default function ContactPage() {
       {/* ══════════════════════════════════════
           FAQ SHORTCUT
       ══════════════════════════════════════ */}
-      <section className="bg-slate-50 py-24 px-6 border-t border-slate-100 mt-12">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-black text-slate-900 mb-4">Common Questions</h2>
-          <p className="text-slate-500 font-medium mb-12">Maybe we've already answered your question?</p>
+      <section className="py-40 px-6 border-t border-white/5 mt-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[#0f172a]/20 pointer-events-none" />
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          <div className="w-20 h-20 bg-rose-500/10 border border-rose-500/20 rounded-2xl flex items-center justify-center text-rose-500 mb-10 mx-auto shadow-2xl">
+            <Zap size={32} />
+          </div>
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tighter italic">Common Queries</h2>
+          <p className="text-slate-500 font-black uppercase tracking-[0.5em] text-[10px] mb-20">Instant Resolution Buffer</p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
             {[
-              { q: "Is SamToolbox really free?", a: "Yes, every tool is 100% free with no hidden charges." },
-              { q: "Are my files safe?", a: "Yes, files never leave your browser. Processing is 100% local." },
-              { q: "Do I need an account?", a: "No account required. Use any tool instantly." },
-              { q: "Can I request a feature?", a: "Absolutely! Use the form above to let us know." }
+              { q: "IS SAMTOOLBOX PERMANENTLY FREE?", a: "AFFIRMATIVE. EVERY SYSTEM IN THE SUITE OPERATES ON A ZERO-COST MODEL FOR ALL USERS." },
+              { q: "DATA SOVEREIGNTY STATUS?", a: "PROTECTED. ALL PROCESSING OCCURS IN LOCAL VOLATILE MEMORY. ZERO CLOUD UPLOADS." },
+              { q: "ACCOUNT REGISTRATION REQUIRED?", a: "NEGATIVE. SYSTEM ACCESS IS UNRESTRICTED. NO IDENTITY BUFFERING NEEDED." },
+              { q: "FEATURE REQUEST PROTOCOL?", a: "OPEN. USE THE SIGNAL FORM ABOVE TO SUBMIT NEW UTILITY ARCHITECTURES." }
             ].map((iq, i) => (
-              <div key={i} className="bg-white p-6 rounded-2xl border border-slate-200">
-                <h4 className="font-bold text-slate-900 mb-2">{iq.q}</h4>
-                <p className="text-sm text-slate-500 leading-relaxed font-medium">{iq.a}</p>
+              <div key={i} className="bg-[#0f172a] p-10 rounded-[2.5rem] border border-white/5 hover:border-rose-500/20 transition-all group">
+                <div className="flex items-start gap-4 mb-4">
+                  <Terminal size={16} className="text-rose-500 shrink-0 mt-1" />
+                  <h4 className="font-black text-white text-sm uppercase tracking-tight">{iq.q}</h4>
+                </div>
+                <p className="text-[12px] text-slate-500 leading-relaxed font-medium pl-8 group-hover:text-slate-400 transition-colors">{iq.a}</p>
               </div>
             ))}
           </div>

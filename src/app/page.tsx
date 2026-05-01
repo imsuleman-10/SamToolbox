@@ -6,19 +6,19 @@ import {
   QrCode, Type, ALargeSmall, FileText, Image as ImageIcon,
   ShieldCheck, Zap, Cpu, ArrowRight, Sparkles, Lock, Globe2,
   MonitorSmartphone, Users, Star, ChevronRight, CheckCircle2,
-  Fingerprint, Database, Wind, Settings2, Layers, Wand2
+  Fingerprint, Database, Wind, Settings, Layers, Wand2,
+  HelpCircle, MessageSquare, Shield, Activity, HardDrive, Terminal
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "SamToolbox | Free Online Browser Tools — Privacy First",
+  title: "SamToolbox | Professional Browser Utilities — Private & Fast",
   description:
-    "SamToolbox offers 15+ free, professional-grade browser tools including CV Maker, QR Generator, Image Converter, PDF utilities, and more. 100% local processing — your data never leaves your device.",
+    "SamToolbox is an industrial-grade suite of 16+ free browser tools. CV Maker, QR Generator, Image Optimizer, and PDF utilities—all processed 100% locally on your device for absolute privacy.",
   keywords:
-    "free online tools, CV maker, QR code generator, image converter, PDF tools, browser-based tools, privacy-first tools, word counter, case converter",
+    "professional tools, privacy-first utilities, local file processing, CV maker, QR generator, image converter, PDF tools, secure browser tools",
   openGraph: {
-    title: "SamToolbox | Free Online Browser Tools",
-    description:
-      "15+ professional browser tools. Zero uploads. Zero servers. Zero compromise on privacy.",
+    title: "SamToolbox | Professional Browser Utilities",
+    description: "16+ High-performance tools. Zero server uploads. Absolute privacy.",
     type: "website",
     url: "https://samtoolbox.vercel.app",
   },
@@ -26,174 +26,90 @@ export const metadata: Metadata = {
 
 const tools = [
   {
-    title: "CV / Resume Maker",
-    description: "Create print-ready, professional resumes with premium templates. Export to PDF in one click.",
+    title: "CV Architect",
+    description: "Professional recruitment templates with real-time A4 PDF generation.",
     icon: <FileText size={22} />,
     href: "/tools/cv-maker",
-    tag: "Most Popular",
-    tagColor: "bg-amber-50 text-amber-700 border border-amber-200/50",
-    color: "from-amber-500/10 to-orange-500/5",
+    tag: "Popular",
+    tagColor: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
   },
   {
-    title: "QR Code Generator",
-    description: "Generate high-resolution, print-quality QR codes for URLs, text, WiFi, and more.",
+    title: "QR Generator",
+    description: "High-density QR codes for URLs, WiFi, and VCards with custom aesthetics.",
     icon: <QrCode size={22} />,
     href: "/tools/qr-generator",
     tag: "Essential",
-    tagColor: "bg-brand-50 text-brand-700 border border-brand-200/50",
-    color: "from-brand-500/10 to-blue-500/5",
+    tagColor: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
   },
   {
-    title: "Image Converter",
-    description: "Convert between JPG, PNG, WebP, and SVG formats instantly offline.",
+    title: "Image Forge",
+    description: "Professional image conversion and neural-engine compression.",
     icon: <ImageIcon size={22} />,
     href: "/tools/image-converter",
-    tag: "Pro",
-    tagColor: "bg-purple-50 text-purple-700 border border-purple-200/50",
-    color: "from-purple-500/10 to-violet-500/5",
+    tag: "Studio",
+    tagColor: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
   },
   {
-    title: "Image Compress",
-    description: "Reduce image file size without losing quality. Batch compress multiple photos.",
-    icon: <Sparkles size={22} />,
-    href: "/tools/image-compress",
-    tag: "Neural",
-    tagColor: "bg-emerald-50 text-emerald-700 border border-emerald-200/50",
-    color: "from-emerald-500/10 to-teal-500/5",
-  },
-  {
-    title: "Image Resize",
-    description: "Resize images to exact dimensions with aspect ratio lock. Batch processing supported.",
+    title: "PDF Pipeline",
+    description: "Secure merging, splitting, and optimization of document archives.",
     icon: <Layers size={22} />,
-    href: "/tools/image-resize",
-    color: "from-cyan-500/10 to-blue-500/5",
-  },
-  {
-    title: "PDF Merge",
-    description: "Combine multiple PDFs into one document. Drag, drop, and merge in seconds.",
-    icon: <FileText size={22} />,
     href: "/tools/pdf-merge",
     tag: "Security",
-    tagColor: "bg-slate-100 text-slate-600 border border-slate-200/50",
-    color: "from-slate-500/10 to-gray-500/5",
+    tagColor: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
   },
   {
-    title: "PDF Split",
-    description: "Extract specific pages from PDF files. Precise control over page ranges.",
-    icon: <FileText size={22} />,
-    href: "/tools/pdf-split",
-    color: "from-slate-500/10 to-gray-500/5",
-  },
-  {
-    title: "PDF Compress",
-    description: "Shrink PDF file size while preserving quality. Optimize for web sharing.",
-    icon: <Settings2 size={22} />,
-    href: "/tools/pdf-compress",
-    color: "from-slate-500/10 to-gray-500/5",
-  },
-  {
-    title: "Word Counter",
-    description: "Advanced word count, reading time, keyword density, and linguistic analysis.",
+    title: "Text Analytics",
+    description: "Advanced word density, readability, and case transformation engine.",
     icon: <ALargeSmall size={22} />,
     href: "/tools/word-counter",
     tag: "Utility",
-    tagColor: "bg-emerald-50 text-emerald-700 border border-emerald-200/50",
-    color: "from-emerald-500/10 to-teal-500/5",
+    tagColor: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
   },
   {
-    title: "Case Converter",
-    description: "Transform text between uppercase, lowercase, camelCase, snake_case, and more.",
-    icon: <Type size={22} />,
-    href: "/tools/case-converter",
-    color: "from-rose-500/10 to-pink-500/5",
-  },
-  {
-    title: "Font Generator",
-    description: "Create fancy unicode text styles for social media, bios, and creative projects.",
-    icon: <Wand2 size={22} />,
-    href: "/tools/font-generator",
-    tag: "Creative",
-    tagColor: "bg-rose-50 text-rose-700 border border-rose-200/50",
-    color: "from-rose-500/10 to-pink-500/5",
-  },
-  {
-    title: "Image to PDF",
-    description: "Convert JPG and PNG images into professional PDF documents instantly.",
-    icon: <FileText size={22} />,
-    href: "/tools/image-to-pdf",
-    tag: "NEW",
-    tagColor: "bg-purple-50 text-purple-700 border border-purple-200/50",
-    color: "from-purple-500/10 to-violet-500/5",
-  },
-  {
-    title: "PDF Reader",
-    description: "View PDF, Word, Excel, and PowerPoint files locally. No upload required.",
-    icon: <ShieldCheck size={22} />,
-    href: "/tools/pdf-reader",
-    tag: "Local",
-    tagColor: "bg-indigo-50 text-indigo-700 border border-indigo-200/50",
-    color: "from-indigo-500/10 to-purple-500/5",
-  },
-  {
-    title: "Word Reader",
-    description: "Open and extract text from DOC/DOCX files directly in your browser.",
-    icon: <FileText size={22} />,
-    href: "/tools/word-reader",
-    color: "from-blue-500/10 to-indigo-500/5",
-  },
-  {
-    title: "Excel Reader",
-    description: "Read and analyze XLS/XLSX spreadsheet data without uploading.",
-    icon: <Database size={22} />,
-    href: "/tools/excel-reader",
-    color: "from-emerald-500/10 to-green-500/5",
-  },
-  {
-    title: "PowerPoint Reader",
-    description: "Preview PPT and PPTX presentations slide by slide in browser.",
-    icon: <Layers size={22} />,
-    href: "/tools/ppt-reader",
-    color: "from-orange-500/10 to-amber-500/5",
+    title: "SEO Suite",
+    description: "Meta tag generation and robots.txt optimization for search engines.",
+    icon: <Globe2 size={22} />,
+    href: "/tools/seo-meta-generator",
+    tag: "Marketing",
+    tagColor: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
   },
 ];
 
 const stats = [
-  { value: "16+", label: "Professional Tools" },
-  { value: "100%", label: "Local Processing" },
-  { value: "0", label: "Files Stored" },
-  { value: "Free", label: "Access Forever" },
+  { value: "16+", label: "Modules" },
+  { value: "100%", label: "Local" },
+  { value: "0ms", label: "Latency" },
+  { value: "∞", label: "Free" },
 ];
 
 export default function Home() {
+  const faqs = [
+    {
+      q: "How is SamToolbox different from other online tools?",
+      a: "Most platforms upload your files to remote servers. SamToolbox processes everything inside your browser using WASM and client-side APIs. Your data never leaves your hardware."
+    },
+    {
+      q: "Are the tools completely free to use?",
+      a: "Yes. All modules are free with no subscriptions, paywalls, or limits on local processing throughput."
+    },
+    {
+      q: "Is an internet connection required?",
+      a: "You need connectivity to load the initial environment, but once the tools are cached, most functions operate entirely offline."
+    },
+    {
+      q: "Is my privacy guaranteed?",
+      a: "Absolutely. We do not maintain servers for file storage. Conversions happen in your local RAM and are purged upon session termination."
+    }
+  ];
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "SamToolbox",
-    "description": "Free online browser tools for PDF, image, and document processing. 100% privacy-first with zero server uploads.",
+    "description": "Professional browser utilities for document and image processing. 100% private.",
     "url": "https://samtoolbox.vercel.app",
     "applicationCategory": "Utility",
-    "operatingSystem": "Web Browser",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-      "CV/Resume Maker",
-      "QR Code Generator",
-      "Image Converter",
-      "PDF Tools",
-      "Document Readers",
-      "Text Utilities"
-    ],
-    "author": {
-      "@type": "Person",
-      "name": "SamToolbox Team"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "SamToolbox"
-    }
+    "operatingSystem": "Web Browser"
   };
 
   return (
@@ -205,173 +121,168 @@ export default function Home() {
           __html: JSON.stringify(structuredData),
         }}
       />
-      <div className="flex flex-col items-center bg-white selection:bg-brand-100 selection:text-brand-900">
+      <div className="flex flex-col items-center bg-[#020617] selection:bg-blue-500/30 selection:text-blue-200 overflow-x-hidden font-sans">
 
       {/* ══════════════════════════════════════════
           HERO SECTION
       ══════════════════════════════════════════ */}
-      <section className="w-full bg-slate-900 text-white min-h-[calc(100vh-81px)] flex flex-col justify-center items-center px-6 rounded-b-[3rem] md:rounded-b-[5rem] shadow-[0_30px_80px_rgba(0,0,0,0.3)] relative overflow-hidden">
-        {/* Static Professional Background */}
-        <div className="absolute inset-0 bg-[#020617] pointer-events-none" />
-        
-        {/* Animated Mesh Gradient for Industrial Feel */}
-        <div 
-          className="absolute inset-0 opacity-[0.4] pointer-events-none"
-          style={{
-            background: `radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.3) 0, transparent 50%), 
-                        radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.2) 0, transparent 50%),
-                        radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.2) 0, transparent 50%),
-                        radial-gradient(at 0% 100%, rgba(79, 70, 229, 0.3) 0, transparent 50%)`
-          }}
-        />
-
+      <section className="w-full bg-[#020617] text-white min-h-screen flex flex-col justify-center items-center px-6 py-20 relative overflow-hidden">
         {/* Ambient Light Blobs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-48 -right-48 w-[800px] h-[800px] bg-brand-500 rounded-full blur-[180px] opacity-20 animate-pulse" />
-          <div className="absolute bottom-0 -left-32 w-[600px] h-[600px] bg-indigo-700 rounded-full blur-[150px] opacity-15" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-blue-500 rounded-full blur-[220px] opacity-10" />
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-blue-600 rounded-full blur-[180px] opacity-10" />
+          <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-indigo-700 rounded-full blur-[150px] opacity-10" />
         </div>
 
         {/* Grid Overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.04] pointer-events-none"
-          style={{
-            backgroundImage: "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
-          }}
-        />
-<br /><br />
-        <div className="max-w-6xl mx-auto text-center relative z-10 flex flex-col items-center">
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/8 backdrop-blur-xl border border-white/10 rounded-full text-brand-300 font-black text-[8px] uppercase tracking-[0.4em] mb-8 shadow-2xl">
-            <Sparkles size={10} className="animate-pulse" />
-            Military Grade Privacy · Industrial Utilities
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+
+        <div className="max-w-6xl mx-auto text-center relative z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full text-blue-400 font-bold text-[9px] uppercase tracking-[0.4em] mb-10 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-700">
+            <Activity size={12} className="animate-pulse" />
+            Industrial Grade Utility Suite
           </div>
 
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black leading-[0.92] tracking-tight mb-6 selection:bg-white selection:text-slate-900">
-            Professional Tools.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-blue-300 to-indigo-400">
-              Zero Servers.
-            </span><br />
-            Total Privacy.
+          <h1 className="text-5xl sm:text-7xl md:text-[5.5rem] font-black leading-[0.9] tracking-tighter mb-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            Private Tools.<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 italic">
+              Hardware Power.
+            </span>
           </h1>
 
-          <p className="text-sm md:text-base text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
-            Join the privacy revolution. 16+ high-performance tools that process
-            everything locally on your machine. <span className="text-white font-semibold">Your files never leave your sight.</span>
+          <p className="text-lg md:text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed font-medium animate-in fade-in slide-in-from-bottom-12 duration-700">
+            Professional-grade modules optimized for local execution. 
+            No uploads, no tracking—just pure browser-based performance.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-16">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-24 animate-in fade-in slide-in-from-bottom-16 duration-700">
             <Link
               href="/tools"
-              className="group px-10 py-4 bg-brand-600 hover:bg-brand-500 text-white font-black uppercase tracking-widest text-xs rounded-2xl shadow-2xl shadow-brand-600/40 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+              className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white font-black uppercase tracking-widest text-[10px] rounded-2xl shadow-2xl shadow-blue-600/40 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3"
             >
-              Get Started Now
-              <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+              System Directory
+              <ArrowRight size={16} />
             </Link>
             <Link
               href="/tools/cv-maker"
-              className="group px-10 py-4 bg-white/10 hover:bg-white/15 text-white font-black uppercase tracking-widest text-xs rounded-2xl border border-white/20 backdrop-blur-lg transition-all flex items-center gap-2"
+              className="px-10 py-5 bg-white/5 hover:bg-white/10 text-white font-black uppercase tracking-widest text-[10px] rounded-2xl border border-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-3"
             >
-              Build Professional CV
-              <ChevronRight size={14} />
+              Resume Architect
+              <ChevronRight size={16} />
             </Link>
           </div>
 
           {/* Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 opacity-80 border-t border-white/56 pt-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-20 pt-12 border-t border-white/5">
             {stats.map((s, i) => (
-              <div key={i} className="flex flex-col items-center mb-5">
-                <div className="text-2xl md:text-3xl font-black text-white tracking-tighter mb-1">{s.value}</div>
-                <div className="text-[8px] font-bold text-slate-500 uppercase tracking-[0.3em]">{s.label}</div>
+              <div key={i} className="flex flex-col items-center">
+                <div className="text-3xl md:text-5xl font-black text-white mb-1 tracking-tighter">{s.value}</div>
+                <div className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">{s.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <AdSenseAdUnit />
-
       {/* ══════════════════════════════════════════
-          FEATURED TOOLS GRID
+          FEATURED TOOLS
       ══════════════════════════════════════════ */}
-      <section className="w-full max-w-7xl mx-auto px-6 -mt-20 relative z-20 mb-32">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="w-full max-w-7xl mx-auto px-6 -mt-20 relative z-20 mb-40">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {tools.map((tool, i) => (
             <Link
               key={i}
               href={tool.href}
-              className="group relative bg-white p-8 rounded-[2.5rem] border border-slate-200/80 shadow-2xl shadow-slate-200/60 hover:shadow-brand-600/10 hover:-translate-y-2 transition-all duration-500 overflow-hidden"
+              className="group bg-[#0f172a] p-10 rounded-[3rem] border border-white/5 shadow-3xl shadow-black/50 hover:shadow-blue-500/10 hover:-translate-y-2 transition-all duration-500 flex flex-col h-full overflow-hidden relative"
             >
-              {/* Subtle Gradient Glow */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-3xl -mr-16 -mt-16 group-hover:bg-blue-500/10 transition-all" />
               
-              <div className="relative z-10">
-                <div className="flex justify-between items-start mb-8">
-                  <div className="w-14 h-14 bg-slate-50 group-hover:bg-white rounded-[1.2rem] flex items-center justify-center text-brand-600 shadow-sm group-hover:shadow-md transition-all duration-500 group-hover:scale-110">
-                    {tool.icon}
-                  </div>
-                  <span className={`px-3 py-1 text-[9px] font-black uppercase tracking-widest rounded-full leading-none ${tool.tagColor}`}>
-                    {tool.tag}
-                  </span>
+              <div className="flex justify-between items-start mb-12 relative z-10">
+                <div className="w-16 h-16 bg-white/5 group-hover:bg-blue-500/10 rounded-[1.5rem] flex items-center justify-center text-slate-400 group-hover:text-blue-400 transition-colors duration-500 shadow-inner border border-white/5">
+                  {tool.icon}
                 </div>
+                <span className={`px-4 py-1.5 text-[9px] font-black uppercase tracking-[0.2em] rounded-full border ${tool.tagColor}`}>
+                  {tool.tag}
+                </span>
+              </div>
 
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-tight mb-3 group-hover:text-brand-700 transition-colors">
-                  {tool.title}
-                </h3>
-                <p className="text-[15px] text-slate-500 leading-relaxed font-medium mb-8">
-                  {tool.description}
-                </p>
-                
-                <div className="flex items-center gap-2 text-brand-600 font-bold text-xs uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 duration-500">
-                  Launch Tool <ArrowRight size={14} />
-                </div>
+              <h3 className="text-2xl font-black text-white tracking-tight mb-4 relative z-10">
+                {tool.title}
+              </h3>
+              <p className="text-slate-400 text-[15px] leading-relaxed font-medium mb-12 flex-1 relative z-10">
+                {tool.description}
+              </p>
+              
+              <div className="flex items-center gap-3 text-blue-400 font-black text-[10px] uppercase tracking-[0.3em] relative z-10">
+                Launch Protocol <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
           ))}
         </div>
+      </section>
 
-        <div className="text-center mt-16">
-          <Link
-            href="/tools"
-            className="inline-flex items-center gap-3 px-8 py-3 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-brand-600 transition-colors shadow-xl shadow-slate-900/10"
-          >
-            Explore 16+ Free Tools <ArrowRight size={16} />
-          </Link>
+      {/* ══════════════════════════════════════════
+          HOW IT WORKS
+      ══════════════════════════════════════════ */}
+      <section className="w-full py-40 px-6 bg-[#020617] border-y border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+        
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="text-center mb-24">
+            <div className="inline-flex items-center gap-2 text-blue-400 font-black text-[10px] uppercase tracking-[0.4em] mb-4">
+               <Terminal size={16} /> Technical Architecture
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 leading-none italic">Built on Zero-Trust.</h2>
+            <p className="text-slate-400 font-medium text-lg max-w-2xl mx-auto leading-relaxed uppercase tracking-widest text-[10px]">Unified computation — Absolute hardware control — Local priority encryption</p>
+          </div>
+
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+            {[
+              { icon: <HardDrive />, title: "Local Load", desc: "Tool logic is cached in your browser's ephemeral memory. No data is sent back to SamToolbox." },
+              { icon: <Database />, title: "Input Buffer", desc: "Provide assets via secure local pointers. They stay within your machine's RAM sandbox." },
+              { icon: <Cpu />, title: "Hardware Logic", desc: "Your GPU/CPU performs the transformation directly, eliminating cloud latency and privacy risks." }
+            ].map((step, i) => (
+              <div key={i} className="flex flex-col items-center text-center group">
+                <div className="w-24 h-24 bg-white/5 rounded-[2.5rem] shadow-2xl border border-white/5 flex items-center justify-center text-blue-400 mb-10 group-hover:scale-110 transition-transform duration-500 shadow-blue-500/10">
+                  {step.icon}
+                </div>
+                <h3 className="text-2xl font-black text-white mb-4 tracking-tight uppercase italic">{step.title}</h3>
+                <p className="text-slate-400 text-[15px] leading-relaxed font-medium">{step.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════
-          PRIVACY SHOWCASE — "The SamToolbox Way"
+          PRIVACY SHOWCASE
       ══════════════════════════════════════════ */}
-      <section className="w-full bg-slate-50 border-y border-slate-100 py-32 px-6 overflow-hidden relative">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 text-brand-600 font-black text-[11px] uppercase tracking-[0.4em] mb-6">
-              <Fingerprint size={16} />
-              The Privacy Standard
+      <section className="w-full py-40 px-6 overflow-hidden bg-[#020617] border-b border-white/5">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 text-blue-400 font-black text-[11px] uppercase tracking-[0.4em] mb-8">
+              <Shield size={20} /> Privacy Protocol
             </div>
-            <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-[1.05] mb-8">
-              Why settle for tools<br /> 
-              that <span className="text-brand-600 italic">watch</span> you?
+            <h2 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-10 leading-[0.9]">
+              Absolute privacy,<br /> by <span className="text-blue-400 italic">design.</span>
             </h2>
-            <p className="text-slate-600 text-lg leading-relaxed mb-10 font-medium">
-              Most online converters upload your files to their servers, where they might be logged, analyzed, or leaked. SamToolbox uses <b>Client-Side Execution</b>—meaning your data never leaves your device.
+            <p className="text-slate-400 text-lg leading-relaxed mb-12 font-medium">
+              We eliminated the server from the equation. In a world of digital surveillance, 
+              SamToolbox offers an industrial-grade sanctuary where your professional work remains yours.
             </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="space-y-6">
               {[
-                { icon: <Lock />, title: "End-to-End Local", desc: "No data in transit. No data at rest." },
-                { icon: <Wind />, title: "Serverless Speed", desc: "Native hardware speeds. Zero upload wait." },
-                { icon: <Database />, title: "Zero Logs", desc: "We don't keep records because we never had them." },
-                { icon: <CheckCircle2 />, title: "Verified Clean", desc: "Built with standard, audit-friendly APIs." }
+                { icon: <Lock size={20} />, title: "Encapsulated Processing", desc: "The 'Upload' function merely maps files into a local browser sandbox." },
+                { icon: <Wind size={20} />, title: "Uncapped Throughput", desc: "No internet bottlenecks. Processing speed depends entirely on your local hardware." },
+                { icon: <ShieldCheck size={20} />, title: "Zero Persistent Logs", desc: "No databases, no tracking cookies, no history. Each session is a fresh start." }
               ].map((f, i) => (
-                <div key={i} className="flex gap-4">
-                  <div className="text-brand-600 shrink-0">{f.icon}</div>
+                <div key={i} className="flex gap-6 p-8 bg-white/5 rounded-[2.5rem] border border-white/5 group hover:bg-white/10 transition-all">
+                  <div className="text-blue-400 shrink-0 bg-white/5 w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm border border-white/5">{f.icon}</div>
                   <div>
-                    <h4 className="font-bold text-slate-900 text-sm mb-1">{f.title}</h4>
-                    <p className="text-xs text-slate-500 leading-relaxed">{f.desc}</p>
+                    <h4 className="font-black text-white text-sm mb-2 uppercase tracking-widest">{f.title}</h4>
+                    <p className="text-xs text-slate-500 leading-relaxed font-medium">{f.desc}</p>
                   </div>
                 </div>
               ))}
@@ -379,66 +290,82 @@ export default function Home() {
           </div>
           
           <div className="relative">
-            {/* Visual Representation of Local Processing */}
-            <div className="absolute inset-0 bg-brand-500/10 blur-3xl rounded-full scale-150 animate-pulse" />
-            <div className="relative bg-white rounded-[3rem] border border-slate-200 p-1 bg-gradient-to-br from-white to-slate-50 shadow-2xl">
-              <div className="bg-slate-900 rounded-[2.8rem] p-10 text-white min-h-[400px] flex flex-col justify-center overflow-hidden relative">
-                 <div className="absolute top-0 right-0 w-full h-full opacity-20 pointer-events-none">
-                    <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
-                 </div>
-                 <div className="relative z-10 text-center">
-                    <div className="w-20 h-20 bg-brand-500/20 border border-brand-500/30 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-[0_0_50px_rgba(37,99,235,0.3)]">
-                      <Cpu size={40} className="text-brand-400" />
-                    </div>
-                    <div className="text-2xl font-black mb-4">Local Execution Engine</div>
-                    <div className="text-slate-400 font-medium mb-8 text-sm">
-                      SamToolbox orchestrates your browser&apos;s native capabilities to perform heavy lifting without ever phoning home.
-                    </div>
-                    <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-2xl text-xs font-bold uppercase tracking-widest text-emerald-400">
-                      <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                      Status: Securely Offline
-                    </div>
-                 </div>
-              </div>
+            <div className="absolute inset-0 bg-blue-500/10 blur-[100px] rounded-full animate-pulse" />
+            <div className="relative bg-[#020617] rounded-[4rem] p-16 text-white shadow-3xl overflow-hidden min-h-[550px] flex flex-col justify-center text-center">
+               <div className="absolute top-0 right-0 w-full h-full opacity-5 pointer-events-none" 
+                    style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
+               <div className="relative z-10">
+                  <div className="w-28 h-28 bg-blue-500/10 border border-blue-500/20 rounded-[2.5rem] flex items-center justify-center mx-auto mb-12 shadow-[0_0_80px_rgba(37,99,235,0.4)]">
+                    <Fingerprint size={56} className="text-blue-400" />
+                  </div>
+                  <h3 className="text-4xl font-black mb-6 tracking-tight uppercase italic">Biometric-Grade Security</h3>
+                  <p className="text-slate-400 font-medium text-lg mb-12 leading-relaxed max-w-md mx-auto">
+                    All operations occur in an isolated hardware environment. 
+                    Your assets are processed and permanently wiped from volatile memory upon session closure.
+                  </p>
+                  <div className="inline-flex items-center gap-3 px-8 py-3 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 text-[11px] font-black uppercase tracking-[0.2em]">
+                    <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                    Verified Local Environment Active
+                  </div>
+               </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════
-          CTA FINAL
+          FAQ SECTION
       ══════════════════════════════════════════ */}
-      <section className="w-full max-w-5xl mx-auto px-6 py-32">
-        <div className="relative bg-slate-900 rounded-[4rem] overflow-hidden px-8 md:px-16 py-20 text-center text-white shadow-2xl">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-brand-600/30 blur-[120px] rounded-full pointer-events-none" />
+      <section className="w-full py-40 px-6 bg-[#020617] text-white rounded-[5rem] mb-20 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="text-center mb-24">
+             <div className="inline-flex items-center justify-center w-20 h-20 rounded-[2rem] bg-white/5 border border-white/10 mb-8 shadow-2xl">
+                <HelpCircle size={40} className="text-blue-400" />
+             </div>
+             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6 text-white leading-none">Technical FAQ.</h2>
+             <p className="text-slate-400 font-medium text-lg">Transparency is the core of our engineering philosophy.</p>
+          </div>
+
+          <div className="grid gap-8">
+            {faqs.map((faq, i) => (
+              <div key={i} className="p-10 bg-white/5 border border-white/10 rounded-[3rem] hover:bg-white/8 transition-all group">
+                <h3 className="text-xl font-black mb-6 flex items-start gap-4">
+                  <span className="text-blue-400 bg-blue-400/10 w-8 h-8 rounded-lg flex items-center justify-center shrink-0">Q</span> {faq.q}
+                </h3>
+                <p className="text-slate-400 font-medium leading-relaxed pl-12">
+                   {faq.a}
+                </p>
+              </div>
+            ))}
+          </div>
           
-          <div className="relative z-10">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.1] mb-8">
-              Experience the future of<br />
-              <span className="text-brand-400">online productivity.</span>
-            </h2>
-            <p className="text-slate-400 text-lg md:text-xl mb-12 max-w-xl mx-auto font-medium">
-              No subscriptions. No friction. Just professional tools that work where you work.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-5">
-               <Link
-                href="/tools"
-                className="group px-12 py-5 bg-brand-600 hover:bg-brand-500 text-white font-black uppercase tracking-widest text-xs rounded-2xl shadow-xl shadow-brand-600/40 transition-all hover:scale-105"
-              >
-                Launch All Tools
-              </Link>
-              <Link
-                href="/about"
-                className="px-12 py-5 bg-white/10 hover:bg-white/15 text-white font-black uppercase tracking-widest text-xs rounded-2xl border border-white/20 transition-all"
-              >
-                Learn More
-              </Link>
-            </div>
+          <div className="mt-24 text-center">
+             <p className="text-slate-500 mb-10 font-bold uppercase tracking-widest text-[11px]">System Support</p>
+             <Link href="/contact" className="px-12 py-5 bg-white text-slate-900 rounded-[2rem] font-black uppercase tracking-widest text-xs hover:bg-blue-50 transition-all flex items-center gap-3 mx-auto w-fit shadow-2xl">
+                <MessageSquare size={18} /> Contact Engineer
+             </Link>
           </div>
         </div>
       </section>
 
-     </div>
+      {/* ══════════════════════════════════════════
+          FINAL CTA
+      ══════════════════════════════════════════ */}
+      <section className="w-full max-w-7xl mx-auto px-6 py-40 text-center">
+         <h2 className="text-6xl md:text-[6.5rem] font-black text-white tracking-tighter mb-10 leading-[0.9]">
+           Work with <span className="text-blue-400 italic">Intimacy.</span>
+         </h2>
+         <p className="text-slate-400 text-xl md:text-2xl max-w-3xl mx-auto mb-16 font-medium leading-relaxed">
+           No signups, no data harvesting. Just an industrial suite of professional tools running at the edge.
+         </p>
+          <Link href="/tools" className="px-16 py-6 bg-blue-600 text-white rounded-[2.5rem] font-black uppercase tracking-[0.2em] text-xs shadow-[0_20px_60px_rgba(37,99,235,0.3)] hover:scale-105 transition-all inline-flex items-center gap-4">
+            Initialize Local Engine <ArrowRight size={20} />
+          </Link>
+      </section>
+
+      <AdSenseAdUnit />
+
+      </div>
     </>
   );
 }

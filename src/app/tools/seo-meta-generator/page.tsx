@@ -1,20 +1,24 @@
 "use client";
 
-import { useState } from "react";
-import { Globe, Copy, Check, Zap, Info, Share2, Search, Target, ImageIcon, HelpCircle, BookOpen } from "lucide-react";
-
+import { useState, useMemo } from "react";
+import { 
+  Globe, Copy, Check, Zap, Info, Share2, 
+  Search, Target, ImageIcon, HelpCircle, 
+  BookOpen, ShieldCheck, Eye, Code, Terminal, Settings, Shield, Cpu,
+  Activity, SearchCode
+} from "lucide-react";
 import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
 export default function SeoMetaGeneratorPage() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [keywords, setKeywords] = useState("");
-  const [author, setAuthor] = useState("");
+  const [title, setTitle] = useState("SAMToolBox | Professional Privacy-First Utilities");
+  const [description, setDescription] = useState("Access industrial-grade developer tools designed for high-performance workflows. Universal image conversion, PDF manipulation, and SEO architecture.");
+  const [keywords, setKeywords] = useState("developer tools, seo generator, pdf utilities, image converter, samtoolbox");
+  const [author, setAuthor] = useState("Suleman Mughal");
   const [type, setType] = useState("website");
   const [schemaType, setSchemaType] = useState("none");
   const [copied, setCopied] = useState(false);
 
-  const metaTags = `
+  const metaTags = useMemo(() => `
 <!-- Primary Meta Tags -->
 <title>${title || "Your Page Title"}</title>
 <meta name="title" content="${title || ""}">
@@ -34,9 +38,9 @@ export default function SeoMetaGeneratorPage() {
 <meta property="twitter:url" content="https://yourdomain.com/">
 <meta property="twitter:title" content="${title || ""}">
 <meta property="twitter:description" content="${description || ""}">
-<meta property="twitter:image" content="https://yourdomain.com/og-image.png">`.trim();
+<meta property="twitter:image" content="https://yourdomain.com/og-image.png">`.trim(), [title, description, keywords, author, type]);
 
-  const jsonLd = schemaType === "none" ? "" : `
+  const jsonLd = useMemo(() => schemaType === "none" ? "" : `
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -49,9 +53,9 @@ export default function SeoMetaGeneratorPage() {
   "description": "${description || ""}",
   "image": "https://yourdomain.com/image.png"
 }
-</script>`.trim();
+</script>`.trim(), [schemaType, title, author, description]);
 
-  const fullCode = `${metaTags}\n\n${jsonLd}`.trim();
+  const fullCode = useMemo(() => `${metaTags}\n\n${jsonLd}`.trim(), [metaTags, jsonLd]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(fullCode);
@@ -59,242 +63,226 @@ export default function SeoMetaGeneratorPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const getHealth = (val: string, target: number) => {
-    if (val.length === 0) return "text-slate-300";
-    if (val.length <= target) return "text-emerald-500";
-    return "text-rose-500";
-  };
+  const schema = useMemo(() => generateSoftwareApplicationSchema("seo-meta-generator", "Professional SEO Meta Engine for high-ranking websites."), []);
 
   return (
-    <div className="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateSoftwareApplicationSchema("seo-meta-generator", "Professional SEO Meta Engine for high-ranking websites.")) }}
-      />
+    <div className="min-h-screen bg-[#020617] selection:bg-blue-500/30 selection:text-blue-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      {/* Header */}
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-12 sm:mb-16">
-        <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-[10px] font-black uppercase tracking-[0.2em] border border-blue-100">
-            <Zap size={12} />
-            <span>SEO Engineering Protocol</span>
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <SearchCode size={14} className="animate-pulse" />
+            Meta Architect v7.4
           </div>
-          <h1 className="text-4xl sm:text-6xl font-black text-slate-900 tracking-tighter leading-none">
-            Meta <span className="text-blue-600">Architect</span>
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            SEO <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 italic">Gen.</span>
           </h1>
-          <p className="text-slate-500 text-sm sm:text-base font-medium max-w-md">
-            Generate industrial-grade metadata and structured JSON-LD schemas to dominate search rankings.
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            Universal meta-architecture for SERP dominance. 
+            <span className="text-slate-200 font-bold block mt-2">Open Graph Synthesis. JSON-LD Integration. Zero Cloud Telemetry.</span>
           </p>
         </div>
+      </section>
 
-        <div className="flex items-center gap-4 p-6 bg-slate-50 rounded-3xl border border-slate-100">
-           <div className="w-10 h-10 rounded-2xl bg-white flex items-center justify-center text-blue-500 shadow-sm border border-slate-100">
-              <Target size={20} />
-           </div>
-           <div>
-              <p className="text-[10px] font-black text-slate-900 uppercase tracking-widest leading-none mb-1">Index Ready</p>
-              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tight">V3 Core Web Vital Compliant</p>
-           </div>
-        </div>
-      </div>
-
-      <div className="grid lg:grid-cols-12 gap-12">
-        {/* Workspace */}
-        <div className="lg:col-span-7 space-y-8">
-          <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 shadow-2xl overflow-hidden">
-            <div className="bg-slate-50/50 px-6 sm:px-10 py-5 sm:py-6 border-b border-slate-100 flex items-center justify-between">
-               <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-blue-500" />
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Metadata Configuration</span>
-               </div>
-               <div className="flex gap-2">
-                  <div className="w-2 h-2 rounded-full bg-slate-200" />
-                  <div className="w-2 h-2 rounded-full bg-slate-200" />
-               </div>
-            </div>
-
-            <div className="p-6 sm:p-10 space-y-8">
-              <div>
-                <div className="flex justify-between items-end mb-3">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Page Title</label>
-                  <span className={`text-[10px] font-black uppercase ${getHealth(title, 60)}`}>{title.length}/60</span>
-                </div>
-                <input
-                  type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  placeholder="e.g. Best Software Engineering Tools | SAMToolBox"
-                  className="w-full px-5 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-500/20 focus:bg-white focus:ring-4 focus:ring-blue-500/5 outline-none transition-all text-sm font-bold text-slate-700 placeholder:text-slate-200"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between items-end mb-3">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Meta Description</label>
-                  <span className={`text-[10px] font-black uppercase ${getHealth(description, 160)}`}>{description.length}/160</span>
-                </div>
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Summarize your content to drive clicks from Google..."
-                  rows={4}
-                  className="w-full px-5 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-500/20 focus:bg-white focus:ring-4 focus:ring-blue-500/5 outline-none transition-all text-sm font-bold text-slate-700 placeholder:text-slate-200 resize-none leading-relaxed"
-                />
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-6 sm:grid-cols-2 gap-8">
-                 <div>
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 block px-1">Author / Brand</label>
-                    <input
-                      type="text"
-                      value={author}
-                      onChange={(e) => setAuthor(e.target.value)}
-                      placeholder="SAMToolBox"
-                      className="w-full px-5 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-500/20 focus:bg-white focus:ring-4 focus:ring-blue-500/5 outline-none transition-all text-sm font-bold text-slate-700"
-                    />
-                 </div>
-                 <div>
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 block px-1">Content Type</label>
-                    <select
-                      value={type}
-                      onChange={(e) => setType(e.target.value)}
-                      className="w-full px-5 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-500/20 focus:bg-white outline-none transition-all text-sm font-bold text-slate-700 cursor-pointer"
-                    >
-                      <option value="website">Website</option>
-                      <option value="article">Article</option>
-                      <option value="product">Product</option>
-                    </select>
-                 </div>
-              </div>
-
-              <div>
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 block px-1">JSON-LD Schema</label>
-                <div className="flex flex-wrap gap-2 sm:gap-3">
-                   {["none", "article", "product"].map((s) => (
-                      <button
-                        key={s}
-                        onClick={() => setSchemaType(s)}
-                        className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${schemaType === s ? "bg-blue-600 text-white shadow-lg shadow-blue-200" : "bg-slate-50 text-slate-400 hover:bg-slate-100"}`}
-                      >
-                        {s}
-                      </button>
-                   ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Output & Preview */}
-        <div className="lg:col-span-5 space-y-8">
-           {/* Code Editor */}
-           <div className="bg-[#0f172a] rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl p-6 sm:p-10 relative overflow-hidden">
-              <div className="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-blue-500 rounded-full blur-[80px] opacity-20" />
-              
-              <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
-                 <h3 className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-3">
-                    <Globe size={18} className="text-blue-400" />
-                    Source Code
-                 </h3>
-                 <button
-                   onClick={handleCopy}
-                   className={`w-full sm:w-auto px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${copied ? "bg-emerald-500 text-white" : "bg-white/10 text-white hover:bg-white/20"}`}
-                 >
-                   {copied ? <Check size={14} /> : <Copy size={14} />}
-                   {copied ? "COPIED" : "COPY CODE"}
-                 </button>
-              </div>
-
-              <div className="bg-slate-900/50 rounded-2xl p-4 sm:p-6 border border-white/5 font-mono text-[10px] sm:text-[11px] text-blue-300/80 leading-relaxed h-[300px] overflow-auto scrollbar-hide whitespace-pre-wrap break-all">
-                 {fullCode}
-              </div>
-           </div>
-
-           {/* Google Preview */}
-           <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 shadow-xl p-6 sm:p-10">
-              <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 sm:mb-8 flex items-center gap-3">
-                <Search size={16} />
-                SERP Preview
-              </h3>
-              
-              <div className="space-y-2 w-full overflow-hidden">
-                 <p className="text-slate-400 text-[10px] sm:text-xs truncate">https://yourdomain.com › tools › architect</p>
-                 <h4 className="text-blue-700 text-lg sm:text-xl font-medium hover:underline cursor-pointer truncate">
-                   {title || "Enter a page title..."}
-                 </h4>
-                 <p className="text-slate-600 text-xs sm:text-sm line-clamp-2 leading-relaxed">
-                   {description || "Meta description will appear here as a snippet in search results. Make it compelling to increase CTR."}
-                 </p>
-              </div>
-           </div>
-
-           {/* Insights */}
-           <div className="bg-blue-600 rounded-[2rem] p-8 text-white shadow-2xl shadow-blue-200">
-              <div className="flex items-center gap-3 mb-4">
-                <Info size={18} />
-                <span className="text-[10px] font-black uppercase tracking-[0.2em]">Optimization Tip</span>
-              </div>
-              <p className="text-xs font-bold text-blue-100 leading-relaxed">
-                Google prioritizes "Information Gain". Ensure your title contains your primary keyword, and your description provides a clear benefit to the user.
-              </p>
-           </div>
-        </div>
-      </div>
-
-      {/* Information Section */}
-      <div className="mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-blue-50 rounded-xl text-blue-600">
-              <BookOpen size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Deployment Protocol</h2>
-          </div>
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          <div className="space-y-6">
-            {[
-              { step: "01", title: "Title Optimization", desc: "Input your primary page title. Our engine monitors length in real-time to ensure zero truncation on Google SERPs." },
-              { step: "02", title: "Semantic Description", desc: "Craft a meta description that includes your secondary keywords. This acts as your 'Ad Copy' in search results." },
-              { step: "03", title: "Schema Injection", desc: "Select a JSON-LD schema (Article or Product). This provides structured data that search engines use for rich snippets." },
-              { step: "04", title: "Code Integration", desc: "Click 'Copy Code' and paste the entire block inside the <head> tags of your website for immediate indexing." }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 group">
-                <span className="text-3xl font-black text-slate-100 group-hover:text-blue-100 transition-colors duration-300">{item.step}</span>
-                <div className="space-y-1">
-                  <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+          {/* Workspace */}
+          <div className="lg:col-span-8 space-y-8">
+            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+               <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                     <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-blue-400">
+                        <Terminal size={22} />
+                     </div>
+                     <div>
+                        <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none">Parameter Matrix</h3>
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1 italic">Defining page signals</p>
+                     </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                     <button 
+                       onClick={handleCopy}
+                       className="px-6 py-3 bg-blue-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-xl flex items-center gap-2"
+                     >
+                       {copied ? <Check size={14} /> : <Copy size={14} />} {copied ? "Copied" : "Copy Architect Code"}
+                     </button>
+                  </div>
+               </div>
+
+               <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+                  {/* Inputs */}
+                  <div className="space-y-10">
+                     <div className="space-y-4">
+                        <div className="flex items-center justify-between ml-4">
+                           <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Page Title</label>
+                           <span className={`text-[10px] font-black uppercase tracking-widest ${title.length > 60 ? "text-rose-500" : "text-emerald-500"}`}>{title.length}/60</span>
+                        </div>
+                        <input 
+                          type="text"
+                          value={title}
+                          onChange={e => setTitle(e.target.value)}
+                          className="w-full bg-black/40 border border-white/5 rounded-2xl px-6 py-4 text-white font-bold outline-none focus:border-blue-500/30 transition-all text-sm"
+                        />
+                     </div>
+
+                     <div className="space-y-4">
+                        <div className="flex items-center justify-between ml-4">
+                           <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Meta Description</label>
+                           <span className={`text-[10px] font-black uppercase tracking-widest ${description.length > 160 ? "text-rose-500" : "text-emerald-500"}`}>{description.length}/160</span>
+                        </div>
+                        <textarea 
+                          value={description}
+                          onChange={e => setDescription(e.target.value)}
+                          className="w-full h-32 bg-black/40 border border-white/5 rounded-[2rem] p-6 text-white font-medium text-sm leading-relaxed outline-none focus:border-blue-500/30 transition-all resize-none custom-scrollbar"
+                        />
+                     </div>
+
+                     <div className="grid grid-cols-2 gap-6">
+                        <div className="space-y-4">
+                           <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-4">Schema Type</label>
+                           <select 
+                             value={schemaType}
+                             onChange={e => setSchemaType(e.target.value)}
+                             className="w-full bg-black/40 border border-white/5 rounded-2xl px-6 py-4 text-white font-bold outline-none appearance-none cursor-pointer focus:border-blue-500/30 transition-all text-xs"
+                           >
+                              <option value="none">None</option>
+                              <option value="article">Article</option>
+                              <option value="product">Product</option>
+                           </select>
+                        </div>
+                        <div className="space-y-4">
+                           <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-4">Author</label>
+                           <input 
+                             type="text"
+                             value={author}
+                             onChange={e => setAuthor(e.target.value)}
+                             className="w-full bg-black/40 border border-white/5 rounded-2xl px-6 py-4 text-white font-bold outline-none focus:border-blue-500/30 transition-all text-sm"
+                           />
+                        </div>
+                     </div>
+                  </div>
+
+                  {/* Code View */}
+                  <div className="relative group">
+                     <div className="absolute inset-0 bg-blue-500/5 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                     <div className="relative bg-black/60 border border-white/5 rounded-[2.5rem] p-10 h-full font-mono text-sm leading-relaxed text-blue-400/90 overflow-auto custom-scrollbar">
+                        <div className="flex items-center justify-between mb-8 border-b border-blue-500/10 pb-4">
+                           <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-500">Output Vector</span>
+                           <Code size={16} />
+                        </div>
+                        <pre className="whitespace-pre-wrap">{fullCode}</pre>
+                     </div>
+                  </div>
+               </div>
+            </div>
+          </div>
+
+          {/* Action Sidebar */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="bg-[#0f172a] p-10 rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full blur-3xl" />
+               <div className="flex items-center gap-4 mb-8">
+                  <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-blue-400">
+                    <Activity size={24} />
+                  </div>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tighter">Status</h3>
+               </div>
+               <div className="space-y-6">
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Protocols</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">OG / Twitter / LD</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Standard</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">W3C Semantic</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-[9px] font-black text-blue-500 uppercase tracking-[0.4em] pt-4 border-t border-white/5">
+                     <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                     Generator Operational
+                  </div>
+               </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-600 to-cyan-700 p-10 rounded-[3.5rem] text-white relative overflow-hidden shadow-3xl border border-blue-500/20">
+               <ShieldCheck size={120} className="absolute -bottom-10 -right-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000" />
+               <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter italic">Vault Secure</h3>
+               <p className="text-blue-100 font-medium text-sm leading-relaxed">
+                  SEO meta data is synthesized strictly within the browser memory buffer. No site configuration telemetry is transmitted to cloud nodes.
+               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ══════════════════════════════════════════
+            DOCUMENTATION & FAQ
+        ══════════════════════════════════════════ */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+          <div className="grid lg:grid-cols-2 gap-24 items-start">
+            <div className="space-y-16">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-blue-500/10 rounded-[1.5rem] flex items-center justify-center text-blue-400 border border-blue-500/20">
+                  <HelpCircle size={32} />
+                </div>
+                <div>
+                  <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Meta <span className="text-blue-400">FAQ</span></h2>
+                  <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Architecture Queries</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-slate-900 rounded-xl text-white">
-              <HelpCircle size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">SEO Intelligence FAQ</h2>
-          </div>
-
-          <div className="space-y-4">
-            {[
-              { q: "Why do you recommend 60 characters for titles?", a: "Most browsers and search engines (Google, Bing) have a pixel width limit. 60 characters is the safe threshold for full visibility." },
-              { q: "What is the benefit of JSON-LD schemas?", a: "Schemas help search engines understand context (e.g., this is a 'Product' with a 'Price'). This can lead to 20-30% higher click-through rates." },
-              { q: "Are social media tags included?", a: "Yes. Every generation automatically includes Open Graph (Facebook/LinkedIn) and Twitter Card tags to ensure your links look professional when shared." },
-              { q: "Is this tool GDPR compliant?", a: "SamToolbox is privacy-first. We do not track, store, or transmit any of the keywords or titles you enter. Processing is 100% local." }
-            ].map((faq, i) => (
-              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                  {faq.q}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+              <div className="space-y-6">
+                {[
+                  { q: "Why 60 characters for titles?", a: "Industry standard for SERP health. Exceeding 60 characters causes engines to truncate the title, lowering click-through velocity (CTR)." },
+                  { q: "What is JSON-LD Schema?", a: "A standardized format for context delivery. It enables rich results (star ratings, product info) directly on the search results page." },
+                  { q: "Are social media tags included?", a: "Affirmative. Every generation includes Open Graph (Facebook/LinkedIn) and Twitter Card tags for optimized sharing visibility." }
+                ].map((faq, i) => (
+                  <div key={i} className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 hover:border-blue-500/20 transition-all group">
+                    <h3 className="font-black text-white text-sm mb-4 flex items-start gap-4">
+                      <span className="text-blue-400 font-mono">Q.</span> {faq.q}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div className="bg-[#0f172a] rounded-[4rem] p-16 md:p-20 text-white relative overflow-hidden border border-white/5">
+               <div className="absolute top-0 right-0 w-full h-full opacity-[0.02] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+               <div className="relative z-10 text-center sm:text-left">
+                  <div className="w-24 h-24 bg-blue-500/10 border border-blue-500/20 rounded-[2rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(37,99,235,0.2)] mx-auto sm:mx-0">
+                    <BookOpen size={48} className="text-blue-400" />
+                  </div>
+                  <h3 className="text-4xl font-black mb-8 tracking-tight uppercase leading-none">Best Practices</h3>
+                  <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                    Embed the generated architect code strictly within the 
+                    &lt;head&gt; section of your HTML or Next.js layout.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-12">
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">SEMANT</div>
+                        <div className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Compliance Index</div>
+                     </div>
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">RICH+</div>
+                        <div className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Result Logic</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

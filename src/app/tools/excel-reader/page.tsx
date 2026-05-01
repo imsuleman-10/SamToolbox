@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Upload, X, Table as TableIcon, ShieldCheck, Zap, HelpCircle, BookOpen } from "lucide-react";
+import { useState, useRef, useMemo } from "react";
+import { Upload, X, Table as TableIcon, ShieldCheck, Zap, HelpCircle, BookOpen, Search, FileSpreadsheet, Download } from "lucide-react";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
 export default function ExcelReaderPage() {
   const [htmlData, setHtmlData] = useState<string | null>(null);
@@ -12,6 +13,8 @@ export default function ExcelReaderPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const schema = useMemo(() => generateSoftwareApplicationSchema("excel-reader", "Privacy-first Excel and CSV reader with local-only data processing and secure tabular visualization."), []);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -31,7 +34,7 @@ export default function ExcelReaderPage() {
         }
       } catch (error) {
         console.error("Error reading excel file:", error);
-        alert("Unsupported or corrupted file. Please try again.");
+        alert("System Conflict: Unsupported or corrupted bitstream. Re-check file encoding.");
       } finally {
         setIsProcessing(false);
       }
@@ -42,9 +45,8 @@ export default function ExcelReaderPage() {
     setActiveSheet(sheetName);
     const XLSX = await import("xlsx");
     const worksheet = wb.Sheets[sheetName];
-    // Convert to JSON for easier filtering/rendering
     const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-    setHtmlData(JSON.stringify(data)); // Temporarily store as stringified JSON
+    setHtmlData(JSON.stringify(data)); 
   };
 
   const clearFile = () => {
@@ -65,7 +67,7 @@ export default function ExcelReaderPage() {
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `${fileName.split(".")[0]}-${activeSheet}.csv`;
+    link.download = `extracted-${fileName.split(".")[0]}-${activeSheet}.csv`;
     link.click();
   };
 
@@ -75,203 +77,199 @@ export default function ExcelReaderPage() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6">
-      {/* Header */}
-      <div className="text-center mb-16">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-emerald-100">
-          <ShieldCheck size={14} />
-          <span>Privacy First // Local Execution</span>
-        </div>
-        <h1 className="text-5xl sm:text-6xl font-black text-slate-900 mb-6 tracking-tighter">
-          Universal <span className="text-emerald-600">Sheet Reader</span>
-        </h1>
-        <p className="text-slate-500 font-medium max-w-2xl mx-auto">
-          High-performance Excel and CSV visualization engine. 
-          Analyze complex datasets with zero server-side exposure.
-        </p>
-      </div>
+    <div className="min-h-screen bg-[#020617] selection:bg-emerald-500/30 selection:text-emerald-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      {!htmlData ? (
-        <div 
-          className="group relative max-w-3xl mx-auto px-4"
-          onClick={() => !isProcessing && fileInputRef.current?.click()}
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-[1.5rem] sm:rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-          <div className={`relative bg-white border-2 border-dashed border-slate-200 rounded-[1.5rem] sm:rounded-[2.5rem] p-8 sm:p-16 text-center cursor-pointer transition-all duration-300 hover:border-emerald-500 hover:bg-emerald-50/10 ${isProcessing ? 'opacity-50 pointer-events-none' : ''}`}>
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-emerald-50 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-6 sm:mb-8 text-emerald-600 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
-              {isProcessing ? <Zap className="animate-pulse" size={28} /> : <Upload size={28} strokeWidth={2.5} />}
-            </div>
-            <h3 className="text-xl sm:text-2xl font-black text-slate-800 mb-2 sm:mb-3 uppercase tracking-tight">
-              {isProcessing ? "Analyzing Dataset..." : "Import Document"}
-            </h3>
-            <p className="text-slate-500 font-medium mb-0 uppercase text-[9px] sm:text-[10px] tracking-widest">Select .xlsx, .xls, or .csv</p>
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <Zap size={14} className="animate-pulse" />
+            Sheet Analyzer v12.1
           </div>
-          <input 
-            type="file" 
-            accept=".xlsx, .xls, .csv" 
-            className="hidden" 
-            ref={fileInputRef} 
-            onChange={handleFileChange} 
-          />
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            Universal <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400 italic">Sheet.</span>
+          </h1>
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            High-performance data visualization. 
+            <span className="text-slate-200 font-bold block mt-2">Local Binary Parsing. Zero Cloud Storage. Absolute Sovereignty.</span>
+          </p>
         </div>
-      ) : (
-        <div className="bg-white rounded-[1.5rem] sm:rounded-[2rem] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden flex flex-col min-h-[500px] sm:min-h-[700px] animate-in fade-in slide-in-from-bottom-4 duration-500 mx-[-1rem] sm:mx-0">
-          {/* Dashboard Control Bar */}
-          <div className="bg-slate-50 border-b border-slate-100 p-4 sm:p-6 flex flex-col xl:flex-row xl:items-center justify-between gap-4 sm:gap-6">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-600 rounded-xl sm:rounded-2xl flex items-center justify-center text-white shadow-lg shadow-emerald-200 shrink-0">
-                <TableIcon size={20} />
-              </div>
-              <div className="flex flex-col overflow-hidden">
-                <span className="font-black text-slate-900 uppercase tracking-tighter text-base sm:text-lg truncate max-w-[150px] sm:max-w-sm">{fileName}</span>
-                <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest">{filteredData.length} Rows Identified</span>
-              </div>
-            </div>
+      </section>
 
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-              <div className="relative flex-1 min-w-[200px] sm:min-w-[250px]">
-                <input 
-                  type="text" 
-                  placeholder="SEARCH ROWS..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 sm:py-3 bg-white border border-slate-200 rounded-lg sm:rounded-xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest focus:ring-2 focus:ring-emerald-500 outline-none"
-                />
-                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
-                  <TableIcon size={12} />
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-[1600px] mx-auto px-6 -mt-16 relative z-20 mb-32">
+        {!htmlData ? (
+          <div className="max-w-4xl mx-auto">
+            <div 
+              onClick={() => !isProcessing && fileInputRef.current?.click()}
+              className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black p-20 flex flex-col items-center justify-center group cursor-pointer hover:border-emerald-500/30 transition-all hover:bg-emerald-500/[0.02] text-center animate-in fade-in slide-in-from-bottom-8 duration-700"
+            >
+               <div className="w-32 h-32 bg-white/5 rounded-[2.5rem] flex items-center justify-center text-slate-500 group-hover:text-emerald-400 group-hover:scale-110 transition-all duration-500 mb-10 border border-white/5">
+                  <FileSpreadsheet size={56} />
+               </div>
+               <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-4 italic">Inject Dataset</h3>
+               <p className="text-slate-500 font-bold uppercase tracking-widest text-xs max-w-sm leading-relaxed">
+                  Support for .xlsx, .xls, and .csv binaries. Pure local ingestion.
+               </p>
+               <input
+                 type="file"
+                 accept=".xlsx, .xls, .csv"
+                 className="hidden"
+                 ref={fileInputRef}
+                 onChange={handleFileChange}
+               />
+            </div>
+          </div>
+        ) : (
+          <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in zoom-in-95 duration-500 min-h-[800px] flex flex-col">
+             {/* Header Control */}
+             <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex flex-col xl:flex-row items-center justify-between gap-8 shrink-0">
+                <div className="flex items-center gap-6 min-w-0">
+                   <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-emerald-400">
+                      <TableIcon size={24} />
+                   </div>
+                   <div className="min-w-0">
+                      <h4 className="text-white font-black truncate max-w-[200px] md:max-w-md tracking-tight uppercase leading-none">{fileName}</h4>
+                      <div className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1 italic">Local Buffer Active</div>
+                   </div>
                 </div>
-              </div>
 
-              <div className="flex gap-2 w-full sm:w-auto">
-                <button 
-                  onClick={downloadCSV}
-                  className="flex-1 sm:flex-initial px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 rounded-lg sm:rounded-xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2"
-                >
-                  Export CSV
-                </button>
+                <div className="flex-1 max-w-2xl relative group">
+                   <Search size={18} className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-emerald-400 transition-colors" />
+                   <input 
+                     value={searchQuery}
+                     onChange={e => setSearchQuery(e.target.value)}
+                     placeholder="QUERY BUFFER..."
+                     className="w-full pl-16 pr-8 py-4 bg-black/40 border border-white/5 rounded-2xl focus:border-emerald-500/30 outline-none text-white font-bold transition-all uppercase text-xs tracking-widest"
+                   />
+                </div>
 
-                <button 
-                  onClick={clearFile}
-                  className="px-4 sm:px-6 py-2.5 sm:py-3 bg-red-50 text-red-600 border border-red-100 hover:bg-red-100 rounded-lg sm:rounded-xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest transition-all active:scale-95"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
+                <div className="flex items-center gap-4">
+                   <button 
+                     onClick={downloadCSV}
+                     className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 border border-white/5 shadow-xl"
+                   >
+                     <Download size={16} /> Export CSV
+                   </button>
+                   <button 
+                     onClick={clearFile}
+                     className="px-8 py-4 bg-rose-600/10 hover:bg-rose-600/20 text-rose-400 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 border border-rose-500/20 shadow-xl"
+                   >
+                     <X size={16} /> Purge Buffer
+                   </button>
+                </div>
+             </div>
 
-          {/* Sheet Selector */}
-          {sheetNames.length > 1 && (
-            <div className="bg-white border-b border-slate-100 px-6 py-3 flex gap-2 overflow-x-auto scrollbar-hide">
-              {sheetNames.map((name) => (
-                <button
-                  key={name}
-                  onClick={() => { if(workbook) changeSheet(workbook, name) }}
-                  className={`px-4 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
-                    activeSheet === name 
-                      ? "bg-slate-900 text-white shadow-lg" 
-                      : "bg-slate-50 text-slate-400 hover:bg-slate-100"
-                  }`}
-                >
-                  {name}
-                </button>
-              ))}
-            </div>
-          )}
-          
-          {/* High-Performance Table Area */}
-          <div className="flex-1 w-full bg-white overflow-auto">
-             <div className="inline-block min-w-full align-middle">
-               <table className="min-w-full border-collapse">
-                 <thead className="sticky top-0 z-10">
-                   <tr className="bg-slate-900 text-white">
-                     <th className="px-4 py-4 text-left text-[9px] font-black uppercase tracking-widest border border-slate-800 w-16">ID</th>
-                     {filteredData[0]?.map((header: any, idx: number) => (
-                       <th key={idx} className="px-6 py-4 text-left text-[9px] font-black uppercase tracking-widest border border-slate-800">
-                         {String(header ?? "")}
-                       </th>
-                     ))}
-                   </tr>
-                 </thead>
-                 <tbody className="divide-y divide-slate-100">
-                   {filteredData.slice(1).map((row: any[], rowIdx: number) => (
-                     <tr key={rowIdx} className="hover:bg-emerald-50/30 transition-colors group">
-                       <td className="px-4 py-3 text-[10px] font-bold text-slate-300 border border-slate-50 bg-slate-50/50 group-hover:text-emerald-600 transition-colors">
-                         {rowIdx + 1}
-                       </td>
-                       {row.map((cell, cellIdx) => (
-                         <td key={cellIdx} className="px-6 py-3 text-[11px] font-medium text-slate-600 border border-slate-50">
-                           {String(cell ?? "")}
-                         </td>
-                       ))}
-                     </tr>
-                   ))}
-                 </tbody>
-               </table>
-               {filteredData.length <= 1 && (
-                 <div className="py-20 text-center">
-                   <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">No matching records found</p>
-                 </div>
-               )}
+             {/* Sheet Selector */}
+             {sheetNames.length > 1 && (
+               <div className="bg-white/5 px-10 py-4 border-b border-white/5 flex items-center gap-4 overflow-x-auto no-scrollbar">
+                  {sheetNames.map(name => (
+                    <button
+                      key={name}
+                      onClick={() => changeSheet(workbook, name)}
+                      className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${activeSheet === name ? "bg-emerald-600 text-white shadow-lg" : "bg-white/5 text-slate-500 hover:text-white"}`}
+                    >
+                      {name}
+                    </button>
+                  ))}
+               </div>
+             )}
+
+             {/* Table Workspace */}
+             <div className="flex-1 overflow-auto custom-scrollbar bg-black/20 p-10">
+                <table className="w-full text-left border-collapse min-w-[1000px]">
+                   <thead>
+                      <tr className="border-b border-white/10">
+                         {parsedData[0]?.map((col: any, i: number) => (
+                           <th key={i} className="px-6 py-4 text-[10px] font-black text-emerald-400 uppercase tracking-widest bg-white/5 border-r border-white/5">
+                              {col || `Vector ${i+1}`}
+                           </th>
+                         ))}
+                      </tr>
+                   </thead>
+                   <tbody>
+                      {filteredData.slice(1).map((row: any[], i: number) => (
+                        <tr key={i} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors group">
+                           {row.map((cell: any, j: number) => (
+                             <td key={j} className="px-6 py-4 text-xs font-medium text-slate-400 group-hover:text-white transition-colors border-r border-white/5">
+                                {cell ?? ""}
+                             </td>
+                           ))}
+                        </tr>
+                      ))}
+                   </tbody>
+                </table>
              </div>
           </div>
-        </div>
-      )}
-      
-      {/* Information Section */}
-      <div className="mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-emerald-50 rounded-xl text-emerald-600">
-              <BookOpen size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">User Protocol</h2>
-          </div>
-          
-          <div className="space-y-6">
-            {[
-              { step: "01", title: "Dataset Injection", desc: "Drag and drop your .xlsx, .xls, or .csv file into the secure import zone. Our engine processes the binary data locally." },
-              { step: "02", title: "Sheet Navigation", desc: "If your workbook contains multiple sheets, use the dynamic tab bar to switch between datasets instantly." },
-              { step: "03", title: "Real-time Analysis", desc: "Use the global search filter to isolate specific rows. The table updates in real-time as you type, handling thousands of rows with ease." },
-              { step: "04", title: "Export Logic", desc: "Need to convert? Use the Export CSV function to transform any Excel sheet into a standardized comma-separated format." }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 group">
-                <span className="text-3xl font-black text-slate-100 group-hover:text-emerald-100 transition-colors duration-300">{item.step}</span>
-                <div className="space-y-1">
-                  <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+        )}
+
+        {/* ══════════════════════════════════════════
+            DOCUMENTATION & FAQ
+        ══════════════════════════════════════════ */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+          <div className="grid lg:grid-cols-2 gap-24 items-start">
+            <div className="space-y-16">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-emerald-500/10 rounded-[1.5rem] flex items-center justify-center text-emerald-400 border border-emerald-500/20">
+                  <HelpCircle size={32} />
+                </div>
+                <div>
+                  <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Analyzer <span className="text-emerald-400">FAQ</span></h2>
+                  <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Data Queries</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-slate-900 rounded-xl text-white">
-              <HelpCircle size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Compliance & FAQ</h2>
-          </div>
-
-          <div className="space-y-4">
-            {[
-              { q: "Is my corporate data secure?", a: "Absolutely. SamToolbox utilizes client-side WebAssembly and JS. Your files never leave your machine; no data is ever transmitted to our servers." },
-              { q: "What are the row limits?", a: "The reader is optimized for high-performance rendering. While it can handle 50,000+ rows, browser memory limits may vary based on your system hardware." },
-              { q: "Can I modify the cells?", a: "The current version is a high-fidelity 'Read & Export' engine. Advanced editing and cell manipulation features are scheduled for the v5.0 release." },
-              { q: "Is mobile viewing supported?", a: "Yes, the interface is fully responsive. For complex datasets with 10+ columns, we recommend desktop viewing for the best experience." }
-            ].map((faq, i) => (
-              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  {faq.q}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+              <div className="space-y-6">
+                {[
+                  { q: "Is data synchronized to the cloud?", a: "Negative. The engine utilizes browser-side array buffers. Your data never leaves your workstation's local environment." },
+                  { q: "Maximum dataset capacity?", a: "The analyzer is optimized for high-concurrency binary parsing; however, workstation RAM limits apply for multi-million row datasets." },
+                  { q: "CSV Export Fidelity?", a: "Absolute. The export engine maps active sheet buffers directly to standard RFC-compliant CSV bitstreams." }
+                ].map((faq, i) => (
+                  <div key={i} className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 hover:border-emerald-500/20 transition-all group">
+                    <h3 className="font-black text-white text-sm mb-4 flex items-start gap-4">
+                      <span className="text-emerald-400 font-mono">Q.</span> {faq.q}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div className="bg-[#0f172a] rounded-[4rem] p-16 md:p-20 text-white relative overflow-hidden border border-white/5">
+               <div className="absolute top-0 right-0 w-full h-full opacity-[0.02] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+               <div className="relative z-10 text-center sm:text-left">
+                  <div className="w-24 h-24 bg-emerald-500/10 border border-emerald-500/20 rounded-[2rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(16,185,129,0.2)] mx-auto sm:mx-0">
+                    <BookOpen size={48} className="text-emerald-400" />
+                  </div>
+                  <h3 className="text-4xl font-black mb-8 tracking-tight uppercase leading-none">Best Practices</h3>
+                  <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                    For optimal visualization of complex datasets, utilize the 
+                    'Query Buffer' to isolate specific data vectors.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-12">
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">0-LOG</div>
+                        <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-[0.3em]">Privacy Index</div>
+                     </div>
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">RAW</div>
+                        <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-[0.3em]">Memory Parse</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

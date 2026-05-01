@@ -18,7 +18,7 @@ export default function AdSenseAdUnit() {
         data-ad-format="auto"
         data-full-width-responsive="true"
       />
-      <Script id="adsense-page-unit" strategy="afterInteractive">
+      <Script id="adsense-page-unit" strategy="lazyOnload">
         {`(adsbygoogle = window.adsbygoogle || []).push({});`}
       </Script>
     </div>

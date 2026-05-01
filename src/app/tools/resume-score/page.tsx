@@ -1,7 +1,14 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Upload, FileText, CheckCircle2, XCircle, AlertCircle, Zap, Target, Award, RefreshCw, BookOpen, HelpCircle } from "lucide-react";
+import { 
+  Upload, FileText, CheckCircle2, XCircle, AlertCircle, 
+  Zap, Target, Award, RefreshCw, BookOpen, HelpCircle,
+  Terminal, ShieldCheck, Cpu, Activity, ArrowRight,
+  Layers, BarChart3, Briefcase, GraduationCap, ClipboardList
+} from "lucide-react";
+import Link from "next/link";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
 interface AnalysisResult {
   score: number;
@@ -28,16 +35,12 @@ export default function ResumeScorePage() {
     if (!resumeText.trim()) return;
     
     setIsAnalyzing(true);
-    
-    // Simulate processing time for better UX
-    await new Promise(resolve => setTimeout(resolve, 800));
+    await new Promise(resolve => setTimeout(resolve, 1500));
     
     const text = resumeText.toLowerCase();
     const words = resumeText.split(/\s+/).filter(w => w.length > 0);
     const wordCount = words.length;
     
-    // Check sections
-    const sections: string[] = [];
     const sectionKeywords = {
       "Summary": ["summary", "objective", "profile"],
       "Experience": ["experience", "work history", "employment"],
@@ -48,13 +51,13 @@ export default function ResumeScorePage() {
       "Languages": ["language", "languages"],
     };
     
+    const sections: string[] = [];
     Object.entries(sectionKeywords).forEach(([section, keywords]) => {
       if (keywords.some(kw => text.includes(kw))) {
         sections.push(section);
       }
     });
     
-    // Check contact info
     const hasEmail = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}/.test(resumeText);
     const hasPhone = /(\+92|0)?3\d{2}[- ]?\d{7}|(\+?\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}/.test(resumeText);
     const hasContactInfo = hasEmail || hasPhone;
@@ -63,78 +66,46 @@ export default function ResumeScorePage() {
     const hasExperience = sectionKeywords["Experience"].some(kw => text.includes(kw));
     const hasSkills = sectionKeywords["Skills"].some(kw => text.includes(kw));
     
-    // Extract keywords (simple approach - words with 4+ chars)
     const commonWords = new Set(["the", "and", "for", "with", "this", "that", "from", "have", "been", "were", "they", "their", "would", "which", "about"]);
-    const keywords = words.filter(w => w.length >= 4 && !commonWords.has(w.toLowerCase())).length;
+    const keywordsCount = words.filter(w => w.length >= 4 && !commonWords.has(w.toLowerCase())).length;
     
-    // Calculate score
     let score = 0;
     const strengths: string[] = [];
     const weaknesses: string[] = [];
     
-    // Word count (ideal: 150-400 words for 1-2 pages)
     if (wordCount >= 150 && wordCount <= 400) {
       score += 15;
-      strengths.push("Good resume length");
+      strengths.push("Optimal Lexical Density");
     } else if (wordCount > 400) {
       score += 10;
-      weaknesses.push("Resume might be too long - consider condensing");
+      weaknesses.push("Excessive Verbosity Detected");
     } else {
       score += 5;
-      weaknesses.push("Resume is too short - add more details");
+      weaknesses.push("Insufficient Content Volume");
     }
     
-    // Sections
     score += Math.min(sections.length * 5, 25);
     if (sections.length >= 4) {
-      strengths.push(`Well-structured with ${sections.length} key sections`);
+      strengths.push(`${sections.length} Structural Vectors Identified`);
     } else {
-      weaknesses.push(`Add more sections (currently ${sections.length}, aim for 4+)`);
+      weaknesses.push("Structural Redundancy - Add Core Sections");
     }
     
-    // Contact info
-    if (hasContactInfo) {
-      score += 10;
-      strengths.push("Contact information present");
-    } else {
-      weaknesses.push("Missing contact information (email/phone)");
-    }
+    if (hasContactInfo) { score += 10; strengths.push("Contact Meta-Data Present"); }
+    else { weaknesses.push("Missing Communication Vector"); }
     
-    // Essential sections
-    if (hasEducation) {
-      score += 10;
-      strengths.push("Education section included");
-    } else {
-      weaknesses.push("Missing education section");
-    }
+    if (hasEducation) { score += 10; strengths.push("Academic History Logged"); }
+    else { weaknesses.push("Missing Educational Validation"); }
     
-    if (hasExperience) {
-      score += 15;
-      strengths.push("Work experience section included");
-    } else {
-      weaknesses.push("Missing work experience section");
-    }
+    if (hasExperience) { score += 15; strengths.push("Professional Experience Detected"); }
+    else { weaknesses.push("Missing Professional History"); }
     
-    if (hasSkills) {
-      score += 10;
-      strengths.push("Skills section included");
-    } else {
-      weaknesses.push("Missing skills section");
-    }
+    if (hasSkills) { score += 10; strengths.push("Competency Matrix Included"); }
+    else { weaknesses.push("Missing Skill Identification"); }
     
-    // Keywords density
-    if (keywords >= 30) {
-      score += 15;
-      strengths.push("Good keyword variety");
-    } else if (keywords >= 20) {
-      score += 10;
-      weaknesses.push("Could use more industry-specific keywords");
-    } else {
-      score += 5;
-      weaknesses.push("Low keyword diversity - add relevant skills and terms");
-    }
+    if (keywordsCount >= 30) { score += 15; strengths.push("High Keyword Variance"); }
+    else { weaknesses.push("Low Industry Keyword Density"); }
     
-    // Job description matching (if provided)
     let matchScore = 0;
     if (jobDescription.trim()) {
       const jobWords = jobDescription.toLowerCase().split(/\s+/).filter(w => w.length >= 4 && !commonWords.has(w));
@@ -142,39 +113,24 @@ export default function ResumeScorePage() {
       matchScore = Math.round((matchingWords / jobWords.length) * 100);
       score += Math.min(matchScore / 5, 15);
       
-      if (matchScore >= 60) {
-        strengths.push(`Strong match (${matchScore}%) with job description`);
-      } else if (matchScore >= 40) {
-        weaknesses.push(`Moderate match (${matchScore}%) with job description`);
-      } else {
-        weaknesses.push(`Low match (${matchScore}%) - align with job requirements`);
-      }
+      if (matchScore >= 60) strengths.push(`Strong ATS Match (${matchScore}%)`);
+      else if (matchScore >= 40) weaknesses.push(`Moderate ATS Alignment (${matchScore}%)`);
+      else weaknesses.push(`Critical Alignment Gap (${matchScore}%)`);
     }
     
-    // Generate suggestions
     const suggestions: string[] = [];
-    if (!hasEmail) suggestions.push("Add your email address");
-    if (!hasPhone) suggestions.push("Include your phone number");
-    if (!sections.includes("Summary")) suggestions.push("Add a professional summary/objective");
-    if (!sections.includes("Skills")) suggestions.push("Create a dedicated skills section");
-    if (!sections.includes("Projects")) suggestions.push("Consider adding notable projects");
-    if (wordCount < 200) suggestions.push("Expand your experience descriptions");
-    if (matchScore > 0 && matchScore < 50) suggestions.push("Incorporate keywords from the job description");
-    suggestions.push("Use action verbs (Managed, Developed, Created, Led)");
-    suggestions.push("Quantify achievements (increased X by Y%, managed $Z budget)");
+    if (!hasEmail) suggestions.push("Initialize Primary Email Vector");
+    if (!hasPhone) suggestions.push("Log Telecommunication Number");
+    if (!sections.includes("Summary")) suggestions.push("Synthesize Professional Summary");
+    if (!sections.includes("Skills")) suggestions.push("Configure Technical Skill Matrix");
+    suggestions.push("Inject Industry Action Verbs");
+    suggestions.push("Quantify Tactical Achievements");
     
-    // Determine grade
-    let grade = "F";
+    let grade = "D";
     if (score >= 90) grade = "A+";
-    else if (score >= 85) grade = "A";
-    else if (score >= 80) grade = "A-";
-    else if (score >= 75) grade = "B+";
+    else if (score >= 80) grade = "A";
     else if (score >= 70) grade = "B";
-    else if (score >= 65) grade = "B-";
-    else if (score >= 60) grade = "C+";
-    else if (score >= 55) grade = "C";
-    else if (score >= 50) grade = "C-";
-    else if (score >= 40) grade = "D";
+    else if (score >= 60) grade = "C";
     
     setResult({
       score: Math.min(Math.round(score), 100),
@@ -184,7 +140,7 @@ export default function ResumeScorePage() {
       strengths,
       weaknesses,
       suggestions,
-      keywordCount: keywords,
+      keywordCount: keywordsCount,
       hasContactInfo,
       hasEducation,
       hasExperience,
@@ -194,228 +150,260 @@ export default function ResumeScorePage() {
     setIsAnalyzing(false);
   };
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return "text-green-600";
-    if (score >= 60) return "text-yellow-600";
-    return "text-red-600";
-  };
-
-  const getScoreBg = (score: number) => {
-    if (score >= 80) return "from-green-500 to-green-600";
-    if (score >= 60) return "from-yellow-500 to-yellow-600";
-    return "from-red-500 to-red-600";
-  };
+  const schema = useMemo(() => generateSoftwareApplicationSchema("resume-score", "Industrial-grade ATS compatibility analyzer with local-first lexical verification."), []);
 
   return (
-    <div className="max-w-6xl mx-auto py-8 sm:py-16 px-4 sm:px-6">
-      {/* Premium Header */}
-      <div className="text-center mb-10 sm:mb-16">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 text-brand-600 text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-brand-100">
-          <Target size={12} />
-          <span>ATS Intelligence V4</span>
-        </div>
-        <h1 className="text-4xl sm:text-6xl font-black text-slate-800 mb-6 tracking-tight">
-          Resume <span className="text-brand-600">Forge</span>
-        </h1>
-        <p className="text-sm sm:text-lg text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
-          Unlock your ATS compatibility score and get industrial-grade optimization tips. 
-          <span className="text-slate-900 font-semibold block sm:inline"> Processed 100% locally. Your career data never leaves your device.</span>
-        </p>
-      </div>
+    <div className="min-h-screen bg-[#020617] selection:bg-emerald-500/30 selection:text-emerald-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left: Input Console */}
-        <div className="lg:col-span-7 space-y-6">
-          <div className="bg-white p-4 sm:p-8 rounded-[1.5rem] sm:rounded-3xl shadow-2xl border border-slate-100 relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-1.5 h-full bg-brand-600" />
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 bg-brand-50 rounded-lg text-brand-600">
-                <FileText size={20} />
-              </div>
-              <h2 className="text-sm font-black text-slate-900 uppercase tracking-[0.2em]">Resume Corpus</h2>
-            </div>
-            <textarea
-              value={resumeText}
-              onChange={(e) => setResumeText(e.target.value)}
-              placeholder="Paste your CV text here for analysis..."
-              rows={12}
-              className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-brand-500/30 focus:ring-4 focus:ring-brand-500/5 outline-none text-slate-700 text-sm font-medium transition-all resize-none placeholder:text-slate-300"
-            />
-            <div className="flex justify-between items-center mt-4">
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{resumeText.split(/\s+/).filter(w => w).length} Words Detected</span>
-              {resumeText && (
-                <button onClick={() => setResumeText("")} className="text-[10px] font-black text-red-500 uppercase tracking-widest hover:underline">Clear</button>
-              )}
-            </div>
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <Target size={14} className="animate-pulse" />
+            ATS Intelligence v4.1
           </div>
-
-          <div className="bg-white p-4 sm:p-8 rounded-[1.5rem] sm:rounded-3xl shadow-2xl border border-slate-100 relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-900" />
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 bg-slate-100 rounded-lg text-slate-600">
-                <Target size={20} />
-              </div>
-              <h2 className="text-sm font-black text-slate-900 uppercase tracking-[0.2em]">Job Specification (Optional)</h2>
-            </div>
-            <textarea
-              value={jobDescription}
-              onChange={(e) => setJobDescription(e.target.value)}
-              placeholder="Paste the target job description to verify keyword alignment..."
-              rows={6}
-              className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-slate-300 focus:ring-4 focus:ring-slate-100 outline-none text-slate-700 text-sm font-medium transition-all resize-none placeholder:text-slate-300"
-            />
-          </div>
-
-          <button
-            onClick={analyzeResume}
-            disabled={!resumeText.trim() || isAnalyzing}
-            className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-[0.3em] shadow-xl hover:bg-brand-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 active:scale-[0.98]"
-          >
-            {isAnalyzing ? <RefreshCw className="animate-spin" /> : <><Zap size={18} /> Run Diagnostics</>}
-          </button>
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            Resume <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 italic">Forge.</span>
+          </h1>
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            Industrial-grade career alignment diagnostics. 
+            <span className="text-slate-200 font-bold block mt-2">Lexical Sovereignty. Zero Data Harvesting. ATS Simulation.</span>
+          </p>
         </div>
+      </section>
 
-        {/* Right: Results Dashboard */}
-        <div className="lg:col-span-5 space-y-6 sticky top-8">
-          {result ? (
-            <>
-              <div className="bg-slate-900 rounded-[2rem] p-8 text-white shadow-3xl border border-slate-800 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 rounded-full blur-3xl" />
-                <div className="flex justify-between items-start mb-10">
-                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-400 mb-2">Aggregate Score</p>
-                    <div className="text-6xl font-black tracking-tighter">{result.score}</div>
-                  </div>
-                  <div className="bg-brand-600 px-6 py-2 rounded-xl font-black text-2xl shadow-lg shadow-brand-600/20">
-                    {result.grade}
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white/5 p-4 rounded-2xl border border-white/10">
-                    <p className="text-[9px] font-black uppercase tracking-widest text-white/40 mb-1">Density</p>
-                    <p className="text-xl font-bold">{result.wordCount} <span className="text-xs font-medium text-white/40">Words</span></p>
-                  </div>
-                  <div className="bg-white/5 p-4 rounded-2xl border border-white/10">
-                    <p className="text-[9px] font-black uppercase tracking-widest text-white/40 mb-1">Keywords</p>
-                    <p className="text-xl font-bold">{result.keywordCount}</p>
-                  </div>
-                </div>
-              </div>
-
-              {result.strengths.length > 0 && (
-                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-xl">
-                  <h3 className="text-[10px] font-black text-green-600 uppercase tracking-widest mb-4 flex items-center gap-2">
-                    <CheckCircle2 size={14} /> Competitive Edge
-                  </h3>
-                  <div className="space-y-3">
-                    {result.strengths.map((s, i) => (
-                      <div key={i} className="flex items-start gap-3 group">
-                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-1.5 group-hover:scale-125 transition-transform" />
-                        <span className="text-xs font-bold text-slate-700 leading-relaxed">{s}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {result.weaknesses.length > 0 && (
-                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-xl">
-                  <h3 className="text-[10px] font-black text-brand-600 uppercase tracking-widest mb-4 flex items-center gap-2">
-                    <AlertCircle size={14} /> Critical Deficits
-                  </h3>
-                  <div className="space-y-3">
-                    {result.weaknesses.map((w, i) => (
-                      <div key={i} className="flex items-start gap-3 group">
-                        <div className="w-1.5 h-1.5 bg-brand-500 rounded-full mt-1.5 group-hover:scale-125 transition-transform" />
-                        <span className="text-xs font-bold text-slate-700 leading-relaxed">{w}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="bg-blue-900 rounded-2xl p-6 text-white shadow-xl">
-                <h3 className="text-[10px] font-black text-blue-300 uppercase tracking-widest mb-4 flex items-center gap-2">
-                  <Award size={14} /> Strategic Advice
-                </h3>
-                <div className="space-y-3">
-                  {result.suggestions.map((s, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <div className="w-1 h-1 bg-blue-400 rounded-full mt-2" />
-                      <span className="text-[11px] font-medium text-blue-100 leading-relaxed">{s}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </>
-          ) : (
-            <div className="bg-slate-50 rounded-[2rem] border-2 border-dashed border-slate-200 p-12 flex flex-col items-center justify-center text-center h-full min-h-[400px]">
-              <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center shadow-sm mb-6">
-                <Zap size={32} className="text-slate-200" />
-              </div>
-              <h3 className="text-lg font-black text-slate-800 mb-2 uppercase tracking-tight">System Ready</h3>
-              <p className="text-sm text-slate-400 max-w-[200px] font-medium leading-relaxed">Paste your data to initialize the diagnostic engine.</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-
-      {/* Information Section */}
-      <div className="max-w-6xl mx-auto px-4 mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-brand-50 rounded-xl text-brand-600">
-              <BookOpen size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Analysis Protocol</h2>
-          </div>
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          <div className="space-y-6">
-            {[
-              { step: "01", title: "Text Ingestion", desc: "Paste your raw resume text. Our engine performs a semantic scan to identify core professional structures." },
-              { step: "02", title: "Target Calibration", desc: "Optionally include a job description. The system will run a cross-comparison to find missing keyword linkages." },
-              { step: "03", title: "ATS Simulation", desc: "Initiate the diagnostic. Our algorithm mimics modern recruitment filters to calculate your visibility score." },
-              { step: "04", title: "Deficit Correction", desc: "Review the results dashboard. Address critical weaknesses and keyword gaps to maximize your interview potential." }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 group">
-                <span className="text-3xl font-black text-slate-100 group-hover:text-brand-100 transition-colors duration-300">{item.step}</span>
-                <div className="space-y-1">
-                  <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-slate-900 rounded-xl text-white">
-              <HelpCircle size={20} />
+          {/* Analysis Input Area */}
+          <div className="lg:col-span-7 space-y-10">
+            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden group">
+               <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                     <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-emerald-400">
+                        <FileText size={22} />
+                     </div>
+                     <div>
+                        <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none italic">Resume Corpus</h3>
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1">Source Text Ingestion</p>
+                     </div>
+                  </div>
+                  {resumeText && (
+                    <button onClick={() => setResumeText("")} className="text-[10px] font-black text-rose-500 uppercase tracking-widest hover:text-white transition-colors">Wipe Data</button>
+                  )}
+               </div>
+               <div className="p-10">
+                  <textarea
+                    value={resumeText}
+                    onChange={(e) => setResumeText(e.target.value)}
+                    placeholder="PASTE PROFESSIONAL HISTORY FOR AUDIT..."
+                    rows={12}
+                    className="w-full bg-white/[0.03] border border-white/5 rounded-[2rem] p-8 text-sm font-bold text-white outline-none focus:bg-white/[0.05] focus:border-emerald-500/30 transition-all placeholder:text-slate-800 tracking-tight uppercase italic resize-none"
+                  />
+                  <div className="mt-6 flex items-center justify-between text-[9px] font-black uppercase tracking-[0.2em] text-slate-700">
+                     <span>Lexical Units: {resumeText.split(/\s+/).filter(w => w).length}</span>
+                     <span>Air-Gapped Processing Enabled</span>
+                  </div>
+               </div>
             </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Career Intelligence FAQ</h2>
+
+            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden group">
+               <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex items-center gap-4">
+                  <div className="p-3 bg-white/5 border border-white/10 rounded-2xl text-slate-400">
+                     <Target size={22} />
+                  </div>
+                  <div>
+                     <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none italic">Job Specification</h3>
+                     <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1 italic">Optional Alignment Target</p>
+                  </div>
+               </div>
+               <div className="p-10">
+                  <textarea
+                    value={jobDescription}
+                    onChange={(e) => setJobDescription(e.target.value)}
+                    placeholder="PASTE TARGET JOB SPECIFICATION..."
+                    rows={6}
+                    className="w-full bg-white/[0.03] border border-white/5 rounded-[2rem] p-8 text-sm font-bold text-white outline-none focus:bg-white/[0.05] focus:border-slate-500/30 transition-all placeholder:text-slate-800 tracking-tight uppercase italic resize-none"
+                  />
+               </div>
+            </div>
+
+            <button
+              onClick={analyzeResume}
+              disabled={!resumeText.trim() || isAnalyzing}
+              className="w-full py-10 bg-white text-slate-900 rounded-[3.5rem] font-black uppercase tracking-[0.4em] text-[10px] shadow-3xl transition-all hover:bg-emerald-600 hover:text-white active:scale-95 flex items-center justify-center gap-6 disabled:opacity-50"
+            >
+              {isAnalyzing ? <RefreshCw className="animate-spin" size={24} /> : <><Zap size={24} strokeWidth={3} /> Execute Diagnostics</>}
+            </button>
           </div>
 
-          <div className="space-y-4">
-            {[
-              { q: "Is this score accurate?", a: "We simulate the standard logic of Applicant Tracking Systems (ATS). While not identical to every tool, it highlights the same core deficits recruiters flag." },
-              { q: "How can I improve my score?", a: "Ensure you have clear headings (Skills, Education, Experience) and incorporate industry-specific action verbs and quantified achievements." },
-              { q: "Are my details saved?", a: "No. SamToolbox operates on a local-only architecture. Your professional history is never transmitted to any cloud or database." },
-              { q: "Why paste text vs uploading?", a: "Pasting text ensures that the parsing engine reads exactly what you see, avoiding the common character encoding errors found in PDF parsers." }
-            ].map((faq, i) => (
-              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
-                  {faq.q}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
-              </div>
-            ))}
+          {/* Results Sidebar */}
+          <div className="lg:col-span-5 space-y-10 lg:sticky lg:top-24">
+             {result ? (
+               <>
+                 {/* Score Dashboard */}
+                 <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black p-12 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-emerald-600 rounded-full blur-[100px] opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-1000" />
+                    
+                    <div className="relative space-y-12">
+                      <div className="flex justify-between items-start">
+                        <div className="space-y-2">
+                           <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.4em] italic">Aggregate Compatibility</p>
+                           <p className="text-[7rem] font-black text-white italic tracking-tighter leading-none">{result.score}<span className="text-2xl">%</span></p>
+                        </div>
+                        <div className="w-24 h-24 bg-emerald-600 rounded-[2.5rem] flex items-center justify-center text-white text-4xl font-black italic shadow-2xl shadow-emerald-900/40 border border-emerald-500/50">
+                           {result.grade}
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-6">
+                         <div className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5">
+                            <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3">Density</p>
+                            <p className="text-3xl font-black text-white tracking-tighter italic">{result.wordCount} <span className="text-[10px] text-slate-500">Units</span></p>
+                         </div>
+                         <div className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5">
+                            <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3">Keywords</p>
+                            <p className="text-3xl font-black text-white tracking-tighter italic">{result.keywordCount}</p>
+                         </div>
+                      </div>
+                    </div>
+                 </div>
+
+                 {/* Competitive Edge */}
+                 <div className="bg-[#0f172a] rounded-[3rem] border border-white/5 shadow-3xl shadow-black p-10 space-y-8">
+                    <div className="flex items-center gap-4 text-emerald-400">
+                       <CheckCircle2 size={24} />
+                       <h3 className="text-lg font-black uppercase tracking-tighter italic">Competitive Edge</h3>
+                    </div>
+                    <div className="space-y-4">
+                       {result.strengths.map((s, i) => (
+                         <div key={i} className="flex items-center gap-4 p-5 bg-white/[0.02] border border-white/5 rounded-2xl group hover:bg-emerald-500/5 hover:border-emerald-500/20 transition-all">
+                            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full group-hover:scale-150 transition-transform" />
+                            <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest italic">{s}</span>
+                         </div>
+                       ))}
+                    </div>
+                 </div>
+
+                 {/* Critical Deficits */}
+                 <div className="bg-[#0f172a] rounded-[3rem] border border-white/5 shadow-3xl shadow-black p-10 space-y-8">
+                    <div className="flex items-center gap-4 text-rose-500">
+                       <AlertCircle size={24} />
+                       <h3 className="text-lg font-black uppercase tracking-tighter italic">Critical Deficits</h3>
+                    </div>
+                    <div className="space-y-4">
+                       {result.weaknesses.map((w, i) => (
+                         <div key={i} className="flex items-center gap-4 p-5 bg-white/[0.02] border border-white/5 rounded-2xl group hover:bg-rose-500/5 hover:border-rose-500/20 transition-all">
+                            <div className="w-1.5 h-1.5 bg-rose-500 rounded-full group-hover:scale-150 transition-transform" />
+                            <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest italic">{w}</span>
+                         </div>
+                       ))}
+                    </div>
+                 </div>
+               </>
+             ) : (
+               <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 border-dashed p-20 flex flex-col items-center justify-center text-center space-y-8 min-h-[500px]">
+                  <div className="w-24 h-24 bg-white/[0.03] border border-white/5 rounded-[2.5rem] flex items-center justify-center text-slate-800 shadow-sm">
+                     <Cpu size={48} strokeWidth={1} />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-black text-slate-700 uppercase tracking-widest italic leading-tight mb-2">Diagnostic <br /> System Offline</h3>
+                    <p className="text-[10px] text-slate-600 font-black uppercase tracking-[0.4em]">Input Data to Initialize</p>
+                  </div>
+               </div>
+             )}
+
+             {/* Privacy Vault */}
+             <div className="p-10 bg-emerald-500/5 rounded-[3rem] border border-emerald-500/10 flex items-center gap-6 shadow-2xl">
+                <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-sm">
+                   <ShieldCheck size={28} />
+                </div>
+                <div>
+                   <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest leading-none mb-1.5 italic">Local Vault Active</p>
+                   <p className="text-[10px] font-bold text-slate-500 leading-tight">Professional data remains within browser memory.</p>
+                </div>
+             </div>
           </div>
         </div>
-      </div>
+
+        {/* Protocol Section */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+           <div className="grid lg:grid-cols-2 gap-24 items-start">
+              <div className="space-y-16">
+                 <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-emerald-500/10 rounded-[1.5rem] flex items-center justify-center text-emerald-400 border border-emerald-500/20">
+                      <ClipboardList size={32} />
+                    </div>
+                    <div>
+                      <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Forge <span className="text-emerald-400">Protocol</span></h2>
+                      <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Analysis Pipeline</p>
+                    </div>
+                 </div>
+
+                 <div className="space-y-10">
+                    {[
+                      { step: "01", title: "Corpus Ingestion", desc: "Our engine performs a multi-pass semantic scan to extract professional entities and structural headers." },
+                      { step: "02", title: "Alignment Targeting", desc: "Cross-comparison with optional job specifications to identify critical keyword deficits and role-specific gaps." },
+                      { step: "03", title: "ATS Simulation", desc: "Algorithm execution mimicking industrial recruitment filters to calculate visibility scores and lexical density." },
+                      { step: "04", title: "Deficit Resolution", desc: "Generation of tactical suggestions to correct structural weaknesses and optimize your interview probability." }
+                    ].map((item, i) => (
+                      <div key={i} className="flex gap-8 group">
+                        <span className="text-5xl font-black text-white/5 group-hover:text-emerald-500/20 transition-all duration-500 italic">{item.step}</span>
+                        <div className="space-y-2">
+                           <h3 className="font-black text-white uppercase tracking-widest text-xs">{item.title}</h3>
+                           <p className="text-slate-500 text-sm leading-relaxed font-medium">{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                 </div>
+              </div>
+
+              <div className="bg-[#0f172a] rounded-[4.5rem] p-16 md:p-24 text-white relative overflow-hidden border border-white/5">
+                 <div className="absolute top-0 right-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+                 <div className="relative z-10 text-center sm:text-left">
+                    <div className="w-24 h-24 bg-emerald-500/10 border border-emerald-500/20 rounded-[2.5rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(16,185,129,0.2)] mx-auto sm:mx-0">
+                      <ShieldCheck size={48} className="text-emerald-400" />
+                    </div>
+                    <h3 className="text-4xl font-black mb-10 tracking-tight uppercase leading-[0.9] italic">Sovereign <span className="text-emerald-400">Analysis.</span></h3>
+                    <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                       Resume Forge operates on a strictly local delivery model. 
+                       No signups, no cloud syncing, no data harvesting. 
+                       Your professional history is your business.
+                    </p>
+                    
+                    <div className="grid grid-cols-2 gap-12">
+                       <div className="space-y-4">
+                          <div className="text-4xl font-black text-white tracking-tighter italic">OFF-GRID</div>
+                          <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-[0.3em]">No Network Calls</div>
+                       </div>
+                       <div className="space-y-4">
+                          <div className="text-4xl font-black text-white tracking-tighter italic">ENCRYPTED</div>
+                          <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-[0.3em]">Local Only Processing</div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+
+        {/* Explore More Tools */}
+        <div className="mt-40 text-center">
+           <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-10">Access further industrial utilities</p>
+           <Link href="/tools" className="inline-flex items-center gap-6 px-20 py-8 bg-white text-slate-900 rounded-[2.5rem] font-black uppercase tracking-widest text-[10px] hover:bg-emerald-600 hover:text-white transition-all shadow-3xl group">
+             Explore All Systems <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
+           </Link>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,18 +1,25 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Upload, Download, Trash2, FileText, ChevronUp, ChevronDown, Zap, ShieldCheck, BookOpen, HelpCircle } from "lucide-react";
+import { useState, useRef, useMemo } from "react";
+import { 
+  Upload, Download, Trash2, FileText, ChevronUp, ChevronDown, 
+  Zap, ShieldCheck, BookOpen, HelpCircle, Terminal, Plus, X, RefreshCw
+} from "lucide-react";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
 export default function ImageToPdfPage() {
-  const [images, setImages] = useState<{ url: string; file: File }[]>([]);
+  const [images, setImages] = useState<{ url: string; file: File; id: string }[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const schema = useMemo(() => generateSoftwareApplicationSchema("image-to-pdf", "Industrial-grade image to PDF synthesis engine with local-only processing."), []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const newImages = Array.from(e.target.files).map(file => ({
         file,
-        url: URL.createObjectURL(file)
+        url: URL.createObjectURL(file),
+        id: Math.random().toString(36).substring(7)
       }));
       setImages(prev => [...prev, ...newImages]);
     }
@@ -70,216 +77,228 @@ export default function ImageToPdfPage() {
         let finalWidth = pdfWidth;
         let finalHeight = pdfHeight;
         
-        // Fit within page maintaining aspect ratio
         if (imgRatio > pdfRatio) {
           finalHeight = pdfWidth / imgRatio;
         } else {
           finalWidth = pdfHeight * imgRatio;
         }
 
-        // Center on page
         const x = (pdfWidth - finalWidth) / 2;
         const y = (pdfHeight - finalHeight) / 2;
 
         pdf.addImage(img, "JPEG", x, y, finalWidth, finalHeight);
       }
       
-      pdf.save("converted.pdf");
+      pdf.save(`synthesis-${new Date().getTime()}.pdf`);
     } catch (err) {
       console.error(err);
-      alert("Failed to generate PDF.");
+      alert("Synthesis Conflict: Critical error during image-to-binary conversion.");
     } finally {
       setIsGenerating(false);
     }
   };
 
   return (
-    <>
-      <div className="max-w-6xl mx-auto py-8 sm:py-12 px-4 sm:px-6">
-      <div className="text-center mb-10 sm:mb-16">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-[10px] font-black uppercase tracking-[0.2em] mb-6 sm:mb-8 border border-purple-100">
-          <FileText size={12} />
-          <span>Industrial Document Creator</span>
-        </div>
-        <h1 className="text-4xl sm:text-6xl font-black text-slate-800 mb-6 tracking-tight">
-          Image to <span className="text-purple-600">PDF</span>
-        </h1>
-        <p className="text-sm sm:text-lg text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
-          Convert high-resolution images into professional PDF documents instantly.
-          <span className="text-slate-900 font-semibold block sm:inline"> Your files are processed locally with zero quality loss.</span>
-        </p>
-      </div>
+    <div className="min-h-screen bg-[#020617] selection:bg-orange-500/30 selection:text-orange-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      {/* Main Upload/Editor */}
-      <div className="bg-white p-4 sm:p-10 rounded-[1.5rem] sm:rounded-3xl shadow-2xl border border-slate-100 mb-8 relative overflow-hidden">
-        <div
-          className="border-2 border-dashed border-slate-200 rounded-2xl p-8 sm:p-20 text-center hover:border-purple-300 hover:bg-purple-50/30 transition-all cursor-pointer mb-6 group"
-          onClick={() => fileInputRef.current?.click()}
-        >
-          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-purple-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-            <Upload className="h-8 w-8 sm:h-10 sm:w-10 text-purple-600" />
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/10 border border-orange-500/20 rounded-full text-orange-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <Zap size={14} className="animate-pulse" />
+            Synthesis Engine v6.7
           </div>
-          <h3 className="text-xl sm:text-2xl font-black text-slate-800 mb-3">Load Source Images</h3>
-          <p className="text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
-            Drag and drop or browse for JPG/PNG files. High-fidelity output preserved for 300 DPI prints.
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            Asset <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-400 italic">Fusion.</span>
+          </h1>
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            Multi-image to PDF architectural mapping. 
+            <span className="text-slate-200 font-bold block mt-2">Local Binary Synthesis. Zero Cloud Buffering. High-Fidelity Rendering.</span>
           </p>
         </div>
+      </section>
 
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          className="hidden"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-        />
-
-        {images.length > 0 && (
-          <div className="mt-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white text-[10px] font-black">
-                  {images.length}
-                </div>
-                <h3 className="text-sm font-black text-slate-800 uppercase tracking-widest">
-                  Processing Queue
-                </h3>
-              </div>
-              <button
-                onClick={() => setImages([])}
-                className="text-[10px] font-black uppercase tracking-widest text-red-500 hover:text-red-700 transition px-3 py-1 bg-red-50 rounded-full border border-red-100"
-              >
-                Clear All
-              </button>
-            </div>
-
-            <div className="space-y-4 mb-10 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
-              {images.map((img, index) => (
-                <div key={index} className="group flex items-center justify-between p-3 sm:p-5 bg-slate-50 hover:bg-white rounded-2xl border border-slate-100 hover:border-purple-200 transition-all shadow-sm hover:shadow-md">
-                  <div className="flex items-center gap-4 sm:gap-6 min-w-0">
-                    <div className="relative shrink-0">
-                      <img src={img.url} alt={`img-${index}`} className="w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-xl shadow-sm border border-slate-200" />
-                      <div className="absolute -top-2 -left-2 w-6 h-6 bg-purple-600 text-white rounded-lg flex items-center justify-center text-[10px] font-black shadow-lg">
-                        {index + 1}
-                      </div>
-                    </div>
-                    <div className="min-w-0">
-                      <p className="font-bold text-slate-800 truncate text-sm sm:text-base mb-1">{img.file.name}</p>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Page Layout</span>
-                        <div className="w-1 h-1 rounded-full bg-slate-300" />
-                        <span className="text-[10px] font-black text-purple-600 uppercase tracking-widest">Auto-Scale</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 sm:gap-3">
-                    <div className="flex flex-col gap-1">
-                      <button onClick={() => moveUp(index)} disabled={index === 0} className="p-2 text-slate-400 hover:text-purple-600 hover:bg-purple-50 rounded-lg disabled:opacity-20 transition-colors">
-                        <ChevronUp size={18} />
-                      </button>
-                      <button onClick={() => moveDown(index)} disabled={index === images.length - 1} className="p-2 text-slate-400 hover:text-purple-600 hover:bg-purple-50 rounded-lg disabled:opacity-20 transition-colors">
-                        <ChevronDown size={18} />
-                      </button>
-                    </div>
-                    <button onClick={() => removeImage(index)} className="p-3 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors">
-                      <Trash2 size={20} />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <button
-              onClick={generatePDF}
-              disabled={isGenerating}
-              className="w-full group relative py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-[0.3em] text-xs shadow-2xl transition-all hover:-translate-y-1 active:translate-y-0 disabled:opacity-50 overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative flex items-center justify-center gap-3">
-                {isGenerating ? <Zap className="animate-pulse" size={18} /> : <FileText size={18} />}
-                {isGenerating ? "FORGING DOCUMENT..." : "GENERATE MASTER PDF"}
-              </div>
-            </button>
-          </div>
-        )}
-
-        {/* Benefits Section */}
-        {images.length === 0 && (
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {[
-              { icon: Zap, label: "INSTANT CONVERSION", desc: "Proprietary browser-side engine combines images in milliseconds." },
-              { icon: ShieldCheck, label: "TOTAL PRIVACY", desc: "No uploads. No cloud. Your data never leaves this window." },
-              { icon: FileText, label: "ULTRA QUALITY", desc: "High-resolution output preserving original pixel density." }
-            ].map((feature, i) => (
-              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl transition-all duration-300">
-                <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-sm text-purple-600">
-                  <feature.icon size={24} />
-                </div>
-                <h3 className="text-[11px] font-black text-slate-900 mb-2 uppercase tracking-widest">{feature.label}</h3>
-                <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                  {feature.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-
-      {/* Information Section */}
-      <div className="max-w-6xl mx-auto px-4 mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-purple-50 rounded-xl text-purple-600">
-              <BookOpen size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Forging Protocol</h2>
-          </div>
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          <div className="space-y-6">
-            {[
-              { step: "01", title: "Asset Ingestion", desc: "Select your source images (JPG, PNG, WebP). You can batch-upload entire folders for rapid processing." },
-              { step: "02", title: "Sequence Control", desc: "Use the arrangement toggles to reorder pages. This defines the final chronological flow of your PDF document." },
-              { step: "03", title: "Layout Optimization", desc: "Our engine automatically calibrates each image to fit standard A4 dimensions while strictly preserving aspect ratios." },
-              { step: "04", title: "Master Export", desc: "Initialize the local compilation engine to generate your multi-page PDF. The file is saved directly to your local downloads." }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 group">
-                <span className="text-3xl font-black text-slate-100 group-hover:text-purple-100 transition-colors duration-300">{item.step}</span>
-                <div className="space-y-1">
-                  <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+          {/* Workspace */}
+          <div className="lg:col-span-8 space-y-8">
+            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+               <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                     <div className="p-3 bg-orange-500/10 border border-orange-500/20 rounded-2xl text-orange-400">
+                        <Terminal size={22} />
+                     </div>
+                     <div>
+                        <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none">Synthesis Core</h3>
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1 italic">{images.length} Assets loaded</p>
+                     </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                     <button 
+                       onClick={() => fileInputRef.current?.click()}
+                       className="px-6 py-4 bg-white/5 hover:bg-white/10 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all border border-white/5 shadow-xl flex items-center gap-2"
+                     >
+                       <Plus size={16} /> Add Assets
+                     </button>
+                     <input
+                       type="file"
+                       ref={fileInputRef}
+                       onChange={handleFileChange}
+                       accept="image/*"
+                       multiple
+                       className="hidden"
+                     />
+                     <button 
+                       onClick={generatePDF}
+                       disabled={images.length === 0 || isGenerating}
+                       className="px-8 py-4 bg-orange-600 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-orange-500 transition-all flex items-center gap-3 shadow-xl disabled:opacity-30"
+                     >
+                       {isGenerating ? <RefreshCw className="animate-spin" size={16} /> : <Download size={16} />} Synthesize
+                     </button>
+                  </div>
+               </div>
+
+               <div className="p-10">
+                  {images.length === 0 ? (
+                    <div 
+                      onClick={() => fileInputRef.current?.click()}
+                      className="border-2 border-dashed border-white/5 rounded-[2.5rem] py-40 flex flex-col items-center justify-center group cursor-pointer hover:border-orange-500/30 transition-all hover:bg-orange-500/[0.02]"
+                    >
+                       <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center text-slate-500 group-hover:text-orange-400 group-hover:scale-110 transition-all duration-500 mb-6">
+                          <Upload size={40} />
+                       </div>
+                       <p className="text-slate-500 font-bold uppercase tracking-widest text-xs italic">Awaiting Asset Injection</p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 animate-in zoom-in-95 duration-500">
+                       {images.map((img, index) => (
+                         <div key={img.id} className="bg-black/40 border border-white/5 rounded-[2.5rem] overflow-hidden group relative">
+                            <div className="aspect-[4/3] relative">
+                               <img src={img.url} alt="asset" className="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700" />
+                               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                            </div>
+                            <div className="absolute top-6 right-6 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0">
+                               <button onClick={() => moveUp(index)} className="p-2 bg-black/60 text-white rounded-lg hover:bg-orange-600 transition-colors border border-white/10"><ChevronUp size={16} /></button>
+                               <button onClick={() => moveDown(index)} className="p-2 bg-black/60 text-white rounded-lg hover:bg-orange-600 transition-colors border border-white/10"><ChevronDown size={16} /></button>
+                               <button onClick={() => removeImage(index)} className="p-2 bg-rose-600/80 text-white rounded-lg hover:bg-rose-600 transition-colors border border-white/10"><Trash2 size={16} /></button>
+                            </div>
+                            <div className="absolute bottom-6 left-8 right-8">
+                               <p className="text-white font-black text-[10px] uppercase tracking-widest truncate">{img.file.name}</p>
+                               <p className="text-slate-500 font-bold text-[9px] uppercase tracking-widest mt-1">Page {index + 1}</p>
+                            </div>
+                         </div>
+                       ))}
+                    </div>
+                  )}
+               </div>
+            </div>
+          </div>
+
+          {/* Action Sidebar */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="bg-[#0f172a] p-10 rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-orange-600/5 rounded-full blur-3xl" />
+               <div className="flex items-center gap-4 mb-8">
+                  <div className="p-3 bg-orange-500/10 border border-orange-500/20 rounded-2xl text-orange-400">
+                    <FileText size={24} />
+                  </div>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tighter">Status</h3>
+               </div>
+               <div className="space-y-6">
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Standard</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">ISO 32000-2</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Latency</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">Zero</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-[9px] font-black text-orange-500 uppercase tracking-[0.4em] pt-4 border-t border-white/5">
+                     <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+                     Fuser Active
+                  </div>
+               </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-orange-600 to-amber-700 p-10 rounded-[3.5rem] text-white relative overflow-hidden shadow-3xl border border-orange-500/20">
+               <ShieldCheck size={120} className="absolute -bottom-10 -right-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000" />
+               <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter italic">Vault Secure</h3>
+               <p className="text-orange-100 font-medium text-sm leading-relaxed">
+                  Asset synthesis is executed strictly via local browser logic. Your raw image bitstreams are never authorized for cloud transmission.
+               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ══════════════════════════════════════════
+            DOCUMENTATION & FAQ
+        ══════════════════════════════════════════ */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+          <div className="grid lg:grid-cols-2 gap-24 items-start">
+            <div className="space-y-16">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-orange-500/10 rounded-[1.5rem] flex items-center justify-center text-orange-400 border border-orange-500/20">
+                  <HelpCircle size={32} />
+                </div>
+                <div>
+                  <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Fuser <span className="text-orange-400">FAQ</span></h2>
+                  <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Synthesis Queries</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-slate-900 rounded-xl text-white">
-              <HelpCircle size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Document Intelligence FAQ</h2>
-          </div>
-
-          <div className="space-y-4">
-            {[
-              { q: "Is there a page limit?", a: "No. The tool supports as many pages as your system memory can handle. We've successfully forged PDFs with 100+ images." },
-              { q: "Will original quality be lost?", a: "No. We utilize high-fidelity rendering to ensure that original pixel density is maintained in the final PDF archive." },
-              { q: "What formats are supported?", a: "You can combine JPG, PNG, and WebP images. All will be normalized into the standard PDF container." },
-              { q: "Are my images private?", a: "Yes. Processing is 100% browser-based. Your source images never cross the network or touch any external storage." }
-            ].map((faq, i) => (
-              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
-                  {faq.q}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+              <div className="space-y-6">
+                {[
+                  { q: "Is fidelity preserved?", a: "Affirmative. The synthesis engine maps images to the PDF document grid with high-resolution vector scaling for maximum clarity." },
+                  { q: "Maximum page count?", a: "The architecture handles high-density archives; however, system RAM determines the maximum image buffer capacity for synthesis." },
+                  { q: "Supported source formats?", a: "The fuser handles all major web-standard image formats including JPEG, PNG, and WebP via local hardware acceleration." }
+                ].map((faq, i) => (
+                  <div key={i} className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 hover:border-orange-500/20 transition-all group">
+                    <h3 className="font-black text-white text-sm mb-4 flex items-start gap-4">
+                      <span className="text-orange-400 font-mono">Q.</span> {faq.q}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div className="bg-[#0f172a] rounded-[4rem] p-16 md:p-20 text-white relative overflow-hidden border border-white/5">
+               <div className="absolute top-0 right-0 w-full h-full opacity-[0.02] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+               <div className="relative z-10 text-center sm:text-left">
+                  <div className="w-24 h-24 bg-orange-500/10 border border-orange-500/20 rounded-[2rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(249,115,22,0.2)] mx-auto sm:mx-0">
+                    <BookOpen size={48} className="text-orange-400" />
+                  </div>
+                  <h3 className="text-4xl font-black mb-8 tracking-tight uppercase leading-none">Best Practices</h3>
+                  <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                    For optimal synthesis velocity, organize your image assets 
+                    in the desired sequence before executing the fusion protocol.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-12">
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">0-LOG</div>
+                        <div className="text-[10px] font-bold text-orange-400 uppercase tracking-[0.3em]">Privacy Index</div>
+                     </div>
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">FUSION</div>
+                        <div className="text-[10px] font-bold text-orange-400 uppercase tracking-[0.3em]">Direct Logic</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
           </div>
         </div>
-      </div>
-    </>
+      </section>
+    </div>
   );
 }

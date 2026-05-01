@@ -1,13 +1,16 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { PDFDocument } from "pdf-lib";
-import { Upload, Download, RefreshCw, FileText, BookOpen, HelpCircle } from "lucide-react";
+import { Upload, Download, RefreshCw, FileText, BookOpen, HelpCircle, ShieldCheck, Zap, Terminal, X } from "lucide-react";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
 export default function PdfCompressPage() {
   const [file, setFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const schema = useMemo(() => generateSoftwareApplicationSchema("pdf-compress", "Professional-grade PDF optimization engine with local-only processing and lossless structural compression."), []);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -21,11 +24,7 @@ export default function PdfCompressPage() {
     
     try {
       const arrayBuffer = await file.arrayBuffer();
-      // Load with updateMetadata set to false to maybe drop some metadata
       const pdf = await PDFDocument.load(arrayBuffer, { updateMetadata: false });
-      
-      // Save it back. By default, pdf-lib removes unused objects when saving
-      // which can reduce the size of poorly optimized PDFs.
       const pdfBytes = await pdf.save({ useObjectStreams: false }); 
       
       const blob = new Blob([pdfBytes as any], { type: "application/pdf" });
@@ -33,147 +32,226 @@ export default function PdfCompressPage() {
       
       const a = document.createElement("a");
       a.href = url;
-      a.download = `compressed-${file.name}`;
+      a.download = `optimized-${file.name}`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error(err);
-      alert("Failed to compress PDF. It might be password protected.");
+      alert("Optimization Conflict: Unable to restructure PDF binary. Ensure file is not encrypted.");
     } finally {
       setIsProcessing(false);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-8 sm:py-16 px-4 sm:px-6">
-      <div className="text-center mb-10 sm:mb-16">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-red-100">
-          <FileText size={12} />
-          <span>Local PDF Engine</span>
-        </div>
-        <h1 className="text-4xl sm:text-6xl font-black text-slate-800 mb-6 tracking-tight">
-          PDF <span className="text-red-600">Compress</span>
-        </h1>
-        <p className="text-sm sm:text-lg text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
-          Lightweight local optimization. 
-          <span className="text-slate-900 font-semibold block sm:inline"> Securely restructure documents to reduce file size without uploads.</span>
-        </p>
-      </div>
+    <div className="min-h-screen bg-[#020617] selection:bg-rose-500/30 selection:text-rose-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      <div className="bg-white p-4 sm:p-10 rounded-[1.5rem] sm:rounded-3xl shadow-2xl border border-slate-100 mb-8 relative overflow-hidden group">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-full -translate-y-16 translate-x-16 opacity-50 group-hover:scale-110 transition-transform duration-700" />
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         
-        {!file ? (
-          <div 
-            className="border-2 border-dashed border-slate-200 rounded-2xl p-8 sm:p-16 text-center hover:border-red-300 hover:bg-red-50/30 transition-all cursor-pointer group relative z-10"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <Upload className="h-8 w-8 sm:h-10 sm:w-10 text-red-600" />
-            </div>
-            <h3 className="text-xl sm:text-2xl font-black text-slate-800 mb-2">Select PDF</h3>
-            <p className="text-sm text-slate-500">Fast, local, and private processing</p>
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-rose-500/10 border border-rose-500/20 rounded-full text-rose-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <RefreshCw size={14} className="animate-spin-slow" />
+            Optimization Engine v4.11
           </div>
-        ) : (
-          <div className="space-y-8 relative z-10">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 sm:p-6 bg-slate-50 rounded-2xl border border-slate-100 gap-4">
-              <div className="flex items-center gap-4 min-w-0">
-                <div className="w-12 h-12 bg-white text-red-600 rounded-xl flex items-center justify-center shadow-sm shrink-0">
-                  <FileText size={24} />
-                </div>
-                <div className="min-w-0">
-                  <h4 className="font-bold text-slate-800 truncate text-sm sm:text-base">{file.name}</h4>
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Weight: {(file.size / 1024 / 1024).toFixed(2)} MB</p>
-                </div>
-              </div>
-              <button 
-                onClick={() => { setFile(null); }}
-                className="w-full sm:w-auto px-4 py-2 text-xs font-black uppercase tracking-widest text-red-500 hover:bg-red-50 rounded-lg transition-colors border border-transparent hover:border-red-100"
-              >
-                Remove
-              </button>
-            </div>
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            Binary <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-red-400 italic">Shrink.</span>
+          </h1>
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            Lossless structural optimization for high-density PDF archives. 
+            <span className="text-slate-200 font-bold block mt-2">100% Local Logic. Zero Cloud Buffering. Pure Memory Execution.</span>
+          </p>
+        </div>
+      </section>
 
-            <div className="bg-brand-50/50 p-6 rounded-2xl border border-brand-100 text-xs sm:text-sm text-slate-600 leading-relaxed">
-              <p className="flex gap-2">
-                <span className="font-black text-brand-600 uppercase tracking-tighter">Note:</span>
-                Browser-based compression strips unused objects and metadata. For scanned documents, it focuses on structural optimization.
-              </p>
-            </div>
-
-            <button
-              onClick={compressPDF}
-              disabled={isProcessing}
-              className="w-full py-4 sm:py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-[0.2em] shadow-xl hover:bg-red-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 active:scale-[0.98]"
-            >
-              {isProcessing ? <RefreshCw className="animate-spin" /> : <><Download size={18} /> Rebuild & Save</>}
-            </button>
-          </div>
-        )}
-        <input 
-          type="file" 
-          accept="application/pdf" 
-          className="hidden" 
-          ref={fileInputRef} 
-          onChange={handleFileChange} 
-        />
-      </div>
-    </div>
-
-      {/* Information Section */}
-      <div className="max-w-4xl mx-auto px-4 mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-red-50 rounded-xl text-red-600">
-              <BookOpen size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Optimization Protocol</h2>
-          </div>
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          <div className="space-y-6">
-            {[
-              { step: "01", title: "Document Selection", desc: "Upload your target PDF. Our engine maps it directly to browser memory for analysis." },
-              { step: "02", title: "Structural Scan", desc: "The processor identifies redundant objects, stale metadata, and unoptimized page trees." },
-              { step: "03", title: "Lossless Rebuild", desc: "The PDF is re-encoded using efficient object streams to reduce weight without affecting content." },
-              { step: "04", title: "Secure Export", desc: "Download the rebuilt document. The process is finalized entirely within your local sandbox." }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 group">
-                <span className="text-3xl font-black text-slate-100 group-hover:text-red-100 transition-colors duration-300">{item.step}</span>
-                <div className="space-y-1">
-                  <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+          {/* Optimization Workspace */}
+          <div className="lg:col-span-8 space-y-8">
+            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+               <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                     <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-400">
+                        <Terminal size={22} />
+                     </div>
+                     <div>
+                        <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none">Optimization Core</h3>
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1 italic">Ready for re-encoding</p>
+                     </div>
+                  </div>
+                  <button 
+                    onClick={() => fileInputRef.current?.click()}
+                    className="px-8 py-4 bg-rose-600 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-rose-500 transition-all flex items-center gap-3 shadow-xl"
+                  >
+                    <Upload size={16} /> Inject Asset
+                  </button>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    accept="application/pdf"
+                    className="hidden"
+                  />
+               </div>
+
+               <div className="p-10">
+                  {!file ? (
+                    <div 
+                      onClick={() => fileInputRef.current?.click()}
+                      className="border-2 border-dashed border-white/5 rounded-[2.5rem] py-32 flex flex-col items-center justify-center group cursor-pointer hover:border-rose-500/30 transition-all hover:bg-rose-500/[0.02]"
+                    >
+                       <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center text-slate-500 group-hover:text-rose-400 group-hover:scale-110 transition-all duration-500 mb-6">
+                          <FileText size={40} />
+                       </div>
+                       <p className="text-slate-500 font-bold uppercase tracking-widest text-xs italic">Awaiting Asset Injection</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-10 animate-in zoom-in-95 duration-500">
+                       <div className="flex flex-col md:flex-row gap-10 items-center">
+                          <div className="w-full md:w-1/2 aspect-video bg-black/40 rounded-[2.5rem] overflow-hidden border border-white/5 relative group flex items-center justify-center">
+                             <div className="text-center p-8">
+                                <FileText size={80} className="text-rose-500/20 mx-auto mb-6" />
+                                <p className="text-white font-black truncate max-w-[250px] text-sm uppercase tracking-tight">{file.name}</p>
+                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mt-2">{(file.size / 1024 / 1024).toFixed(2)} MB Detected</p>
+                             </div>
+                             <button 
+                               onClick={() => setFile(null)}
+                               className="absolute top-8 right-8 bg-rose-600/20 text-rose-400 p-2 rounded-xl border border-rose-500/20 hover:bg-rose-600/40 transition-all"
+                             >
+                                <X size={16} />
+                             </button>
+                          </div>
+
+                          <div className="w-full md:w-1/2 space-y-8">
+                             <div className="p-8 bg-white/5 rounded-3xl border border-white/5 space-y-6">
+                                <div className="flex items-center gap-3">
+                                   <Zap size={18} className="text-rose-400" />
+                                   <span className="text-[10px] font-black text-white uppercase tracking-widest">Efficiency Vector</span>
+                                </div>
+                                <p className="text-slate-400 text-xs font-medium leading-relaxed">
+                                   Applying structural normalization to the PDF object stream. This process isolates and purges redundant binary markers.
+                                </p>
+                             </div>
+
+                             <button 
+                               onClick={compressPDF}
+                               disabled={isProcessing}
+                               className="w-full py-6 bg-rose-600 text-white rounded-[1.5rem] font-black uppercase tracking-widest text-xs hover:bg-rose-500 transition-all flex items-center justify-center gap-4 shadow-2xl disabled:opacity-30"
+                             >
+                               {isProcessing ? <RefreshCw className="animate-spin" size={20} /> : <><Download size={20} /> Execute Optimization</>}
+                             </button>
+                          </div>
+                       </div>
+                    </div>
+                  )}
+               </div>
+            </div>
+          </div>
+
+          {/* Action Sidebar */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="bg-[#0f172a] p-10 rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-rose-600/5 rounded-full blur-3xl" />
+               <div className="flex items-center gap-4 mb-8">
+                  <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-400">
+                    <RefreshCw size={24} />
+                  </div>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tighter">Status</h3>
+               </div>
+               <div className="space-y-6">
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Vector Mode</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">Object-Stream</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Latency</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">Zero</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-[9px] font-black text-rose-500 uppercase tracking-[0.4em] pt-4 border-t border-white/5">
+                     <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+                     Optimizer Active
+                  </div>
+               </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-rose-600 to-red-700 p-10 rounded-[3.5rem] text-white relative overflow-hidden shadow-3xl border border-rose-500/20">
+               <ShieldCheck size={120} className="absolute -bottom-10 -right-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000" />
+               <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter italic">Vault Secure</h3>
+               <p className="text-rose-100 font-medium text-sm leading-relaxed">
+                  Structural optimization is executed strictly via local hardware processing. Your document bitstreams are never transmitted to cloud infrastructure.
+               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ══════════════════════════════════════════
+            DOCUMENTATION & FAQ
+        ══════════════════════════════════════════ */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+          <div className="grid lg:grid-cols-2 gap-24 items-start">
+            <div className="space-y-16">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-rose-500/10 rounded-[1.5rem] flex items-center justify-center text-rose-400 border border-rose-500/20">
+                  <HelpCircle size={32} />
+                </div>
+                <div>
+                  <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Optimizer <span className="text-rose-400">FAQ</span></h2>
+                  <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Binary Queries</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-slate-900 rounded-xl text-white">
-              <HelpCircle size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Compression FAQ</h2>
-          </div>
-
-          <div className="space-y-4">
-            {[
-              { q: "How much size is saved?", a: "Results vary. Typical files see 10-30% reduction by purging redundant structural data and unoptimized metadata." },
-              { q: "Will image quality drop?", a: "No. This tool utilizes structural optimization rather than image downsampling, preserving original visual fidelity." },
-              { q: "Is it safe for legal files?", a: "Yes. Since all processing is 100% local, sensitive documents never cross the network or touch our servers." },
-              { q: "Can I undo compression?", a: "Compression is a rebuild process. We recommend keeping your original file until you've verified the optimized version." }
-            ].map((faq, i) => (
-              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-                  {faq.q}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+              <div className="space-y-6">
+                {[
+                  { q: "Is optimization lossy?", a: "Negative. The engine targets structural redundancies within the PDF object stream without altering page pixel data or vector fidelity." },
+                  { q: "Encrypted asset support?", a: "The optimizer requires direct object-stream access. Encrypted documents must be decrypted locally prior to structural re-mapping." },
+                  { q: "Maximum file size?", a: "The core is optimized for high-density archives; however, system RAM determines the maximum bitstream capacity for structural analysis." }
+                ].map((faq, i) => (
+                  <div key={i} className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 hover:border-rose-500/20 transition-all group">
+                    <h3 className="font-black text-white text-sm mb-4 flex items-start gap-4">
+                      <span className="text-rose-400 font-mono">Q.</span> {faq.q}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div className="bg-[#0f172a] rounded-[4rem] p-16 md:p-20 text-white relative overflow-hidden border border-white/5">
+               <div className="absolute top-0 right-0 w-full h-full opacity-[0.02] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+               <div className="relative z-10 text-center sm:text-left">
+                  <div className="w-24 h-24 bg-rose-500/10 border border-rose-500/20 rounded-[2rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(225,29,72,0.2)] mx-auto sm:mx-0">
+                    <BookOpen size={48} className="text-rose-400" />
+                  </div>
+                  <h3 className="text-4xl font-black mb-8 tracking-tight uppercase leading-none">Best Practices</h3>
+                  <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                    For optimal archiving efficiency, normalize high-density PDF 
+                    assets before committing to long-term storage volumes.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-12">
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">0-LOG</div>
+                        <div className="text-[10px] font-bold text-rose-400 uppercase tracking-[0.3em]">Privacy Index</div>
+                     </div>
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">STRUCT</div>
+                        <div className="text-[10px] font-bold text-rose-400 uppercase tracking-[0.3em]">Re-Map Logic</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

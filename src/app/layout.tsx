@@ -87,12 +87,13 @@ export default function RootLayout({
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6367920112912612"
         crossOrigin="anonymous"
+        strategy="lazyOnload"
       />
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
-       <Script id="google-analytics" strategy="afterInteractive">
+       <Script id="google-analytics" strategy="lazyOnload">
          {`
            window.dataLayer = window.dataLayer || [];
            function gtag(){dataLayer.push(arguments);}
@@ -112,7 +113,7 @@ export default function RootLayout({
            }),
          }}
        />
-       <body className="min-h-full flex flex-col font-sans bg-white text-slate-900">
+       <body className="min-h-full flex flex-col font-sans bg-[#020617] text-slate-200">
         <Preloader />
         <Navbar />
         {/* Removed max-w-7xl and padding here to allow full-width heroes/sections per-page */}

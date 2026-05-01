@@ -1,13 +1,21 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Download, RefreshCw, Type, Palette, Layout, Settings2, HelpCircle, BookOpen } from "lucide-react";
+import { useState, useRef, useEffect, useMemo } from "react";
+import { 
+  Download, RefreshCw, Palette, Settings, 
+  HelpCircle, BookOpen, ShieldCheck, Zap,
+  Cpu, QrCode, Terminal
+} from "lucide-react";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
 export default function QrGeneratorPage() {
   const [text, setText] = useState("https://samtoolbox.vercel.app");
   const [colorLight, setColorLight] = useState("#ffffff");
-  const [colorDark, setColorDark] = useState("#0f172a"); // Deep Slate
+  const [colorDark, setColorDark] = useState("#0f172a"); 
+  const [isGenerating, setIsGenerating] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const schema = useMemo(() => generateSoftwareApplicationSchema("qr-generator", "Professional industrial-grade QR code generation engine with local-only processing."), []);
 
   useEffect(() => {
     generateQR();
@@ -15,19 +23,24 @@ export default function QrGeneratorPage() {
 
   const generateQR = async () => {
     if (!canvasRef.current) return;
+    setIsGenerating(true);
     
     try {
       const QRCode = (await import("qrcode")).default;
       await QRCode.toCanvas(canvasRef.current, text || " ", {
-        width: 300,
+        width: 1000, 
         margin: 2,
         color: {
           dark: colorDark,
           light: colorLight,
         },
       });
+      canvasRef.current.style.width = '100%';
+      canvasRef.current.style.height = 'auto';
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -36,206 +49,216 @@ export default function QrGeneratorPage() {
     const url = canvasRef.current.toDataURL("image/png");
     const a = document.createElement("a");
     a.href = url;
-    a.download = `samtoolbox-qr-${Date.now()}.png`;
+    a.download = `qr-matrix-${Date.now()}.png`;
     a.click();
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] py-12 px-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Header Section */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center p-3 mb-6 rounded-2xl bg-white shadow-xl shadow-blue-500/10 border border-blue-50/50">
-            <Layout className="w-8 h-8 text-brand-600" />
+    <div className="min-h-screen bg-[#020617] selection:bg-blue-500/30 selection:text-blue-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <QrCode size={14} className="animate-pulse" />
+            Matrix Architect v8.2
           </div>
-          <h1 className="text-5xl font-black text-slate-900 mb-4 tracking-tight">
-            Universal QR <span className="text-brand-600">Generator</span>
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            QR <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 italic">Matrix.</span>
           </h1>
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-            Design professional, high-resolution QR codes for your brand, 
-            completely offline and secure within your browser.
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            High-resolution data encoding. 
+            <span className="text-slate-200 font-bold block mt-2">Static Pattern Forge. Zero-Redirection. Pure Local Generation.</span>
           </p>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          {/* Dashboard Left: Controls */}
-          <div className="lg:col-span-7 space-y-6">
-            
-            {/* Input Card */}
-            <div className="bg-white p-8 rounded-[2rem] shadow-2xl shadow-slate-200/50 border border-white relative overflow-hidden group">
-              <div className="absolute top-0 left-0 w-2 h-full bg-brand-600 transition-all duration-300 group-hover:w-3"></div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-brand-50 rounded-lg text-brand-600">
-                  <Type size={20} />
-                </div>
-                <h2 className="text-xl font-black text-slate-800">Content Logic</h2>
-              </div>
-              
-              <textarea
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                placeholder="Paste your URL, text, or vCard here..."
-                className="w-full h-40 p-5 rounded-2xl bg-slate-50 border-2 border-slate-100 focus:border-brand-500/30 focus:ring-4 focus:ring-brand-500/5 outline-none resize-none transition text-slate-700 font-medium placeholder:text-slate-400"
-              />
-            </div>
-
-            {/* Aesthetics Card */}
-            <div className="bg-white p-8 rounded-[2rem] shadow-2xl shadow-slate-200/50 border border-white">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="p-2 bg-brand-50 rounded-lg text-brand-600">
-                  <Palette size={20} />
-                </div>
-                <h2 className="text-xl font-black text-slate-800">Aesthetic Tuning</h2>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                  <label className="block text-[11px] font-black uppercase text-slate-400 tracking-widest mb-4">
-                    QR Data Color
-                  </label>
-                  <div className="flex items-center gap-4 bg-white p-3 rounded-xl border border-slate-200">
-                    <input
-                      type="color"
-                      value={colorDark}
-                      onChange={(e) => setColorDark(e.target.value)}
-                      className="w-12 h-12 rounded-lg cursor-pointer border-0 p-0 bg-transparent"
-                    />
-                    <div className="flex flex-col">
-                      <span className="text-sm font-bold text-slate-700 uppercase">{colorDark}</span>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Main Signal</span>
-                    </div>
+          {/* Workspace */}
+          <div className="lg:col-span-8 space-y-8">
+            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+               <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                     <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-blue-400">
+                        <Terminal size={22} />
+                     </div>
+                     <div>
+                        <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none">Data Vector</h3>
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1 italic">Ready for encoding</p>
+                     </div>
                   </div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                  <label className="block text-[11px] font-black uppercase text-slate-400 tracking-widest mb-4">
-                    Base Canvas
-                  </label>
-                  <div className="flex items-center gap-4 bg-white p-3 rounded-xl border border-slate-200">
-                    <input
-                      type="color"
-                      value={colorLight}
-                      onChange={(e) => setColorLight(e.target.value)}
-                      className="w-12 h-12 rounded-lg cursor-pointer border-0 p-0 bg-transparent"
-                    />
-                    <div className="flex flex-col">
-                      <span className="text-sm font-bold text-slate-700 uppercase">{colorLight}</span>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Background</span>
-                    </div>
+                  <div className="flex items-center gap-4">
+                     <div className="flex items-center gap-2 px-4 py-2 bg-black/40 rounded-xl border border-white/5">
+                        <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                        <span className="text-[9px] font-black text-white uppercase tracking-widest">Live Forge</span>
+                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
+               </div>
 
-          {/* Sidebar Right: Live Preview */}
-          <div className="lg:col-span-5 sticky top-8">
-            <div className="bg-[#1e293b] p-8 md:p-12 rounded-[2.5rem] shadow-3xl shadow-slate-900/20 text-center relative overflow-hidden">
-              {/* Background Glow */}
-              <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-brand-600 rounded-full blur-[100px] opacity-20"></div>
-              
-              <div className="relative z-10">
-                <div className="inline-block p-5 bg-white rounded-[2rem] shadow-2xl mb-12 ring-8 ring-white/5 group transition-transform duration-500 hover:scale-[1.02]">
-                  <canvas ref={canvasRef} className="rounded-xl"></canvas>
-                </div>
-                
-                <div className="space-y-4">
-                  <button
+               <div className="p-10 space-y-10">
+                  <div className="space-y-4">
+                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-4">Payload String</label>
+                     <textarea 
+                       value={text}
+                       onChange={e => setText(e.target.value)}
+                       className="w-full h-32 bg-black/40 border border-white/5 rounded-[2rem] p-8 text-white font-medium leading-relaxed outline-none focus:border-blue-500/30 transition-all resize-none custom-scrollbar"
+                       placeholder="INJECT DATA FOR ENCODING..."
+                     />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                     <div className="p-8 bg-white/5 rounded-3xl border border-white/5 space-y-6">
+                        <div className="flex items-center gap-3">
+                           <Palette size={18} className="text-blue-400" />
+                           <span className="text-[10px] font-black text-white uppercase tracking-widest">Chrome Geometry</span>
+                        </div>
+                        <div className="space-y-6">
+                           <div className="flex items-center justify-between">
+                              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Pattern Color</span>
+                              <input 
+                                type="color" 
+                                value={colorDark}
+                                onChange={e => setColorDark(e.target.value)}
+                                className="w-12 h-12 rounded-xl bg-transparent border-none cursor-pointer"
+                              />
+                           </div>
+                           <div className="flex items-center justify-between">
+                              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Background Vector</span>
+                              <input 
+                                type="color" 
+                                value={colorLight}
+                                onChange={e => setColorLight(e.target.value)}
+                                className="w-12 h-12 rounded-xl bg-transparent border-none cursor-pointer"
+                              />
+                           </div>
+                        </div>
+                     </div>
+
+                     <div className="p-8 bg-white/5 rounded-3xl border border-white/5 flex items-center justify-center relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-blue-500/[0.02] group-hover:bg-blue-500/[0.05] transition-all" />
+                        <div className="relative z-10 w-full aspect-square max-w-[200px] bg-white rounded-2xl p-4 shadow-2xl">
+                           <canvas ref={canvasRef} className="w-full h-full" />
+                        </div>
+                     </div>
+                  </div>
+
+                  <button 
                     onClick={handleDownload}
-                    className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-brand-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-brand-600/30 hover:bg-brand-500 hover:shadow-brand-500/40 transition-all active:scale-95 group"
+                    disabled={!text}
+                    className="w-full py-6 bg-blue-600 text-white rounded-[1.5rem] font-black uppercase tracking-widest text-xs hover:bg-blue-500 transition-all flex items-center justify-center gap-4 shadow-2xl disabled:opacity-30"
                   >
-                    <Download className="transition-transform group-hover:translate-y-1" size={18} />
-                    Download 3000px PNG
+                    <Download size={20} /> Extract Matrix (PNG)
                   </button>
-                  
-                  <button
-                    onClick={generateQR}
-                    className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-slate-800 text-slate-200 rounded-2xl font-black uppercase tracking-widest text-xs border border-slate-700 hover:bg-slate-700 hover:text-white transition-all"
-                  >
-                    <RefreshCw size={18} />
-                    Re-render Buffer
-                  </button>
-                </div>
-
-                <div className="mt-8 flex items-center justify-center gap-2 text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px]">
-                  <Settings2 size={12} />
-                  <span>Real-time Sync Enabled</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Tips */}
-            <div className="mt-8 p-6 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center shrink-0 text-white shadow-lg shadow-blue-600/20">
-                <span>!</span>
-              </div>
-              <div>
-                <h4 className="text-sm font-black text-blue-900 mb-1 leading-none uppercase tracking-tight">Pro Tip</h4>
-                <p className="text-xs text-blue-700 font-medium leading-relaxed">
-                  High contrast colors (like Dark Navy on White) ensure 100% scan reliability across all camera quality levels.
-                </p>
-              </div>
+               </div>
             </div>
           </div>
 
-        </div>
-        {/* Information Section */}
-        <div className="mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-200 pt-16">
-          <div className="space-y-8">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-brand-50 rounded-xl text-brand-600">
-                <BookOpen size={20} />
-              </div>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Generation Protocol</h2>
-            </div>
-            
-            <div className="space-y-6">
-              {[
-                { step: "01", title: "Content Logic", desc: "Input your target URL, plain text, or contact data. The engine encodes information into a static matrix in real-time." },
-                { step: "02", title: "Aesthetic Tuning", desc: "Select your brand colors. Always ensure the 'QR Data Color' is significantly darker than the 'Base Canvas' for readability." },
-                { step: "03", title: "Contrast Validation", desc: "The engine utilizes a high-contrast rendering buffer. We recommend a minimum contrast ratio of 4.5:1 for guaranteed scanning." },
-                { step: "04", title: "Final Export", desc: "Download an ultra-high-definition 3000px PNG. This resolution is suitable for everything from business cards to billboards." }
-              ].map((item, i) => (
-                <div key={i} className="flex gap-6 group">
-                  <span className="text-3xl font-black text-slate-200 group-hover:text-brand-200 transition-colors duration-300">{item.step}</span>
-                  <div className="space-y-1">
-                    <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+          {/* Action Sidebar */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="bg-[#0f172a] p-10 rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full blur-3xl" />
+               <div className="flex items-center gap-4 mb-8">
+                  <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-blue-400">
+                    <Settings size={24} />
                   </div>
-                </div>
-              ))}
+                  <h3 className="text-xl font-black text-white uppercase tracking-tighter">Engine</h3>
+               </div>
+               <div className="space-y-6">
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Encoding</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">ECC-Medium</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Resolution</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">1000px SQ</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-[9px] font-black text-blue-500 uppercase tracking-[0.4em] pt-4 border-t border-white/5">
+                     <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                     Forge Active
+                  </div>
+               </div>
             </div>
-          </div>
 
-          <div className="space-y-8">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-slate-900 rounded-xl text-white">
-                <HelpCircle size={20} />
-              </div>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Security FAQ</h2>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                { q: "Are these QR codes permanent?", a: "Yes. These are static QR codes. They do not expire and will work forever as long as the content they point to exists." },
-                { q: "Can I use light colors for the data?", a: "Technically yes, but it is not recommended. Most scanners expect dark patterns on light backgrounds. Use dark colors for 100% reliability." },
-                { q: "Is my data tracked or logged?", a: "No. Unlike 'Dynamic QR' providers, we do not intercept scans. Your data is encoded directly into the pixels without any tracking pixels." },
-                { q: "What is the maximum data limit?", a: "QR codes can hold up to 4,296 alphanumeric characters. However, shorter strings create cleaner, easier-to-scan codes." }
-              ].map((faq, i) => (
-                <div key={i} className="p-6 bg-white rounded-2xl border border-slate-100 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                  <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
-                    {faq.q}
-                  </h3>
-                  <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
-                </div>
-              ))}
+            <div className="bg-gradient-to-br from-blue-600 to-indigo-700 p-10 rounded-[3.5rem] text-white relative overflow-hidden shadow-3xl border border-blue-500/20">
+               <ShieldCheck size={120} className="absolute -bottom-10 -right-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000" />
+               <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter italic">Vault Secure</h3>
+               <p className="text-blue-100 font-medium text-sm leading-relaxed">
+                  QR pattern generation occurs strictly via local memory allocation. No data telemetry is authorized for cloud transmission.
+               </p>
             </div>
           </div>
         </div>
-      </div>
+
+        {/* ══════════════════════════════════════════
+            DOCUMENTATION & FAQ
+        ══════════════════════════════════════════ */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+          <div className="grid lg:grid-cols-2 gap-24 items-start">
+            <div className="space-y-16">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-blue-500/10 rounded-[1.5rem] flex items-center justify-center text-blue-400 border border-blue-500/20">
+                  <HelpCircle size={32} />
+                </div>
+                <div>
+                  <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Forge <span className="text-blue-400">FAQ</span></h2>
+                  <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Matrix Queries</p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                {[
+                  { q: "Are these QR codes static?", a: "Affirmative. These are 100% static matrices. They encode data directly into the pixel pattern and will never expire." },
+                  { q: "Contrast requirements?", a: "QR scanners rely on contrast vectors. For maximum reliability, we recommend a light background and dark foreground pattern." },
+                  { q: "Commercial utilization?", a: "Absolute. The exported PNG matrices are high-resolution and suitable for print media, billboards, and digital deployment." }
+                ].map((faq, i) => (
+                  <div key={i} className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 hover:border-blue-500/20 transition-all group">
+                    <h3 className="font-black text-white text-sm mb-4 flex items-start gap-4">
+                      <span className="text-blue-400 font-mono">Q.</span> {faq.q}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-[#0f172a] rounded-[4rem] p-16 md:p-20 text-white relative overflow-hidden border border-white/5">
+               <div className="absolute top-0 right-0 w-full h-full opacity-[0.02] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+               <div className="relative z-10 text-center sm:text-left">
+                  <div className="w-24 h-24 bg-blue-500/10 border border-blue-500/20 rounded-[2rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(37,99,235,0.2)] mx-auto sm:mx-0">
+                    <BookOpen size={48} className="text-blue-400" />
+                  </div>
+                  <h3 className="text-4xl font-black mb-8 tracking-tight uppercase leading-none">Best Practices</h3>
+                  <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                    For optimal scan velocity in print media, ensure the QR matrix 
+                    occupies at least 2cm x 2cm of surface area.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-12">
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">0-EXP</div>
+                        <div className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Pattern Life</div>
+                     </div>
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">HI-RES</div>
+                        <div className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Matrix Density</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
-

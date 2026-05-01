@@ -3,7 +3,7 @@ import Link from "next/link";
 import {
   ShieldCheck, Zap, MonitorSmartphone, Star,
   Code2, ArrowRight, Lock, Globe2, Cpu,
-  CheckCircle2, Sparkles, Fingerprint
+  CheckCircle2, Sparkles, Fingerprint, Terminal
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -22,87 +22,69 @@ export const metadata: Metadata = {
 const principles = [
   {
     num: "01",
-    title: "Our Mission",
+    title: "Sovereign Mission",
     icon: <ShieldCheck size={26} />,
-    accent: "text-brand-600",
-    bg: "bg-brand-50/50",
-    border: "border-brand-100",
+    accent: "text-rose-500",
+    bg: "bg-rose-500/10",
+    border: "border-rose-500/20",
     body: "At SamToolbox, we believe powerful utility tasks should never require uploading sensitive data to third-party servers. Our mission is to provide a comprehensive suite of professional tools that run 100% locally on your device, powered by modern browser APIs. No registration, no tracking, just pure utility.",
   },
   {
     num: "02",
-    title: "Why We're Different",
+    title: "Pure Isolation",
     icon: <Fingerprint size={26} />,
-    accent: "text-amber-600",
-    bg: "bg-amber-50/50",
-    border: "border-amber-100",
+    accent: "text-rose-500",
+    bg: "bg-rose-500/10",
+    border: "border-rose-500/20",
     body: "Every product decision we make is filtered through one question: 'Does this require a server?' If the answer is yes, we find a way to make it work without one. We don't harvest your data, we don't use cookies for tracking, and we never see the files you process. Your privacy isn't a feature; it's our foundation.",
   },
   {
     num: "03",
-    title: "The Technology",
+    title: "Edge Computing",
     icon: <Code2 size={26} />,
-    accent: "text-indigo-600",
-    bg: "bg-indigo-50/50",
-    border: "border-indigo-100",
+    accent: "text-rose-500",
+    bg: "bg-rose-500/10",
+    border: "border-rose-500/20",
     body: "Built using Next.js 16 and TailwindCSS, SamToolbox leverages HTML5 Canvas, File APIs, Web Workers, and WebAssembly to deliver desktop-class performance in a web context. By utilizing the compute power of your own hardware, we ensure military-grade data sovereignty.",
   },
 ];
 
 const pillars = [
-  { icon: <Lock size={20} />, title: "Absolute Privacy", desc: "Files are processed in browser memory only. Nothing is ever sent to a server.", color: "text-brand-600 bg-brand-50" },
-  { icon: <Zap size={20} />, title: "Blazing Speed", desc: "Execution is near-instant, measured in milliseconds, without server delays.", color: "text-amber-600 bg-amber-50" },
-  { icon: <Star size={20} />, title: "Zero Cost. Always.", desc: "No paywalls, subscription traps, or trial limits. Every tool is free forever.", color: "text-emerald-600 bg-emerald-50" },
-  { icon: <MonitorSmartphone size={20} />, title: "Works Everywhere", desc: "Fully responsive on all devices and functions offline after the first load.", color: "text-purple-600 bg-purple-50" },
-  { icon: <Globe2 size={20} />, title: "Open Standard", desc: "Built on standard web technologies without proprietary plugins or dependencies.", color: "text-rose-600 bg-rose-50" },
-  { icon: <Cpu size={20} />, title: "Local Compute", desc: "Uses your device's power for processing, ensuring total data control.", color: "text-slate-600 bg-slate-50" },
+  { icon: <Lock size={20} />, title: "Absolute Privacy", desc: "Files are processed in browser memory only. Nothing is ever sent to a server.", color: "text-rose-500 bg-rose-500/10" },
+  { icon: <Zap size={20} />, title: "Blazing Speed", desc: "Execution is near-instant, measured in milliseconds, without server delays.", color: "text-rose-500 bg-rose-500/10" },
+  { icon: <Star size={20} />, title: "Zero Cost. Always.", desc: "No paywalls, subscription traps, or trial limits. Every tool is free forever.", color: "text-rose-500 bg-rose-500/10" },
+  { icon: <MonitorSmartphone size={20} />, title: "Works Everywhere", desc: "Fully responsive on all devices and functions offline after the first load.", color: "text-rose-500 bg-rose-500/10" },
+  { icon: <Globe2 size={20} />, title: "Open Standard", desc: "Built on standard web technologies without proprietary plugins or dependencies.", color: "text-rose-500 bg-rose-500/10" },
+  { icon: <Cpu size={20} />, title: "Local Compute", desc: "Uses your device's power for processing, ensuring total data control.", color: "text-rose-500 bg-rose-500/10" },
 ];
 
 export default function AboutPage() {
   return (
-    <div className="bg-white min-h-screen selection:bg-brand-100 selection:text-brand-900">
+    <div className="bg-[#020617] min-h-screen selection:bg-rose-500/30 selection:text-rose-200 font-sans">
 
       {/* ══════════════════════════════════════
           HERO SECTION
       ══════════════════════════════════════ */}
-      <section className="relative w-full pt-32 pb-48 px-6 overflow-hidden">
-        {/* Static Professional Background */}
-        <div className="absolute inset-0 bg-[#020617] pointer-events-none" />
+      <section className="relative w-full pt-48 pb-64 px-6 overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         
-        {/* Ambient Gradient */}
-        <div 
-          className="absolute inset-0 opacity-[0.4] pointer-events-none"
-          style={{
-            background: `radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.2) 0, transparent 50%), 
-                        radial-gradient(at 100% 100%, rgba(79, 70, 229, 0.2) 0, transparent 50%)`
-          }}
-        />
-
-        {/* Background Aesthetics */}
-        <div className="absolute inset-0 bg-[#020617]/70 pointer-events-none" />
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent" />
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-brand-500/20 blur-[120px] rounded-full opacity-50" />
-        <div 
-          className="absolute inset-0 opacity-[0.15]" 
-          style={{ backgroundImage: 'radial-gradient(#1e293b 1px, transparent 1px)', backgroundSize: '40px 40px' }}
-        />
-
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-500/10 backdrop-blur-md border border-brand-500/20 rounded-full text-brand-400 font-bold text-[10px] uppercase tracking-[0.4em] mb-10">
-            <Sparkles size={12} />
-            Our Philosophy
+        <div className="max-w-6xl mx-auto text-center relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-rose-500/10 border border-rose-500/20 rounded-full text-rose-400 font-black text-[10px] uppercase tracking-[0.4em] mb-12 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-700">
+            <Sparkles size={14} className="animate-pulse" />
+            Sovereign Protocol v1.0
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-6 leading-[0.9]">
-            The Privacy-First<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-blue-400 to-indigo-400">
+          <h1 className="text-6xl md:text-[8rem] font-black text-white tracking-tighter mb-10 leading-[0.8] animate-in fade-in slide-in-from-bottom-8 duration-700">
+            Privacy-First<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-orange-400 to-rose-600 italic">
               Toolbox for Pros.
             </span>
           </h1>
           
-          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed font-medium animate-in fade-in duration-1000 delay-300">
             SamToolbox is revolutionizing online utilities by eliminating the server. 
-            Powerful tools, professional results, and absolute data sovereignty.
+            Powerful tools, professional results, and <span className="text-white font-black italic">absolute data sovereignty.</span>
           </p>
         </div>
       </section>
@@ -110,18 +92,16 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════
           CORE MISSION CARDS
       ══════════════════════════════════════ */}
-      <section className="max-w-6xl mx-auto px-6 -mt-32 relative z-20 pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <section className="max-w-[1400px] mx-auto px-6 -mt-32 relative z-20 pb-40">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {principles.map((p, i) => (
-            <div key={i} className="group relative bg-white rounded-3xl border border-slate-200 p-8 shadow-2xl shadow-slate-200/50 transition-all duration-500 hover:shadow-brand-500/10 hover:-translate-y-2">
-              <div className={`w-14 h-14 ${p.bg} ${p.accent} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
+            <div key={i} className="group relative bg-[#0f172a] rounded-[3.5rem] border border-white/5 p-12 shadow-3xl shadow-black transition-all duration-700 hover:border-rose-500/30 hover:-translate-y-4 animate-in fade-in slide-in-from-bottom-12 duration-700" style={{ animationDelay: `${i * 150}ms` }}>
+              <div className="absolute top-0 right-0 p-8 text-white/5 font-black text-8xl italic select-none">{p.num}</div>
+              <div className={`w-20 h-20 ${p.bg} ${p.accent} border ${p.border} rounded-[2rem] flex items-center justify-center mb-10 shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
                 {p.icon}
               </div>
-              <div className="flex items-center gap-3 mb-4">
-                <span className={`text-[10px] font-black ${p.accent} tracking-widest`}>{p.num}</span>
-                <h2 className="text-xl font-black text-slate-900 tracking-tight">{p.title}</h2>
-              </div>
-              <p className="text-slate-500 leading-relaxed text-sm font-medium">{p.body}</p>
+              <h2 className="text-3xl font-black text-white tracking-tighter mb-6 uppercase italic">{p.title}</h2>
+              <p className="text-slate-400 leading-relaxed text-lg font-medium group-hover:text-slate-300 transition-colors">{p.body}</p>
             </div>
           ))}
         </div>
@@ -130,46 +110,53 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════
           STAT/DETAIL SECTION
       ══════════════════════════════════════ */}
-      <section className="bg-slate-50 py-24 px-6 border-y border-slate-100">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <p className="text-[11px] font-black text-brand-600 uppercase tracking-[0.4em] mb-4">Why it matters</p>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-6 leading-tight">
+      <section className="py-40 px-6 border-y border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[#0f172a]/30 pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
+            <div className="space-y-10">
+              <div className="inline-flex items-center gap-3 px-4 py-2 bg-rose-500/10 border border-rose-500/20 rounded-full text-rose-400 font-black text-[10px] uppercase tracking-[0.4em]">
+                <Terminal size={14} />
+                Execution Mode
+              </div>
+              <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8 leading-none uppercase italic">
                 No storage. No logs.<br />
-                Just <span className="text-brand-600 italic">local</span> executions.
+                Just <span className="text-rose-500">local</span> speed.
               </h2>
-              <p className="text-slate-600 text-lg leading-relaxed mb-8">
+              <p className="text-slate-400 text-xl leading-relaxed font-medium">
                 In an era where your data is the product, SamToolbox takes a stand. 
-                We provide the convenience of online tools with the security of offline software.
+                We provide the convenience of online tools with the <span className="text-white font-bold italic">security of offline software.</span>
               </p>
               
-              <ul className="space-y-4">
+              <ul className="space-y-6">
                 {[
-                  "Military-grade client-side encryption",
-                  "Zero data retention policies",
-                  "No tracking cookies or advertisements",
+                  "Military-grade client-side processing",
+                  "Zero data retention protocol",
+                  "No tracking cookies or telemetry",
                   "100% open-standard web architecture"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-slate-700 font-bold text-sm">
-                    <CheckCircle2 size={18} className="text-emerald-500" />
+                  <li key={i} className="flex items-center gap-4 text-slate-200 font-black text-sm uppercase tracking-tight">
+                    <div className="w-6 h-6 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-500">
+                      <CheckCircle2 size={14} />
+                    </div>
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
             
-            <div className="relative">
-              <div className="absolute inset-0 bg-brand-500/10 blur-3xl rounded-full" />
-              <div className="relative bg-white rounded-[2rem] border border-slate-200 p-8 shadow-xl">
-                 <div className="grid grid-cols-2 gap-6">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-rose-600/10 blur-[120px] rounded-full group-hover:bg-rose-600/20 transition-all duration-1000" />
+              <div className="relative bg-[#0f172a] rounded-[4rem] border border-white/5 p-12 md:p-16 shadow-3xl shadow-black overflow-hidden">
+                 <div className="absolute top-0 right-0 w-32 h-32 bg-rose-600/5 rounded-full blur-3xl" />
+                 <div className="grid grid-cols-2 gap-10">
                     {pillars.map((pill, i) => (
-                      <div key={i} className="p-4 rounded-2xl hover:bg-slate-50 transition-colors">
-                        <div className={`w-10 h-10 ${pill.color} rounded-xl flex items-center justify-center mb-3`}>
+                      <div key={i} className="space-y-4">
+                        <div className={`w-14 h-14 ${pill.color} border border-rose-500/20 rounded-2xl flex items-center justify-center mb-6`}>
                           {pill.icon}
                         </div>
-                        <h4 className="font-black text-slate-900 text-sm mb-1">{pill.title}</h4>
-                        <p className="text-[12px] text-slate-500 leading-tight">{pill.desc}</p>
+                        <h4 className="font-black text-white text-lg uppercase tracking-tighter italic">{pill.title}</h4>
+                        <p className="text-[13px] text-slate-500 leading-relaxed font-medium">{pill.desc}</p>
                       </div>
                     ))}
                  </div>
@@ -182,33 +169,36 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════
           CTA FOOTER
       ══════════════════════════════════════ */}
-      <section className="py-32 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-block p-4 bg-slate-900 text-white rounded-3xl mb-10 shadow-2xl shadow-slate-900/30">
-            <Lock size={32} />
+      <section className="py-64 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="w-24 h-24 bg-[#0f172a] border border-white/5 text-rose-500 rounded-[2.5rem] flex items-center justify-center mb-12 shadow-3xl mx-auto group hover:scale-110 transition-transform duration-500">
+            <Lock size={40} className="animate-pulse" />
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight mb-6">
+          <h2 className="text-5xl md:text-[6rem] font-black text-white tracking-tighter mb-10 leading-none uppercase">
             Private by design.<br />
-            Free by choice.
+            <span className="italic text-rose-500">Free by choice.</span>
           </h2>
-          <p className="text-slate-500 text-lg mb-12 max-w-xl mx-auto font-medium">
+          <p className="text-slate-400 text-xl mb-16 max-w-2xl mx-auto font-medium leading-relaxed">
             Join thousands of professionals who trust SamToolbox for their daily tasks 
             without ever compromising their data security.
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Link
               href="/tools"
-              className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-600 hover:bg-brand-500 text-white font-black uppercase tracking-widest text-xs rounded-2xl shadow-xl shadow-brand-600/40 transition-all hover:scale-105"
+              className="group w-full sm:w-auto inline-flex items-center justify-center gap-4 px-12 py-8 bg-white text-slate-900 font-black uppercase tracking-widest text-[11px] rounded-[2rem] shadow-3xl transition-all hover:scale-105"
             >
-              Start Using Tools
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              Start Using Systems
+              <ArrowRight size={20} className="transition-transform group-hover:translate-x-2" />
             </Link>
             <Link
               href="/contact"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-black uppercase tracking-widest text-xs rounded-2xl transition-all"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-4 px-12 py-8 bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest text-[11px] rounded-[2rem] transition-all hover:bg-white/10"
             >
-              Get In Touch
+              Signal Command
             </Link>
           </div>
         </div>

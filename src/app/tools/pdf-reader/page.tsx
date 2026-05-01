@@ -1,12 +1,15 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Upload, FileText, Maximize, X, ShieldCheck, BookOpen, HelpCircle } from "lucide-react";
+import { useState, useRef, useMemo } from "react";
+import { Upload, FileText, Maximize, X, ShieldCheck, BookOpen, HelpCircle, Terminal, Eye } from "lucide-react";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
 export default function PdfReaderPage() {
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const schema = useMemo(() => generateSoftwareApplicationSchema("pdf-reader", "Industrial-grade PDF viewing portal with local-only rendering and zero cloud telemetry."), []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -33,142 +36,186 @@ export default function PdfReaderPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto py-8 sm:py-12 px-4">
-      <div className="text-center mb-8 sm:mb-10">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-[0.2em] mb-6 sm:mb-8 border border-red-100">
-          <ShieldCheck size={14} />
-          <span>Local Viewer · Zero Uploads</span>
-        </div>
-        <h1 className="text-4xl md:text-5xl font-black text-slate-800 mb-4 tracking-tight">
-          PDF <span className="text-red-600">Reader</span>
-        </h1>
-        <p className="text-sm sm:text-lg text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
-          View PDF documents instantly in your browser with complete privacy.
-          <span className="text-slate-900 font-semibold"> Your files stay on your device and are never stored.</span>
-        </p>
-      </div>
+    <div className="min-h-screen bg-[#020617] selection:bg-red-500/30 selection:text-red-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      {!fileUrl ? (
-        <div className="max-w-4xl mx-auto bg-white p-4 sm:p-8 rounded-[1.5rem] sm:rounded-2xl shadow-lg border border-slate-200">
-          <div
-            className="border-2 border-dashed border-slate-300 rounded-xl p-8 sm:p-16 text-center hover:border-red-300 hover:bg-red-50/30 transition cursor-pointer"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <Upload className="mx-auto h-12 w-12 sm:h-16 sm:w-16 text-red-500 mb-6" />
-            <h3 className="text-xl font-bold text-slate-800 mb-2">Open a PDF File</h3>
-            <p className="text-sm text-slate-500 max-w-md mx-auto">
-              Select any PDF from your device to view instantly. 100% private — nothing is uploaded to any server.
-            </p>
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <ShieldCheck size={14} className="animate-pulse" />
+            Secure Portal v7.3
           </div>
-          <input
-            type="file"
-            accept="application/pdf"
-            className="hidden"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-          />
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            Document <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-rose-400 italic">Portal.</span>
+          </h1>
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            Zero-latency, local PDF rendering environment. 
+            <span className="text-slate-200 font-bold block mt-2">No Cloud Transmissions. Isolated Memory Buffers. Absolute Anonymity.</span>
+          </p>
         </div>
-      ) : (
-        <div className="bg-white rounded-[1.5rem] sm:rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[500px] sm:h-[800px] mx-[-1rem] sm:mx-0">
-          {/* Header */}
-          <div className="bg-slate-50 border-b border-slate-200 px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:justify-between items-center gap-4 z-10 shadow-sm relative">
-            <div className="flex items-center gap-3 w-full sm:w-auto">
-              <div className="bg-red-100 p-2 rounded-lg text-red-600 shrink-0">
-                <FileText size={20} />
-              </div>
-              <div className="flex flex-col overflow-hidden">
-                <span className="font-semibold text-slate-800 font-mono text-xs sm:text-sm truncate max-w-[200px] sm:max-w-sm" title={fileName}>{fileName}</span>
-                <span className="text-[10px] text-slate-500 font-medium">Secure Local View</span>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-              <button
-                onClick={handleFullscreen}
-                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 border border-slate-300 rounded-lg text-slate-600 bg-white hover:bg-slate-50 transition font-medium text-xs sm:text-sm shadow-sm"
-              >
-                <Maximize size={16} /> <span className="hidden sm:inline">Fullscreen</span>
-              </button>
-              <button
-                onClick={clearFile}
-                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-red-50 text-red-600 border border-red-100 hover:bg-red-100 rounded-lg font-medium text-xs sm:text-sm transition"
-              >
-                <X size={16} /> Close
-              </button>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
+        {!fileUrl ? (
+          <div className="max-w-4xl mx-auto">
+            <div 
+              onClick={() => fileInputRef.current?.click()}
+              className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black p-20 flex flex-col items-center justify-center group cursor-pointer hover:border-red-500/30 transition-all hover:bg-red-500/[0.02] text-center animate-in fade-in slide-in-from-bottom-8 duration-700"
+            >
+               <div className="w-32 h-32 bg-white/5 rounded-[2.5rem] flex items-center justify-center text-slate-500 group-hover:text-red-400 group-hover:scale-110 transition-all duration-500 mb-10 border border-white/5">
+                  <Upload size={56} />
+               </div>
+               <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-4 italic">Inject Asset</h3>
+               <p className="text-slate-500 font-bold uppercase tracking-widest text-xs max-w-sm leading-relaxed">
+                  Select a PDF to initiate a secure, sandboxed viewing session.
+               </p>
+               <input
+                 type="file"
+                 accept="application/pdf"
+                 className="hidden"
+                 ref={fileInputRef}
+                 onChange={handleFileChange}
+               />
             </div>
           </div>
+        ) : (
+          <div className="space-y-8 animate-in fade-in zoom-in-95 duration-700">
+             <div className="bg-[#0f172a] border border-white/5 rounded-[3rem] overflow-hidden shadow-3xl">
+                <div className="bg-white/5 px-10 py-6 border-b border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
+                   <div className="flex items-center gap-4">
+                      <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-400">
+                         <Terminal size={22} />
+                      </div>
+                      <div>
+                         <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none">{fileName}</h3>
+                         <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1 italic">Active Secure Session</p>
+                      </div>
+                   </div>
+                   <div className="flex items-center gap-4">
+                      <button 
+                        onClick={handleFullscreen}
+                        className="p-4 bg-white/5 text-white rounded-xl hover:bg-white/10 transition-all border border-white/10"
+                      >
+                         <Maximize size={20} />
+                      </button>
+                      <button 
+                        onClick={clearFile}
+                        className="px-8 py-4 bg-red-600 text-white rounded-xl font-black uppercase tracking-widest text-[10px] hover:bg-red-500 transition-all flex items-center gap-2 shadow-xl"
+                      >
+                         <X size={16} /> Terminate
+                      </button>
+                   </div>
+                </div>
 
-          {/* PDF Viewer */}
-          <div className="flex-1 w-full bg-slate-300">
-            <iframe
-              id="pdf-frame"
-              src={`${fileUrl}#toolbar=0`}
-              className="w-full h-full border-none"
-              title="PDF Viewer"
-            ></iframe>
-          </div>
+                <div className="aspect-[16/10] bg-black/40 p-10">
+                   <iframe 
+                     id="pdf-frame"
+                     src={`${fileUrl}#toolbar=1&navpanes=0&scrollbar=1`}
+                     className="w-full h-full rounded-2xl border border-white/5 shadow-2xl bg-slate-900"
+                   />
+                </div>
+             </div>
 
-          {/* Privacy Banner */}
-          <div className="bg-slate-900 text-white px-6 py-3 text-[10px] text-center font-medium">
-            <span className="opacity-75">Your document is rendered locally. No data transmitted.</span>
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="bg-[#0f172a] p-8 rounded-[2.5rem] border border-white/5 flex items-center gap-6">
+                   <div className="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center text-red-400 border border-red-500/10">
+                      <Eye size={24} />
+                   </div>
+                   <div>
+                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Visibility</p>
+                      <p className="text-white font-black uppercase tracking-tight text-lg italic">Local High-Def</p>
+                   </div>
+                </div>
+                <div className="bg-[#0f172a] p-8 rounded-[2.5rem] border border-white/5 flex items-center gap-6">
+                   <div className="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center text-red-400 border border-red-500/10">
+                      <ShieldCheck size={24} />
+                   </div>
+                   <div>
+                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Encryption</p>
+                      <p className="text-white font-black uppercase tracking-tight text-lg italic">Isolated Buffer</p>
+                   </div>
+                </div>
+                <div className="bg-[#0f172a] p-8 rounded-[2.5rem] border border-white/5 flex items-center gap-6">
+                   <div className="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center text-red-400 border border-red-500/10">
+                      <FileText size={24} />
+                   </div>
+                   <div>
+                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Protocol</p>
+                      <p className="text-white font-black uppercase tracking-tight text-lg italic">ISO 32000-1</p>
+                   </div>
+                </div>
+             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
 
-      {/* Information Section */}
-      <div className="max-w-6xl mx-auto px-4 mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-red-50 rounded-xl text-red-600">
-              <BookOpen size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Viewing Protocol</h2>
-          </div>
-          
-          <div className="space-y-6">
-            {[
-              { step: "01", title: "Secure Mapping", desc: "Select your PDF from local storage. The file is mapped directly to browser memory via isolated blob references." },
-              { step: "02", title: "Direct Rendering", desc: "The document is rendered in a secure portal. This ensures zero latency and total isolation from cloud analytics." },
-              { step: "03", title: "Enhanced Mode", desc: "Activate Fullscreen for a distraction-free professional reading experience or to present directly from the portal." },
-              { step: "04", title: "Privacy Flush", desc: "Closing the file revokes the local memory URL, ensuring no residual document data remains in your system cache." }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 group">
-                <span className="text-3xl font-black text-slate-100 group-hover:text-red-100 transition-colors duration-300">{item.step}</span>
-                <div className="space-y-1">
-                  <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+        {/* ══════════════════════════════════════════
+            DOCUMENTATION & FAQ
+        ══════════════════════════════════════════ */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+          <div className="grid lg:grid-cols-2 gap-24 items-start">
+            <div className="space-y-16">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-red-500/10 rounded-[1.5rem] flex items-center justify-center text-red-400 border border-red-500/20">
+                  <HelpCircle size={32} />
+                </div>
+                <div>
+                  <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Portal <span className="text-red-400">FAQ</span></h2>
+                  <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Viewing Queries</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-slate-900 rounded-xl text-white">
-              <HelpCircle size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Privacy FAQ</h2>
-          </div>
-
-          <div className="space-y-4">
-            {[
-              { q: "Is the document uploaded?", a: "No. We utilize sandboxed rendering. Your document data never crosses the network or touches our servers." },
-              { q: "Why use this viewer?", a: "Most online viewers track document metadata. Our local engine ensures complete anonymity for sensitive archives." },
-              { q: "Password support?", a: "Yes. Encrypted PDFs will trigger the native secure password prompt directly within your browser's local context." },
-              { q: "File size limit?", a: "The tool is optimized for high-capacity files. We've successfully tested professional reports exceeding 500MB." }
-            ].map((faq, i) => (
-              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-                  {faq.q}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+              <div className="space-y-6">
+                {[
+                  { q: "Does the PDF leave my computer?", a: "Negative. The portal utilizes local Blob URLs to render the document within your browser's memory sandbox. No data is authorized for cloud transmission." },
+                  { q: "Can I edit the PDF here?", a: "The portal is optimized for high-fidelity viewing and secure reading. For synthesis or splitting, please utilize the respective utility modules in the suite." },
+                  { q: "Is there a file size limit?", a: "The architecture supports high-density archives; however, rendering performance is determined by your local system hardware and RAM allocation." }
+                ].map((faq, i) => (
+                  <div key={i} className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 hover:border-red-500/20 transition-all group">
+                    <h3 className="font-black text-white text-sm mb-4 flex items-start gap-4">
+                      <span className="text-red-400 font-mono">Q.</span> {faq.q}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div className="bg-[#0f172a] rounded-[4rem] p-16 md:p-20 text-white relative overflow-hidden border border-white/5">
+               <div className="absolute top-0 right-0 w-full h-full opacity-[0.02] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+               <div className="relative z-10 text-center sm:text-left">
+                  <div className="w-24 h-24 bg-red-500/10 border border-red-500/20 rounded-[2rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(225,29,72,0.2)] mx-auto sm:mx-0">
+                    <BookOpen size={48} className="text-red-400" />
+                  </div>
+                  <h3 className="text-4xl font-black mb-8 tracking-tight uppercase leading-none">Best Practices</h3>
+                  <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                    Utilize the terminate command after your session to 
+                    immediately purge the document bitstream from memory buffers.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-12">
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">0-LOG</div>
+                        <div className="text-[10px] font-bold text-red-400 uppercase tracking-[0.3em]">Privacy Index</div>
+                     </div>
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">RENDER</div>
+                        <div className="text-[10px] font-bold text-red-400 uppercase tracking-[0.3em]">Direct Logic</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

@@ -1,7 +1,27 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Upload, Download, Settings2, FileImage, ShieldCheck, Zap, AlertCircle, X, HelpCircle, BookOpen } from "lucide-react";
+import { useState, useRef, useMemo } from "react";
+import { 
+  Upload, Download, Settings, FileImage, ShieldCheck, Zap, 
+  HelpCircle, BookOpen, Terminal, RefreshCw, 
+  Layers, ArrowRight, Cpu, Image as ImageIcon
+} from "lucide-react";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
+
+const FORMATS = [
+  { id: "image/jpeg", label: "JPEG", desc: "Best for Photos", ext: "jpg" },
+  { id: "image/png", label: "PNG", desc: "Lossless / Clear", ext: "png" },
+  { id: "image/webp", label: "WEBP", desc: "Ultra Efficient", ext: "webp" },
+  { id: "image/avif", label: "AVIF", desc: "Next-Gen Spec", ext: "avif" },
+  { id: "image/bmp", label: "BMP", desc: "Windows Bitmap", ext: "bmp" },
+  { id: "image/gif", label: "GIF", desc: "Legacy Raster", ext: "gif" },
+  { id: "image/x-icon", label: "ICO", desc: "System Favicon", ext: "ico" },
+  { id: "image/tiff", label: "TIFF", desc: "High Fidelity", ext: "tiff" },
+  { id: "image/svg+xml", label: "SVG", desc: "Vector Data", ext: "svg" },
+  { id: "image/heic", label: "HEIC", desc: "Apple Standard", ext: "heic" },
+  { id: "image/heif", label: "HEIF", desc: "High Efficiency", ext: "heif" },
+  { id: "application/pdf", label: "PDF", desc: "Print Document", ext: "pdf" }
+];
 
 export default function ImageConverterPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -11,6 +31,8 @@ export default function ImageConverterPage() {
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const schema = useMemo(() => generateSoftwareApplicationSchema("image-converter", "Professional industrial-grade image transcoding engine with multi-format support and 100% local hardware acceleration."), []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -33,7 +55,6 @@ export default function ImageConverterPage() {
       canvas.width = img.width;
       canvas.height = img.height;
       
-      // If JPEG, fill white background to avoid black transparency
       if (targetFormat === "image/jpeg") {
         ctx.fillStyle = "#ffffff";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -41,231 +62,269 @@ export default function ImageConverterPage() {
       
       ctx.drawImage(img, 0, 0);
       
-      const newUrl = canvas.toDataURL(targetFormat, 0.92);
-      const a = document.createElement("a");
-      a.href = newUrl;
-      const extension = targetFormat.split("/")[1];
-      a.download = `samtoolbox-converted-${file.name.split('.')[0]}.${extension}`;
-      a.click();
-      setTimeout(() => setIsConverting(false), 500);
+      try {
+        const quality = targetFormat === "image/jpeg" || targetFormat === "image/webp" ? 0.92 : 1;
+        
+        if (targetFormat === "application/pdf") {
+            import("jspdf").then(({ jsPDF }) => {
+                const pdf = new jsPDF({
+                    orientation: canvas.width > canvas.height ? 'l' : 'p',
+                    unit: 'px',
+                    format: [canvas.width, canvas.height]
+                });
+                pdf.addImage(canvas.toDataURL("image/jpeg", 0.95), "JPEG", 0, 0, canvas.width, canvas.height);
+                pdf.save(`optimized-${file.name.split('.')[0]}.pdf`);
+                setIsConverting(false);
+            });
+            return;
+        }
+
+        const newUrl = canvas.toDataURL(targetFormat, quality);
+        const a = document.createElement("a");
+        a.href = newUrl;
+        const ext = FORMATS.find(f => f.id === targetFormat)?.ext || "img";
+        a.download = `optimized-${file.name.split('.')[0]}.${ext}`;
+        a.click();
+      } catch (e) {
+        alert("System Conflict: Your browser engine does not support direct encoding to " + targetFormat.split('/')[1].toUpperCase() + ".");
+      } finally {
+        setTimeout(() => setIsConverting(false), 800);
+      }
+    };
+    img.onerror = () => {
+      alert("Ingestion Error: Ensure the asset is a valid image bitstream.");
+      setIsConverting(false);
     };
     img.src = imageUrl;
   };
 
-  const clearFile = () => {
-    setFile(null);
-    setImageUrl(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  };
-
   return (
-    <>
-      <div className="max-w-7xl mx-auto py-8 sm:py-16 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-[#020617] selection:bg-blue-500/30 selection:text-blue-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         
-        {/* Pro Header */}
-        <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-700 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] mb-6 sm:mb-8 border border-brand-100">
-            <ShieldCheck size={14} />
-            <span>Industrial Secure Processing</span>
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <Layers size={14} className="animate-pulse" />
+            SAMToolBox v11.4
           </div>
-          <h1 className="text-4xl sm:text-6xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tight">
-            Universal Image <span className="text-brand-600">Forge</span>
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            Asset <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 italic">Transcoder.</span>
           </h1>
-          <p className="text-sm sm:text-lg text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
-            Professional-grade image transcoding with zero server latency. 
-            Privacy-first execution directly in your hardware.
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            Multi-vector asset conversion. 
+            <span className="text-slate-200 font-bold block mt-2">Local Binary Re-mapping. Zero Data Exposure. High-Fidelity Output.</span>
           </p>
         </div>
+      </section>
 
-        {!file ? (
-          /* Premium Upload Zone */
-          <div 
-            className="group relative max-w-3xl mx-auto"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <div className="absolute -inset-1 bg-gradient-to-r from-brand-600 to-blue-600 rounded-[1.5rem] sm:rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-            <div className="relative bg-white border-2 border-dashed border-slate-200 rounded-[1.5rem] sm:rounded-[2.5rem] p-8 sm:p-16 text-center cursor-pointer transition-all duration-300 hover:border-brand-500 hover:bg-slate-50/50">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-brand-50 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-6 sm:mb-8 text-brand-600 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
-                <Upload size={32} strokeWidth={2.5} />
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          
+          {/* Workspace */}
+          <div className="lg:col-span-8 space-y-8">
+            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+               <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                     <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-blue-400">
+                        <Terminal size={22} />
+                     </div>
+                     <div>
+                        <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none">Command Center</h3>
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1 italic">Ready for re-mapping</p>
+                     </div>
+                  </div>
+                  <button 
+                    onClick={() => fileInputRef.current?.click()}
+                    className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-blue-500 transition-all flex items-center gap-3 shadow-xl"
+                  >
+                    <Upload size={16} /> Inject Asset
+                  </button>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    className="hidden"
+                  />
+               </div>
+
+               <div className="p-10">
+                  {!file ? (
+                    <div 
+                      onClick={() => fileInputRef.current?.click()}
+                      className="border-2 border-dashed border-white/5 rounded-[2.5rem] py-32 flex flex-col items-center justify-center group cursor-pointer hover:border-blue-500/30 transition-all hover:bg-blue-500/[0.02]"
+                    >
+                       <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center text-slate-500 group-hover:text-blue-400 group-hover:scale-110 transition-all duration-500 mb-6">
+                          <ImageIcon size={40} />
+                       </div>
+                       <p className="text-slate-500 font-bold uppercase tracking-widest text-xs italic">Awaiting Bitstream Injection</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-10 animate-in zoom-in-95 duration-500">
+                       <div className="flex flex-col md:flex-row gap-10 items-center">
+                          <div className="w-full md:w-1/2 aspect-video bg-black/40 rounded-[2.5rem] overflow-hidden border border-white/5 relative group">
+                             <img src={imageUrl!} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
+                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                             <div className="absolute bottom-8 left-8">
+                                <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-2 italic">Source Buffer</p>
+                                <p className="text-white font-black truncate max-w-[200px] text-sm uppercase">{file.name}</p>
+                             </div>
+                             <div className="absolute top-8 right-8 bg-black/60 px-4 py-2 rounded-xl text-[10px] font-black text-white uppercase tracking-widest border border-white/10">
+                                {file.type.split('/')[1].toUpperCase()}
+                             </div>
+                          </div>
+
+                          <div className="w-full md:w-1/2 space-y-8">
+                             <div className="space-y-3">
+                                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-4">Target Format Vector</label>
+                                <div className="grid grid-cols-2 gap-3">
+                                   {FORMATS.slice(0, 6).map(f => (
+                                     <button
+                                       key={f.id}
+                                       onClick={() => setTargetFormat(f.id)}
+                                       className={`p-4 rounded-2xl border transition-all text-left group ${targetFormat === f.id ? "bg-blue-600 border-blue-500 shadow-lg" : "bg-white/5 border-white/5 hover:border-white/10"}`}
+                                     >
+                                        <div className={`text-[10px] font-black uppercase tracking-widest mb-1 ${targetFormat === f.id ? "text-white" : "text-slate-500 group-hover:text-white"}`}>{f.label}</div>
+                                        <div className={`text-[8px] font-bold uppercase tracking-widest ${targetFormat === f.id ? "text-blue-200" : "text-slate-700"}`}>{f.desc}</div>
+                                     </button>
+                                   ))}
+                                </div>
+                             </div>
+
+                             <button 
+                               onClick={handleDownload}
+                               disabled={isConverting}
+                               className="w-full py-6 bg-blue-600 text-white rounded-[1.5rem] font-black uppercase tracking-widest text-xs hover:bg-blue-500 transition-all flex items-center justify-center gap-4 shadow-2xl disabled:opacity-30"
+                             >
+                               {isConverting ? <RefreshCw className="animate-spin" size={20} /> : <><Zap size={20} /> Execute Transcoding</>}
+                             </button>
+                          </div>
+                       </div>
+                       
+                       <canvas ref={canvasRef} className="hidden" />
+
+                       <div className="p-8 bg-white/5 rounded-3xl border border-white/5 grid grid-cols-2 md:grid-cols-4 gap-6">
+                          {FORMATS.slice(6).map(f => (
+                            <button
+                              key={f.id}
+                              onClick={() => setTargetFormat(f.id)}
+                              className={`p-4 rounded-xl border transition-all text-center ${targetFormat === f.id ? "bg-blue-600 border-blue-500 shadow-lg" : "bg-white/5 border-white/5 hover:border-white/10"}`}
+                            >
+                               <div className={`text-[10px] font-black uppercase tracking-widest ${targetFormat === f.id ? "text-white" : "text-slate-600 hover:text-white"}`}>{f.label}</div>
+                            </button>
+                          ))}
+                       </div>
+                    </div>
+                  )}
+               </div>
+            </div>
+          </div>
+
+          {/* Action Sidebar */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="bg-[#0f172a] p-10 rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-600/5 rounded-full blur-3xl" />
+               <div className="flex items-center gap-4 mb-8">
+                  <div className="p-3 bg-cyan-500/10 border border-cyan-500/20 rounded-2xl text-cyan-400">
+                    <Cpu size={24} />
+                  </div>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tighter">Status</h3>
+               </div>
+               <div className="space-y-6">
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Vector Support</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">Multi-Format</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Execution</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">Client-Side</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-[9px] font-black text-cyan-500 uppercase tracking-[0.4em] pt-4 border-t border-white/5">
+                     <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
+                     Transcoder Active
+                  </div>
+               </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-cyan-600 to-blue-700 p-10 rounded-[3.5rem] text-white relative overflow-hidden shadow-3xl border border-cyan-500/20">
+               <ShieldCheck size={120} className="absolute -bottom-10 -right-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000" />
+               <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter italic">Vault Secure</h3>
+               <p className="text-cyan-100 font-medium text-sm leading-relaxed">
+                  Every transcoding cycle occurs strictly via local hardware acceleration. No bitstream telemetry is authorized for cloud transmission.
+               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ══════════════════════════════════════════
+            DOCUMENTATION & FAQ
+        ══════════════════════════════════════════ */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+          <div className="grid lg:grid-cols-2 gap-24 items-start">
+            <div className="space-y-16">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-cyan-500/10 rounded-[1.5rem] flex items-center justify-center text-cyan-400 border border-cyan-500/20">
+                  <HelpCircle size={32} />
+                </div>
+                <div>
+                  <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Transcode <span className="text-cyan-400">FAQ</span></h2>
+                  <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Format Queries</p>
+                </div>
               </div>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-800 mb-2 sm:mb-3">Initialize Sequence</h3>
-              <p className="text-xs sm:text-sm text-slate-500 font-medium mb-0">Drag and drop or click to select RAW/Raster images</p>
-              <div className="mt-6 sm:mt-8 flex flex-wrap justify-center gap-4 sm:gap-6">
-                {['JPG', 'PNG', 'WEBP', 'GIF', 'AVIF'].map(fmt => (
-                  <span key={fmt} className="text-[9px] sm:text-[10px] font-black text-slate-300 tracking-widest">{fmt}</span>
+
+              <div className="space-y-6">
+                {[
+                  { q: "Format Compatibility?", a: "The engine supports a vast array of binary vectors. Note that some specialized formats (e.g., HEIC) require modern browser engines for native re-mapping." },
+                  { q: "Bitstream Integrity?", a: "High. Transcoding utilizes lossless canvas mapping where possible. For JPEG/WEBP exports, we maintain a 92% fidelity coefficient by default." },
+                  { q: "Vector PDF Support?", a: "Affirmative. The transcoder can forge PDF containers from raster assets, maintaining correct orientation and pixel density." }
+                ].map((faq, i) => (
+                  <div key={i} className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 hover:border-cyan-500/20 transition-all group">
+                    <h3 className="font-black text-white text-sm mb-4 flex items-start gap-4">
+                      <span className="text-cyan-400 font-mono">Q.</span> {faq.q}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+                  </div>
                 ))}
               </div>
             </div>
-          </div>
-        ) : (
-          /* Pro Editor Dashboard */
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-in fade-in slide-in-from-bottom-4 duration-500">
-            
-            {/* Left: Source Preview */}
-            <div className="lg:col-span-5 bg-white p-4 rounded-[2rem] shadow-2xl shadow-slate-200/50 border border-white">
-              <div className="relative group rounded-2xl overflow-hidden bg-slate-100 flex items-center justify-center min-h-[400px]">
-                <img src={imageUrl!} alt="Original" className="max-h-[500px] object-contain shadow-2xl transition-transform duration-700 group-hover:scale-105" />
-                <button 
-                  onClick={clearFile}
-                  className="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur text-red-500 rounded-full shadow-lg hover:bg-red-50 transition active:scale-90"
-                  title="Remove Image"
-                >
-                  <X size={20} strokeWidth={3} />
-                </button>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="bg-slate-900/80 backdrop-blur-md px-4 py-2 rounded-xl text-white text-[10px] font-bold uppercase tracking-widest flex justify-between items-center">
-                    <span className="truncate max-w-[200px]">{file.name}</span>
-                    <span className="text-brand-400">{(file.size / 1024).toFixed(1)} KB</span>
+
+            <div className="bg-[#0f172a] rounded-[4rem] p-16 md:p-20 text-white relative overflow-hidden border border-white/5">
+               <div className="absolute top-0 right-0 w-full h-full opacity-[0.02] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+               <div className="relative z-10 text-center sm:text-left">
+                  <div className="w-24 h-24 bg-cyan-500/10 border border-cyan-500/20 rounded-[2rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(6,182,212,0.2)] mx-auto sm:mx-0">
+                    <BookOpen size={48} className="text-cyan-400" />
                   </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Engine Settings */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="bg-white p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] shadow-2xl shadow-slate-200/50 border border-white">
-                <div className="flex items-center gap-3 mb-6 sm:mb-8">
-                  <div className="p-2 bg-brand-50 rounded-lg text-brand-600">
-                    <Settings2 size={24} />
+                  <h3 className="text-4xl font-black mb-8 tracking-tight uppercase leading-none">Best Practices</h3>
+                  <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                    For next-gen web integration, utilize the 'WEBP' or 'AVIF' 
+                    transcoding vectors for maximum efficiency.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-12">
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">12+</div>
+                        <div className="text-[10px] font-bold text-cyan-400 uppercase tracking-[0.3em]">Format Vectors</div>
+                     </div>
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">RAW</div>
+                        <div className="text-[10px] font-bold text-cyan-400 uppercase tracking-[0.3em]">Pure Buffer</div>
+                     </div>
                   </div>
-                  <h2 className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">Output Parameters</h2>
-                </div>
-                
-                <div className="space-y-6 sm:space-y-8">
-                  <div>
-                    <label className="block text-[10px] sm:text-[11px] font-black uppercase text-slate-400 tracking-widest mb-4">Encoding Format</label>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                      {[
-                        { id: "image/jpeg", label: "JPEG", icon: "Best for Photos" },
-                        { id: "image/png", label: "PNG", icon: "Lossless / Clear" },
-                        { id: "image/webp", label: "WEBP", icon: "Ultra Efficient" }
-                      ].map((format) => (
-                        <button
-                          key={format.id}
-                          onClick={() => setTargetFormat(format.id)}
-                          className={`relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl border-2 text-left transition-all duration-300 ${
-                            targetFormat === format.id 
-                              ? "border-brand-600 bg-brand-50/50 ring-4 ring-brand-50" 
-                              : "border-slate-100 bg-slate-50 hover:border-slate-200"
-                          }`}
-                        >
-                          <div className={`text-lg sm:text-xl font-black mb-0.5 sm:mb-1 ${targetFormat === format.id ? "text-brand-700" : "text-slate-700"}`}>
-                            {format.label}
-                          </div>
-                          <div className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-tight">{format.icon}</div>
-                          {targetFormat === format.id && (
-                            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-4 h-4 sm:w-5 sm:h-5 bg-brand-600 rounded-full flex items-center justify-center text-white">
-                              <Zap size={10} fill="currentColor" />
-                            </div>
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {targetFormat === "image/jpeg" && (
-                    <div className="flex items-start gap-4 p-5 rounded-3xl bg-amber-50 border border-amber-100 text-amber-800">
-                      <AlertCircle className="shrink-0 mt-0.5" size={18} />
-                      <div className="text-sm font-medium leading-relaxed">
-                        <strong>Translucency Notice:</strong> JPEG does not support alpha channels. 
-                        Transparent areas will be flattened against a solid White background.
-                      </div>
-                    </div>
-                  )}
-
-                  <button
-                    onClick={handleDownload}
-                    disabled={isConverting}
-                    className="w-full relative group overflow-hidden py-6 bg-slate-900 text-white rounded-[2rem] font-black uppercase tracking-[0.2em] text-sm shadow-2xl shadow-slate-900/20 hover:shadow-brand-600/20 transition-all hover:-translate-y-1 active:translate-y-0 disabled:opacity-50"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-brand-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="relative flex items-center justify-center gap-3">
-                      {isConverting ? <Zap className="animate-pulse" size={20} /> : <Download size={20} />}
-                      {isConverting ? "Encoding..." : `Forge ${targetFormat.split("/")[1].toUpperCase()}`}
-                    </div>
-                  </button>
-                </div>
-              </div>
-
-              {/* Security Badge */}
-              <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-green-500 shadow-sm border border-slate-100">
-                    <ShieldCheck size={20} />
-                  </div>
-                  <div>
-                    <div className="text-xs font-black text-slate-800 uppercase tracking-widest leading-none mb-1">Hardware Isolated</div>
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Zero Cloud Footprint</div>
-                  </div>
-                </div>
-                <div className="flex -space-x-2">
-                  {[1,2,3].map(i => <div key={i} className="w-6 h-6 rounded-full bg-slate-200 border-2 border-white"></div>)}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Hidden Components */}
-        <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleFileChange} />
-        <canvas ref={canvasRef} className="hidden"></canvas>
-        {/* Information Section */}
-        <div className="mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-200 pt-16">
-          <div className="space-y-8">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-brand-50 rounded-xl text-brand-600">
-                <BookOpen size={20} />
-              </div>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Forge Protocol</h2>
-            </div>
-            
-            <div className="space-y-6">
-              {[
-                { step: "01", title: "Initialize Sequence", desc: "Drag and drop or click the upload zone to select your source image. We support most raster formats including JPG, PNG, and WebP." },
-                { step: "02", title: "Select Output", desc: "Choose your target encoding format. Each format serves a specific use case from web optimization to high-fidelity printing." },
-                { step: "03", title: "Hardware Transcoding", desc: "Our engine utilizes your local GPU/CPU via the Canvas API to process pixels instantly without any network overhead." },
-                { step: "04", title: "Local Export", desc: "Once the 'Forge' button is triggered, the final asset is generated as a blob and downloaded directly to your device." }
-              ].map((item, i) => (
-                <div key={i} className="flex gap-6 group">
-                  <span className="text-3xl font-black text-slate-200 group-hover:text-brand-200 transition-colors duration-300">{item.step}</span>
-                  <div className="space-y-1">
-                    <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-8">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-slate-900 rounded-xl text-white">
-                <HelpCircle size={20} />
-              </div>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Intelligence FAQ</h2>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                { q: "Are my images private?", a: "Yes. This is an 'Air-Gapped' tool. All transcoding happens in-memory. No data is ever transmitted to a server or stored externally." },
-                { q: "Which format is best for the web?", a: "WebP is the industry standard for web performance, offering up to 30% better compression than JPEG with comparable quality." },
-                { q: "Why did my transparency disappear?", a: "JPEG does not support alpha channels. If you convert a transparent PNG to JPEG, the background will automatically be flattened to solid white." },
-                { q: "Is there a limit to image resolution?", a: "The limit is defined by your browser's memory allocation (usually 4K to 8K resolution). Most standard professional photography is fully supported." }
-              ].map((faq, i) => (
-                <div key={i} className="p-6 bg-white rounded-2xl border border-slate-100 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                  <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
-                    {faq.q}
-                  </h3>
-                  <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
-                </div>
-              ))}
+               </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </section>
+    </div>
   );
 }
-

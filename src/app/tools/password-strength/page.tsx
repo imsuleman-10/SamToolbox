@@ -1,7 +1,13 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Shield, Eye, EyeOff, CheckCircle2, XCircle, AlertCircle, Lock, BookOpen, HelpCircle } from "lucide-react";
+import { 
+  Shield, Eye, EyeOff, CheckCircle2, XCircle, 
+  AlertCircle, Lock, BookOpen, HelpCircle, 
+  Terminal, ShieldCheck, Zap, Cpu, Activity,
+  KeyRound, Fingerprint, LockKeyhole
+} from "lucide-react";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
 export default function PasswordStrengthPage() {
   const [password, setPassword] = useState("");
@@ -39,32 +45,30 @@ export default function PasswordStrengthPage() {
     score = Math.max(0, Math.min(100, score));
 
     // Strength label
-    let strength = "Very Weak";
-    if (score >= 80) strength = "Very Strong";
-    else if (score >= 60) strength = "Strong";
+    let strength = "Critical";
+    if (score >= 80) strength = "Fortress";
+    else if (score >= 60) strength = "Secure";
     else if (score >= 40) strength = "Moderate";
-    else if (score >= 20) strength = "Weak";
+    else if (score >= 20) strength = "Vulnerable";
 
     // Crack time estimation
-    let crackTime = "Instantly";
-    if (score >= 90) crackTime = "Centuries";
-    else if (score >= 80) crackTime = "Years";
-    else if (score >= 70) crackTime = "Months";
-    else if (score >= 60) crackTime = "Days";
-    else if (score >= 50) crackTime = "Hours";
-    else if (score >= 40) crackTime = "Minutes";
-    else if (score >= 30) crackTime = "Seconds";
+    let crackTime = "Instant";
+    if (score >= 90) crackTime = "Millennia";
+    else if (score >= 80) crackTime = "Decades";
+    else if (score >= 70) crackTime = "Years";
+    else if (score >= 60) crackTime = "Months";
+    else if (score >= 50) crackTime = "Days";
+    else if (score >= 40) crackTime = "Hours";
+    else if (score >= 30) crackTime = "Minutes";
 
     // Suggestions
     const suggestions: string[] = [];
-    if (!checks.length) suggestions.push("Use at least 8 characters");
-    if (!checks.upperCase) suggestions.push("Add uppercase letters (A-Z)");
-    if (!checks.lowerCase) suggestions.push("Add lowercase letters (a-z)");
-    if (!checks.numbers) suggestions.push("Add numbers (0-9)");
-    if (!checks.specialChars) suggestions.push("Add special characters (!@#$%^&*)");
-    if (!checks.noCommonPatterns) suggestions.push("Avoid common passwords");
-    if (password.length < 12) suggestions.push("Make it longer (12+ characters)");
-    if (/(.)\1{2,}/.test(password)) suggestions.push("Avoid repeating characters");
+    if (!checks.length) suggestions.push("Extend character count to 8+");
+    if (!checks.upperCase) suggestions.push("Inject uppercase variance");
+    if (!checks.lowerCase) suggestions.push("Inject lowercase variance");
+    if (!checks.numbers) suggestions.push("Add numeric identifiers");
+    if (!checks.specialChars) suggestions.push("Add symbolic complexity");
+    if (!checks.noCommonPatterns) suggestions.push("Eliminate predictable strings");
 
     return {
       score,
@@ -76,190 +80,231 @@ export default function PasswordStrengthPage() {
   }, [password]);
 
   const getStrengthColor = (score: number) => {
-    if (score >= 80) return "text-green-600";
-    if (score >= 60) return "text-blue-600";
-    if (score >= 40) return "text-yellow-600";
-    return "text-red-600";
+    if (score >= 80) return "text-emerald-400";
+    if (score >= 60) return "text-cyan-400";
+    if (score >= 40) return "text-amber-400";
+    return "text-rose-500";
   };
 
   const getStrengthBg = (score: number) => {
-    if (score >= 80) return "bg-green-500";
-    if (score >= 60) return "bg-blue-500";
-    if (score >= 40) return "bg-yellow-500";
-    return "bg-red-500";
+    if (score >= 80) return "bg-emerald-500";
+    if (score >= 60) return "bg-cyan-500";
+    if (score >= 40) return "bg-amber-500";
+    return "bg-rose-500";
   };
 
+  const schema = useMemo(() => generateSoftwareApplicationSchema("password-strength", "Professional entropy analysis engine with local-only cryptographic verification."), []);
+
   return (
-    <div className="max-w-3xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-      {/* Header */}
-      <div className="text-center mb-12 sm:mb-16">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 text-brand-700 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] mb-6 sm:mb-8 border border-brand-100">
-          <Shield size={14} />
-          <span>Local Entropy Engine</span>
-        </div>
-        <h1 className="text-4xl sm:text-6xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tight">
-          Strength <span className="text-brand-600">Vault</span>
-        </h1>
-        <p className="text-sm sm:text-lg text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
-          Professional-grade password entropy analysis. 
-          Privacy-first execution with zero cloud footprint.
-        </p>
-      </div>
+    <div className="min-h-screen bg-[#020617] selection:bg-rose-500/30 selection:text-rose-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      {/* Password Input */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-md p-6 mb-6">
-        <label className="block text-sm font-black text-slate-900 uppercase tracking-widest mb-3">
-          Enter Password
-        </label>
-        <div className="relative">
-          <input
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Type or paste your password..."
-            className="w-full px-4 py-3 pr-12 bg-slate-50 border border-slate-200 rounded-xl focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/10 outline-none text-base font-medium transition-all placeholder:text-slate-400"
-          />
-          <button
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-200 transition-colors"
-          >
-            {showPassword ? <EyeOff size={18} className="text-slate-600" /> : <Eye size={18} className="text-slate-600" />}
-          </button>
-        </div>
-      </div>
-
-      {analysis && (
-        <>
-          {/* Score Display */}
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-md p-6 mb-4">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <Shield size={24} className={getStrengthColor(analysis.score)} />
-                <h2 className="text-lg font-black text-slate-900">Security Score</h2>
-              </div>
-              <div className={`text-4xl font-black ${getStrengthColor(analysis.score)}`}>
-                {analysis.score}/100
-              </div>
-            </div>
-
-            {/* Progress Bar */}
-            <div className="h-3 bg-slate-100 rounded-full overflow-hidden mb-3">
-              <div
-                className={`h-full ${getStrengthBg(analysis.score)} transition-all duration-500`}
-                style={{ width: `${analysis.score}%` }}
-              />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <p className={`text-sm font-bold ${getStrengthColor(analysis.score)}`}>
-                {analysis.strength}
-              </p>
-              <p className="text-xs text-slate-500 font-medium">
-                Estimated crack time: <span className="font-black text-slate-900">{analysis.crackTime}</span>
-              </p>
-            </div>
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-rose-500/10 border border-rose-500/20 rounded-full text-rose-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <LockKeyhole size={14} className="animate-pulse" />
+            Entropy Guardian v9.1
           </div>
-
-          {/* Checklist */}
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-md p-6 mb-4">
-            <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-4">Security Checklist</h3>
-            <div className="grid grid-cols-2 gap-3">
-              {Object.entries(analysis.checks).map(([key, passed]) => (
-                <div key={key} className="flex items-center gap-2">
-                  {passed ? (
-                    <CheckCircle2 size={16} className="text-green-600 shrink-0" />
-                  ) : (
-                    <XCircle size={16} className="text-red-600 shrink-0" />
-                  )}
-                  <span className={`text-sm font-medium ${passed ? "text-green-700" : "text-slate-600"}`}>
-                    {key.replace(/([A-Z])/g, " $1").trim()}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Suggestions */}
-          {analysis.suggestions.length > 0 && (
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-md p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <AlertCircle size={16} className="text-yellow-600" />
-                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">Suggestions</h3>
-              </div>
-              <div className="space-y-2">
-                {analysis.suggestions.map((s, i) => (
-                  <div key={i} className="flex items-start gap-2 text-sm">
-                    <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full mt-1.5 shrink-0" />
-                    <span className="text-slate-700 font-medium">{s}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </>
-      )}
-
-      {!password && (
-        <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl border border-slate-200 p-8 flex flex-col items-center justify-center min-h-[300px]">
-          <Lock size={48} className="text-slate-300 mb-4" />
-          <p className="text-slate-500 font-bold text-center">Type a password to check its strength</p>
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            Password <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-orange-400 italic">Audit.</span>
+          </h1>
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            Industrial-grade entropy analysis. 
+            <span className="text-slate-200 font-bold block mt-2">Zero Telemetry. Local Cryptographic Checks. Bruteforce Synthesis.</span>
+          </p>
         </div>
-      )}
+      </section>
 
-      {/* Information Section */}
-      <div className="mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-brand-50 rounded-xl text-brand-600">
-              <BookOpen size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Security Protocol</h2>
-          </div>
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          <div className="space-y-6">
-            {[
-              { step: "01", title: "Input Selection", desc: "Enter your password into the secure analyzer. The engine starts calculating entropy values immediately." },
-              { step: "02", title: "Observe Metrics", desc: "Monitor the real-time Security Score and strength indicator. Our scale accounts for length, complexity, and patterns." },
-              { step: "03", title: "Review Checklist", desc: "Check the automated security checklist. Passing all 6 criteria is required for high-security environments." },
-              { step: "04", title: "Apply Suggestions", desc: "Implement the dynamic suggestions provided. Reaching a score of 80+ ensures 'Very Strong' protection." }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 group">
-                <span className="text-3xl font-black text-slate-100 group-hover:text-brand-100 transition-colors duration-300">{item.step}</span>
-                <div className="space-y-1">
-                  <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+          {/* Analysis Area */}
+          <div className="lg:col-span-8 space-y-8">
+            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+               <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                     <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-400">
+                        <Terminal size={22} />
+                     </div>
+                     <div>
+                        <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none">Secret Buffer</h3>
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1 italic">Processing secret string locally</p>
+                     </div>
+                  </div>
+                  <button 
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="p-4 bg-white/5 text-slate-400 rounded-2xl hover:bg-white hover:text-slate-900 transition-all shadow-xl"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+               </div>
 
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-slate-900 rounded-xl text-white">
-              <HelpCircle size={20} />
+               <div className="p-10">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="ENTER SECRET TO AUDIT..."
+                    className="w-full bg-white/[0.03] border border-white/5 rounded-[2rem] px-10 py-10 text-2xl font-black text-white outline-none focus:bg-white/[0.05] focus:border-rose-500/30 transition-all placeholder:text-slate-800 tracking-widest uppercase italic"
+                  />
+               </div>
             </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Entropy FAQ</h2>
+
+            {/* Analysis Grid */}
+            {analysis && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                 <div className="bg-[#0f172a] p-10 rounded-[3rem] border border-white/5 shadow-3xl shadow-black space-y-8">
+                    <div className="flex items-center gap-4">
+                       <div className="w-12 h-12 bg-rose-500/10 border border-rose-500/20 rounded-2xl flex items-center justify-center text-rose-400">
+                          <Activity size={22} />
+                       </div>
+                       <h3 className="text-xl font-black text-white uppercase tracking-tighter italic">Structural Score</h3>
+                    </div>
+                    
+                    <div className="space-y-4">
+                       <div className="h-4 bg-white/5 rounded-full overflow-hidden border border-white/5">
+                          <div 
+                            className={`h-full transition-all duration-1000 ease-out ${getStrengthBg(analysis.score)}`}
+                            style={{ width: `${analysis.score}%` }}
+                          />
+                       </div>
+                       <div className="flex justify-between items-end">
+                          <p className={`text-6xl font-black italic tracking-tighter ${getStrengthColor(analysis.score)}`}>
+                            {analysis.score}<span className="text-2xl">%</span>
+                          </p>
+                          <p className={`text-xl font-black uppercase tracking-widest italic mb-1 ${getStrengthColor(analysis.score)}`}>
+                            {analysis.strength}
+                          </p>
+                       </div>
+                    </div>
+                 </div>
+
+                 <div className="bg-[#0f172a] p-10 rounded-[3rem] border border-white/5 shadow-3xl shadow-black space-y-8">
+                    <div className="flex items-center gap-4">
+                       <div className="w-12 h-12 bg-orange-500/10 border border-orange-500/20 rounded-2xl flex items-center justify-center text-orange-400">
+                          <Cpu size={22} />
+                       </div>
+                       <h3 className="text-xl font-black text-white uppercase tracking-tighter italic">Crack Resistance</h3>
+                    </div>
+                    
+                    <div className="space-y-4">
+                       <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Est. Time to Breach</p>
+                       <p className="text-6xl font-black text-white italic tracking-tighter uppercase leading-none">
+                         {analysis.crackTime}
+                       </p>
+                       <p className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] italic">Calculated at 10^12 operations/sec</p>
+                    </div>
+                 </div>
+              </div>
+            )}
           </div>
 
-          <div className="space-y-4">
-            {[
-              { q: "Is my password sent to a server?", a: "No. SamToolbox utilizes 100% client-side regex and entropy analysis. Your password never leaves your browser's local memory." },
-              { q: "How is crack time calculated?", a: "We estimate crack time based on standard brute-force hardware capabilities (offline attacks) as of late 2026." },
-              { q: "What defines a 'Strong' password?", a: "A password with at least 12 characters, mixing uppercase, lowercase, numbers, and symbols without common patterns." },
-              { q: "Why check entropy locally?", a: "Checking passwords online is a massive security risk. Local analysis ensures your secrets remain private while still getting professional feedback." }
-            ].map((faq, i) => (
-              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
-                  {faq.q}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
-              </div>
-            ))}
+          {/* Sidebar Checklist */}
+          <div className="lg:col-span-4 space-y-10 lg:sticky lg:top-24">
+             <div className="bg-[#0f172a] p-12 rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black space-y-10">
+                <div className="flex items-center gap-4">
+                   <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-blue-400">
+                      <Fingerprint size={22} />
+                   </div>
+                   <h3 className="text-xl font-black text-white tracking-tighter uppercase italic">Complexity Log</h3>
+                </div>
+
+                <div className="space-y-6">
+                   {analysis ? Object.entries(analysis.checks).map(([key, value]) => (
+                     <div key={key} className={`flex items-center justify-between p-5 rounded-2xl border transition-all ${value ? "bg-emerald-500/5 border-emerald-500/20" : "bg-white/5 border-white/5"}`}>
+                        <span className={`text-[10px] font-black uppercase tracking-widest ${value ? "text-emerald-400" : "text-slate-600"}`}>
+                          {key.replace(/([A-Z])/g, ' $1')}
+                        </span>
+                        {value ? <CheckCircle2 size={18} className="text-emerald-500" /> : <XCircle size={18} className="text-slate-800" />}
+                     </div>
+                   )) : (
+                     <div className="py-20 text-center space-y-6 border border-white/5 border-dashed rounded-[3rem]">
+                        <KeyRound size={48} className="mx-auto text-slate-800" />
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-[0.4em]">Input Required</p>
+                     </div>
+                   )}
+                </div>
+             </div>
+
+             <div className="p-10 bg-emerald-500/5 rounded-[3rem] border border-emerald-500/10 flex items-center gap-6">
+                <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-sm">
+                   <ShieldCheck size={28} />
+                </div>
+                <div>
+                   <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest leading-none mb-1.5 italic">Local Vault Active</p>
+                   <p className="text-[10px] font-bold text-slate-500 leading-tight">Secret processing restricted to browser thread.</p>
+                </div>
+             </div>
           </div>
         </div>
-      </div>
+
+        {/* Documentation Section */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+           <div className="grid lg:grid-cols-2 gap-24 items-start">
+              <div className="space-y-16">
+                 <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-rose-500/10 rounded-[1.5rem] flex items-center justify-center text-rose-400 border border-rose-500/20">
+                      <HelpCircle size={32} />
+                    </div>
+                    <div>
+                      <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Security <span className="text-rose-400">Intel</span></h2>
+                      <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Protocol Queries</p>
+                    </div>
+                 </div>
+
+                 <div className="space-y-6">
+                    {[
+                      { q: "Is my password sent to servers?", a: "Negative. SamToolbox utilizes 100% local JavaScript execution. Your string never crosses the network interface. Zero surveillance model." },
+                      { q: "How is crack time calculated?", a: "We utilize a standard entropy model assuming high-performance brute-force clusters capable of 1 trillion attempts per second." },
+                      { q: "What defines 'Fortress' status?", a: "A Fortress password exceeds 12 characters, utilizes multi-vector character sets (Upper, Lower, Numeric, Symbolic), and avoids common lexical patterns." }
+                    ].map((faq, i) => (
+                      <div key={i} className="p-10 bg-white/5 rounded-[3rem] border border-white/5 hover:border-rose-500/20 transition-all group">
+                        <h3 className="font-black text-white text-sm mb-6 flex items-start gap-4">
+                          <span className="text-rose-400 font-mono italic">Q.</span> {faq.q}
+                        </h3>
+                        <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+                      </div>
+                    ))}
+                 </div>
+              </div>
+
+              <div className="bg-[#0f172a] rounded-[4.5rem] p-16 md:p-24 text-white relative overflow-hidden border border-white/5">
+                 <div className="absolute top-0 right-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+                 <div className="relative z-10 text-center sm:text-left">
+                    <div className="w-24 h-24 bg-rose-500/10 border border-rose-500/20 rounded-[2.5rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(244,63,94,0.2)] mx-auto sm:mx-0">
+                      <Shield size={48} className="text-rose-400" />
+                    </div>
+                    <h3 className="text-4xl font-black mb-10 tracking-tight uppercase leading-[0.9] italic">Sovereign <span className="text-rose-400">Guardian.</span></h3>
+                    <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                       Entropy Guardian operates on a strictly local delivery model. 
+                       No signups, no cloud syncing, no data harvesting. 
+                       Your security is your business.
+                    </p>
+                    
+                    <div className="grid grid-cols-2 gap-12">
+                       <div className="space-y-4">
+                          <div className="text-4xl font-black text-white tracking-tighter italic">ZERO-NET</div>
+                          <div className="text-[10px] font-bold text-rose-400 uppercase tracking-[0.3em]">No Network Calls</div>
+                       </div>
+                       <div className="space-y-4">
+                          <div className="text-4xl font-black text-white tracking-tighter italic">HEURISTIC</div>
+                          <div className="text-[10px] font-bold text-rose-400 uppercase tracking-[0.3em]">Pattern Analysis</div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </section>
     </div>
   );
 }

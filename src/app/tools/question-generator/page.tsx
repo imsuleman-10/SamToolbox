@@ -1,7 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { Brain, Plus, Trash2, Download, Zap, BookOpen, Target, Sparkles, HelpCircle } from "lucide-react";
+import { useState, useMemo } from "react";
+import { 
+  Brain, Plus, Trash2, Download, Zap, BookOpen, 
+  Target, Sparkles, HelpCircle, Terminal, 
+  ShieldCheck, Cpu, Activity, ArrowRight,
+  Layers, FileText, CheckCircle2, Circle
+} from "lucide-react";
+import Link from "next/link";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
 interface Question {
   id: string;
@@ -114,224 +121,260 @@ export default function QuestionGeneratorPage() {
       pdf.save("quiz-set.pdf");
     } catch (error) {
       console.error(error);
-      alert("Failed to generate PDF.");
     } finally {
       setIsGenerating(false);
     }
   };
 
+  const schema = useMemo(() => generateSoftwareApplicationSchema("question-generator", "Professional MCQ architect for exam synthesis and practice set generation."), []);
+
   return (
-    <div className="max-w-5xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
-      {/* Header Section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
-        <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 text-brand-700 text-[10px] font-black uppercase tracking-widest border border-brand-100">
-            <Sparkles size={12} />
-            <span>AI-Ready Architecture</span>
-          </div>
-          <h1 className="text-4xl font-black text-slate-900 tracking-tight leading-none">
-            Question <span className="text-brand-600">Generator</span>
-          </h1>
-          <p className="text-slate-500 font-medium">Create professional MCQ sets for exams and practice sessions.</p>
-        </div>
+    <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         
-        <button
-          onClick={downloadQuestions}
-          disabled={isGenerating}
-          className="flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-2xl hover:shadow-brand-500/20 hover:-translate-y-1 transition-all active:translate-y-0 disabled:opacity-50"
-        >
-          {isGenerating ? <Zap className="animate-pulse" size={18} /> : <Download size={18} />}
-          {isGenerating ? "FORGING PDF..." : "EXPORT QUIZ SET"}
-        </button>
-      </div>
-
-      <div className="grid lg:grid-cols-12 gap-8">
-        {/* Editor Sidebar/List */}
-        <div className="lg:col-span-8 space-y-6">
-          {questions.map((q, qIdx) => (
-            <div key={q.id} className="group bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div className="bg-slate-50 px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-xs font-black">
-                    {qIdx + 1}
-                  </div>
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Question Module</span>
-                </div>
-                <button
-                  onClick={() => removeQuestion(q.id)}
-                  className="p-2 text-slate-300 hover:text-red-500 transition-colors"
-                >
-                  <Trash2 size={18} />
-                </button>
-              </div>
-              
-              <div className="p-6 space-y-6">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Question Text</label>
-                  <textarea
-                    value={q.question}
-                    onChange={(e) => updateQuestion(q.id, "question", e.target.value)}
-                    placeholder="Enter your question here..."
-                    rows={2}
-                    className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/5 outline-none text-sm font-medium transition-all placeholder:text-slate-300"
-                  />
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {q.options.map((opt, oIdx) => (
-                    <div key={oIdx} className="space-y-2">
-                      <div className="flex justify-between items-center px-1">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                          Option {String.fromCharCode(65 + oIdx)}
-                        </label>
-                        <button
-                          onClick={() => updateQuestion(q.id, "correctAnswer", oIdx)}
-                          className={`text-[9px] font-black uppercase tracking-tighter px-2 py-0.5 rounded-md transition-all ${
-                            q.correctAnswer === oIdx
-                              ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20"
-                              : "bg-slate-100 text-slate-400 hover:bg-slate-200"
-                          }`}
-                        >
-                          {q.correctAnswer === oIdx ? "Correct Answer" : "Mark Correct"}
-                        </button>
-                      </div>
-                      <input
-                        type="text"
-                        value={opt}
-                        onChange={(e) => updateOption(q.id, oIdx, e.target.value)}
-                        placeholder={`Option ${String.fromCharCode(65 + oIdx)}...`}
-                        className={`w-full px-5 py-3 rounded-xl border outline-none text-sm font-medium transition-all ${
-                          q.correctAnswer === oIdx
-                            ? "bg-emerald-50/30 border-emerald-200 focus:border-emerald-500"
-                            : "bg-slate-50 border-slate-100 focus:border-brand-500"
-                        }`}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-
-          <button
-            onClick={addQuestion}
-            className="w-full py-6 border-2 border-dashed border-slate-200 rounded-3xl text-slate-400 hover:border-brand-500 hover:text-brand-600 hover:bg-brand-50/30 transition-all flex items-center justify-center gap-3 font-black uppercase tracking-widest text-xs"
-          >
-            <Plus size={18} />
-            Append Question
-          </button>
-        </div>
-
-        {/* Info & Stats */}
-        <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 space-y-8">
-            <div>
-              <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest mb-6 flex items-center gap-2">
-                <Target size={16} className="text-brand-600" />
-                Session Metrics
-              </h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Total</p>
-                  <p className="text-2xl font-black text-slate-900">{questions.length}</p>
-                </div>
-                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Answered</p>
-                  <p className="text-2xl font-black text-slate-900">
-                    {questions.filter(q => q.question.trim() !== "").length}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-8 border-t border-slate-100">
-              <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest mb-4 flex items-center gap-2">
-                <BookOpen size={16} className="text-indigo-600" />
-                Pro Guidelines
-              </h3>
-              <ul className="space-y-3 text-xs font-medium text-slate-500">
-                <li className="flex gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-1.5 shrink-0" />
-                  Ensure question clarity for higher accuracy.
-                </li>
-                <li className="flex gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-1.5 shrink-0" />
-                  Mark the correct answer using the tag.
-                </li>
-                <li className="flex gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-1.5 shrink-0" />
-                  Export to PDF for print-ready sheets.
-                </li>
-              </ul>
-            </div>
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <Brain size={14} className="animate-pulse" />
+            Linguistic Forge v5.1
           </div>
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            Question <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 italic">Architect.</span>
+          </h1>
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            Industrial-grade MCQ synthesis and PDF forging. 
+            <span className="text-slate-200 font-bold block mt-2">Local Logic Execution. Zero Cloud Telemetry. Universal Export.</span>
+          </p>
 
-          <div className="bg-indigo-600 rounded-3xl p-8 text-white shadow-xl shadow-indigo-500/20 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700" />
-            <Brain size={48} className="mb-6 opacity-40" />
-            <h4 className="text-xl font-black tracking-tight mb-2 uppercase">Ready for Exams?</h4>
-            <p className="text-sm font-medium opacity-80 leading-relaxed">
-              Use this tool to simulate real-world testing environments. Research shows that self-testing increases retention by up to 50%.
-            </p>
+          <div className="mt-12 flex flex-wrap justify-center gap-6">
+             <button
+                onClick={downloadQuestions}
+                disabled={isGenerating}
+                className="flex items-center gap-4 px-12 py-6 bg-white text-slate-900 rounded-[2rem] font-black uppercase tracking-widest text-[10px] shadow-3xl hover:bg-indigo-600 hover:text-white transition-all active:scale-95 disabled:opacity-50 group"
+              >
+                {isGenerating ? <Zap size={20} className="animate-pulse" /> : <Download size={20} className="group-hover:-translate-y-1 transition-transform" />}
+                {isGenerating ? "Forging PDF..." : "Export Quiz Set"}
+              </button>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
 
-      {/* Information Section */}
-      <div className="max-w-5xl mx-auto px-4 mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-brand-50 rounded-xl text-brand-600">
-              <BookOpen size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Assembly Protocol</h2>
-          </div>
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          <div className="space-y-6">
-            {[
-              { step: "01", title: "Module Initialization", desc: "Click 'Append Question' to generate a new quiz module. Each unit is logically separated for optimal readability." },
-              { step: "02", title: "Content Formulation", desc: "Define your question and provide four distinct options. Use high-quality distractors to increase testing validity." },
-              { step: "03", title: "Logical Verification", desc: "Utilize the 'Mark Correct' toggle to identify the target answer. This automatically populates the integrated Answer Key." },
-              { step: "04", title: "Document Forging", desc: "Select 'Export Quiz Set'. Our engine performs an industrial-grade PDF render, perfect for digital sharing or physical print." }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 group">
-                <span className="text-3xl font-black text-slate-100 group-hover:text-brand-100 transition-colors duration-300">{item.step}</span>
-                <div className="space-y-1">
-                  <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+          {/* Editor Area */}
+          <div className="lg:col-span-8 space-y-10">
+            {questions.map((q, qIdx) => (
+              <div key={q.id} className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+                 <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex items-center justify-between">
+                    <div className="flex items-center gap-6">
+                       <div className="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center text-indigo-400 font-black italic">
+                          {qIdx + 1}
+                       </div>
+                       <div>
+                          <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none italic">Question Module</h3>
+                          <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1">Vector Identification</p>
+                       </div>
+                    </div>
+                    <button
+                      onClick={() => removeQuestion(q.id)}
+                      className="p-4 bg-rose-500/10 text-rose-500 border border-rose-500/20 rounded-2xl hover:bg-rose-500 hover:text-white transition-all shadow-xl"
+                    >
+                      <Trash2 size={20} />
+                    </button>
+                 </div>
+
+                 <div className="p-10 space-y-10">
+                    <div className="space-y-4">
+                       <label className="text-[9px] font-black text-indigo-400 uppercase tracking-widest pl-2">Subject Query</label>
+                       <textarea
+                         value={q.question}
+                         onChange={(e) => updateQuestion(q.id, "question", e.target.value)}
+                         placeholder="INPUT QUESTION PARAMETERS..."
+                         rows={2}
+                         className="w-full bg-white/[0.03] border border-white/5 rounded-[2rem] p-8 text-lg font-bold text-white outline-none focus:bg-white/[0.05] focus:border-indigo-500/30 transition-all placeholder:text-slate-800 tracking-tight uppercase italic"
+                       />
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-8">
+                       {q.options.map((opt, oIdx) => (
+                         <div key={oIdx} className="space-y-3 group">
+                           <div className="flex justify-between items-center px-2">
+                             <label className="text-[9px] font-black text-slate-600 uppercase tracking-widest">
+                               Vector {String.fromCharCode(65 + oIdx)}
+                             </label>
+                             <button
+                               onClick={() => updateQuestion(q.id, "correctAnswer", oIdx)}
+                               className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${
+                                 q.correctAnswer === oIdx
+                                   ? "bg-emerald-500 text-white shadow-xl shadow-emerald-900/40"
+                                   : "bg-white/5 text-slate-600 hover:text-white hover:bg-white/10"
+                               }`}
+                             >
+                               {q.correctAnswer === oIdx ? "Target Identified" : "Mark Target"}
+                             </button>
+                           </div>
+                           <input
+                             type="text"
+                             value={opt}
+                             onChange={(e) => updateOption(q.id, oIdx, e.target.value)}
+                             placeholder={`Option ${String.fromCharCode(65 + oIdx)}...`}
+                             className={`w-full px-6 py-5 rounded-2xl border outline-none text-sm font-bold transition-all uppercase italic ${
+                               q.correctAnswer === oIdx
+                                 ? "bg-emerald-500/5 border-emerald-500/20 text-emerald-400"
+                                 : "bg-white/[0.03] border-white/5 text-white focus:border-indigo-500/30"
+                             }`}
+                           />
+                         </div>
+                       ))}
+                    </div>
+                 </div>
+              </div>
+            ))}
+
+            <button
+              onClick={addQuestion}
+              className="w-full py-12 bg-white text-slate-900 rounded-[3.5rem] font-black uppercase tracking-[0.4em] text-[10px] shadow-3xl transition-all hover:scale-[1.01] active:scale-95 flex items-center justify-center gap-6"
+            >
+              <Plus size={24} strokeWidth={4} /> Append New Question Vector
+            </button>
+          </div>
+
+          {/* Sidebar */}
+          <div className="lg:col-span-4 space-y-10 lg:sticky lg:top-24">
+             {/* Stats Dashboard */}
+             <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black p-12 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-indigo-600 rounded-full blur-[100px] opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-1000" />
+                
+                <div className="relative space-y-12">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center text-indigo-400">
+                      <Target size={22} />
+                    </div>
+                    <h2 className="text-xl font-black text-white tracking-tighter uppercase italic">Session Logic</h2>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-6">
+                     <div className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 text-center sm:text-left">
+                        <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3">Total Volume</p>
+                        <p className="text-3xl font-black text-white tracking-tighter italic">{questions.length}</p>
+                     </div>
+                     <div className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 text-center sm:text-left">
+                        <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3">Verified</p>
+                        <p className="text-3xl font-black text-indigo-400 tracking-tighter italic leading-none">
+                          {questions.filter(q => q.question.trim() !== "").length}
+                        </p>
+                     </div>
+                  </div>
+
+                  <div className="pt-8 border-t border-white/5">
+                    <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-6 italic">Assembly Guidelines</h4>
+                    <div className="space-y-4">
+                       {[
+                         "High-Fidelity Distractors",
+                         "Logical Target Identification",
+                         "Structural Consistency",
+                         "Zero Redundancy"
+                       ].map((tip, i) => (
+                         <div key={i} className="flex items-center gap-3 text-[10px] font-black text-white uppercase tracking-widest italic">
+                            <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                            {tip}
+                         </div>
+                       ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+             </div>
+
+             {/* Privacy Vault */}
+             <div className="p-10 bg-emerald-500/5 rounded-[3rem] border border-emerald-500/10 flex items-center gap-6 shadow-2xl">
+                <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-sm">
+                   <ShieldCheck size={28} />
+                </div>
+                <div>
+                   <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest leading-none mb-1.5 italic">Local Forge Active</p>
+                   <p className="text-[10px] font-bold text-slate-500 leading-tight">Assembly strictly confined to browser memory.</p>
+                </div>
+             </div>
           </div>
         </div>
 
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-slate-900 rounded-xl text-white">
-              <HelpCircle size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Quiz Intelligence FAQ</h2>
-          </div>
+        {/* FAQ Section */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+           <div className="grid lg:grid-cols-2 gap-24 items-start">
+              <div className="space-y-16">
+                 <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-indigo-500/10 rounded-[1.5rem] flex items-center justify-center text-indigo-400 border border-indigo-500/20">
+                      <HelpCircle size={32} />
+                    </div>
+                    <div>
+                      <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Forge <span className="text-indigo-400">Intel</span></h2>
+                      <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Protocol Queries</p>
+                    </div>
+                 </div>
 
-          <div className="space-y-4">
-            {[
-              { q: "Is this tool AI-driven?", a: "This is a structural architect. You provide the expertise, and we provide the professional formatting, logical validation, and PDF engine." },
-              { q: "Is my data private?", a: "100%. SamToolbox uses 'Air-Gapped' processing. Your questions are never transmitted to a server and exist only in your browser." },
-              { q: "Can I edit after marking?", a: "Yes. You have full control over all fields and correct-answer markers until the moment you initiate the export process." },
-              { q: "Why PDF format?", a: "PDF ensures that your quiz layout, font sizes, and answer keys remain consistent across all devices and printers." }
-            ].map((faq, i) => (
-              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
-                  {faq.q}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+                 <div className="space-y-6">
+                    {[
+                      { q: "Is my quiz data secure?", a: "Affirmative. Question Architect utilizes 100% local JavaScript execution. Your content never crosses the network interface. Zero cloud telemetry." },
+                      { q: "Can I use external AI?", a: "This is a structural architect designed for manual high-precision synthesis. You provide the expertise, we provide the industrial formatting." },
+                      { q: "Why PDF for exports?", a: "PDF ensures structural integrity and consistent rendering across all digital and physical output interfaces." }
+                    ].map((faq, i) => (
+                      <div key={i} className="p-10 bg-white/5 rounded-[3rem] border border-white/5 hover:border-indigo-500/20 transition-all group">
+                        <h3 className="font-black text-white text-sm mb-6 flex items-start gap-4">
+                          <span className="text-indigo-400 font-mono italic">Q.</span> {faq.q}
+                        </h3>
+                        <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+                      </div>
+                    ))}
+                 </div>
               </div>
-            ))}
-          </div>
+
+              <div className="bg-[#0f172a] rounded-[4.5rem] p-16 md:p-24 text-white relative overflow-hidden border border-white/5">
+                 <div className="absolute top-0 right-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+                 <div className="relative z-10 text-center sm:text-left">
+                    <div className="w-24 h-24 bg-indigo-500/10 border border-indigo-500/20 rounded-[2.5rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(79,70,229,0.2)] mx-auto sm:mx-0">
+                      <Brain size={48} className="text-indigo-400" />
+                    </div>
+                    <h3 className="text-4xl font-black mb-10 tracking-tight uppercase leading-[0.9] italic">Sovereign <span className="text-indigo-400">Creation.</span></h3>
+                    <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                       Linguistic Forge operates on a strictly local delivery model. 
+                       No signups, no cloud syncing, no data harvesting. 
+                       Your knowledge is your business.
+                    </p>
+                    
+                    <div className="grid grid-cols-2 gap-12">
+                       <div className="space-y-4">
+                          <div className="text-4xl font-black text-white tracking-tighter italic">AIR-GAPPED</div>
+                          <div className="text-[10px] font-bold text-indigo-400 uppercase tracking-[0.3em]">No Network Sync</div>
+                       </div>
+                       <div className="space-y-4">
+                          <div className="text-4xl font-black text-white tracking-tighter italic">LOCAL-PDF</div>
+                          <div className="text-[10px] font-bold text-indigo-400 uppercase tracking-[0.3em]">In-Browser Forging</div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
         </div>
-      </div>
+
+        {/* Explore More Tools */}
+        <div className="mt-40 text-center">
+           <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-10">Access further industrial utilities</p>
+           <Link href="/tools" className="inline-flex items-center gap-6 px-20 py-8 bg-white text-slate-900 rounded-[2.5rem] font-black uppercase tracking-widest text-[10px] hover:bg-indigo-600 hover:text-white transition-all shadow-3xl group">
+             Explore All Systems <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
+           </Link>
+        </div>
+      </section>
     </div>
   );
 }

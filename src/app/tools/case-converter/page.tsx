@@ -1,221 +1,268 @@
 "use client";
 
-import { useState } from "react";
-import { Copy, Trash2, Type, Settings2, Zap, ShieldCheck, BookOpen, HelpCircle } from "lucide-react";
+import { useState, useMemo } from "react";
+import { 
+  Copy, Trash2, Type, Settings, Zap, 
+  ShieldCheck, HelpCircle, BookOpen,
+  Terminal, Activity, 
+  Cpu, Check
+} from "lucide-react";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
 export default function CaseConverterPage() {
   const [text, setText] = useState("");
+  const [lastAction, setLastAction] = useState<string | null>(null);
+
+  const schema = useMemo(() => generateSoftwareApplicationSchema("case-converter", "Professional text case transformation engine with 100% local processing."), []);
 
   const handleCopy = () => {
+    if (!text) return;
     navigator.clipboard.writeText(text);
+    setLastAction("copied");
+    setTimeout(() => setLastAction(null), 2000);
   };
 
   const handleClear = () => {
     setText("");
+    setLastAction("cleared");
+    setTimeout(() => setLastAction(null), 2000);
   };
 
   const convertCase = (type: string) => {
+    if (!text) return;
+    let result = text;
     switch (type) {
       case "uppercase":
-        setText(text.toUpperCase());
+        result = text.toUpperCase();
         break;
       case "lowercase":
-        setText(text.toLowerCase());
+        result = text.toLowerCase();
         break;
       case "titlecase":
-        setText(
-          text
-            .toLowerCase()
-            .split(" ")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ")
-        );
+        result = text
+          .toLowerCase()
+          .split(/(\s+)/)
+          .map((word) => {
+            if (word.trim().length === 0) return word;
+            return word.charAt(0).toUpperCase() + word.slice(1);
+          })
+          .join("");
         break;
       case "sentencecase":
-        setText(
-          text
-            .toLowerCase()
-            .replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => c.toUpperCase())
-        );
+        result = text
+          .toLowerCase()
+          .replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => c.toUpperCase());
         break;
       case "camelcase":
-        setText(
-          text
-            .toLowerCase()
-            .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
-        );
+        result = text
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
         break;
       case "snakecase":
-        setText(
-          text
-            .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-            ?.map((x) => x.toLowerCase())
-            .join("_") || text
-        );
+        result = text
+          .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+          ?.map((x) => x.toLowerCase())
+          .join("_") || text;
         break;
     }
+    setText(result);
+    setLastAction(type);
+    setTimeout(() => setLastAction(null), 2000);
   };
 
   return (
-    <>
-      <div className="max-w-4xl mx-auto py-8 sm:py-12 px-4">
-      <div className="text-center mb-8 sm:mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-[10px] font-black uppercase tracking-[0.2em] mb-6 sm:mb-8 border border-slate-200">
-          <Settings2 size={14} />
-          <span>Text Formatting Simplified</span>
-        </div>
-        <h1 className="text-4xl md:text-5xl font-black text-slate-800 mb-4 tracking-tight">
-          Smart <span className="text-slate-900">Case Converter</span>
-        </h1>
-        <p className="text-sm sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
-          Transform text between uppercase, lowercase, title case, sentence case, camelCase, and snake_case in one click.
-          <span className="text-slate-900 font-semibold"> Perfect for developers, writers, and content creators. All processed locally.</span>
-        </p>
-      </div>
+    <div className="min-h-screen bg-[#020617] selection:bg-blue-500/30 selection:text-blue-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      {/* Conversion Buttons */}
-      <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
-        <CaseButton onClick={() => convertCase("sentencecase")} label="Sentence case" />
-        <CaseButton onClick={() => convertCase("lowercase")} label="lower case" />
-        <CaseButton onClick={() => convertCase("uppercase")} label="UPPER CASE" />
-        <CaseButton onClick={() => convertCase("titlecase")} label="Title Case" />
-        <CaseButton onClick={() => convertCase("camelcase")} label="camelCase" />
-        <CaseButton onClick={() => convertCase("snakecase")} label="snake_case" />
-      </div>
-
-      {/* Editor */}
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden mx-[-1rem] sm:mx-0">
-        <div className="bg-slate-50 border-b border-slate-100 p-3 sm:p-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-3 w-full sm:w-auto">
-            <div className="bg-slate-100 p-2 rounded-lg text-slate-600">
-              <Type size={20} />
-            </div>
-            <span className="font-semibold text-slate-700 text-sm sm:text-base">Your Text</span>
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <Activity size={14} className="animate-pulse" />
+            String Transformation Engine v7.2
           </div>
-          <div className="flex gap-2 w-full sm:w-auto">
-            <button
-              onClick={handleCopy}
-              disabled={!text}
-              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-brand-600 bg-brand-50 hover:bg-brand-100 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition"
-            >
-              <Copy size={16} /> Copy
-            </button>
-            <button
-              onClick={handleClear}
-              disabled={!text}
-              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition"
-            >
-              <Trash2 size={16} /> Clear
-            </button>
-          </div>
-        </div>
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Paste or type your text here, then click any case button above to transform it instantly. Works with code snippets, paragraphs, lists, and more."
-          className="w-full h-64 sm:h-80 p-4 sm:p-6 focus:outline-none resize-none text-slate-700 text-base sm:text-lg font-medium bg-white"
-          autoFocus
-        />
-      </div>
-
-      {/* Benefits Section */}
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
-          <div className="w-9 h-9 bg-brand-100 rounded-lg flex items-center justify-center mb-3">
-            <Zap size={18} className="text-brand-600" />
-          </div>
-          <h3 className="text-sm font-black text-slate-800 mb-1.5 uppercase tracking-wide">6 Formats Instantly</h3>
-          <p className="text-xs text-slate-600 leading-relaxed">
-            Uppercase, lowercase, title case, sentence case, camelCase, snake_case — all one click away.
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            String <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 italic">Forge.</span>
+          </h1>
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            Multi-vector case transformation. 
+            <span className="text-slate-200 font-bold block mt-2">Buffer Re-Mapping. Zero Cloud Leakage. Instant Character Logic.</span>
           </p>
         </div>
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
-          <div className="w-9 h-9 bg-emerald-100 rounded-lg flex items-center justify-center mb-3">
-            <ShieldCheck size={18} className="text-emerald-600" />
-          </div>
-          <h3 className="text-sm font-black text-slate-800 mb-1.5 uppercase tracking-wide">Completely Private</h3>
-          <p className="text-xs text-slate-600 leading-relaxed">
-            No data leaves your browser. Your text is never uploaded or stored anywhere.
-          </p>
-        </div>
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
-          <div className="w-9 h-9 bg-slate-100 rounded-lg flex items-center justify-center mb-3">
-            <Copy size={18} className="text-slate-600" />
-          </div>
-          <h3 className="text-sm font-black text-slate-800 mb-1.5 uppercase tracking-wide">One-Click Copy</h3>
-          <p className="text-xs text-slate-600 leading-relaxed">
-            Instantly copy transformed text and paste it into your code, documents, or social media.
-          </p>
-        </div>
-      </div>
-    </div>
+      </section>
 
-      {/* Information Section */}
-      <div className="max-w-4xl mx-auto px-4 mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-brand-50 rounded-xl text-brand-600">
-              <BookOpen size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Transformation Protocol</h2>
-          </div>
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          <div className="space-y-6">
-            {[
-              { step: "01", title: "Text Entry", desc: "Paste or type the text you wish to transform into the editor. It supports paragraphs, code, and lists." },
-              { step: "02", title: "Select Case", desc: "Choose your target format from the dashboard. Options include standard text and programming conventions." },
-              { step: "03", title: "Instant Engine", desc: "The transformation logic executes immediately in your browser with zero latency or server requests." },
-              { step: "04", title: "Export Result", desc: "Use the global copy control to move your reformatted text back to your primary editor or documentation." }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 group">
-                <span className="text-3xl font-black text-slate-100 group-hover:text-brand-100 transition-colors duration-300">{item.step}</span>
-                <div className="space-y-1">
-                  <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+          {/* Workspace */}
+          <div className="lg:col-span-8 space-y-8">
+            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+               <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                     <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-blue-400">
+                        <Terminal size={22} />
+                     </div>
+                     <div>
+                        <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none">Mapping Buffer</h3>
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1 italic">Ready for mutation</p>
+                     </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                     <button 
+                       onClick={handleCopy}
+                       disabled={!text}
+                       className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 border border-white/5 disabled:opacity-20 shadow-xl"
+                     >
+                       {lastAction === "copied" ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />} 
+                       {lastAction === "copied" ? "Copied" : "Copy"}
+                     </button>
+                     <button 
+                       onClick={handleClear}
+                       disabled={!text}
+                       className="px-6 py-3 bg-rose-600/10 hover:bg-rose-600/20 text-rose-400 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 border border-rose-500/20 disabled:opacity-20 shadow-xl"
+                     >
+                       <Trash2 size={14} /> Purge
+                     </button>
+                  </div>
+               </div>
+
+               <div className="p-10">
+                  <textarea 
+                    value={text}
+                    onChange={e => setText(e.target.value)}
+                    className="w-full h-[500px] bg-black/40 border border-white/5 rounded-[2.5rem] p-10 text-white font-medium leading-relaxed outline-none focus:border-blue-500/30 transition-all resize-none custom-scrollbar"
+                    placeholder="INJECT TEXT STREAM FOR MUTATION..."
+                  />
+                  
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-10">
+                     {[
+                       { id: "uppercase", label: "UPPERCASE", icon: <Type size={16} /> },
+                       { id: "lowercase", label: "lowercase", icon: <Type size={16} /> },
+                       { id: "titlecase", label: "Title Case", icon: <Type size={16} /> },
+                       { id: "sentencecase", label: "Sentence case", icon: <Type size={16} /> },
+                       { id: "camelcase", label: "camelCase", icon: <Type size={16} /> },
+                       { id: "snakecase", label: "snake_case", icon: <Type size={16} /> }
+                     ].map(opt => (
+                       <button
+                         key={opt.id}
+                         onClick={() => convertCase(opt.id)}
+                         className={`p-6 rounded-[1.5rem] border transition-all text-left group relative overflow-hidden ${lastAction === opt.id ? "bg-blue-600 border-blue-500 shadow-xl" : "bg-white/5 border-white/5 hover:border-blue-500/20"}`}
+                       >
+                          <div className={`text-[10px] font-black uppercase tracking-[0.2em] mb-2 ${lastAction === opt.id ? "text-white" : "text-slate-500 group-hover:text-blue-400"}`}>
+                             {opt.label}
+                          </div>
+                          <div className={`text-[9px] font-bold uppercase tracking-widest ${lastAction === opt.id ? "text-blue-100" : "text-slate-700"}`}>Execute Vector</div>
+                          {lastAction === opt.id && <Zap size={40} className="absolute -right-4 -bottom-4 text-white/10 rotate-12" />}
+                       </button>
+                     ))}
+                  </div>
+               </div>
+            </div>
+          </div>
+
+          {/* Action Sidebar */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="bg-[#0f172a] p-10 rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full blur-3xl" />
+               <div className="flex items-center gap-4 mb-8">
+                  <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-blue-400">
+                    <Settings size={24} />
+                  </div>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tighter">Engine</h3>
+               </div>
+               <div className="space-y-6">
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Transformation</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">Case-Native</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Latency</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">Zero</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-[9px] font-black text-blue-500 uppercase tracking-[0.4em] pt-4 border-t border-white/5">
+                     <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                     Forge Active
+                  </div>
+               </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-600 to-indigo-700 p-10 rounded-[3.5rem] text-white relative overflow-hidden shadow-3xl border border-blue-500/20">
+               <ShieldCheck size={120} className="absolute -bottom-10 -right-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000" />
+               <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter italic">Vault Secure</h3>
+               <p className="text-blue-100 font-medium text-sm leading-relaxed">
+                  Every character mutation occurs strictly within your browser's local memory space. Your strings are never stored or transmitted.
+               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ══════════════════════════════════════════
+            DOCUMENTATION & FAQ
+        ══════════════════════════════════════════ */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+          <div className="grid lg:grid-cols-2 gap-24 items-start">
+            <div className="space-y-16">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-blue-500/10 rounded-[1.5rem] flex items-center justify-center text-blue-400 border border-blue-500/20">
+                  <HelpCircle size={32} />
+                </div>
+                <div>
+                  <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Forge <span className="text-blue-400">FAQ</span></h2>
+                  <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">String Queries</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-slate-900 rounded-xl text-white">
-              <HelpCircle size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Linguistic FAQ</h2>
-          </div>
-
-          <div className="space-y-4">
-            {[
-              { q: "What is camelCase?", a: "A naming convention where the first letter of each word is capitalized except for the first word, common in coding." },
-              { q: "Supports special characters?", a: "Yes. Our engine preserves punctuation and numeric data while identifying word boundaries for case logic." },
-              { q: "Is there a length limit?", a: "No. Since processing is 100% local, the tool can handle massive text blocks without performance degradation." },
-              { q: "Privacy guarantee?", a: "Your text never leaves your browser. We utilize local state management to ensure complete data isolation." }
-            ].map((faq, i) => (
-              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
-                  {faq.q}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+              <div className="space-y-6">
+                {[
+                  { q: "Is Title Case accurate?", a: "Affirmative. Our engine maps standard capitalization rules while preserving delimiters and whitespace buffers." },
+                  { q: "Code refactoring support?", a: "The Forge supports camelCase and snake_case transformations, optimized for variable and function naming conventions." },
+                  { q: "Execution bottlenecks?", a: "None. Since processing is 100% local, even extremely large text buffers (100k+ characters) are mutated in real-time." }
+                ].map((faq, i) => (
+                  <div key={i} className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 hover:border-blue-500/20 transition-all group">
+                    <h3 className="font-black text-white text-sm mb-4 flex items-start gap-4">
+                      <span className="text-blue-400 font-mono">Q.</span> {faq.q}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div className="bg-[#0f172a] rounded-[4rem] p-16 md:p-20 text-white relative overflow-hidden border border-white/5">
+               <div className="absolute top-0 right-0 w-full h-full opacity-[0.02] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+               <div className="relative z-10 text-center sm:text-left">
+                  <div className="w-24 h-24 bg-blue-500/10 border border-blue-500/20 rounded-[2rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(37,99,235,0.2)] mx-auto sm:mx-0">
+                    <BookOpen size={48} className="text-blue-400" />
+                  </div>
+                  <h3 className="text-4xl font-black mb-8 tracking-tight uppercase leading-none">Best Practices</h3>
+                  <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                    For professional documentation, use 'Sentence Case' for 
+                    narratives and 'snake_case' for database schemas.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-12">
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">0-LOG</div>
+                        <div className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Privacy Index</div>
+                     </div>
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">RAW</div>
+                        <div className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Pure Logic</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
           </div>
         </div>
-      </div>
-      </div>
-    </>
-  );
-}
-
-function CaseButton({ label, onClick }: { label: string; onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="px-5 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl font-medium hover:border-brand-500 hover:text-brand-600 hover:shadow-sm transition"
-    >
-      {label}
-    </button>
+      </section>
+    </div>
   );
 }

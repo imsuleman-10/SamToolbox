@@ -5,9 +5,9 @@ import Link from "next/link";
 import { 
   QrCode, Type, ALargeSmall, FileText, Image as ImageIcon, 
   ArrowRight, Zap, ShieldCheck, Cpu, Database, Binary, 
-  Layers, Settings2, Sparkles, Wand2, Search, X,
+  Layers, Settings, Sparkles, Wand2, Search, X,
   Target, Timer, BookOpen, FileCheck, Lock, GraduationCap,
-  Calendar, Brain, Globe, Shield
+  Calendar, Brain, Globe, Shield, Terminal, Activity
 } from "lucide-react";
 
 export default function ToolsPage() {
@@ -17,7 +17,7 @@ export default function ToolsPage() {
     {
       name: "CORE SYSTEMS",
       icon: <Cpu size={16} />,
-      color: "text-amber-500",
+      color: "text-blue-400",
       tools: [
         {
           title: "CV / Resume Maker",
@@ -25,7 +25,7 @@ export default function ToolsPage() {
           icon: <FileText size={24} />,
           href: "/tools/cv-maker",
           tag: "PRO",
-          tagColor: "bg-amber-500/10 text-amber-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "cv resume maker job recruitment pdf"
         },
         {
@@ -34,7 +34,7 @@ export default function ToolsPage() {
           icon: <QrCode size={24} />,
           href: "/tools/qr-generator",
           tag: "SaaS",
-          tagColor: "bg-blue-500/10 text-blue-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "qr code generator scan mobile"
         },
       ],
@@ -42,7 +42,7 @@ export default function ToolsPage() {
     {
       name: "VISUAL ASSETS",
       icon: <ImageIcon size={16} />,
-      color: "text-purple-500",
+      color: "text-blue-400",
       tools: [
         {
           title: "Image Converter",
@@ -50,7 +50,7 @@ export default function ToolsPage() {
           icon: <ImageIcon size={24} />,
           href: "/tools/image-converter",
           tag: "NEW",
-          tagColor: "bg-purple-500/10 text-purple-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "image converter jpg png jpeg webp svg transition format"
         },
         {
@@ -59,7 +59,7 @@ export default function ToolsPage() {
           icon: <Sparkles size={24} />,
           href: "/tools/image-compress",
           tag: "NEURAL",
-          tagColor: "bg-emerald-500/10 text-emerald-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "image compress shrink reduce size optimizer"
         },
         {
@@ -75,7 +75,7 @@ export default function ToolsPage() {
           icon: <FileText size={24} />,
           href: "/tools/image-to-pdf",
           tag: "NEW",
-          tagColor: "bg-purple-500/10 text-purple-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "image to pdf convert jpg png pdf creator"
         },
       ],
@@ -83,7 +83,7 @@ export default function ToolsPage() {
     {
       name: "LINGUIST SUITE",
       icon: <Binary size={16} />,
-      color: "text-rose-500",
+      color: "text-blue-400",
       tools: [
         {
           title: "Advanced Analytics",
@@ -91,7 +91,7 @@ export default function ToolsPage() {
           icon: <Type size={24} />,
           href: "/tools/word-counter",
           tag: "FREE",
-          tagColor: "bg-rose-500/10 text-rose-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "word counter text analysis reading time character count"
         },
         {
@@ -113,7 +113,7 @@ export default function ToolsPage() {
     {
       name: "DOCUMENT PIPELINE",
       icon: <Database size={16} />,
-      color: "text-slate-500",
+      color: "text-blue-400",
       tools: [
         {
           title: "PDF Pipeline",
@@ -121,13 +121,13 @@ export default function ToolsPage() {
           icon: <FileText size={24} />,
           href: "/tools/pdf-merge",
           tag: "SECURITY",
-          tagColor: "bg-slate-900 text-white",
+          tagColor: "bg-blue-600 text-white",
           keywords: "pdf merge split join extract"
         },
         {
           title: "PDF Optimizer",
           description: "Compress PDF archives while preserving text clarity.",
-          icon: <Settings2 size={24} />,
+          icon: <Settings size={24} />,
           href: "/tools/pdf-compress",
           keywords: "pdf compress reduce size optimizer shrink"
         },
@@ -137,7 +137,7 @@ export default function ToolsPage() {
           icon: <FileText size={24} />,
           href: "/tools/pdf-split",
           tag: "UTILITY",
-          tagColor: "bg-slate-500/10 text-slate-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "pdf split extract pages divide separate"
         },
         {
@@ -146,7 +146,7 @@ export default function ToolsPage() {
           icon: <ShieldCheck size={24} />,
           href: "/tools/pdf-reader",
           tag: "LOCAL",
-          tagColor: "bg-indigo-500/10 text-indigo-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "pdf reader view excel word ppt office viewer"
         },
       ],
@@ -154,7 +154,7 @@ export default function ToolsPage() {
     {
       name: "STUDENT SUITE",
       icon: <GraduationCap size={16} />,
-      color: "text-emerald-500",
+      color: "text-blue-400",
       tools: [
         {
           title: "Resume Score Checker",
@@ -162,7 +162,7 @@ export default function ToolsPage() {
           icon: <FileCheck size={24} />,
           href: "/tools/resume-score",
           tag: "NEW",
-          tagColor: "bg-emerald-500/10 text-emerald-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "resume score checker ats analysis cv improvement"
         },
         {
@@ -171,7 +171,7 @@ export default function ToolsPage() {
           icon: <GraduationCap size={24} />,
           href: "/tools/gpa-calculator",
           tag: "NEW",
-          tagColor: "bg-emerald-500/10 text-emerald-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "gpa calculator semester cgpa university grading"
         },
         {
@@ -180,7 +180,7 @@ export default function ToolsPage() {
           icon: <Timer size={24} />,
           href: "/tools/study-timer",
           tag: "NEW",
-          tagColor: "bg-emerald-500/10 text-emerald-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "study timer pomodoro productivity focus session tracking"
         },
         {
@@ -189,7 +189,7 @@ export default function ToolsPage() {
           icon: <Target size={24} />,
           href: "/tools/goal-planner",
           tag: "NEW",
-          tagColor: "bg-emerald-500/10 text-emerald-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "goal planner daily weekly tracker productivity"
         },
         {
@@ -198,15 +198,15 @@ export default function ToolsPage() {
           icon: <Brain size={24} />,
           href: "/tools/question-generator",
           tag: "NEW",
-          tagColor: "bg-emerald-500/10 text-emerald-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "question generator quiz mcq exam practice study"
         },
       ],
     },
     {
       name: "PRODUCTIVITY TOOLS",
-      icon: <Settings2 size={16} />,
-      color: "text-cyan-500",
+      icon: <Settings size={16} />,
+      color: "text-blue-400",
       tools: [
         {
           title: "Assignment Formatter",
@@ -214,7 +214,7 @@ export default function ToolsPage() {
           icon: <FileText size={24} />,
           href: "/tools/assignment-formatter",
           tag: "NEW",
-          tagColor: "bg-cyan-500/10 text-cyan-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "assignment formatter pdf export formatting title page"
         },
         {
@@ -223,7 +223,7 @@ export default function ToolsPage() {
           icon: <BookOpen size={24} />,
           href: "/tools/notes-to-pdf",
           tag: "NEW",
-          tagColor: "bg-cyan-500/10 text-cyan-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "notes to pdf converter formatter clean document"
         },
         {
@@ -232,7 +232,7 @@ export default function ToolsPage() {
           icon: <Lock size={24} />,
           href: "/tools/password-strength",
           tag: "NEW",
-          tagColor: "bg-cyan-500/10 text-cyan-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "password strength checker security crack time analysis"
         },
       ],
@@ -240,7 +240,7 @@ export default function ToolsPage() {
     {
       name: "OFFICE SUITE",
       icon: <FileText size={16} />,
-      color: "text-emerald-500",
+      color: "text-blue-400",
       tools: [
         {
           title: "Word Reader",
@@ -268,7 +268,7 @@ export default function ToolsPage() {
     {
       name: "SEO POWER SUITE",
       icon: <Search size={16} />,
-      color: "text-blue-500",
+      color: "text-blue-400",
       tools: [
         {
           title: "SEO Meta Generator",
@@ -276,7 +276,7 @@ export default function ToolsPage() {
           icon: <Globe size={24} />,
           href: "/tools/seo-meta-generator",
           tag: "SEO",
-          tagColor: "bg-blue-500/10 text-blue-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "seo meta generator tags title description keywords"
         },
         {
@@ -285,24 +285,20 @@ export default function ToolsPage() {
           icon: <Shield size={24} />,
           href: "/tools/robots-txt-builder",
           tag: "TECH",
-          tagColor: "bg-emerald-500/10 text-emerald-600",
+          tagColor: "bg-blue-500/10 text-blue-400",
           keywords: "robots.txt builder generator seo crawler bot control"
         },
       ],
     },
   ];
 
-  // Improved search: matches partial words and individual keywords
   const searchTerms = searchQuery.toLowerCase().trim().split(/\s+/).filter(Boolean);
 
   const filteredCategories = categories.map(cat => ({
     ...cat,
     tools: cat.tools.filter(tool => {
       if (searchTerms.length === 0) return true;
-
       const searchableText = `${tool.title} ${tool.description} ${tool.keywords || ""}`.toLowerCase();
-
-      // Check if ANY search term is a partial match (contains or is contained)
       return searchTerms.some(term => 
         searchableText.split(/\s+/).some(word => 
           word.includes(term) || term.includes(word)
@@ -312,40 +308,41 @@ export default function ToolsPage() {
   })).filter(cat => cat.tools.length > 0);
 
   return (
-    <div className="min-h-screen bg-white selection:bg-brand-100 selection:text-brand-900">
+    <div className="min-h-screen bg-[#020617] selection:bg-blue-500/30 selection:text-blue-200">
       
       {/* ══════════════════════════════════════
           PAGE HEADER
       ══════════════════════════════════════ */}
-      <section className="pt-24 pb-32 px-6 bg-[#020617] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-500/15 blur-[150px] rounded-full pointer-events-none translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none -translate-x-1/2 translate-y-1/2" />
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/10 blur-[150px] rounded-full pointer-events-none translate-x-1/2 -translate-y-1/2" />
         
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-brand-400 font-bold text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
-            <Zap size={14} className="animate-pulse" />
-            System Directory
+        <div className="max-w-7xl mx-auto relative z-10 text-center sm:text-left">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl mx-auto sm:mx-0">
+            <Activity size={14} className="animate-pulse" />
+            System Directory v10.4
           </div>
           <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter mb-8 leading-[0.9]">
-            The Tool <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-blue-400 to-indigo-400">Inventory.</span>
+            Industrial <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 italic">Inventory.</span>
           </h1>
           <p className="text-slate-400 text-xl max-w-2xl font-medium leading-relaxed mb-12">
-            Every module in our suite is engineered to run in a sandboxed environment 
-            on your local machine. High fidelity, zero telemetry.
+            Every module in our suite is engineered for zero-latency local execution. 
+            <span className="text-slate-200 font-bold block mt-2">Isolated Runtime. Zero Surveillance. High Fidelity Output.</span>
           </p>
 
           {/* Search Bar */}
-          <div className="relative max-w-xl group">
-             <div className="absolute inset-0 bg-brand-600/20 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity rounded-2xl" />
-             <div className="relative flex items-center bg-white/5 border border-white/10 p-2 rounded-2xl backdrop-blur-xl group-focus-within:border-brand-500/50 transition-all">
-                <div className="pl-4 pr-3 text-slate-500 group-focus-within:text-brand-400 transition-colors">
+          <div className="relative max-w-xl group mx-auto sm:mx-0">
+             <div className="absolute inset-0 bg-blue-600/20 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity rounded-2xl" />
+             <div className="relative flex items-center bg-white/5 border border-white/10 p-2 rounded-2xl backdrop-blur-xl group-focus-within:border-blue-500/50 transition-all">
+                <div className="pl-4 pr-3 text-slate-500 group-focus-within:text-blue-400 transition-colors">
                    <Search size={20} />
                 </div>
                 <input 
                   type="text" 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search for a tool or function..." 
+                  placeholder="Search system capability..." 
                   className="w-full bg-transparent border-0 outline-none text-white text-sm font-medium placeholder:text-slate-600 py-3"
                 />
                 {searchQuery && (
@@ -366,51 +363,51 @@ export default function ToolsPage() {
       ══════════════════════════════════════ */}
       <section className="max-w-7xl mx-auto px-6 py-24 min-h-[400px]">
         {filteredCategories.length > 0 ? (
-          <div className="space-y-32">
+          <div className="space-y-40">
             {filteredCategories.map((cat, idx) => (
-              <div key={idx} className="relative animate-in fade-in slide-in-from-bottom-4 duration-700">
-                <div className="flex items-center gap-6 mb-12">
-                  <div className={`p-4 bg-slate-900 rounded-2xl text-white shadow-xl flex items-center gap-4`}>
+              <div key={idx} className="relative animate-in fade-in slide-in-from-bottom-10 duration-700">
+                <div className="flex items-center gap-6 mb-16">
+                  <div className={`p-4 bg-white/5 border border-white/10 rounded-2xl text-white shadow-xl flex items-center gap-4`}>
                     <div className={cat.color}>{cat.icon}</div>
                     <span className="text-[11px] font-black uppercase tracking-[0.3em]">{cat.name}</span>
                   </div>
-                  <div className="h-px flex-1 bg-slate-100" />
-                  <div className="text-[10px] font-black text-slate-300 uppercase tracking-widest">{cat.tools.length} MODULES</div>
+                  <div className="h-px flex-1 bg-white/5" />
+                  <div className="text-[10px] font-black text-slate-600 uppercase tracking-widest italic">{cat.tools.length} MODULES ONLINE</div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {cat.tools.map((tool, tIdx) => (
                     <Link
                       key={tIdx}
                       href={tool.href}
-                      className="group relative bg-white p-8 rounded-[2rem] border border-slate-200 hover:border-brand-500/50 shadow-sm hover:shadow-2xl hover:shadow-brand-600/5 transition-all duration-500 hover:-translate-y-2 overflow-hidden flex flex-col justify-between min-h-[290px]"
+                      className="group relative bg-[#0f172a] p-10 rounded-[3.5rem] border border-white/5 hover:border-blue-500/30 shadow-3xl shadow-black transition-all duration-700 hover:-translate-y-4 overflow-hidden flex flex-col justify-between min-h-[320px]"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-brand-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                       
                       <div className="relative z-10">
-                        <div className="flex justify-between items-start mb-10">
-                          <div className="w-16 h-16 bg-slate-50 group-hover:bg-white rounded-2xl flex items-center justify-center text-brand-600 shadow-sm group-hover:shadow-md transition-all duration-500 group-hover:scale-110 group-hover:rotate-2">
+                        <div className="flex justify-between items-start mb-12">
+                          <div className="w-16 h-16 bg-white/5 group-hover:bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 border border-white/5 group-hover:border-blue-500/20 shadow-sm transition-all duration-700 group-hover:scale-110 group-hover:rotate-3">
                             {tool.icon}
                           </div>
                           {tool.tag && (
-                            <span className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest ${tool.tagColor}`}>
+                            <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border border-white/5 shadow-2xl ${tool.tagColor}`}>
                               {tool.tag}
                             </span>
                           )}
                         </div>
                         
-                        <div className="space-y-3">
-                          <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-none group-hover:text-brand-600 transition-colors">
+                        <div className="space-y-4">
+                          <h3 className="text-3xl font-black text-white tracking-tighter leading-none group-hover:text-blue-400 transition-colors italic">
                             {tool.title}
                           </h3>
-                          <p className="text-slate-500 text-[15px] leading-relaxed font-medium">
+                          <p className="text-slate-500 text-sm leading-relaxed font-medium">
                             {tool.description}
                           </p>
                         </div>
                       </div>
 
-                      <div className="relative z-10 mt-10 flex items-center gap-2 text-brand-600 font-bold text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
-                        Initialize Engine <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                      <div className="relative z-10 mt-12 flex items-center gap-3 text-blue-400 font-black text-[10px] uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-700 italic">
+                        Initialize Engine <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
                       </div>
                     </Link>
                   ))}
@@ -419,17 +416,17 @@ export default function ToolsPage() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 animate-in fade-in duration-500">
-             <div className="w-20 h-20 bg-slate-100 rounded-3xl flex items-center justify-center mx-auto mb-6 text-slate-400">
-                <Search size={32} />
+          <div className="text-center py-40 animate-in fade-in duration-700">
+             <div className="w-24 h-24 bg-white/5 border border-white/10 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 text-slate-600">
+                <Search size={48} />
              </div>
-             <h3 className="text-2xl font-black text-slate-900 mb-2">No matching modules found.</h3>
-             <p className="text-slate-500 font-medium">Try searching for different keywords or browse categories.</p>
+             <h3 className="text-4xl font-black text-white tracking-tighter mb-4 italic">No matching modules detected.</h3>
+             <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Verify capability search parameters or browse registry.</p>
              <button 
                onClick={() => setSearchQuery("")}
-               className="mt-8 text-brand-600 font-black text-xs uppercase tracking-widest hover:underline"
+               className="mt-12 px-8 py-3 bg-white/5 border border-white/10 rounded-full text-blue-400 font-black text-[10px] uppercase tracking-[0.4em] hover:bg-blue-500/10 transition-all italic"
              >
-                Clear Search Query
+                Clear Registry Filter
              </button>
           </div>
         )}
@@ -438,33 +435,45 @@ export default function ToolsPage() {
       {/* ══════════════════════════════════════
           INFRASTRUCTURE BANNER
       ══════════════════════════════════════ */}
-      <section className="bg-slate-50 py-32 px-6 border-y border-slate-100">
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-block p-6 bg-white rounded-3xl shadow-xl border border-slate-100 mb-10">
-             <ShieldCheck size={48} className="text-emerald-500" />
+      <section className="bg-white/5 py-40 px-6 border-y border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+        
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          <div className="inline-block p-10 bg-blue-600 rounded-[3rem] shadow-3xl shadow-blue-900/40 border border-white/10 mb-12 animate-pulse">
+             <ShieldCheck size={64} className="text-white" />
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-6">
-            100% Local Logic Architecture.
+          <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8 leading-none italic">
+            Zero-Trust <span className="text-blue-400">Architecture.</span>
           </h2>
-          <p className="text-slate-500 text-lg max-w-2xl mx-auto font-medium leading-relaxed mb-12">
-            Unlike traditional cloud tools, SamToolbox leverages your system&apos;s hardware directly. This means professional performance with absolute privacy guarantee.
+          <p className="text-slate-400 text-xl max-w-2xl mx-auto font-medium leading-relaxed mb-20">
+            SamToolbox orchestrates every operation within your local browser environment. 
+            Absolute data sovereignty for high-security professional workflows.
           </p>
-          <div className="flex flex-wrap justify-center gap-12 text-slate-400">
-             <div className="flex flex-col items-center">
-                <span className="text-2xl font-black text-slate-900 mb-1 tracking-tighter">AES-GCM</span>
-                <span className="text-[10px] font-bold uppercase tracking-widest">Encryption Standard</span>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-slate-500 border-t border-white/5 pt-20">
+             <div className="space-y-3">
+                <span className="text-3xl font-black text-white tracking-tighter italic">RAM-SYNC</span>
+                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-blue-400">Isolated Memory</p>
              </div>
-             <div className="flex flex-col items-center">
-                <span className="text-2xl font-black text-slate-900 mb-1 tracking-tighter">WASM</span>
-                <span className="text-[10px] font-bold uppercase tracking-widest">Compute Core</span>
+             <div className="space-y-3">
+                <span className="text-3xl font-black text-white tracking-tighter italic">WASM-X</span>
+                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-blue-400">Logic Engine</p>
              </div>
-             <div className="flex flex-col items-center">
-                <span className="text-2xl font-black text-slate-900 mb-1 tracking-tighter">SANDBOX</span>
-                <span className="text-[10px] font-bold uppercase tracking-widest">Isolation Layer</span>
+             <div className="space-y-3">
+                <span className="text-3xl font-black text-white tracking-tighter italic">0-SURV</span>
+                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-blue-400">Privacy Standard</p>
+             </div>
+             <div className="space-y-3">
+                <span className="text-3xl font-black text-white tracking-tighter italic">PWA-PRO</span>
+                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-blue-400">Local Delivery</p>
              </div>
           </div>
         </div>
       </section>
+
+      {/* Footer Space */}
+      <div className="h-40" />
 
     </div>
   );

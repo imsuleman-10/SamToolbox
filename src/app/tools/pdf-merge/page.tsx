@@ -1,13 +1,16 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { PDFDocument } from "pdf-lib";
-import { Upload, Download, Trash2, FileText, ChevronUp, ChevronDown, RefreshCw, Layout, BookOpen, HelpCircle } from "lucide-react";
+import { Upload, Download, Trash2, FileText, ChevronUp, ChevronDown, RefreshCw, Layout, BookOpen, HelpCircle, ShieldCheck, Zap, Terminal } from "lucide-react";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
 export default function PdfMergePage() {
   const [files, setFiles] = useState<{ file: File; id: string }[]>([]);
   const [isMerging, setIsMerging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const schema = useMemo(() => generateSoftwareApplicationSchema("pdf-merge", "Industrial-grade PDF synthesis engine with local-only processing and multi-asset merging capabilities."), []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -43,7 +46,6 @@ export default function PdfMergePage() {
 
   const mergePDFs = async () => {
     if (files.length < 2) {
-      alert("Please select at least 2 PDF files to merge.");
       return;
     }
     
@@ -67,163 +69,232 @@ export default function PdfMergePage() {
       
       const a = document.createElement("a");
       a.href = url;
-      a.download = "merged-document.pdf";
+      a.download = `merged-document-${new Date().getTime()}.pdf`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error(err);
-      alert("Failed to merge PDFs. Make sure they are not password protected.");
+      alert("System Conflict: Unable to synthesize PDF assets. Ensure files are not encrypted.");
     } finally {
       setIsMerging(false);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-8 sm:py-16 px-4 sm:px-6">
-      <div className="text-center mb-10 sm:mb-16">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-red-100">
-          <Layout size={12} />
-          <span>Local Assembly Engine</span>
-        </div>
-        <h1 className="text-4xl sm:text-6xl font-black text-slate-800 mb-6 tracking-tight">
-          PDF <span className="text-red-600">Merge</span>
-        </h1>
-        <p className="text-sm sm:text-lg text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
-          Combine multiple documents into a single professional file. 
-          <span className="text-slate-900 font-semibold block sm:inline"> Reorder and merge instantly without leaving your browser.</span>
-        </p>
-      </div>
+    <div className="min-h-screen bg-[#020617] selection:bg-rose-500/30 selection:text-rose-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      <div className="bg-white p-4 sm:p-10 rounded-[1.5rem] sm:rounded-3xl shadow-2xl border border-slate-100 mb-8 relative overflow-hidden group">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-full -translate-y-16 translate-x-16 opacity-50 group-hover:scale-110 transition-transform duration-700" />
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         
-        <div 
-          className="border-2 border-dashed border-slate-200 rounded-2xl p-8 sm:p-16 text-center hover:border-red-300 hover:bg-red-50/30 transition-all cursor-pointer group relative z-10 mb-8"
-          onClick={() => fileInputRef.current?.click()}
-        >
-          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <Upload className="h-8 w-8 sm:h-10 sm:w-10 text-red-600" />
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-rose-500/10 border border-rose-500/20 rounded-full text-rose-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <Layout size={14} className="animate-pulse" />
+            Document Synthesis v11.4
           </div>
-          <h3 className="text-xl sm:text-2xl font-black text-slate-800 mb-2">Select PDFs</h3>
-          <p className="text-sm text-slate-500">Hold Ctrl/Cmd to select multiple files</p>
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            Asset <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-orange-400 italic">Synthesizer.</span>
+          </h1>
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            Multi-document vector merging. 
+            <span className="text-slate-200 font-bold block mt-2">Local Binary Fusion. Zero Cloud Trace. High-Fidelity Output.</span>
+          </p>
         </div>
+      </section>
 
-        <input 
-          type="file" 
-          accept="application/pdf" 
-          multiple
-          className="hidden" 
-          ref={fileInputRef} 
-          onChange={handleFileChange} 
-        />
-
-        {files.length > 0 && (
-          <div className="relative z-10">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-sm font-black text-slate-500 uppercase tracking-widest">Selected Assets ({files.length})</h3>
-              <button 
-                onClick={() => setFiles([])}
-                className="text-[10px] font-black uppercase tracking-widest text-red-500 hover:bg-red-50 px-3 py-1.5 rounded-lg transition"
-              >
-                Clear All
-              </button>
-            </div>
-            
-            <div className="space-y-4 mb-8 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
-              {files.map((fileObj, index) => (
-                <div key={fileObj.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 group/item hover:border-red-200 transition-colors">
-                  <div className="flex items-center gap-4 min-w-0">
-                    <div className="w-10 h-10 bg-white text-red-600 rounded-xl flex items-center justify-center shadow-sm shrink-0 font-bold text-xs">
-                      {index + 1}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="font-bold text-slate-800 truncate text-sm sm:text-base">{fileObj.file.name}</p>
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-0.5">{(fileObj.file.size / 1024 / 1024).toFixed(2)} MB</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex flex-row sm:flex-col gap-1">
-                      <button onClick={() => moveUp(index)} disabled={index === 0} className="p-1.5 text-slate-400 hover:text-red-600 disabled:opacity-20 transition-colors">
-                        <ChevronUp size={18} />
-                      </button>
-                      <button onClick={() => moveDown(index)} disabled={index === files.length - 1} className="p-1.5 text-slate-400 hover:text-red-600 disabled:opacity-20 transition-colors">
-                        <ChevronDown size={18} />
-                      </button>
-                    </div>
-                    <button onClick={() => removeFile(fileObj.id)} className="p-2 text-slate-300 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all">
-                      <Trash2 size={18} />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <button
-              onClick={mergePDFs}
-              disabled={isMerging || files.length < 2}
-              className="w-full py-4 sm:py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-[0.2em] shadow-xl hover:bg-red-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 active:scale-[0.98]"
-            >
-              {isMerging ? <RefreshCw className="animate-spin" /> : <><Download size={18} /> Forge Merged PDF</>}
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-
-      {/* Information Section */}
-      <div className="max-w-4xl mx-auto px-4 mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-red-50 rounded-xl text-red-600">
-              <BookOpen size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Assembly Protocol</h2>
-          </div>
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          <div className="space-y-6">
-            {[
-              { step: "01", title: "Asset Loading", desc: "Select multiple PDF documents. Our engine maps them locally without any network transit." },
-              { step: "02", title: "Logical Sequence", desc: "Arrange files in your desired order. This sequence determines the final flow of the compiled master file." },
-              { step: "03", title: "Structural Merge", desc: "Initiate the forge. The system re-indexes pages and combines structural metadata into a single container." },
-              { step: "04", title: "Master Retrieval", desc: "Download the consolidated PDF. All temporary local references are purged from browser memory immediately." }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 group">
-                <span className="text-3xl font-black text-slate-100 group-hover:text-red-100 transition-colors duration-300">{item.step}</span>
-                <div className="space-y-1">
-                  <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+          {/* Workspace */}
+          <div className="lg:col-span-8 space-y-8">
+            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+               <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                     <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-400">
+                        <Terminal size={22} />
+                     </div>
+                     <div>
+                        <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none">Fusion Workspace</h3>
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1 italic">Ready for synthesis</p>
+                     </div>
+                  </div>
+                  <button 
+                    onClick={() => fileInputRef.current?.click()}
+                    className="px-8 py-4 bg-rose-600 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-rose-500 transition-all flex items-center gap-3 shadow-xl"
+                  >
+                    <Upload size={16} /> Inject PDF
+                  </button>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    accept="application/pdf"
+                    multiple
+                    className="hidden"
+                  />
+               </div>
+
+               <div className="p-10">
+                  {files.length === 0 ? (
+                    <div 
+                      onClick={() => fileInputRef.current?.click()}
+                      className="border-2 border-dashed border-white/5 rounded-[2.5rem] py-32 flex flex-col items-center justify-center group cursor-pointer hover:border-rose-500/30 transition-all hover:bg-rose-500/[0.02]"
+                    >
+                       <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center text-slate-500 group-hover:text-rose-400 group-hover:scale-110 transition-all duration-500 mb-6">
+                          <FileText size={40} />
+                       </div>
+                       <p className="text-slate-500 font-bold uppercase tracking-widest text-xs italic">Awaiting Asset Injection</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4 animate-in zoom-in-95 duration-500">
+                       {files.map((f, i) => (
+                         <div key={f.id} className="bg-white/5 border border-white/5 rounded-[1.5rem] p-6 flex items-center justify-between group hover:border-rose-500/20 transition-all">
+                            <div className="flex items-center gap-6 min-w-0">
+                               <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-rose-400 font-black text-xs shrink-0 border border-white/5">
+                                  {i + 1}
+                               </div>
+                               <div className="min-w-0">
+                                  <p className="text-white font-black truncate max-w-[200px] md:max-w-md text-sm uppercase tracking-tight">{f.file.name}</p>
+                                  <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mt-1 italic">{(f.file.size / 1024 / 1024).toFixed(2)} MB</p>
+                               </div>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                               <div className="flex flex-col gap-1 mr-4">
+                                  <button onClick={() => moveUp(i)} className="p-1 text-slate-600 hover:text-rose-400 transition-colors disabled:opacity-0" disabled={i === 0}>
+                                     <ChevronUp size={18} />
+                                  </button>
+                                  <button onClick={() => moveDown(i)} className="p-1 text-slate-600 hover:text-rose-400 transition-colors disabled:opacity-0" disabled={i === files.length - 1}>
+                                     <ChevronDown size={18} />
+                                  </button>
+                               </div>
+                               <button 
+                                 onClick={() => removeFile(f.id)}
+                                 className="p-3 bg-rose-600/10 text-rose-400 rounded-xl hover:bg-rose-600/20 transition-all border border-rose-500/10"
+                               >
+                                  <Trash2 size={16} />
+                               </button>
+                            </div>
+                         </div>
+                       ))}
+
+                       <div className="pt-10 border-t border-white/5 mt-10">
+                          <button 
+                            onClick={mergePDFs}
+                            disabled={isMerging || files.length < 2}
+                            className="w-full py-6 bg-rose-600 text-white rounded-[1.5rem] font-black uppercase tracking-widest text-xs hover:bg-rose-500 transition-all flex items-center justify-center gap-4 shadow-2xl disabled:opacity-30"
+                          >
+                            {isMerging ? <RefreshCw className="animate-spin" size={20} /> : <><Zap size={20} /> Execute Synthesis</>}
+                          </button>
+                       </div>
+                    </div>
+                  )}
+               </div>
+            </div>
+          </div>
+
+          {/* Action Sidebar */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="bg-[#0f172a] p-10 rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-rose-600/5 rounded-full blur-3xl" />
+               <div className="flex items-center gap-4 mb-8">
+                  <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-400">
+                    <Download size={24} />
+                  </div>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tighter">Status</h3>
+               </div>
+               <div className="space-y-6">
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Vector Count</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">{files.length} Assets</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                     <span className="text-slate-500 font-bold">Execution</span>
+                     <span className="text-white font-black uppercase tracking-widest text-[10px]">Local Binary</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-[9px] font-black text-rose-500 uppercase tracking-[0.4em] pt-4 border-t border-white/5">
+                     <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+                     Synthesizer Active
+                  </div>
+               </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-rose-600 to-orange-700 p-10 rounded-[3.5rem] text-white relative overflow-hidden shadow-3xl border border-rose-500/20">
+               <ShieldCheck size={120} className="absolute -bottom-10 -right-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000" />
+               <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter italic">Vault Secure</h3>
+               <p className="text-rose-100 font-medium text-sm leading-relaxed">
+                  Document synthesis is executed strictly via local hardware processing. No document bitstreams are authorized for cloud transmission.
+               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ══════════════════════════════════════════
+            DOCUMENTATION & FAQ
+        ══════════════════════════════════════════ */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+          <div className="grid lg:grid-cols-2 gap-24 items-start">
+            <div className="space-y-16">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-rose-500/10 rounded-[1.5rem] flex items-center justify-center text-rose-400 border border-rose-500/20">
+                  <HelpCircle size={32} />
+                </div>
+                <div>
+                  <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Synthesis <span className="text-rose-400">FAQ</span></h2>
+                  <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Vector Queries</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-slate-900 rounded-xl text-white">
-              <HelpCircle size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Merge Logic FAQ</h2>
-          </div>
-
-          <div className="space-y-4">
-            {[
-              { q: "Is there a limit on files?", a: "Technically no, but browser memory limits typically allow for 50-100 standard documents at once." },
-              { q: "Support for encrypted PDFs?", a: "No. Encrypted files must be unlocked before merging to ensure the local engine can read page indices." },
-              { q: "Are links preserved?", a: "Yes. Most internal document links and bookmarks are preserved through our high-fidelity assembly process." },
-              { q: "How secure is my data?", a: "100%. SamToolbox is air-gapped. Your files are processed entirely within your browser's private memory space." }
-            ].map((faq, i) => (
-              <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-                  {faq.q}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
+              <div className="space-y-6">
+                {[
+                  { q: "Is there a file count limit?", a: "Negative. The synthesizer can map dozens of documents; however, workstation RAM determines the maximum bitstream capacity." },
+                  { q: "Encrypted PDF Support?", a: "The engine requires raw bitstream access. Encrypted assets must be unlocked locally prior to synthesis." },
+                  { q: "Metadata Preservation?", a: "Standard page vectors are mapped directly. Deep document metadata may be normalized during the fusion process." }
+                ].map((faq, i) => (
+                  <div key={i} className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 hover:border-rose-500/20 transition-all group">
+                    <h3 className="font-black text-white text-sm mb-4 flex items-start gap-4">
+                      <span className="text-rose-400 font-mono">Q.</span> {faq.q}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div className="bg-[#0f172a] rounded-[4rem] p-16 md:p-20 text-white relative overflow-hidden border border-white/5">
+               <div className="absolute top-0 right-0 w-full h-full opacity-[0.02] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+               <div className="relative z-10 text-center sm:text-left">
+                  <div className="w-24 h-24 bg-rose-500/10 border border-rose-500/20 rounded-[2rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(225,29,72,0.2)] mx-auto sm:mx-0">
+                    <BookOpen size={48} className="text-rose-400" />
+                  </div>
+                  <h3 className="text-4xl font-black mb-8 tracking-tight uppercase leading-none">Best Practices</h3>
+                  <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                    For optimal synthesis of high-density documents, ensure all 
+                    assets share identical page orientation vectors.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-12">
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">0-LOG</div>
+                        <div className="text-[10px] font-bold text-rose-400 uppercase tracking-[0.3em]">Privacy Index</div>
+                     </div>
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">FUSE</div>
+                        <div className="text-[10px] font-bold text-rose-400 uppercase tracking-[0.3em]">Sync Logic</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

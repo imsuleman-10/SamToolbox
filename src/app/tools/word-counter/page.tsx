@@ -1,7 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Copy, Trash2, FileText, Clock, Hash, AlignLeft, Layers, ShieldCheck, Zap, HelpCircle, BookOpen } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
+import { 
+  Copy, Trash2, FileText, Clock, Hash, AlignLeft, 
+  ShieldCheck, Zap, HelpCircle, BookOpen,
+  Terminal, BarChart3, ScanText,
+  Cpu
+} from "lucide-react";
+import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
 
 export default function WordCounterPage() {
   const [text, setText] = useState("");
@@ -15,6 +21,8 @@ export default function WordCounterPage() {
     readingTime: 0,
   });
 
+  const schema = useMemo(() => generateSoftwareApplicationSchema("word-counter", "Professional real-time text analytics engine with 100% local processing."), []);
+
   useEffect(() => {
     const trimmed = text.trim();
     const wordArray = trimmed ? trimmed.split(/\s+/) : [];
@@ -24,7 +32,7 @@ export default function WordCounterPage() {
     const charactersNoSpace = text.replace(/\s/g, "").length;
     const sentences = trimmed ? text.split(/[.!?]+/).filter(Boolean).length : 0;
     const paragraphs = trimmed ? text.split(/\n+/).filter(Boolean).length : 0;
-    const readingTime = Math.ceil(words / 225); // 225 wpm average for professional reading
+    const readingTime = Math.ceil(words / 225);
 
     setStats({
       words,
@@ -46,177 +54,183 @@ export default function WordCounterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] py-16 px-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-[#020617] selection:bg-blue-500/30 selection:text-blue-200">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-        {/* Pro Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] mb-8">
-            <ShieldCheck size={14} className="text-brand-400" />
-            <span>100% Local Processing · Zero Latency</span>
+      {/* ══════════════════════════════════════════
+          HERO / HEADER
+      ══════════════════════════════════════════ */}
+      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
+            <ScanText size={14} className="animate-pulse" />
+            Linguistic Analytics v9.2
           </div>
-          <h1 className="text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">
-            Real-Time <span className="text-brand-600">Text Analytics</span>
+          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
+            Lexical <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 italic">Scanner.</span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
-            Get instant word count, character count, reading time, and text statistics.
-            <span className="text-slate-900 font-semibold"> Your content never leaves your browser — complete privacy guaranteed.</span>
+          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
+            Deep-level text analysis and density metrics. 
+            <span className="text-slate-200 font-bold block mt-2">Local Thread Execution. Zero Cloud Telemetry. Instant Buffer Analytics.</span>
           </p>
         </div>
+      </section>
 
-        {/* Quick Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-          <StatCard label="Words" value={stats.words} icon={<Hash size={14}/>} />
-          <StatCard label="Characters" value={stats.characters} icon={<AlignLeft size={14}/>} />
-          <StatCard label="Sentences" value={stats.sentences} icon={<FileText size={14}/>} />
-          <StatCard label="Reading Time" value={`${stats.readingTime} min`} icon={<Clock size={14}/>} gradient />
-        </div>
-
-        {/* Editor Console */}
-        <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-brand-600 to-blue-600 rounded-[2.5rem] blur opacity-10 group-hover:opacity-20 transition duration-500"></div>
-          <div className="relative bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/50 border border-white overflow-hidden">
-            <div className="bg-slate-50/80 backdrop-blur-md border-b border-slate-100 p-6 flex justify-between items-center">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
-                <span className="text-[10px] sm:text-xs font-black text-slate-800 uppercase tracking-widest">Live Text Engine</span>
-              </div>
-              <div className="flex gap-2 sm:gap-3">
-                <button
-                  onClick={handleCopy}
-                  className="flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-2.5 text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-slate-700 bg-white border border-slate-200 hover:border-brand-500 hover:text-brand-600 rounded-xl transition-all shadow-sm active:scale-95"
-                >
-                  <Copy size={12} className="sm:w-[14px] sm:h-[14px]" /> <span className="hidden sm:inline">Copy All Text</span><span className="sm:hidden">Copy</span>
-                </button>
-                <button
-                  onClick={handleClear}
-                  className="flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-2.5 text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-white bg-slate-900 hover:bg-red-600 rounded-xl transition-all shadow-lg active:scale-95"
-                >
-                  <Trash2 size={12} className="sm:w-[14px] sm:h-[14px]" /> <span className="hidden sm:inline">Clear Text</span><span className="sm:hidden">Clear</span>
-                </button>
-              </div>
-            </div>
-
-            <textarea
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="Paste or type your text here to see real-time analytics... Words, characters, sentences, paragraphs, and reading time update instantly as you type."
-              className="w-full h-[500px] p-10 focus:outline-none resize-none text-slate-700 text-xl font-medium leading-relaxed placeholder:text-slate-300 scrollbar-thin scrollbar-thumb-slate-200"
-              autoFocus
-            />
-
-            <div className="bg-slate-50 p-4 px-10 border-t border-slate-100 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-slate-400">
-              <div className="flex gap-6">
-                <span>UTF-8 Encoded</span>
-                <span>No Server Request</span>
-                <span>Instant Calculation</span>
-              </div>
-              <div className="text-brand-600">Privacy-First Processing</div>
-            </div>
-          </div>
-        </div>
-
-        {/* How It Works / Benefits */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <div className="w-10 h-10 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
-              <Zap className="text-brand-600" size={20} />
-            </div>
-            <h3 className="text-sm font-black text-slate-900 mb-2 uppercase tracking-wider">Instant Results</h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Analytics update in real-time as you type. No waiting, no loading states — just immediate feedback.
-            </p>
-          </div>
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
-              <ShieldCheck className="text-emerald-600" size={20} />
-            </div>
-            <h3 className="text-sm font-black text-slate-900 mb-2 uppercase tracking-wider">100% Private</h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              All processing happens in your browser. Zero data is sent to any server — your text stays yours.
-            </p>
-          </div>
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center mb-4">
-              <Layers className="text-slate-600" size={20} />
-            </div>
-            <h3 className="text-sm font-black text-slate-900 mb-2 uppercase tracking-wider">Deep Insights</h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Beyond word count — get sentence count, paragraph density, unique word analysis, and reading time estimates.
-            </p>
-          </div>
-        </div>
-
-        {/* Information Section */}
-        <div className="mt-20 grid lg:grid-cols-2 gap-12 border-t border-slate-100 pt-16">
-          <div className="space-y-8">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-brand-50 rounded-xl text-brand-600">
-                <BookOpen size={20} />
-              </div>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Analysis Protocol</h2>
-            </div>
-            
-            <div className="space-y-6">
-              {[
-                { step: "01", title: "Content Input", desc: "Paste or type your text into the Live Text Engine. The analyzer starts processing your content in real-time." },
-                { step: "02", title: "Observe Analytics", desc: "Review the primary metrics including word count, character count, and reading time in the top dashboard." },
-                { step: "03", title: "Structural Insights", desc: "Check sentence and paragraph density to understand the flow and structural complexity of your writing." },
-                { step: "04", title: "Clipboard Sync", desc: "Use the built-in copy controls to instantly move your analyzed text back to your primary document or editor." }
-              ].map((item, i) => (
-                <div key={i} className="flex gap-6 group">
-                  <span className="text-3xl font-black text-slate-100 group-hover:text-brand-100 transition-colors duration-300">{item.step}</span>
-                  <div className="space-y-1">
-                    <h3 className="font-black text-slate-800 uppercase tracking-wide text-sm">{item.title}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+      {/* ══════════════════════════════════════════
+          MAIN UTILITY INTERFACE
+      ══════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          
+          {/* Workspace */}
+          <div className="lg:col-span-8 space-y-8">
+            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+               <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                     <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-blue-400">
+                        <Terminal size={22} />
+                     </div>
+                     <div>
+                        <h3 className="text-lg font-black text-white uppercase tracking-tighter leading-none">Input Buffer</h3>
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest mt-1 italic">Awaiting text stream</p>
+                     </div>
                   </div>
-                </div>
-              ))}
+                  <div className="flex items-center gap-3">
+                     <button 
+                       onClick={handleCopy}
+                       disabled={!text}
+                       className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 border border-white/5 disabled:opacity-20 shadow-xl"
+                     >
+                       <Copy size={14} /> Copy
+                     </button>
+                     <button 
+                       onClick={handleClear}
+                       disabled={!text}
+                       className="px-6 py-3 bg-rose-600/10 hover:bg-rose-600/20 text-rose-400 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 border border-rose-500/20 disabled:opacity-20 shadow-xl"
+                     >
+                       <Trash2 size={14} /> Clear
+                     </button>
+                  </div>
+               </div>
+
+               <div className="p-10">
+                  <textarea 
+                    value={text}
+                    onChange={e => setText(e.target.value)}
+                    className="w-full h-[600px] bg-black/40 border border-white/5 rounded-[2.5rem] p-10 text-white font-medium leading-relaxed outline-none focus:border-blue-500/30 transition-all resize-none custom-scrollbar"
+                    placeholder="INJECT TEXT STREAM FOR DEEP ANALYTICS..."
+                  />
+               </div>
             </div>
           </div>
 
-          <div className="space-y-8">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-slate-900 rounded-xl text-white">
-                <HelpCircle size={20} />
-              </div>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">Linguistic FAQ</h2>
+          {/* Action Sidebar */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="bg-[#0f172a] p-10 rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full blur-3xl" />
+               <div className="flex items-center gap-4 mb-8">
+                  <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-blue-400">
+                    <BarChart3 size={24} />
+                  </div>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tighter">Metrics</h3>
+               </div>
+               
+               <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { label: "Words", val: stats.words, icon: <FileText size={14} /> },
+                    { label: "Unique", val: stats.uniqueWords, icon: <Hash size={14} /> },
+                    { label: "Chars", val: stats.characters, icon: <AlignLeft size={14} /> },
+                    { label: "Reading", val: `${stats.readingTime}M`, icon: <Clock size={14} /> },
+                    { label: "Sentences", val: stats.sentences, icon: <FileText size={14} /> },
+                    { label: "Paragraphs", val: stats.paragraphs, icon: <AlignLeft size={14} /> }
+                  ].map(m => (
+                    <div key={m.label} className="p-6 bg-white/5 border border-white/5 rounded-3xl hover:border-blue-500/20 transition-all group/card">
+                       <div className="flex items-center gap-2 text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2 group-hover/card:text-blue-400 transition-colors">
+                          {m.icon} {m.label}
+                       </div>
+                       <div className="text-2xl font-black text-white tracking-tighter">{m.val}</div>
+                    </div>
+                  ))}
+               </div>
+
+               <div className="mt-8 pt-8 border-t border-white/5 flex items-center gap-3 text-[9px] font-black text-blue-500 uppercase tracking-[0.4em]">
+                  <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                  Scanner Active
+               </div>
             </div>
 
-            <div className="space-y-4">
-              {[
-                { q: "Is there a character limit?", a: "The analyzer is limited only by your browser's RAM. We've successfully tested documents with 100,000+ words." },
-                { q: "How is reading time calculated?", a: "We use a professional standard of 225 words per minute, which accounts for technical and academic reading speeds." },
-                { q: "Can I use this for SEO metadata?", a: "Yes. The real-time character counter is perfect for ensuring meta titles and descriptions stay within search engine limits." },
-                { q: "Is my text data private?", a: "Yes. Analysis is performed 100% locally. No text is ever uploaded to a server or stored in any external database." }
-              ].map((faq, i) => (
-                <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                  <h3 className="font-black text-slate-900 text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
-                    {faq.q}
-                  </h3>
-                  <p className="text-slate-500 text-xs leading-relaxed font-medium">{faq.a}</p>
-                </div>
-              ))}
+            <div className="bg-gradient-to-br from-blue-600 to-cyan-700 p-10 rounded-[3.5rem] text-white relative overflow-hidden shadow-3xl border border-blue-500/20">
+               <ShieldCheck size={120} className="absolute -bottom-10 -right-10 opacity-10 group-hover:rotate-12 transition-transform duration-1000" />
+               <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter italic">Vault Secure</h3>
+               <p className="text-blue-100 font-medium text-sm leading-relaxed">
+                  Lexical analysis is performed via pure local thread execution. Your input stream is never synchronized with cloud services.
+               </p>
             </div>
           </div>
         </div>
 
-      </div>
-    </div>
-  );
-}
+        {/* ══════════════════════════════════════════
+            DOCUMENTATION & FAQ
+        ══════════════════════════════════════════ */}
+        <div className="mt-40 border-t border-slate-800 pt-40">
+          <div className="grid lg:grid-cols-2 gap-24 items-start">
+            <div className="space-y-16">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-blue-500/10 rounded-[1.5rem] flex items-center justify-center text-blue-400 border border-blue-500/20">
+                  <HelpCircle size={32} />
+                </div>
+                <div>
+                  <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Lexical <span className="text-blue-400">FAQ</span></h2>
+                  <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Linguistic Queries</p>
+                </div>
+              </div>
 
-function StatCard({ label, value, icon, gradient }: { label: string; value: string | number; icon: React.ReactNode; gradient?: boolean }) {
-  return (
-    <div className={`group relative p-6 rounded-3xl border border-white shadow-xl shadow-slate-200/50 transition-all duration-300 hover:-translate-y-1 ${gradient ? 'bg-brand-600 text-white border-transparent' : 'bg-white text-slate-800'}`}>
-      <div className={`mb-3 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${gradient ? 'text-brand-100' : 'text-slate-400'}`}>
-        {icon}
-        {label}
-      </div>
-      <div className={`text-3xl font-black tracking-tight ${gradient ? 'text-white' : 'text-slate-900 group-hover:text-brand-600'}`}>
-        {value}
-      </div>
+              <div className="space-y-6">
+                {[
+                  { q: "Is reading time accurate?", a: "Affirmative. We utilize the industry-standard coefficient of 225 WPM, optimized for professional and technical document ingestion." },
+                  { q: "Lexical limits?", a: "The scanner is optimized for high-concurrency processing. Large-scale documents (50,000+ words) are analyzed in sub-10ms intervals." },
+                  { q: "Unique word logic?", a: "Our engine uses a case-insensitive hashing protocol to identify distinct lexical units within the input buffer." }
+                ].map((faq, i) => (
+                  <div key={i} className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 hover:border-blue-500/20 transition-all group">
+                    <h3 className="font-black text-white text-sm mb-4 flex items-start gap-4">
+                      <span className="text-blue-400 font-mono">Q.</span> {faq.q}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-[#0f172a] rounded-[4rem] p-16 md:p-20 text-white relative overflow-hidden border border-white/5">
+               <div className="absolute top-0 right-0 w-full h-full opacity-[0.02] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+               <div className="relative z-10 text-center sm:text-left">
+                  <div className="w-24 h-24 bg-blue-500/10 border border-blue-500/20 rounded-[2rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(37,99,235,0.2)] mx-auto sm:mx-0">
+                    <BookOpen size={48} className="text-blue-400" />
+                  </div>
+                  <h3 className="text-4xl font-black mb-8 tracking-tight uppercase leading-none">Best Practices</h3>
+                  <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
+                    For optimal readability in technical briefs, target 1500 words 
+                    per section with a 5% unique word density.
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-12">
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">0-LOG</div>
+                        <div className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Privacy Index</div>
+                     </div>
+                     <div className="space-y-4">
+                        <div className="text-4xl font-black text-white tracking-tighter">HI-SPD</div>
+                        <div className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Scan Speed</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
