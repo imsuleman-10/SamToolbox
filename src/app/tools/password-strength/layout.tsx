@@ -1,9 +1,28 @@
-export const metadata = {
-  title: "Password Strength Checker - Visual Security Meter | SamToolBox",
-  description: "Check password strength in real-time with visual feedback and security suggestions. Keep your accounts safe.",
-  keywords: ["password checker", "password strength", "security tool", "password meter"],
-};
+import type { Metadata } from "next";
+import Script from "next/script";
+import { getToolMetadata, getToolJsonLd } from "@/lib/toolSeoData";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+const TOOL_SLUG = "password-strength";
+
+export const metadata: Metadata = getToolMetadata(TOOL_SLUG);
+
+export default function ToolLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const jsonLd = getToolJsonLd(TOOL_SLUG);
+
+  return (
+    <>
+      <Script
+        id="tool-schema-password-strength"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      {children}
+    </>
+  );
 }

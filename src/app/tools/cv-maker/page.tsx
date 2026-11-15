@@ -739,33 +739,27 @@ export default function CvMakerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] selection:bg-blue-500/30 selection:text-blue-200 font-sans">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 selection:bg-red-500/20 selection:text-red-900 font-sans">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-        
-        <div className="max-w-4xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
-            <Zap size={14} className="animate-pulse" />
-            Identity Engine v22.2
-          </div>
-          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
-            Career <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 italic">Architect.</span>
-          </h1>
-          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
-            Professional identity synthesis engine. 
-            <span className="text-slate-200 font-bold block mt-2">Zero-Cloud Persistence. Isolated Execution. Industrial Grade Output.</span>
-          </p>
+      <section className="pt-16 pb-20 px-6 text-center max-w-4xl mx-auto">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-red-50 border border-red-100 rounded-full text-[#e5322d] font-bold text-xs mb-6">
+          <Zap size={14} />
+          Professional Career Resume Builder
         </div>
+        <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
+          Professional CV & Resume Architect
+        </h1>
+        <p className="text-slate-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+          Create job-winning, ATS-friendly curriculum vitae with real-time A4 PDF generation. 100% private in-browser editing.
+        </p>
       </section>
 
-      <section className="max-w-[1600px] mx-auto px-6 -mt-16 relative z-20 mb-32">
+      <section className="max-w-[1600px] mx-auto px-6 -mt-8 relative z-20 mb-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <div className="lg:col-span-8 space-y-8">
-            <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700 min-h-[900px] flex flex-col">
-               <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6 shrink-0">
+            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700 min-h-[900px] flex flex-col">
+               <div className="bg-slate-50 px-10 py-6 border-b border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6 shrink-0">
                   <div className="flex items-center gap-4">
                      <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-blue-400">
                         {step === "template" ? <LayoutTemplate size={22} /> : step === "editor" ? <Edit3 size={22} /> : <FileDown size={22} />}

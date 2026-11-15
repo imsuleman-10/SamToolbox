@@ -1,9 +1,28 @@
-export const metadata = {
-  title: "Goal Planner - Daily & Weekly Goal Tracker | SamToolBox",
-  description: "Set, track, and achieve your daily and weekly goals. Stay productive and monitor your progress.",
-  keywords: ["goal planner", "daily goals", "weekly planner", "productivity", "goal tracker"],
-};
+import type { Metadata } from "next";
+import Script from "next/script";
+import { getToolMetadata, getToolJsonLd } from "@/lib/toolSeoData";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+const TOOL_SLUG = "goal-planner";
+
+export const metadata: Metadata = getToolMetadata(TOOL_SLUG);
+
+export default function ToolLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const jsonLd = getToolJsonLd(TOOL_SLUG);
+
+  return (
+    <>
+      <Script
+        id="tool-schema-goal-planner"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      {children}
+    </>
+  );
 }

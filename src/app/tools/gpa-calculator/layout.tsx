@@ -1,9 +1,28 @@
-export const metadata = {
-  title: "GPA Calculator - Pakistani Universities | SamToolBox",
-  description: "Calculate your GPA/CGPA easily with support for Pakistani university grading systems. Track semester-wise performance.",
-  keywords: ["GPA calculator", "CGPA", "Pakistani universities", "grade calculator", "semester GPA"],
-};
+import type { Metadata } from "next";
+import Script from "next/script";
+import { getToolMetadata, getToolJsonLd } from "@/lib/toolSeoData";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+const TOOL_SLUG = "gpa-calculator";
+
+export const metadata: Metadata = getToolMetadata(TOOL_SLUG);
+
+export default function ToolLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const jsonLd = getToolJsonLd(TOOL_SLUG);
+
+  return (
+    <>
+      <Script
+        id="tool-schema-gpa-calculator"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      {children}
+    </>
+  );
 }

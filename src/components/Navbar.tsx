@@ -1,123 +1,323 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ArrowRight, LayoutGrid, Info, Mail, Zap } from "lucide-react";
+import { 
+  Menu, X, ChevronDown, Layers, Scissors, Minimize2, 
+  FileText, Presentation, Sheet, FileImage, RotateCw, 
+  Hash, Stamp, PenTool, Lock, Unlock, FileCheck2, 
+  Search, Shield, LayoutGrid, Camera, Wrench, ScanText, Sparkles
+} from "lucide-react";
 import Logo from "./Logo";
 
 export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [convertOpen, setConvertOpen] = useState(false);
+  const [allToolsOpen, setAllToolsOpen] = useState(false);
 
+  const convertRef = useRef<HTMLDivElement>(null);
+  const allToolsRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdowns when clicking outside
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    function handleClickOutside(event: MouseEvent) {
+      if (convertRef.current && !convertRef.current.contains(event.target as Node)) {
+        setConvertOpen(false);
+      }
+      if (allToolsRef.current && !allToolsRef.current.contains(event.target as Node)) {
+        setAllToolsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const navLinks = [
-    { name: "Tools", href: "/tools", icon: <LayoutGrid size={18} /> },
-    { name: "GPA Suite", href: "/tools/gpa-calculator", icon: <Zap size={18} /> },
-    { name: "Forge CV", href: "/tools/cv-maker", icon: <ArrowRight size={18} /> },
-    { name: "About", href: "/about", icon: <Info size={18} /> },
-    { name: "Contact", href: "/contact", icon: <Mail size={18} /> },
-  ];
-
   return (
-    <>
-      <nav 
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
-          isScrolled 
-            ? "bg-[#020617]/80 backdrop-blur-2xl border-b border-white/5 py-3" 
-            : "bg-transparent py-6"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-4 group">
-            <Logo size={42} className="group-hover:scale-110 transition-transform duration-500" />
-            <span className="text-xl font-black tracking-tighter text-white uppercase italic">
-              SAM<span className="text-blue-500">ToolBox</span>
-            </span>
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        {/* Brand / Logo */}
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <Logo size={34} />
+          <span className="text-xl font-black tracking-tight text-slate-900 group-hover:text-slate-800 transition-colors">
+            Sam<span className="text-[#e5322d]">Toolbox</span>
+          </span>
+        </Link>
+
+        {/* Desktop Main Navigation */}
+        <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+          <Link
+            href="/tools/pdf-merge"
+            className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-[#e5322d] transition-colors rounded-lg hover:bg-slate-50"
+          >
+            Merge PDF
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
-                href={link.href} 
-                className="text-[11px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-all duration-300 flex items-center gap-2 hover:scale-110 active:scale-95"
-              >
-                {link.name}
-              </Link>
-            ))}
+          <Link
+            href="/tools/pdf-split"
+            className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-[#e5322d] transition-colors rounded-lg hover:bg-slate-50"
+          >
+            Split PDF
+          </Link>
+
+          <Link
+            href="/tools/pdf-compress"
+            className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-[#e5322d] transition-colors rounded-lg hover:bg-slate-50"
+          >
+            Compress PDF
+          </Link>
+
+          {/* Convert PDF Dropdown */}
+          <div className="relative" ref={convertRef}>
+            <button
+              onClick={() => {
+                setConvertOpen(!convertOpen);
+                setAllToolsOpen(false);
+              }}
+              className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-[#e5322d] transition-colors rounded-lg hover:bg-slate-50 flex items-center gap-1 cursor-pointer"
+            >
+              Convert PDF
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${convertOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            {convertOpen && (
+              <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200 p-3 grid grid-cols-1 gap-1 z-50">
+                <div className="px-3 py-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                  Convert to PDF
+                </div>
+                <Link
+                  href="/tools/image-to-pdf"
+                  onClick={() => setConvertOpen(false)}
+                  className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-[#e5322d] text-xs font-semibold transition-colors"
+                >
+                  <FileImage className="w-4 h-4 text-amber-500" />
+                  JPG to PDF
+                </Link>
+                <Link
+                  href="/tools/word-to-pdf"
+                  onClick={() => setConvertOpen(false)}
+                  className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-[#e5322d] text-xs font-semibold transition-colors"
+                >
+                  <FileText className="w-4 h-4 text-blue-500" />
+                  Word to PDF
+                </Link>
+                <Link
+                  href="/tools/excel-to-pdf"
+                  onClick={() => setConvertOpen(false)}
+                  className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-[#e5322d] text-xs font-semibold transition-colors"
+                >
+                  <Sheet className="w-4 h-4 text-emerald-500" />
+                  Excel to PDF
+                </Link>
+                <Link
+                  href="/tools/powerpoint-to-pdf"
+                  onClick={() => setConvertOpen(false)}
+                  className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-[#e5322d] text-xs font-semibold transition-colors"
+                >
+                  <Presentation className="w-4 h-4 text-orange-500" />
+                  PowerPoint to PDF
+                </Link>
+
+                <div className="border-t border-slate-100 my-1" />
+
+                <div className="px-3 py-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                  Convert from PDF
+                </div>
+                <Link
+                  href="/tools/pdf-to-word"
+                  onClick={() => setConvertOpen(false)}
+                  className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-[#e5322d] text-xs font-semibold transition-colors"
+                >
+                  <FileText className="w-4 h-4 text-blue-500" />
+                  PDF to Word
+                </Link>
+                <Link
+                  href="/tools/pdf-to-jpg"
+                  onClick={() => setConvertOpen(false)}
+                  className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-[#e5322d] text-xs font-semibold transition-colors"
+                >
+                  <FileImage className="w-4 h-4 text-amber-500" />
+                  PDF to JPG
+                </Link>
+                <Link
+                  href="/tools/pdf-to-excel"
+                  onClick={() => setConvertOpen(false)}
+                  className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-[#e5322d] text-xs font-semibold transition-colors"
+                >
+                  <Sheet className="w-4 h-4 text-emerald-500" />
+                  PDF to Excel
+                </Link>
+              </div>
+            )}
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button 
-            onClick={() => setIsMenuOpen(true)}
-            className="lg:hidden p-3 bg-white/5 border border-white/10 rounded-2xl text-white hover:bg-white/10 transition-all"
+          {/* All PDF Tools Mega Menu */}
+          <div className="relative" ref={allToolsRef}>
+            <button
+              onClick={() => {
+                setAllToolsOpen(!allToolsOpen);
+                setConvertOpen(false);
+              }}
+              className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-[#e5322d] transition-colors rounded-lg hover:bg-slate-50 flex items-center gap-1 cursor-pointer"
+            >
+              All PDF Tools
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${allToolsOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            {allToolsOpen && (
+              <div className="absolute top-full -left-64 mt-2 w-[980px] bg-white rounded-3xl shadow-2xl border border-slate-200 p-6 grid grid-cols-4 gap-6 z-50">
+                {/* Col 1: Organize & Optimize */}
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#e5322d] mb-3 flex items-center gap-1.5">
+                    <Layers className="w-3.5 h-3.5" />
+                    Organize PDF
+                  </h4>
+                  <ul className="space-y-1 text-xs">
+                    <li><Link href="/tools/pdf-merge" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-600 font-medium">Merge PDF</Link></li>
+                    <li><Link href="/tools/pdf-split" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-600 font-medium">Split PDF</Link></li>
+                    <li><Link href="/tools/remove-pages" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-600 font-medium">Remove Pages</Link></li>
+                    <li><Link href="/tools/organize-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-600 font-medium">Organize PDF</Link></li>
+                    <li><Link href="/tools/scan-to-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-600 font-medium">Scan to PDF</Link></li>
+                  </ul>
+
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-600 mt-5 mb-3 flex items-center gap-1.5">
+                    <Minimize2 className="w-3.5 h-3.5" />
+                    Optimize PDF
+                  </h4>
+                  <ul className="space-y-1 text-xs">
+                    <li><Link href="/tools/pdf-compress" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-emerald-600 text-slate-600 font-medium">Compress PDF</Link></li>
+                    <li><Link href="/tools/repair-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-emerald-600 text-slate-600 font-medium">Repair PDF</Link></li>
+                    <li><Link href="/tools/ocr-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-emerald-600 text-slate-600 font-medium">OCR PDF</Link></li>
+                  </ul>
+                </div>
+
+                {/* Col 2: Convert */}
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-amber-600 mb-3 flex items-center gap-1.5">
+                    <FileImage className="w-3.5 h-3.5" />
+                    Convert to PDF
+                  </h4>
+                  <ul className="space-y-1 text-xs">
+                    <li><Link href="/tools/image-to-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-amber-600 text-slate-600 font-medium">JPG to PDF</Link></li>
+                    <li><Link href="/tools/word-to-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-amber-600 text-slate-600 font-medium">Word to PDF</Link></li>
+                    <li><Link href="/tools/powerpoint-to-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-amber-600 text-slate-600 font-medium">PowerPoint to PDF</Link></li>
+                    <li><Link href="/tools/excel-to-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-amber-600 text-slate-600 font-medium">Excel to PDF</Link></li>
+                    <li><Link href="/tools/html-to-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-amber-600 text-slate-600 font-medium">HTML to PDF</Link></li>
+                  </ul>
+
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-blue-600 mt-5 mb-3 flex items-center gap-1.5">
+                    <FileText className="w-3.5 h-3.5" />
+                    Convert from PDF
+                  </h4>
+                  <ul className="space-y-1 text-xs">
+                    <li><Link href="/tools/pdf-to-jpg" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-blue-600 text-slate-600 font-medium">PDF to JPG</Link></li>
+                    <li><Link href="/tools/pdf-to-word" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-blue-600 text-slate-600 font-medium">PDF to Word</Link></li>
+                    <li><Link href="/tools/pdf-to-powerpoint" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-blue-600 text-slate-600 font-medium">PDF to PowerPoint</Link></li>
+                    <li><Link href="/tools/pdf-to-excel" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-blue-600 text-slate-600 font-medium">PDF to Excel</Link></li>
+                    <li><Link href="/tools/pdf-to-pdfa" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-blue-600 text-slate-600 font-medium">PDF to PDF/A</Link></li>
+                  </ul>
+                </div>
+
+                {/* Col 3: Edit & Security */}
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-purple-600 mb-3 flex items-center gap-1.5">
+                    <PenTool className="w-3.5 h-3.5" />
+                    Edit PDF
+                  </h4>
+                  <ul className="space-y-1 text-xs">
+                    <li><Link href="/tools/rotate-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-purple-600 text-slate-600 font-medium">Rotate PDF</Link></li>
+                    <li><Link href="/tools/page-numbers" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-purple-600 text-slate-600 font-medium">Add Page Numbers</Link></li>
+                    <li><Link href="/tools/pdf-watermark" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-purple-600 text-slate-600 font-medium">Add Watermark</Link></li>
+                    <li><Link href="/tools/edit-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-purple-600 text-slate-600 font-medium">Edit PDF</Link></li>
+                    <li><Link href="/tools/redact-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-purple-600 text-slate-600 font-medium">Redact PDF</Link></li>
+                  </ul>
+
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-teal-600 mt-5 mb-3 flex items-center gap-1.5">
+                    <Lock className="w-3.5 h-3.5" />
+                    PDF Security
+                  </h4>
+                  <ul className="space-y-1 text-xs">
+                    <li><Link href="/tools/unlock-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-teal-600 text-slate-600 font-medium">Unlock PDF</Link></li>
+                    <li><Link href="/tools/protect-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-teal-600 text-slate-600 font-medium">Protect PDF</Link></li>
+                    <li><Link href="/tools/sign-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-teal-600 text-slate-600 font-medium">Sign PDF</Link></li>
+                    <li><Link href="/tools/compare-pdf" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-teal-600 text-slate-600 font-medium">Compare PDF</Link></li>
+                  </ul>
+                </div>
+
+                {/* Col 4: Pakistan & Global Utilities */}
+                <div className="bg-red-50/40 p-3.5 rounded-2xl border border-red-100">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#e5322d] mb-3 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    Pakistan & Global
+                  </h4>
+                  <ul className="space-y-1 text-xs">
+                    <li><Link href="/tools/salary-tax-calculator" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-700 font-bold">Salary Tax (FBR)</Link></li>
+                    <li><Link href="/tools/merit-calculator" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-700 font-bold">University Merit</Link></li>
+                    <li><Link href="/tools/marla-converter" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-700 font-bold">Marla & Land Converter</Link></li>
+                    <li><Link href="/tools/zakat-calculator" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-700 font-bold">Zakat Calculator</Link></li>
+                    <li><Link href="/tools/passport-photo-resizer" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-600 font-medium">Passport Photo Resizer</Link></li>
+                    <li><Link href="/tools/invoice-generator" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-600 font-medium">Commercial Invoice</Link></li>
+                    <li><Link href="/tools/stamp-paper-formatter" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-600 font-medium">e-Stamp Paper</Link></li>
+                    <li><Link href="/tools/currency-converter" onClick={() => setAllToolsOpen(false)} className="block py-1 hover:text-[#e5322d] text-slate-600 font-medium">Currency Converter</Link></li>
+                  </ul>
+                </div>
+              </div>
+            )}
+          </div>
+        </nav>
+
+        {/* Right Action Buttons */}
+        <div className="flex items-center gap-3">
+          <Link
+            href="/tools"
+            className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-[#e5322d] px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors"
           >
-            <Menu size={24} />
+            <LayoutGrid className="w-4 h-4" />
+            Tool Directory
+          </Link>
+
+          <span className="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+            100% Free
+          </span>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="lg:hidden p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
+          >
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-      </nav>
+      </div>
 
-      {/* Mobile Menu Overlay */}
-      <div 
-        className={`fixed inset-0 z-[200] bg-[#020617] transition-all duration-700 ease-in-out ${
-          isMenuOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
-        }`}
-      >
-        {/* Decorative Background */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-        
-        <div className="relative h-full flex flex-col p-8 sm:p-20 overflow-y-auto">
-          <div className="flex items-center justify-between mb-12 sm:mb-20 shrink-0">
-            <div className="flex items-center gap-4">
-              <Logo size={40} />
-              <span className="text-xl font-black text-white uppercase italic tracking-tighter">SAM<span className="text-blue-500">ToolBox</span></span>
+      {/* Mobile Drawer */}
+      {mobileOpen && (
+        <div className="lg:hidden fixed inset-x-0 top-16 bottom-0 bg-white z-40 overflow-y-auto p-6 border-t border-slate-200">
+          <div className="space-y-6">
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#e5322d] mb-3">Popular Tools</h4>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                <Link href="/tools/pdf-merge" onClick={() => setMobileOpen(false)} className="p-2.5 bg-slate-50 rounded-xl font-medium text-slate-800">Merge PDF</Link>
+                <Link href="/tools/pdf-split" onClick={() => setMobileOpen(false)} className="p-2.5 bg-slate-50 rounded-xl font-medium text-slate-800">Split PDF</Link>
+                <Link href="/tools/pdf-compress" onClick={() => setMobileOpen(false)} className="p-2.5 bg-slate-50 rounded-xl font-medium text-slate-800">Compress PDF</Link>
+                <Link href="/tools/image-to-pdf" onClick={() => setMobileOpen(false)} className="p-2.5 bg-slate-50 rounded-xl font-medium text-slate-800">JPG to PDF</Link>
+                <Link href="/tools/pdf-to-word" onClick={() => setMobileOpen(false)} className="p-2.5 bg-slate-50 rounded-xl font-medium text-slate-800">PDF to Word</Link>
+                <Link href="/tools/sign-pdf" onClick={() => setMobileOpen(false)} className="p-2.5 bg-slate-50 rounded-xl font-medium text-slate-800">Sign PDF</Link>
+              </div>
             </div>
-            <button 
-              onClick={() => setIsMenuOpen(false)}
-              className="p-4 bg-white/5 border border-white/10 rounded-2xl text-white hover:bg-blue-500 transition-all"
-            >
-              <X size={32} />
-            </button>
-          </div>
 
-          <div className="flex-1 flex flex-col justify-center space-y-4 sm:space-y-8">
-             <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.5em] mb-4">Navigation Protocol</p>
-             {navLinks.map((link, i) => (
-               <Link 
-                 key={link.name}
-                 href={link.href}
-                 onClick={() => setIsMenuOpen(false)}
-                 className="group flex items-center justify-between py-4 sm:py-6 border-b border-white/5"
-               >
-                  <div className="flex items-center gap-4 sm:gap-8">
-                     <div className="text-slate-700 font-black text-xl sm:text-2xl tracking-tighter italic group-hover:text-blue-500 transition-colors">0{i+1}</div>
-                     <span className="text-2xl sm:text-6xl font-black text-white uppercase tracking-tighter group-hover:italic transition-all">{link.name}</span>
-                  </div>
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/5 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-4 transition-all duration-500">
-                     <ArrowRight size={24} />
-                  </div>
-               </Link>
-             ))}
-          </div>
-
-          <div className="mt-auto pt-10 border-t border-white/5 flex items-center justify-between text-slate-500 shrink-0">
-             <p className="text-[10px] font-black uppercase tracking-widest">© 2026 SAMToolBox Sovereign</p>
-             <div className="flex gap-6">
-                <Link href="/tools" className="hover:text-white transition-colors"><LayoutGrid size={18} /></Link>
-                <Link href="/tools/gpa-calculator" className="hover:text-white transition-colors"><Zap size={18} /></Link>
-             </div>
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">All Tools</h4>
+              <Link 
+                href="/tools" 
+                onClick={() => setMobileOpen(false)}
+                className="w-full py-3 bg-[#e5322d] text-white font-bold rounded-xl flex items-center justify-center gap-2"
+              >
+                View All 26+ PDF Tools
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    </>
+      )}
+    </header>
   );
 }

@@ -1,13 +1,8 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import { 
-  Plus, Trash2, Calculator, GraduationCap, TrendingUp, X, Zap, 
-  HelpCircle, BookOpen, Activity, ShieldCheck, Cpu, ArrowRight,
-  Target, Award, History, Layers, Shield, Terminal
-} from "lucide-react";
-import Link from "next/link";
-import { generateSoftwareApplicationSchema } from "@/lib/structuredData";
+import { useState, useMemo } from "react";
+import jsPDF from "jspdf";
+import { GraduationCap, Download, Plus, Trash2, Sparkles, ShieldCheck, ArrowRight, Award } from "lucide-react";
 
 interface Course {
   id: string;
@@ -22,473 +17,357 @@ interface Semester {
   courses: Course[];
 }
 
-const gradePoints: { [key: string]: number } = {
+const GRADE_POINTS: Record<string, number> = {
   "A+": 4.0, "A": 4.0, "A-": 3.7,
   "B+": 3.3, "B": 3.0, "B-": 2.7,
   "C+": 2.3, "C": 2.0, "C-": 1.7,
   "D+": 1.3, "D": 1.0, "F": 0.0,
 };
 
-export default function GPACalculatorPage() {
-  const [semesters, setSemesters] = useState<Semester[]>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("samtoolbox-gpa-data");
-      if (saved) return JSON.parse(saved);
-    }
-    return [{
+export default function GpaCalculatorPage() {
+  const [scale, setScale] = useState<"4.0" | "5.0">("4.0");
+  const [studentName, setStudentName] = useState("Muhammad Ali");
+  const [degreeName, setDegreeName] = useState("BS Computer Science");
+
+  const [semesters, setSemesters] = useState<Semester[]>([
+    {
       id: "1",
       name: "Semester 1",
       courses: [
-        { id: "1", name: "", credits: 3, grade: "A" },
-        { id: "2", name: "", credits: 3, grade: "A" },
+        { id: "101", name: "Programming Fundamentals", credits: 4, grade: "A" },
+        { id: "102", name: "Calculus & Analytical Geometry", credits: 3, grade: "A-" },
+        { id: "103", name: "English Composition", credits: 3, grade: "B+" },
       ],
-    }];
-  });
-
-  const [scale, setScale] = useState<"4.0" | "5.0">("4.0");
-  const [targetCGPA, setTargetCGPA] = useState<string>("");
-  const [remainingSemesters, setRemainingSemesters] = useState<string>("1");
-
-  const schema = useMemo(() => generateSoftwareApplicationSchema("gpa-calculator", "Professional grade tracking and GPA prediction engine with 100% local processing."), []);
-
-  useEffect(() => {
-    localStorage.setItem("samtoolbox-gpa-data", JSON.stringify(semesters));
-  }, [semesters]);
+    },
+    {
+      id: "2",
+      name: "Semester 2",
+      courses: [
+        { id: "201", name: "Object Oriented Programming", credits: 4, grade: "A" },
+        { id: "202", name: "Digital Logic Design", credits: 4, grade: "B+" },
+        { id: "203", name: "Discrete Structures", credits: 3, grade: "A" },
+      ],
+    },
+  ]);
 
   const addSemester = () => {
-    const newSemester: Semester = {
-      id: Date.now().toString(),
-      name: `Semester ${semesters.length + 1}`,
-      courses: [{ id: Date.now().toString(), name: "", credits: 3, grade: "A" }],
-    };
-    setSemesters([...semesters, newSemester]);
+    setSemesters((prev) => [
+      ...prev,
+      {
+        id: Date.now().toString(),
+        name: `Semester ${prev.length + 1}`,
+        courses: [{ id: Date.now().toString(), name: "Course Subject", credits: 3, grade: "A" }],
+      },
+    ]);
   };
 
-  const removeSemester = (id: string) => {
+  const removeSemester = (semId: string) => {
     if (semesters.length > 1) {
-      setSemesters(semesters.filter(s => s.id !== id));
+      setSemesters((prev) => prev.filter((s) => s.id !== semId));
     }
   };
 
-  const addCourse = (semesterId: string) => {
-    setSemesters(semesters.map(s =>
-      s.id === semesterId
-        ? { ...s, courses: [...s.courses, { id: Date.now().toString(), name: "", credits: 3, grade: "A" }] }
-        : s
-    ));
+  const addCourse = (semId: string) => {
+    setSemesters((prev) =>
+      prev.map((s) =>
+        s.id === semId
+          ? { ...s, courses: [...s.courses, { id: Date.now().toString(), name: "", credits: 3, grade: "A" }] }
+          : s
+      )
+    );
   };
 
-  const removeCourse = (semesterId: string, courseId: string) => {
-    setSemesters(semesters.map(s =>
-      s.id === semesterId && s.courses.length > 1
-        ? { ...s, courses: s.courses.filter(c => c.id !== courseId) }
-        : s
-    ));
+  const removeCourse = (semId: string, courseId: string) => {
+    setSemesters((prev) =>
+      prev.map((s) =>
+        s.id === semId && s.courses.length > 1
+          ? { ...s, courses: s.courses.filter((c) => c.id !== courseId) }
+          : s
+      )
+    );
   };
 
-  const updateCourse = (semesterId: string, courseId: string, field: keyof Course, value: string | number) => {
-    setSemesters(semesters.map(s =>
-      s.id === semesterId
-        ? { ...s, courses: s.courses.map(c => c.id === courseId ? { ...c, [field]: value } : c) }
-        : s
-    ));
+  const updateCourse = (semId: string, courseId: string, field: keyof Course, value: any) => {
+    setSemesters((prev) =>
+      prev.map((s) =>
+        s.id === semId
+          ? {
+              ...s,
+              courses: s.courses.map((c) => (c.id === courseId ? { ...c, [field]: value } : c)),
+            }
+          : s
+      )
+    );
   };
 
-  const calculateSemesterGPA = (semester: Semester) => {
+  // Computations
+  const stats = useMemo(() => {
     let totalPoints = 0;
     let totalCredits = 0;
-    semester.courses.forEach(course => {
-      const points = gradePoints[course.grade] || 0;
-      const normalizedPoints = scale === "5.0" ? (points / 4) * 5 : points;
-      totalPoints += normalizedPoints * course.credits;
-      totalCredits += course.credits;
-    });
-    return totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : "0.00";
-  };
 
-  const calculateCGPA = () => {
-    let totalPoints = 0;
-    let totalCredits = 0;
-    semesters.forEach(semester => {
-      semester.courses.forEach(course => {
-        const points = gradePoints[course.grade] || 0;
-        const normalizedPoints = scale === "5.0" ? (points / 4) * 5 : points;
-        totalPoints += normalizedPoints * course.credits;
-        totalCredits += course.credits;
+    const semesterResults = semesters.map((sem) => {
+      let semPoints = 0;
+      let semCredits = 0;
+
+      sem.courses.forEach((c) => {
+        const base = GRADE_POINTS[c.grade] ?? 0;
+        const normalized = scale === "5.0" ? (base / 4.0) * 5.0 : base;
+        semPoints += normalized * c.credits;
+        semCredits += c.credits;
       });
+
+      totalPoints += semPoints;
+      totalCredits += semCredits;
+
+      return {
+        id: sem.id,
+        name: sem.name,
+        gpa: semCredits > 0 ? (semPoints / semCredits).toFixed(2) : "0.00",
+        credits: semCredits,
+      };
     });
-    return { 
-      gpa: totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : "0.00",
-      credits: totalCredits
+
+    const cgpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : "0.00";
+
+    return {
+      semesterResults,
+      cgpa,
+      totalCredits,
     };
-  };
+  }, [semesters, scale]);
 
-  const stats = calculateCGPA();
+  const downloadTranscriptPDF = () => {
+    const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "a4" });
 
-  const getTargetRequirement = () => {
-    const target = parseFloat(targetCGPA);
-    const remaining = parseInt(remainingSemesters);
-    if (isNaN(target) || isNaN(remaining) || remaining <= 0) return null;
+    // Top Header Banner
+    doc.setFillColor(229, 50, 45);
+    doc.rect(0, 0, 595, 90, "F");
 
-    const currentCGPA = parseFloat(stats.gpa);
-    const currentCredits = stats.credits;
-    const estimatedRemainingCredits = remaining * 15;
-    const totalCredits = currentCredits + estimatedRemainingCredits;
-    
-    const requiredPoints = (target * totalCredits) - (currentCGPA * currentCredits);
-    const requiredGPA = requiredPoints / estimatedRemainingCredits;
+    doc.setTextColor(255, 255, 255);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(24);
+    doc.text("ACADEMIC TRANSCRIPT REPORT", 40, 48);
 
-    if (requiredGPA > parseFloat(scale)) return "LIMIT EXCEEDED";
-    if (requiredGPA < 0) return "ACHIEVED";
-    return requiredGPA.toFixed(2);
-  };
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Official GPA / CGPA Summary (Scale ${scale})`, 40, 70);
 
-  const getGradeColor = (gpa: string) => {
-    const num = parseFloat(gpa);
-    const max = parseFloat(scale);
-    if (num >= max * 0.875) return "text-blue-500";
-    if (num >= max * 0.75) return "text-blue-400";
-    if (num >= max * 0.5) return "text-blue-600";
-    return "text-slate-600";
+    // Student Info
+    doc.setTextColor(30, 41, 59);
+    doc.setFontSize(10);
+    doc.text(`Student: ${studentName}`, 40, 120);
+    doc.text(`Program: ${degreeName}`, 40, 136);
+    doc.text(`Date of Issue: ${new Date().toLocaleDateString("en-GB")}`, 400, 120);
+    doc.text(`Cumulative Credits: ${stats.totalCredits}`, 400, 136);
+
+    let y = 165;
+    semesters.forEach((sem, sIdx) => {
+      if (y > 700) {
+        doc.addPage();
+        y = 50;
+      }
+
+      const semStat = stats.semesterResults[sIdx];
+      doc.setFillColor(248, 250, 252);
+      doc.rect(40, y, 515, 22, "F");
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.setTextColor(15, 23, 42);
+      doc.text(sem.name, 48, y + 15);
+      doc.text(`Semester GPA: ${semStat.gpa}  |  Credits: ${semStat.credits}`, 390, y + 15);
+
+      y += 32;
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9);
+      doc.setTextColor(71, 85, 105);
+
+      sem.courses.forEach((c) => {
+        doc.text(c.name || "Course Subject", 55, y);
+        doc.text(`${c.credits} Cr`, 390, y);
+        doc.text(`Grade: ${c.grade}`, 480, y);
+        y += 18;
+      });
+
+      y += 12;
+    });
+
+    // Grand CGPA Highlight Box
+    doc.setFillColor(254, 242, 242);
+    doc.roundedRect(40, y + 10, 515, 45, 6, 6, "F");
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.setTextColor(229, 50, 45);
+    doc.text(`CUMULATIVE CGPA: ${stats.cgpa} / ${scale}`, 55, y + 38);
+    doc.text(`Total Credit Hours: ${stats.totalCredits}`, 390, y + 38);
+
+    doc.save(`academic-transcript-${stats.cgpa}CGPA.pdf`);
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] selection:bg-blue-500/30 selection:text-blue-200">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-
-      {/* ══════════════════════════════════════════
-          HERO / HEADER
-      ══════════════════════════════════════════ */}
-      <section className="pt-24 pb-32 px-6 relative overflow-hidden text-center">
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-             style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-        
-        <div className="max-w-4xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 font-black text-[10px] uppercase tracking-[0.4em] mb-10 shadow-2xl">
-            <Activity size={14} className="animate-pulse" />
-            Academic Forge v8.2
-          </div>
-          <h1 className="text-6xl md:text-[7rem] font-black text-white tracking-tighter mb-8 leading-none">
-            GPA <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 italic">Architect.</span>
-          </h1>
-          <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
-            Precision grade tracking and prediction engine. 
-            <span className="text-slate-200 font-bold block mt-2">Local Vault Security. Zero Redirection. Absolute Data Sovereignty.</span>
-          </p>
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+      {/* Header */}
+      <div className="text-center max-w-2xl mx-auto mb-10">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-50 border border-red-100 text-[#e5322d] text-xs font-bold mb-4">
+          <GraduationCap className="w-3.5 h-3.5" />
+          Academic Performance Suite
         </div>
-      </section>
+        <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-3">
+          GPA & CGPA Transcript Calculator
+        </h1>
+        <p className="text-slate-600 text-sm leading-relaxed">
+          Multi-semester GPA and CGPA tracker with honors estimation, semester-wise credit weights, and downloadable academic transcript.
+        </p>
+      </div>
 
-      {/* ══════════════════════════════════════════
-          MAIN UTILITY INTERFACE
-      ══════════════════════════════════════════ */}
-      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          
-          {/* Editor Area */}
-          <div className="lg:col-span-8 space-y-8">
-            
-            {/* Config Panel */}
-            <div className="bg-[#0f172a] p-10 rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black flex flex-wrap items-center justify-between gap-6">
-               <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400">
-                     <Layers size={22} />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">Compute Scale</p>
-                    <p className="text-lg font-black text-white uppercase tracking-tighter">Format</p>
-                  </div>
-               </div>
-               
-               <div className="flex bg-white/5 p-2 rounded-[2rem] border border-white/5">
-                  {["4.0", "5.0"].map((s) => (
-                    <button
-                      key={s}
-                      onClick={() => setScale(s as any)}
-                      className={`px-10 py-3 rounded-[1.5rem] text-[10px] font-black uppercase tracking-widest transition-all ${scale === s ? "bg-blue-600 text-white shadow-xl" : "text-slate-400 hover:text-white"}`}
-                    >
-                      {s} Scale
-                    </button>
-                  ))}
-               </div>
-
-               <button 
-                  onClick={() => {
-                    if(confirm("Wipe all local academic data?")) {
-                      setSemesters([{ id: "1", name: "Semester 1", courses: [{ id: "1", name: "", credits: 3, grade: "A" }] }]);
-                      localStorage.removeItem("samtoolbox-gpa-data");
-                    }
-                  }}
-                  className="px-8 py-4 bg-blue-600/10 text-blue-500 border border-blue-500/20 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-xl"
-               >
-                  Reset Vault
-               </button>
-            </div>
-
-            {/* Semester List */}
-            <div className="space-y-10">
-              {semesters.map((semester) => (
-                <div key={semester.id} className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
-                   <div className="bg-white/5 px-10 py-8 border-b border-white/5 flex items-center justify-between">
-                      <div className="flex items-center gap-6 overflow-hidden">
-                        <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-blue-400">
-                           <GraduationCap size={22} />
-                        </div>
-                        <input
-                          type="text"
-                          value={semester.name}
-                          onChange={(e) => setSemesters(semesters.map(s => s.id === semester.id ? { ...s, name: e.target.value } : s))}
-                          className="bg-transparent border-none outline-none text-2xl font-black text-white tracking-tighter w-48 uppercase italic"
-                        />
-                        <div className="h-6 w-px bg-white/10 hidden sm:block" />
-                        <div className="flex items-center gap-3">
-                           <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">GPA:</span>
-                           <span className={`text-2xl font-black italic ${getGradeColor(calculateSemesterGPA(semester))}`}>
-                            {calculateSemesterGPA(semester)}
-                           </span>
-                        </div>
-                      </div>
-                      {semesters.length > 1 && (
-                        <button
-                          onClick={() => removeSemester(semester.id)}
-                          className="p-4 bg-blue-500/10 text-blue-500 border border-blue-500/20 rounded-2xl hover:bg-blue-500 hover:text-white transition-all shadow-xl"
-                        >
-                          <Trash2 size={20} />
-                        </button>
-                      )}
-                   </div>
-
-                   <div className="p-10 space-y-6">
-                      {semester.courses.map((course) => (
-                        <div key={course.id} className="flex flex-col sm:grid sm:grid-cols-12 gap-6 items-center animate-in fade-in slide-in-from-left-4 duration-300 group">
-                          <div className="w-full sm:col-span-7">
-                            <input
-                              type="text"
-                              value={course.name}
-                              onChange={(e) => updateCourse(semester.id, course.id, "name", e.target.value)}
-                              placeholder="COURSE IDENTIFIER (E.G. CS-401)"
-                              className="w-full px-8 py-5 bg-white/[0.03] border border-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-200 focus:bg-white/[0.07] focus:border-blue-500/30 outline-none transition-all placeholder:text-slate-600"
-                            />
-                          </div>
-                          <div className="w-full flex gap-4 sm:contents">
-                            <div className="flex-1 sm:col-span-2">
-                               <select
-                                value={course.credits}
-                                onChange={(e) => updateCourse(semester.id, course.id, "credits", parseInt(e.target.value))}
-                                className="w-full px-6 py-5 bg-white/[0.03] border border-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-400 outline-none cursor-pointer hover:bg-white/10 transition-all appearance-none text-center"
-                              >
-                                {[1, 2, 3, 4, 5, 6].map(c => <option key={c} value={c} className="bg-[#0f172a] text-white">{c} CR</option>)}
-                              </select>
-                            </div>
-                            <div className="flex-1 sm:col-span-2">
-                              <select
-                                value={course.grade}
-                                onChange={(e) => updateCourse(semester.id, course.id, "grade", e.target.value)}
-                                className="w-full px-6 py-5 bg-white/[0.03] border border-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-blue-400 outline-none cursor-pointer hover:bg-white/10 transition-all appearance-none text-center font-bold"
-                              >
-                                {Object.keys(gradePoints).map(g => <option key={g} value={g} className="bg-[#0f172a] text-white">{g}</option>)}
-                              </select>
-                            </div>
-                            <div className="sm:col-span-1 flex justify-end">
-                              <button
-                                onClick={() => removeCourse(semester.id, course.id)}
-                                className="p-3 text-slate-600 hover:text-blue-500 transition-colors"
-                              >
-                                <X size={20} />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-
-                      <button
-                        onClick={() => addCourse(semester.id)}
-                        className="w-full py-6 border-2 border-dashed border-white/5 rounded-[2.5rem] text-[10px] font-black uppercase tracking-[0.4em] text-slate-600 hover:border-blue-500/30 hover:text-blue-400 hover:bg-blue-500/[0.02] transition-all flex items-center justify-center gap-4 mt-6 italic"
-                      >
-                        <Plus size={18} strokeWidth={3} /> Register Further Course
-                      </button>
-                   </div>
-                </div>
-              ))}
-            </div>
-
-            <button
-              onClick={addSemester}
-              className="w-full py-12 bg-white text-slate-900 rounded-[3.5rem] font-black uppercase tracking-[0.4em] text-[10px] shadow-3xl transition-all hover:scale-[1.01] active:scale-95 flex items-center justify-center gap-6"
-            >
-              <Plus size={24} strokeWidth={4} /> Initialize New Academic Semester
-            </button>
-          </div>
-
-          {/* Stats Sidebar */}
-          <div className="lg:col-span-4 space-y-10 lg:sticky lg:top-24">
-             {/* Cumulative Dashboard */}
-             <div className="bg-[#0f172a] rounded-[3.5rem] border border-white/5 shadow-3xl shadow-black p-12 relative overflow-hidden group">
-                <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-blue-600 rounded-full blur-[100px] opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-1000" />
-                
-                <div className="relative space-y-12">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400">
-                      <TrendingUp size={22} />
-                    </div>
-                    <h2 className="text-xl font-black text-white tracking-tighter uppercase italic">Cumulative Engine</h2>
-                  </div>
-
-                  <div className="space-y-4">
-                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest text-center sm:text-left">Projected CGPA</p>
-                    <p className={`text-8xl sm:text-9xl font-black tracking-tighter text-center sm:text-left italic ${getGradeColor(stats.gpa)}`}>
-                      {stats.gpa}
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                     <div className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 text-center sm:text-left">
-                        <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3">Total Load</p>
-                        <p className="text-3xl font-black text-white tracking-tighter">{stats.credits} <span className="text-[10px] text-slate-500 font-bold uppercase italic">CR</span></p>
-                     </div>
-                     <div className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 text-center sm:text-left overflow-hidden">
-                        <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3">Rank Status</p>
-                        <p className={`text-lg sm:text-xl lg:text-3xl font-black text-blue-500 tracking-tighter italic leading-none break-words uppercase`}>
-                          {parseFloat(stats.gpa) >= 3.8 ? "DEAN'S LIST" : 
-                           parseFloat(stats.gpa) >= 3.5 ? "MAGNA CUM LAUDE" : 
-                           parseFloat(stats.gpa) >= 3.2 ? "CUM LAUDE" : 
-                           parseFloat(stats.gpa) >= 3.0 ? "MERIT STATUS" :
-                           parseFloat(stats.gpa) >= 2.5 ? "STANDARD" :
-                           parseFloat(stats.gpa) >= 2.0 ? "MARGINAL" : "PROBATION"}
-                        </p>
-                     </div>
-                  </div>
-                </div>
-             </div>
-
-             {/* Prediction Engine */}
-             <div className="bg-blue-600 rounded-[3.5rem] shadow-3xl p-12 text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-full h-full opacity-20 pointer-events-none" 
-                     style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
-                
-                <div className="relative z-10 space-y-12">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center text-white">
-                      <Zap size={22} />
-                    </div>
-                    <h2 className="text-xl font-black tracking-tighter uppercase italic">Target Synthesis</h2>
-                  </div>
-
-                  <div className="space-y-8">
-                    <div className="space-y-6">
-                      <div>
-                        <label className="text-[9px] font-black text-blue-100 uppercase tracking-[0.3em] mb-3 block pl-2">Desired Final CGPA</label>
-                        <input
-                          type="number"
-                          step="0.01"
-                          value={targetCGPA}
-                          onChange={(e) => setTargetCGPA(e.target.value)}
-                          placeholder={`E.G. ${scale === "4.0" ? "3.75" : "4.50"}`}
-                          className="w-full bg-white/10 border border-white/20 rounded-[2rem] px-8 py-6 text-xl font-black outline-none focus:bg-white/20 focus:border-white/40 transition-all text-white placeholder:text-blue-300"
-                        />
-                      </div>
-                      <div>
-                        <label className="text-[9px] font-black text-blue-100 uppercase tracking-[0.3em] mb-3 block pl-2">Future Semesters</label>
-                        <input
-                          type="number"
-                          value={remainingSemesters}
-                          onChange={(e) => setRemainingSemesters(e.target.value)}
-                          className="w-full bg-white/10 border border-white/20 rounded-[2rem] px-8 py-6 text-xl font-black outline-none focus:bg-white/20 focus:border-white/40 transition-all text-white"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="p-10 bg-white text-blue-600 rounded-[3rem] shadow-3xl text-center">
-                      <p className="text-[10px] font-black uppercase tracking-[0.4em] mb-4 italic">Required Avg. GPA</p>
-                      <p className="text-6xl font-black tracking-tighter italic leading-none">
-                        {getTargetRequirement() || "---"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-             </div>
-
-             {/* Privacy Vault */}
-             <div className="p-10 bg-blue-500/5 rounded-[3rem] border border-blue-500/10 flex items-center gap-6 shadow-2xl">
-                <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-sm">
-                   <ShieldCheck size={28} />
-                </div>
-                <div>
-                   <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest leading-none mb-1.5 italic">Local Vault Active</p>
-                   <p className="text-[10px] font-bold text-slate-500 leading-tight">Data strictly localized to device storage.</p>
-                </div>
-             </div>
-          </div>
+      {/* Top Banner Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm text-center">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Cumulative CGPA</span>
+          <div className="text-4xl font-black text-[#e5322d] mt-2 mb-1">{stats.cgpa}</div>
+          <span className="text-xs text-slate-500">Out of {scale} Scale</span>
         </div>
 
-        {/* ══════════════════════════════════════════
-            DOCUMENTATION & FAQ
-        ══════════════════════════════════════════ */}
-        <div className="mt-40 border-t border-slate-800 pt-40">
-          <div className="grid lg:grid-cols-2 gap-24 items-start">
-            <div className="space-y-16">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-blue-500/10 rounded-[1.5rem] flex items-center justify-center text-blue-400 border border-blue-500/20">
-                  <HelpCircle size={32} />
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm text-center">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Credit Hours</span>
+          <div className="text-4xl font-black text-slate-900 mt-2 mb-1">{stats.totalCredits}</div>
+          <span className="text-xs text-slate-500">{semesters.length} Semesters Recorded</span>
+        </div>
+
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm text-center flex flex-col justify-center">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Graduation Standing</span>
+          <div className="text-2xl font-black text-emerald-600 mt-2 mb-1">
+            {parseFloat(stats.cgpa) >= (scale === "5.0" ? 4.5 : 3.5) ? "Summa Cum Laude" : parseFloat(stats.cgpa) >= (scale === "5.0" ? 4.0 : 3.0) ? "Honors First Class" : "Good Standing"}
+          </div>
+          <span className="text-xs text-slate-500">Academic Merit Status</span>
+        </div>
+      </div>
+
+      {/* Student Details & Scale Options */}
+      <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm mb-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label className="block text-xs font-bold uppercase text-slate-500 mb-1">Student Name</label>
+          <input
+            type="text"
+            value={studentName}
+            onChange={(e) => setStudentName(e.target.value)}
+            className="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-xl font-bold"
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-bold uppercase text-slate-500 mb-1">Degree / Program</label>
+          <input
+            type="text"
+            value={degreeName}
+            onChange={(e) => setDegreeName(e.target.value)}
+            className="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-xl font-bold"
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-bold uppercase text-slate-500 mb-1">Grading Scale</label>
+          <select
+            value={scale}
+            onChange={(e) => setScale(e.target.value as any)}
+            className="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-xl font-bold"
+          >
+            <option value="4.0">4.0 Scale (Pakistan, US, Global Standard)</option>
+            <option value="5.0">5.0 Scale (Saudi Arabia, Singapore, Germany)</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Semesters & Courses Container */}
+      <div className="space-y-6">
+        {semesters.map((sem, sIdx) => {
+          const semStat = stats.semesterResults[sIdx];
+          return (
+            <div key={sem.id} className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
+                <div className="flex items-center gap-3">
+                  <h3 className="text-base font-bold text-slate-900">{sem.name}</h3>
+                  <span className="px-2.5 py-0.5 rounded-full bg-red-50 text-[#e5322d] text-xs font-bold">
+                    GPA: {semStat.gpa} ({semStat.credits} Credits)
+                  </span>
                 </div>
-                <div>
-                  <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none italic">Academic <span className="text-blue-400">Intel</span></h2>
-                  <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-2">Protocol Queries</p>
-                </div>
+                {semesters.length > 1 && (
+                  <button
+                    onClick={() => removeSemester(sem.id)}
+                    className="text-xs text-slate-400 hover:text-red-500 flex items-center gap-1 cursor-pointer"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" /> Remove Semester
+                  </button>
+                )}
               </div>
 
-              <div className="space-y-6">
-                {[
-                  { q: "Is my academic data secure?", a: "SamToolbox utilizes strictly local browser storage (Vault). Your records never touch any remote database or server thread. Zero telemetry." },
-                  { q: "How accurate is the prediction engine?", a: "The synthesis is based on precise mathematical linear regression. Note: Prediction assumes a standard 15-credit load per future semester." },
-                  { q: "Will my data persist across sessions?", a: "Yes, data is saved to your browser's local storage. Clearing your cache may reset your vault, so consider manual backups." }
-                ].map((faq, i) => (
-                  <div key={i} className="p-10 bg-white/5 rounded-[3rem] border border-white/5 hover:border-blue-500/20 transition-all group">
-                    <h3 className="font-black text-white text-sm mb-6 flex items-start gap-4">
-                      <span className="text-blue-400 font-mono">Q.</span> {faq.q}
-                    </h3>
-                    <p className="text-slate-400 text-sm leading-relaxed font-medium pl-8 group-hover:text-slate-300 transition-colors">{faq.a}</p>
+              {/* Courses List */}
+              <div className="space-y-3">
+                {sem.courses.map((course) => (
+                  <div key={course.id} className="grid grid-cols-12 gap-2 items-center">
+                    <input
+                      type="text"
+                      placeholder="Course Subject / Title"
+                      value={course.name}
+                      onChange={(e) => updateCourse(sem.id, course.id, "name", e.target.value)}
+                      className="col-span-6 p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-xl font-medium"
+                    />
+                    <select
+                      value={course.credits}
+                      onChange={(e) => updateCourse(sem.id, course.id, "credits", parseInt(e.target.value, 10))}
+                      className="col-span-2 p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-xl font-medium text-center"
+                    >
+                      <option value={1}>1 Credit</option>
+                      <option value={2}>2 Credits</option>
+                      <option value={3}>3 Credits</option>
+                      <option value={4}>4 Credits</option>
+                      <option value={5}>5 Credits</option>
+                    </select>
+                    <select
+                      value={course.grade}
+                      onChange={(e) => updateCourse(sem.id, course.id, "grade", e.target.value)}
+                      className="col-span-3 p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-xl font-bold"
+                    >
+                      {Object.keys(GRADE_POINTS).map((g) => (
+                        <option key={g} value={g}>{g} ({GRADE_POINTS[g].toFixed(1)})</option>
+                      ))}
+                    </select>
+                    <button
+                      onClick={() => removeCourse(sem.id, course.id)}
+                      className="col-span-1 p-2 text-slate-400 hover:text-red-500 rounded-lg flex items-center justify-center cursor-pointer"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
                 ))}
               </div>
-            </div>
 
-            <div className="bg-[#0f172a] rounded-[4.5rem] p-16 md:p-24 text-white relative overflow-hidden border border-white/5">
-               <div className="absolute top-0 right-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-               <div className="relative z-10 text-center sm:text-left">
-                  <div className="w-24 h-24 bg-blue-500/10 border border-blue-500/20 rounded-[2.5rem] flex items-center justify-center mb-12 shadow-[0_0_80px_rgba(37,99,235,0.2)] mx-auto sm:mx-0">
-                    <ShieldCheck size={48} className="text-blue-400" />
-                  </div>
-                  <h3 className="text-4xl font-black mb-10 tracking-tight uppercase leading-[0.9] italic">Sovereign <span className="text-blue-400">Vault.</span></h3>
-                  <p className="text-slate-400 font-medium mb-16 leading-relaxed text-xl">
-                    Academic Forge operates on a strictly local delivery model. 
-                    No signups, no cloud syncing, no data harvesting. 
-                    Your performance is your business.
-                  </p>
-                  
-                  <div className="grid grid-cols-2 gap-12">
-                     <div className="space-y-4">
-                        <div className="text-4xl font-black text-white tracking-tighter italic">VAULT-ON</div>
-                        <div className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Local Storage</div>
-                     </div>
-                     <div className="space-y-4">
-                        <div className="text-4xl font-black text-white tracking-tighter italic">0-TRACK</div>
-                        <div className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Zero Surveillance</div>
-                     </div>
-                  </div>
-               </div>
+              <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+                <button
+                  onClick={() => addCourse(sem.id)}
+                  className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" /> Add Course
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
+          );
+        })}
 
-        {/* Explore More Tools */}
-        <div className="mt-40 text-center">
-           <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-10">Access further industrial utilities</p>
-           <Link href="/tools" className="inline-flex items-center gap-6 px-20 py-8 bg-white text-slate-900 rounded-[2.5rem] font-black uppercase tracking-widest text-[10px] hover:bg-blue-600 hover:text-white transition-all shadow-3xl group">
-             Explore All Systems <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
-           </Link>
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-4">
+          <button
+            onClick={addSemester}
+            className="px-6 py-3.5 bg-white border border-slate-200 hover:border-slate-300 text-slate-800 font-bold text-xs rounded-2xl shadow-sm flex items-center gap-2 cursor-pointer"
+          >
+            <Plus className="w-4 h-4 text-[#e5322d]" /> Add New Semester
+          </button>
+
+          <button
+            onClick={downloadTranscriptPDF}
+            className="px-8 py-3.5 bg-[#e5322d] hover:bg-[#cc241f] text-white font-bold text-xs rounded-2xl shadow-lg shadow-red-500/25 flex items-center gap-2 cursor-pointer"
+          >
+            <Download className="w-4 h-4" /> Download Academic Transcript (PDF)
+          </button>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

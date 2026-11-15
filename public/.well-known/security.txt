@@ -1,6 +1,11 @@
-Contact: security@samtoolbox.com
-Expires: 2027-04-25T00:00:00.000Z
+# RFC 9116 Security Policy for SamToolbox
+Contact: mailto:security@samtoolbox.com
+Expires: 2027-12-31T23:59:59.000Z
 Preferred-Languages: en, ur
-Canonical: https://samtoolbox.com/.well-known/security.txt
-Policy: https://samtoolbox.com/privacy
-Acknowledgments: https://samtoolbox.com/acknowledgments
+Canonical: https://samtoolbox.vercel.app/.well-known/security.txt
+Policy: https://samtoolbox.vercel.app/privacy
+
+# Privacy Architecture Note:
+# SamToolbox does not receive, store, or process user documents on any server.
+# All PDF transformations, conversions, and computations are executed strictly
+# within the user's browser sandbox using client-side JavaScript and WebAssembly.

@@ -1,9 +1,28 @@
-export const metadata = {
-  title: "Study Timer - Pomodoro & Productivity Tracker | SamToolBox",
-  description: "Boost productivity with Pomodoro timer, track daily study sessions, and monitor your progress. Perfect for students.",
-  keywords: ["study timer", "pomodoro", "productivity tracker", "focus timer", "student productivity"],
-};
+import type { Metadata } from "next";
+import Script from "next/script";
+import { getToolMetadata, getToolJsonLd } from "@/lib/toolSeoData";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+const TOOL_SLUG = "study-timer";
+
+export const metadata: Metadata = getToolMetadata(TOOL_SLUG);
+
+export default function ToolLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const jsonLd = getToolJsonLd(TOOL_SLUG);
+
+  return (
+    <>
+      <Script
+        id="tool-schema-study-timer"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      {children}
+    </>
+  );
 }

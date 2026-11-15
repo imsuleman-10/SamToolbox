@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "samtoolbox",
+  "name_for_human": "SamToolbox",
+  "description_for_model": "SamToolbox provides client-side private PDF processing (merge, split, compress, convert, sign, protect, watermark) and regional Pakistani/international calculators (FBR salary tax, merit aggregate, Marla converter, Zakat, e-stamp paper formatting, passport photo resizer, GPA calculator). All processing executes in the browser without server uploads.",
+  "description_for_human": "Private, free, in-browser PDF tools and Pakistani regional calculators with zero server uploads.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://samtoolbox.vercel.app/openapi.yaml"
+  },
+  "logo_url": "https://samtoolbox.vercel.app/icon",
+  "contact_email": "support@samtoolbox.com",
+  "legal_info_url": "https://samtoolbox.vercel.app/privacy"
+}

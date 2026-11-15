@@ -1,9 +1,28 @@
-export const metadata = {
-  title: "Resume Score Checker - Free ATS Analysis | SamToolBox",
-  description: "Paste your resume and get an instant ATS compatibility score with actionable suggestions to improve your CV for better job opportunities.",
-  keywords: ["resume checker", "ATS score", "CV analyzer", "resume optimizer", "job application tool"],
-};
+import type { Metadata } from "next";
+import Script from "next/script";
+import { getToolMetadata, getToolJsonLd } from "@/lib/toolSeoData";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+const TOOL_SLUG = "resume-score";
+
+export const metadata: Metadata = getToolMetadata(TOOL_SLUG);
+
+export default function ToolLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const jsonLd = getToolJsonLd(TOOL_SLUG);
+
+  return (
+    <>
+      <Script
+        id="tool-schema-resume-score"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      {children}
+    </>
+  );
 }

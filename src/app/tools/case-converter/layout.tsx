@@ -1,12 +1,28 @@
 import type { Metadata } from "next";
-import { getToolMetadata } from "@/lib/toolMetadata";
+import Script from "next/script";
+import { getToolMetadata, getToolJsonLd } from "@/lib/toolSeoData";
 
-export const metadata: Metadata = getToolMetadata("case-converter");
+const TOOL_SLUG = "case-converter";
 
-export default function CaseConverterLayout({
+export const metadata: Metadata = getToolMetadata(TOOL_SLUG);
+
+export default function ToolLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  const jsonLd = getToolJsonLd(TOOL_SLUG);
+
+  return (
+    <>
+      <Script
+        id="tool-schema-case-converter"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      {children}
+    </>
+  );
 }

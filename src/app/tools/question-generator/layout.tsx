@@ -1,9 +1,28 @@
-export const metadata = {
-  title: "Study Question Generator - Random Quiz & MCQs | SamToolBox",
-  description: "Generate random study questions and MCQs for practice. Perfect for exam preparation and self-testing.",
-  keywords: ["question generator", "quiz maker", "MCQ generator", "study tool", "exam prep"],
-};
+import type { Metadata } from "next";
+import Script from "next/script";
+import { getToolMetadata, getToolJsonLd } from "@/lib/toolSeoData";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+const TOOL_SLUG = "question-generator";
+
+export const metadata: Metadata = getToolMetadata(TOOL_SLUG);
+
+export default function ToolLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const jsonLd = getToolJsonLd(TOOL_SLUG);
+
+  return (
+    <>
+      <Script
+        id="tool-schema-question-generator"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      {children}
+    </>
+  );
 }

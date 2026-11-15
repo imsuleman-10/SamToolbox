@@ -1,9 +1,28 @@
-export const metadata = {
-  title: "Assignment Formatter - Auto Format & PDF Export | SamToolBox",
-  description: "Format your assignments automatically with proper headings, spacing, and margins. Export to clean PDF instantly.",
-  keywords: ["assignment formatter", "text formatter", "PDF export", "student tool", "document formatting"],
-};
+import type { Metadata } from "next";
+import Script from "next/script";
+import { getToolMetadata, getToolJsonLd } from "@/lib/toolSeoData";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+const TOOL_SLUG = "assignment-formatter";
+
+export const metadata: Metadata = getToolMetadata(TOOL_SLUG);
+
+export default function ToolLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const jsonLd = getToolJsonLd(TOOL_SLUG);
+
+  return (
+    <>
+      <Script
+        id="tool-schema-assignment-formatter"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      {children}
+    </>
+  );
 }

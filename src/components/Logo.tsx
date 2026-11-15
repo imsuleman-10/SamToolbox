@@ -5,95 +5,71 @@ import React from "react";
 interface LogoProps {
   className?: string;
   size?: number;
-  animated?: boolean;
+  showText?: boolean;
 }
 
-export default function Logo({ className = "", size = 40, animated = true }: LogoProps) {
+export default function Logo({ className = "", size = 36, showText = false }: LogoProps) {
   return (
-    <div 
-      className={`relative flex items-center justify-center ${className}`}
-      style={{ width: size, height: size }}
-    >
-      <svg
-        viewBox="0 0 100 100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className={`w-full h-full ${animated ? "animate-[float_6s_ease-in-out_infinite]" : ""}`}
+    <div className={`inline-flex items-center gap-2.5 ${className}`}>
+      {/* Pure SVG Vector Badge (Zero Image Assets) */}
+      <div 
+        className="relative shrink-0 flex items-center justify-center rounded-xl overflow-hidden shadow-md shadow-red-500/20 transition-transform duration-200 group-hover:scale-105"
+        style={{ width: size, height: size }}
       >
-        <defs>
-          <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3b82f6" />
-            <stop offset="100%" stopColor="#1d4ed8" />
-          </linearGradient>
-          <radialGradient id="logo-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(50 50) rotate(90) scale(40)">
-            <stop stopColor="#3b82f6" />
-            <stop offset="1" stopColor="#3b82f6" stopOpacity="0" />
-          </radialGradient>
-          <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
-        </defs>
+        <svg
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full"
+        >
+          {/* Subtle Outer Gradient Background */}
+          <rect width="48" height="48" rx="12" fill="url(#brandGradient)" />
 
-        {/* Outer Hexagon Frame */}
-        <path
-          d="M50 5L90 27.5V72.5L50 95L10 72.5V27.5L50 5Z"
-          stroke="url(#logo-gradient)"
-          strokeWidth="2"
-          className={`opacity-20 origin-center ${animated ? "animate-[rotate-slow_20s_linear_infinite]" : ""}`}
-        />
-        
-        {/* Animated Dash Border */}
-        <path
-          d="M50 5L90 27.5V72.5L50 95L10 72.5V27.5L50 5Z"
-          stroke="url(#logo-gradient)"
-          strokeWidth="4"
-          strokeDasharray="300"
-          strokeDashoffset="300"
-          className={`${animated ? "animate-[dash_4s_linear_infinite]" : ""}`}
-          strokeLinecap="round"
-          filter="url(#neon-glow)"
-        />
+          {/* Precision Toolbox / Document Geometry */}
+          {/* Document Fold Base */}
+          <path
+            d="M13 10C13 8.89543 13.8954 8 15 8H28L35 15V38C35 39.1046 34.1046 40 33 40H15C13.8954 40 13 39.1046 13 38V10Z"
+            fill="white"
+            fillOpacity="0.16"
+          />
+          {/* Fold Corner Accent */}
+          <path
+            d="M28 8V14C28 14.5523 28.4477 15 29 15H35"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
 
-        {/* Industrial Core */}
-        <path
-          d="M30 35H70L50 65H30L50 35Z"
-          fill="url(#logo-gradient)"
-          className={`opacity-10 ${animated ? "animate-pulse" : ""}`}
-        />
-        
-        {/* Central S-Zap Symbol */}
-        <path
-          d="M60 20L35 50H65L40 80"
-          stroke="white"
-          strokeWidth="8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          filter="url(#neon-glow)"
-          className={animated ? "animate-[pulse_2s_ease-in-out_infinite]" : ""}
-        />
-      </svg>
-      
-      {/* Background Glow */}
-      {animated && (
-        <div className="absolute inset-0 bg-blue-600/10 blur-2xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-1000" />
+          {/* Central Stylized "S" / Precision Tool Core */}
+          <path
+            d="M30 19H20C18.3431 19 17 20.3431 17 22C17 23.6569 18.3431 25 20 25H28C29.6569 25 31 26.3431 31 28C31 29.6569 29.6569 31 28 31H18"
+            stroke="white"
+            strokeWidth="3.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+
+          {/* Dynamic Tool Accent Node */}
+          <circle cx="31" cy="19" r="1.8" fill="#FDE047" />
+          <circle cx="17" cy="31" r="1.8" fill="#FDE047" />
+
+          {/* Gradient Definition */}
+          <defs>
+            <linearGradient id="brandGradient" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#EF4444" />
+              <stop offset="50%" stopColor="#E5322D" />
+              <stop offset="100%" stopColor="#B91C1C" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      {showText && (
+        <span className="text-xl font-black tracking-tight text-slate-900 group-hover:text-slate-800 transition-colors">
+          Sam<span className="text-[#e5322d]">Toolbox</span>
+        </span>
       )}
-
-      <style jsx>{`
-        @keyframes dash {
-          to {
-            stroke-dashoffset: 0;
-          }
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-          50% { transform: translateY(-10px) rotate(2deg) scale(1.02); }
-        }
-        @keyframes rotate-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 }

@@ -1,9 +1,28 @@
-export const metadata = {
-  title: "Notes to PDF - Convert Messy Notes to Clean PDF | SamToolBox",
-  description: "Transform your messy notes into beautifully formatted PDF documents. Perfect for students and professionals.",
-  keywords: ["notes to PDF", "clean notes", "note formatter", "PDF generator", "student notes"],
-};
+import type { Metadata } from "next";
+import Script from "next/script";
+import { getToolMetadata, getToolJsonLd } from "@/lib/toolSeoData";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+const TOOL_SLUG = "notes-to-pdf";
+
+export const metadata: Metadata = getToolMetadata(TOOL_SLUG);
+
+export default function ToolLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const jsonLd = getToolJsonLd(TOOL_SLUG);
+
+  return (
+    <>
+      <Script
+        id="tool-schema-notes-to-pdf"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      {children}
+    </>
+  );
 }

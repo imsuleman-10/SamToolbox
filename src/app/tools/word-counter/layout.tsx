@@ -1,12 +1,28 @@
 import type { Metadata } from "next";
-import { getToolMetadata } from "@/lib/toolMetadata";
+import Script from "next/script";
+import { getToolMetadata, getToolJsonLd } from "@/lib/toolSeoData";
 
-export const metadata: Metadata = getToolMetadata("word-counter");
+const TOOL_SLUG = "word-counter";
 
-export default function WordCounterLayout({
+export const metadata: Metadata = getToolMetadata(TOOL_SLUG);
+
+export default function ToolLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  const jsonLd = getToolJsonLd(TOOL_SLUG);
+
+  return (
+    <>
+      <Script
+        id="tool-schema-word-counter"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      {children}
+    </>
+  );
 }

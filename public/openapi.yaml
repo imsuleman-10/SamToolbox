@@ -1,0 +1,51 @@
+openapi: 3.1.0
+info:
+  title: SamToolbox API & Client-Side Tool Directory
+  description: Machine-readable specifications for SamToolbox 55+ browser-native PDF and utility tools.
+  version: 2.0.0
+servers:
+  - url: https://samtoolbox.vercel.app
+    description: Production Edge Server
+paths:
+  /tools/salary-tax-calculator:
+    get:
+      summary: FBR Pakistan Salary Tax Calculator
+      description: Compute monthly and yearly income tax liability under Finance Act 2024-2026 progressive slabs for Pakistan.
+      responses:
+        '200':
+          description: Interactive web tool and downloadable salary slip generator.
+  /tools/merit-calculator:
+    get:
+      summary: Pakistani University Merit Aggregate Calculator
+      description: Calculate exact weighted percentage aggregate for NUST, FAST-NUCES, MDCAT, UET, and COMSATS.
+      responses:
+        '200':
+          description: Interactive aggregate calculator and merit certificate exporter.
+  /tools/marla-converter:
+    get:
+      summary: Marla and Land Area Converter
+      description: Convert between Marlas, Kanals, Acres, and Square Feet across 225, 250, and 272.25 sq ft standards.
+      responses:
+        '200':
+          description: Interactive converter and PDF land measurement report generator.
+  /tools/zakat-calculator:
+    get:
+      summary: Zakat Calculator with Silver Nisab Threshold
+      description: Calculate 2.5% Zakat on gold, silver, cash, and business inventory against current Nisab.
+      responses:
+        '200':
+          description: Interactive Zakat assessment tool.
+  /tools/merge-pdf:
+    get:
+      summary: Merge Multiple PDFs
+      description: Combine multiple PDF files into a single ordered document using client-side WebAssembly.
+      responses:
+        '200':
+          description: Client-side PDF merger.
+  /tools/compress-pdf:
+    get:
+      summary: Compress PDF File
+      description: Reduce PDF document file size in the user's browser without uploading data to any server.
+      responses:
+        '200':
+          description: Client-side PDF compression utility.

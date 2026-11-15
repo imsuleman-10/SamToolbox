@@ -1,12 +1,28 @@
 import type { Metadata } from "next";
-import { getToolMetadata } from "@/lib/toolMetadata";
+import Script from "next/script";
+import { getToolMetadata, getToolJsonLd } from "@/lib/toolSeoData";
 
-export const metadata: Metadata = getToolMetadata("qr-generator");
+const TOOL_SLUG = "qr-generator";
 
-export default function QrGeneratorLayout({
+export const metadata: Metadata = getToolMetadata(TOOL_SLUG);
+
+export default function ToolLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  const jsonLd = getToolJsonLd(TOOL_SLUG);
+
+  return (
+    <>
+      <Script
+        id="tool-schema-qr-generator"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      {children}
+    </>
+  );
 }
