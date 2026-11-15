@@ -7,12 +7,15 @@ export const generateOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "SamToolbox",
-  alternateName: ["SamToolbox Web Suite", "SamToolbox PDF"],
+  alternateName: ["SamToolbox Web Suite", "SamToolbox PDF Tools", "SamToolbox Online", "SamToolbox Sovereign Utilities"],
   url: "https://samtoolbox.vercel.app",
-  logo: "https://samtoolbox.vercel.app/icon",
+  logo: "https://samtoolbox.vercel.app/logo.png",
+  image: "https://samtoolbox.vercel.app/og-image.jpg",
   description: "Enterprise-grade client-side suite for PDF processing, document conversion, and Pakistani & international financial and academic calculations with zero server uploads.",
+  disambiguatingDescription: "SamToolbox is an independent web application for online PDF manipulation and productivity utilities, executing 100% in-browser with zero cloud uploads. SamToolbox is not affiliated with Samsung Electronics or desktop Samsung TV channel list editors (.scm).",
   sameAs: [
     "https://github.com/imsuleman-10/SamToolbox",
+    "https://samtoolbox.vercel.app",
   ],
   contactPoint: [
     {
@@ -68,9 +71,12 @@ export const generateWebApplicationSchema = () => ({
   "@type": "WebApplication",
   name: "SamToolbox",
   url: "https://samtoolbox.vercel.app",
+  image: "https://samtoolbox.vercel.app/og-image.jpg",
+  screenshot: "https://samtoolbox.vercel.app/og-image.jpg",
   applicationCategory: "UtilityApplication",
   operatingSystem: "All (Web Browser, Windows, macOS, Linux, Android, iOS)",
   browserRequirements: "Requires HTML5 and JavaScript support",
+  disambiguatingDescription: "A sovereign, privacy-first web utility platform offering 55+ in-browser PDF manipulation and regional financial tools with zero cloud uploads. Distinct from any legacy Samsung TV channel list editors.",
   offers: {
     "@type": "Offer",
     price: "0",

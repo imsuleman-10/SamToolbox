@@ -9,6 +9,22 @@ export const metadata: Metadata = {
   title: "Contact SamToolbox | Get Support & Share Feedback",
   description: "Have a feature request or need help? Reach out to the SamToolbox team. We're here to help you get the most out of our privacy-first browser tools.",
   keywords: "contact samtoolbox, support, feature request, feedback, bug report",
+  alternates: {
+    canonical: "https://samtoolbox.vercel.app/contact",
+  },
+  openGraph: {
+    title: "Contact SamToolbox | Get Support & Share Feedback",
+    description: "Reach out to the SamToolbox team. We're here to help with 55+ private browser tools.",
+    url: "https://samtoolbox.vercel.app/contact",
+    images: ["https://samtoolbox.vercel.app/og-image.jpg"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact SamToolbox | Support & Feedback",
+    description: "Reach out to the SamToolbox team.",
+    images: ["https://samtoolbox.vercel.app/og-image.jpg"],
+  },
 };
 
 export default function ContactPage() {

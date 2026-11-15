@@ -31,19 +31,20 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "SamToolbox | Every Tool You Need for PDFs & Calculations in One Place",
+    default: "SamToolbox | 55+ Free Online PDF Tools & Calculators — 100% Private",
     template: "%s | SamToolbox",
   },
   description:
-    "100% Free, Private, In-Browser Tools. Merge, Split, Compress, Convert, Edit, and Sign PDFs. FBR Salary Tax, Aggregate Merit, Marla Converter, Zakat, e-Stamp Paper, and GPA Calculators with zero server uploads.",
+    "Enterprise-grade suite of 55+ free in-browser PDF tools, document converters, and calculators. Merge, compress, convert, edit & sign PDFs. FBR Salary Tax, Aggregate Merit, Marla Converter & Zakat. 100% client-side with zero server uploads.",
   keywords: [
     "SamToolbox",
+    "SamToolbox PDF",
     "free pdf tools",
     "iLovePDF alternative",
-    "merge pdf",
-    "compress pdf",
-    "pdf to word",
-    "word to pdf",
+    "merge pdf online",
+    "compress pdf online",
+    "pdf to word converter",
+    "word to pdf converter",
     "fbr salary tax calculator 2024-2025",
     "university aggregate merit calculator",
     "marla converter pakistan",
@@ -54,6 +55,7 @@ export const metadata: Metadata = {
     "loan emi calculator",
     "client-side pdf processing",
     "zero upload privacy tools",
+    "browser utility suite",
   ],
   authors: [{ name: "SamToolbox", url: "https://samtoolbox.vercel.app" }],
   creator: "SamToolbox",
@@ -77,24 +79,38 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   icons: {
-    icon: "/icon",
-    apple: "/icon",
+    icon: [
+      { url: "/icon" },
+      { url: "/favicon.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon" },
+    ],
   },
   openGraph: {
-    title: "SamToolbox | Complete Online PDF Tools & Regional Utilities Suite",
+    title: "SamToolbox | 55+ Free Online PDF Tools & Regional Utilities Suite",
     description:
       "Every tool you need to work with PDFs and calculations at your fingertips. 100% free, private, and instant with zero server uploads.",
     url: "https://samtoolbox.vercel.app",
     siteName: "SamToolbox",
+    images: [
+      {
+        url: "https://samtoolbox.vercel.app/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SamToolbox - 55+ Free Online PDF Tools & Productivity Suite",
+      },
+    ],
     locale: "en_US",
     alternateLocale: ["en_GB", "en_PK", "ur_PK", "ar_AE"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SamToolbox | Free Online PDF & Productivity Suite",
+    title: "SamToolbox | 55+ Free Online PDF & Productivity Suite",
     description:
       "Merge, split, compress, convert, edit, and sign PDFs directly in your browser. Complete zero-upload privacy.",
+    images: ["https://samtoolbox.vercel.app/og-image.jpg"],
     creator: "@samtoolbox",
   },
   robots: {

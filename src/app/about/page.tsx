@@ -7,15 +7,26 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About SamToolbox | Privacy-First Browser Tools",
+  title: "About SamToolbox | 55+ Privacy-First Browser Tools",
   description:
-    "SamToolbox is a free, privacy-first online toolbox. All tools run 100% in your browser — your files never leave your device. Built with Next.js, React, and modern HTML5 APIs.",
+    "SamToolbox is a free, privacy-first online toolbox. All 55+ tools run 100% in your browser — your files never leave your device. Built with Next.js, React, and modern WebAssembly APIs.",
   keywords:
-    "about samtoolbox, privacy browser tools, local processing tools, no upload tools, free online utilities",
+    "about samtoolbox, privacy browser tools, local processing tools, no upload tools, free online utilities, ilovepdf alternative",
+  alternates: {
+    canonical: "https://samtoolbox.vercel.app/about",
+  },
   openGraph: {
-    title: "About SamToolbox | Privacy-First Browser Tools",
-    description: "15+ free professional tools. Zero servers. Zero uploads. Powered by your browser.",
+    title: "About SamToolbox | 55+ Privacy-First Browser Tools",
+    description: "55+ free professional tools. Zero servers. Zero uploads. Powered 100% by your browser.",
+    url: "https://samtoolbox.vercel.app/about",
+    images: ["https://samtoolbox.vercel.app/og-image.jpg"],
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About SamToolbox | 55+ Privacy-First Browser Tools",
+    description: "55+ free professional tools. Zero servers. Zero uploads. Powered 100% by your browser.",
+    images: ["https://samtoolbox.vercel.app/og-image.jpg"],
   },
 };
 

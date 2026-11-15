@@ -666,15 +666,24 @@ export function getToolMetadata(slug: string): Metadata {
       },
       openGraph: {
         title: `${formattedTitle} | SamToolbox`,
-        description: `Use ${formattedTitle} online for free. 100% private in-browser processing.`,
+        description: `Use ${formattedTitle} online for free. 100% private in-browser processing with zero server uploads.`,
         url,
         siteName: "SamToolbox",
+        images: [
+          {
+            url: "https://samtoolbox.vercel.app/og-image.jpg",
+            width: 1200,
+            height: 630,
+            alt: `${formattedTitle} - SamToolbox`,
+          },
+        ],
         type: "website",
       },
       twitter: {
         card: "summary_large_image",
         title: `${formattedTitle} | SamToolbox`,
-        description: `Use ${formattedTitle} online for free. 100% private in-browser processing.`,
+        description: `Use ${formattedTitle} online for free. 100% private in-browser processing with zero server uploads.`,
+        images: ["https://samtoolbox.vercel.app/og-image.jpg"],
       },
     };
   }
@@ -701,12 +710,21 @@ export function getToolMetadata(slug: string): Metadata {
       description: entry.description,
       url,
       siteName: "SamToolbox",
+      images: [
+        {
+          url: "https://samtoolbox.vercel.app/og-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: `${entry.title} - SamToolbox`,
+        },
+      ],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
       title: entry.metaTitle,
       description: entry.description,
+      images: ["https://samtoolbox.vercel.app/og-image.jpg"],
     },
     other: {
       "geo.region": entry.geoRegions ? entry.geoRegions.join(", ") : "PK-PB, US, GB, AE, SA, CA, AU",

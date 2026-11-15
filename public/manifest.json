@@ -1,7 +1,7 @@
 {
-  "name": "SamToolbox - Complete Free PDF & Productivity Tools",
+  "name": "SamToolbox - 55+ Free Online PDF & Productivity Tools",
   "short_name": "SamToolbox",
-  "description": "Every tool you need to work with PDFs and calculations in one place. 100% private, client-side in-browser processing with zero server uploads.",
+  "description": "55+ free in-browser PDF manipulation and calculation tools. 100% private with zero server uploads.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -10,22 +10,31 @@
   "theme_color": "#e5322d",
   "icons": [
     {
-      "src": "/icon",
+      "src": "/favicon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon",
+      "src": "/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon",
+      "src": "/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "SamToolbox Suite Overview"
     }
   ],
   "categories": ["productivity", "utilities", "business", "education"],
