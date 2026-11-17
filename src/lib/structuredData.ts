@@ -27,14 +27,33 @@ export const generateOrganizationSchema = () => ({
     },
   ],
   areaServed: [
-    { "@type": "Country", name: "Pakistan" },
     { "@type": "Country", name: "United States" },
     { "@type": "Country", name: "United Kingdom" },
-    { "@type": "Country", name: "United Arab Emirates" },
-    { "@type": "Country", name: "Saudi Arabia" },
     { "@type": "Country", name: "Canada" },
     { "@type": "Country", name: "Australia" },
+    { "@type": "Country", name: "Germany" },
+    { "@type": "Country", name: "France" },
+    { "@type": "Country", name: "Spain" },
+    { "@type": "Country", name: "Italy" },
+    { "@type": "Country", name: "Netherlands" },
+    { "@type": "Country", name: "Brazil" },
+    { "@type": "Country", name: "Mexico" },
+    { "@type": "Country", name: "India" },
+    { "@type": "Country", name: "Pakistan" },
+    { "@type": "Country", name: "United Arab Emirates" },
+    { "@type": "Country", name: "Saudi Arabia" },
+    { "@type": "Country", name: "Singapore" },
+    { "@type": "Country", name: "Japan" },
+    { "@type": "Country", name: "South Korea" },
+    { "@type": "Country", name: "South Africa" },
+    { "@type": "Country", name: "Nigeria" },
+    { "@type": "Country", name: "Egypt" },
+    { "@type": "Country", name: "Indonesia" },
+    { "@type": "Country", name: "Philippines" },
     { "@type": "AdministrativeArea", name: "Global" },
+  ],
+  availableLanguage: [
+    "English", "Spanish", "French", "German", "Arabic", "Portuguese", "Hindi", "Urdu", "Japanese"
   ],
   knowsAbout: [
     "Portable Document Format (PDF)",
@@ -55,7 +74,10 @@ export const generateWebsiteSchema = () => ({
   url: "https://samtoolbox.vercel.app",
   name: "SamToolbox",
   description: "Every tool you need to work with PDFs and calculations in one place. 100% private, free, and in-browser.",
-  inLanguage: ["en-US", "en-GB", "en-PK", "ur-PK"],
+  inLanguage: [
+    "en-US", "en-GB", "en-CA", "en-AU", "en-IN", "en-PK", "es-ES", "es-MX",
+    "fr-FR", "de-DE", "ar-AE", "ar-SA", "pt-BR", "ur-PK", "hi-IN", "ja-JP"
+  ],
   potentialAction: {
     "@type": "SearchAction",
     target: {
@@ -76,7 +98,7 @@ export const generateWebApplicationSchema = () => ({
   applicationCategory: "UtilityApplication",
   operatingSystem: "All (Web Browser, Windows, macOS, Linux, Android, iOS)",
   browserRequirements: "Requires HTML5 and JavaScript support",
-  disambiguatingDescription: "A sovereign, privacy-first web utility platform offering 55+ in-browser PDF manipulation and regional financial tools with zero cloud uploads. Distinct from any legacy Samsung TV channel list editors.",
+  disambiguatingDescription: "A sovereign, privacy-first web utility platform offering 64+ in-browser PDF manipulation, developer utilities, and regional financial tools with zero cloud uploads. Distinct from any legacy Samsung TV channel list editors.",
   offers: {
     "@type": "Offer",
     price: "0",

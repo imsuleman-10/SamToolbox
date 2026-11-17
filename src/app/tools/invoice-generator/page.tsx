@@ -181,12 +181,22 @@ export default function InvoiceGeneratorPage() {
               onChange={(e) => setCurrency(e.target.value)}
               className="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-xl font-bold"
             >
-              <option value="PKR">PKR (Pakistani Rupee)</option>
               <option value="USD">USD (US Dollar $)</option>
               <option value="EUR">EUR (Euro €)</option>
               <option value="GBP">GBP (British Pound £)</option>
+              <option value="CAD">CAD (Canadian Dollar C$)</option>
+              <option value="AUD">AUD (Australian Dollar A$)</option>
+              <option value="INR">INR (Indian Rupee ₹)</option>
+              <option value="PKR">PKR (Pakistani Rupee Rs)</option>
               <option value="AED">AED (UAE Dirham)</option>
               <option value="SAR">SAR (Saudi Riyal)</option>
+              <option value="QAR">QAR (Qatari Riyal)</option>
+              <option value="KWD">KWD (Kuwaiti Dinar)</option>
+              <option value="SGD">SGD (Singapore Dollar S$)</option>
+              <option value="JPY">JPY (Japanese Yen ¥)</option>
+              <option value="CHF">CHF (Swiss Franc)</option>
+              <option value="ZAR">ZAR (South African Rand R)</option>
+              <option value="BRL">BRL (Brazilian Real R$)</option>
             </select>
           </div>
           <div>

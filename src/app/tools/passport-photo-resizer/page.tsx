@@ -3,10 +3,12 @@
 import { useState, useRef } from "react";
 import { Upload, Download, Image as ImageIcon, Sparkles, ShieldCheck } from "lucide-react";
 
+type PresetType = "us_visa" | "schengen" | "uk_visa" | "canada_visa" | "uae_visa" | "india_visa" | "nadra" | "fpsc";
+
 export default function PassportPhotoResizerPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
-  const [preset, setPreset] = useState<"nadra" | "fpsc" | "us_visa" | "schengen">("nadra");
+  const [preset, setPreset] = useState<PresetType>("us_visa");
   const [targetKb, setTargetKb] = useState<number>(30);
   const [isProcessing, setIsProcessing] = useState(false);
   const [processedUrl, setProcessedUrl] = useState<string>("");
@@ -33,15 +35,21 @@ export default function PassportPhotoResizerPage() {
       let width = 413;
       let height = 531;
 
-      if (preset === "nadra" || preset === "schengen") {
-        width = 413; // 35mm @ 300 DPI
-        height = 531; // 45mm @ 300 DPI
+      if (preset === "nadra" || preset === "schengen" || preset === "uk_visa") {
+        width = 413; // 35x45mm @ 300 DPI
+        height = 531;
+      } else if (preset === "us_visa" || preset === "india_visa") {
+        width = 600; // 2x2 inches (51x51mm) @ 300 DPI
+        height = 600;
+      } else if (preset === "canada_visa") {
+        width = 590; // 50x70mm @ 300 DPI
+        height = 826;
+      } else if (preset === "uae_visa") {
+        width = 472; // 40x50mm @ 300 DPI
+        height = 590;
       } else if (preset === "fpsc") {
         width = 200;
         height = 200;
-      } else if (preset === "us_visa") {
-        width = 600; // 2x2 inches @ 300 DPI
-        height = 600;
       }
 
       const canvas = document.createElement("canvas");
@@ -123,10 +131,14 @@ export default function PassportPhotoResizerPage() {
             </label>
             <div className="space-y-2">
               {[
+                { id: "us_visa", title: "US Visa & US Passport (DS-160 / Diversity Lottery)", desc: "2 x 2 inches / 600 x 600 px (300 DPI)", kb: 240 },
+                { id: "schengen", title: "Schengen Visa (France, Germany, Italy, Spain)", desc: "35 x 45 mm (Biometric compliance)", kb: 100 },
+                { id: "uk_visa", title: "UK Passport & UK Visa", desc: "35 x 45 mm (Standard UK Gov aspect)", kb: 100 },
+                { id: "canada_visa", title: "Canadian Passport & Immigration Visa", desc: "50 x 70 mm / 590 x 826 px", kb: 250 },
+                { id: "uae_visa", title: "UAE / Dubai Resident Visa", desc: "40 x 50 mm / 472 x 590 px (White background)", kb: 150 },
+                { id: "india_visa", title: "Indian Passport & e-Visa (OCI / Visa)", desc: "2 x 2 inches / 600 x 600 px", kb: 200 },
                 { id: "nadra", title: "Pakistani Passport / NADRA CNIC", desc: "35 x 45 mm (Standard biometric aspect)", kb: 50 },
-                { id: "fpsc", title: "FPSC / PPSC / NTS Govt Jobs", desc: "200 x 200 px (Strict under 30 KB limit)", kb: 25 },
-                { id: "us_visa", title: "US Visa / Diversity Lottery", desc: "2 x 2 inches / 600 x 600 px", kb: 240 },
-                { id: "schengen", title: "Schengen & UK Visa", desc: "35 x 45 mm (300 DPI compliance)", kb: 100 },
+                { id: "fpsc", title: "Govt Job Tests (FPSC / PPSC / NTS)", desc: "200 x 200 px (Strict under 25 KB limit)", kb: 25 },
               ].map((opt) => (
                 <label
                   key={opt.id}
