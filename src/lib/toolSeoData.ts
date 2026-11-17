@@ -2140,6 +2140,7 @@ export function getToolJsonLd(slug: string) {
   const entry = TOOL_SEO_REGISTRY[slug];
   const url = `${BASE_URL}/tools/${slug}`;
   const title = entry ? entry.title : slug.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+  const metaTitle = entry ? entry.metaTitle : `${title} | SamToolbox`;
   const description = entry ? entry.description : `Free online ${title} tool with zero server uploads on SamToolbox.`;
   const category = entry ? entry.category : "UtilityApplication";
 
@@ -2234,8 +2235,27 @@ export function getToolJsonLd(slug: string) {
     })),
   };
 
+  const webPageSchema = {
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url: url,
+    name: metaTitle,
+    description: description,
+    inLanguage: "en-US",
+    isPartOf: {
+      "@id": `${BASE_URL}/#website`,
+    },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: [".speakable-summary", ".speakable-faq-answer"],
+    },
+    mainEntity: {
+      "@id": `${url}#app`,
+    },
+  };
+
   return {
     "@context": "https://schema.org",
-    "@graph": [appSchema, breadcrumbSchema, faqSchema],
+    "@graph": [webPageSchema, appSchema, breadcrumbSchema, faqSchema],
   };
 }

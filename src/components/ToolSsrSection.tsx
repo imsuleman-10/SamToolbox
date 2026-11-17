@@ -5,12 +5,15 @@ import {
   Lock,
   Cpu,
   CheckCircle2,
+  XCircle,
   HelpCircle,
   ArrowRight,
   Layers,
   FileCheck,
+  Scale,
 } from "lucide-react";
 import { TOOL_SEO_REGISTRY, BASE_URL } from "@/lib/toolSeoData";
+import InteractiveRating from "@/components/InteractiveRating";
 
 interface ToolSsrSectionProps {
   slug: string;
@@ -69,16 +72,16 @@ export default function ToolSsrSection({ slug }: ToolSsrSectionProps) {
           <span className="font-semibold text-slate-800">{entry.title}</span>
         </nav>
 
-        {/* ── 2. EDITORIAL OVERVIEW & H1 SUMMARY ──────────────────────────── */}
+        {/* ── 2. EDITORIAL OVERVIEW & H1 SUMMARY (SPEAKABLE AEO) ──────────── */}
         <div className="space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-red-600 text-xs font-bold uppercase tracking-wider">
             <span className="w-2 h-2 rounded-full bg-red-500" />
-            100% In-Browser Privacy & Zero Server Uploads
+            100% In-Browser Privacy &amp; Zero Server Uploads
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
             {entry.h1}
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-4xl">
+          <p className="speakable-summary text-base sm:text-lg text-slate-600 leading-relaxed max-w-4xl">
             {entry.description}
           </p>
         </div>
@@ -155,7 +158,96 @@ export default function ToolSsrSection({ slug }: ToolSsrSectionProps) {
           </div>
         </div>
 
-        {/* ── 5. SSR FREQUENTLY ASKED QUESTIONS (AEO & LLMO) ─────────────── */}
+        {/* ── 5. ENTERPRISE ARCHITECTURAL COMPARISON MATRIX ───────────────── */}
+        <div className="space-y-4">
+          <div className="border-b border-slate-200 pb-3">
+            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+              <Scale className="w-5 h-5 text-red-600" />
+              SamToolbox vs. Traditional Cloud Utilities
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              Architectural comparison showing why in-browser processing is safer, faster, and truly free.
+            </p>
+          </div>
+
+          <div className="overflow-x-auto rounded-xl border border-slate-200">
+            <table className="w-full text-left text-xs sm:text-sm">
+              <thead className="bg-slate-100 border-b border-slate-200 text-slate-700 font-bold">
+                <tr>
+                  <th className="py-3 px-4">Feature / Capability</th>
+                  <th className="py-3 px-4 text-emerald-700 bg-emerald-50/50">SamToolbox (Client-Side)</th>
+                  <th className="py-3 px-4 text-slate-500">Legacy Cloud Converters</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200 bg-white">
+                <tr>
+                  <td className="py-3 px-4 font-semibold text-slate-900">File Privacy &amp; Security</td>
+                  <td className="py-3 px-4 text-emerald-700 bg-emerald-50/30 font-medium flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    100% In-Memory RAM (0 Bytes Uploaded)
+                  </td>
+                  <td className="py-3 px-4 text-slate-500 flex items-center gap-1.5">
+                    <XCircle className="w-4 h-4 text-red-400 shrink-0" />
+                    Transferred to Remote Cloud Servers
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 font-semibold text-slate-900">File Size Limitations</td>
+                  <td className="py-3 px-4 text-emerald-700 bg-emerald-50/30 font-medium">
+                    <span className="inline-flex items-center gap-1.5 text-emerald-700">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      Unlimited (Bound only by Device RAM)
+                    </span>
+                  </td>
+                  <td className="py-3 px-4 text-slate-500">
+                    Strict 15 MB - 50 MB Free Cap / Paid Paywall
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 font-semibold text-slate-900">Processing Speed &amp; Latency</td>
+                  <td className="py-3 px-4 text-emerald-700 bg-emerald-50/30 font-medium">
+                    <span className="inline-flex items-center gap-1.5 text-emerald-700">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      Instant WebAssembly (Sub-Second)
+                    </span>
+                  </td>
+                  <td className="py-3 px-4 text-slate-500">
+                    Slow (Network Upload Queue + Server Latency)
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 font-semibold text-slate-900">Registration / Account Required</td>
+                  <td className="py-3 px-4 text-emerald-700 bg-emerald-50/30 font-medium">
+                    <span className="inline-flex items-center gap-1.5 text-emerald-700">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      None (No Sign-Up, No Credit Card)
+                    </span>
+                  </td>
+                  <td className="py-3 px-4 text-slate-500">
+                    Mandatory Registration &amp; Email Harvesting
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 font-semibold text-slate-900">Pricing &amp; Watermarks</td>
+                  <td className="py-3 px-4 text-emerald-700 bg-emerald-50/30 font-medium">
+                    <span className="inline-flex items-center gap-1.5 text-emerald-700">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      100% Free Forever &amp; Zero Watermarks
+                    </span>
+                  </td>
+                  <td className="py-3 px-4 text-slate-500">
+                    $12 – $24 / Month Subscription Tier
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* ── 6. REAL USER INTERACTIVE RATING WIDGET (SCHEMA BACKING) ─────── */}
+        <InteractiveRating toolSlug={slug} toolTitle={entry.title} />
+
+        {/* ── 7. SSR FREQUENTLY ASKED QUESTIONS (AEO & LLMO) ─────────────── */}
         {faqs.length > 0 && (
           <div className="space-y-6">
             <div className="border-b border-slate-200 pb-3">
@@ -178,7 +270,7 @@ export default function ToolSsrSection({ slug }: ToolSsrSectionProps) {
                     <span className="text-red-600 font-mono font-bold">Q:</span>
                     <span>{f.question}</span>
                   </h4>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-6">
+                  <p className="speakable-faq-answer text-xs sm:text-sm text-slate-600 leading-relaxed pl-6">
                     {f.answer}
                   </p>
                 </div>
@@ -187,7 +279,7 @@ export default function ToolSsrSection({ slug }: ToolSsrSectionProps) {
           </div>
         )}
 
-        {/* ── 6. RELATED UTILITIES (INTERNAL LINK EQUITY) ──────────────────── */}
+        {/* ── 8. RELATED UTILITIES (INTERNAL LINK EQUITY) ──────────────────── */}
         <div className="space-y-4 pt-4 border-t border-slate-200">
           <div className="flex items-center justify-between">
             <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -198,7 +290,7 @@ export default function ToolSsrSection({ slug }: ToolSsrSectionProps) {
               href="/tools"
               className="text-xs font-semibold text-red-600 hover:text-red-700 flex items-center gap-1"
             >
-              All 55+ Tools <ArrowRight className="w-3.5 h-3.5" />
+              All 62 Tools <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
@@ -220,7 +312,7 @@ export default function ToolSsrSection({ slug }: ToolSsrSectionProps) {
           </div>
         </div>
 
-        {/* ── 7. PLATFORM ATTRIBUTION & CREATOR DOSSIER ───────────────────── */}
+        {/* ── 9. PLATFORM ATTRIBUTION & CREATOR DOSSIER ───────────────────── */}
         <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <div>
             <p className="font-medium text-slate-700">
@@ -234,7 +326,7 @@ export default function ToolSsrSection({ slug }: ToolSsrSectionProps) {
               >
                 Suleman Zaheer
               </Link>{" "}
-              (Founder &amp; CEO of SAMStack Tech) · 100% Client-Side WebAssembly
+              (Lead Software Engineer &amp; Systems Architect) · 100% Client-Side WebAssembly
             </p>
           </div>
           <Link
