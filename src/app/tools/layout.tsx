@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { BASE_URL } from "@/lib/toolSeoData";
 
 export const metadata: Metadata = {
@@ -93,8 +92,8 @@ export default function ToolsDirectoryLayout({
 
   return (
     <>
-      <Script
-        id="tools-directory-schema"
+      {/* 100% Server-Side Rendered (SSR) CollectionPage Schema */}
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd),
