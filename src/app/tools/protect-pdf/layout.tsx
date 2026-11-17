@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { getToolMetadata, getToolJsonLd } from "@/lib/toolSeoData";
+import ToolSsrSection from "@/components/ToolSsrSection";
 
 const TOOL_SLUG = "protect-pdf";
 
@@ -15,14 +15,19 @@ export default function ToolLayout({
 
   return (
     <>
-      <Script
-        id="tool-schema-protect-pdf"
+      {/* 100% Server-Side Rendered JSON-LD Schema.org Graph */}
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd),
         }}
       />
+
+      {/* Interactive Tool Workspace */}
       {children}
+
+      {/* 100% Server-Side Rendered (SSR) SEO / AEO / GEO / LLMO Section */}
+      <ToolSsrSection slug={TOOL_SLUG} />
     </>
   );
 }
