@@ -15,6 +15,1378 @@ export interface ToolSeoEntry {
 export const BASE_URL = "https://samtoolbox.vercel.app";
 
 export const TOOL_SEO_REGISTRY: Record<string, ToolSeoEntry> = {
+  "assignment-formatter": {
+    "slug": "assignment-formatter",
+    "title": "Academic Assignment Formatter Online",
+    "h1": "Academic Assignment Formatter & PDF Submission Generator",
+    "metaTitle": "Assignment Formatter Online | Standard Margins & PDF Export | SamToolbox",
+    "description": "Format university, college, and school assignments to professional academic standards. Standard margins, cover page generator, citation styling, and instant PDF export.",
+    "keywords": [
+        "assignment formatter online",
+        "academic paper formatter",
+        "university assignment format pdf",
+        "apa format assignment maker",
+        "college assignment cover page",
+        "format assignment for submission",
+        "free assignment formatter",
+        "assignment margin generator",
+        "assignment layout builder online",
+        "pakistan university assignment format",
+        "uet assignment format",
+        "assignment pdf generator"
+    ],
+    "category": "EducationalApplication",
+    "geoRegions": [
+        "PK",
+        "US",
+        "GB",
+        "AE",
+        "CA",
+        "AU",
+        "GLOBAL"
+    ],
+    "faqs": [
+        {
+            "question": "What assignment formats does SamToolbox support?",
+            "answer": "SamToolbox supports standard academic styles including APA, MLA, and general university submission guidelines with pre-configured 1-inch margins and title pages."
+        },
+        {
+            "question": "Is my assignment text stored on any server?",
+            "answer": "No. The formatting and PDF generation happen 100% locally in your browser memory."
+        }
+    ]
+},
+
+  "case-converter": {
+    "slug": "case-converter",
+    "title": "Text Case Converter Online",
+    "h1": "Online Text Case Converter (UPPERCASE, lowercase, Title Case, camelCase)",
+    "metaTitle": "Text Case Converter | UPPERCASE, Title Case, camelCase & snake_case | SamToolbox",
+    "description": "Convert text case online instantly. Switch between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, PascalCase, and kebab-case. 100% free with 0 server uploads.",
+    "keywords": [
+        "case converter",
+        "text case converter online",
+        "uppercase to lowercase",
+        "title case converter",
+        "camelcase converter",
+        "snake case converter",
+        "sentence case generator",
+        "pascal case converter",
+        "convert text to uppercase",
+        "change case online free",
+        "developer text case converter",
+        "kebab case tool"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "PK",
+        "US",
+        "GB",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "How does the Title Case converter handle small words?",
+            "answer": "It follows standard capitalization rules (Chicago/AP style), leaving articles, prepositions, and conjunctions in lowercase unless they are the first word."
+        },
+        {
+            "question": "Can I convert code variable names into camelCase or snake_case?",
+            "answer": "Yes, our developer modes strip whitespace and punctuation to convert raw strings into valid programming identifiers."
+        }
+    ]
+},
+
+  "compare-pdf": {
+    "slug": "compare-pdf",
+    "title": "Compare PDF Files Online",
+    "h1": "Visual & Textual PDF Comparison Tool",
+    "metaTitle": "Compare PDF Files Online | Side-by-Side Visual & Text Diff | SamToolbox",
+    "description": "Compare two PDF documents side-by-side to highlight differences, additions, and deletions. Visual overlay and text diffing with zero cloud file uploads.",
+    "keywords": [
+        "compare pdf online",
+        "pdf difference checker",
+        "compare two pdf files",
+        "pdf diff tool",
+        "side by side pdf comparison",
+        "visual pdf comparison online",
+        "find differences in pdf free",
+        "legal document pdf compare",
+        "contract diff checker pdf",
+        "secure pdf compare tool"
+    ],
+    "category": "BusinessApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "How does SamToolbox compare two PDFs?",
+            "answer": "It performs dual-layer comparison: visual raster diffing for layout and image changes, and text token extraction to highlight altered sentences."
+        },
+        {
+            "question": "Are legal contracts safe to compare?",
+            "answer": "Yes. Both PDFs are processed strictly within your device's browser memory without uploading any bytes to a server."
+        }
+    ]
+},
+
+  "currency-converter": {
+    "slug": "currency-converter",
+    "title": "Live Multi-Currency Converter",
+    "h1": "Real-Time Foreign Exchange & Currency Converter",
+    "metaTitle": "Live Currency Converter | PKR, USD, EUR, GBP, AED, SAR | SamToolbox",
+    "description": "Convert global currencies in real-time. Instant exchange rates for PKR, USD, EUR, GBP, AED, SAR, CAD, and AUD with historical trend calculator and zero tracking.",
+    "keywords": [
+        "currency converter online",
+        "dollar to pkr live rate",
+        "usd to pkr today",
+        "euro to pkr converter",
+        "gbp to pkr open market rate",
+        "aed to pkr exchange rate",
+        "sar to pkr riyal rate",
+        "live currency converter pakistan",
+        "forex rates pakistan today",
+        "convert dollars to rupees online"
+    ],
+    "category": "FinancialApplication",
+    "geoRegions": [
+        "PK",
+        "AE",
+        "SA",
+        "US",
+        "GB",
+        "CA",
+        "GLOBAL"
+    ],
+    "faqs": [
+        {
+            "question": "How frequently are currency rates updated?",
+            "answer": "Exchange rates are cached and refreshed multiple times daily from interbank and open market financial APIs."
+        },
+        {
+            "question": "Can I calculate conversions for multiple currencies simultaneously?",
+            "answer": "Yes, the multi-currency board converts your base amount across 10+ major world currencies at once."
+        }
+    ]
+},
+
+  "cv-maker": {
+    "slug": "cv-maker",
+    "title": "Professional CV Maker & Resume Builder",
+    "h1": "Free Professional CV Maker & ATS Resume Builder",
+    "metaTitle": "Free CV Maker Online | ATS-Friendly Templates & PDF Download | SamToolbox",
+    "description": "Build a job-winning, ATS-friendly curriculum vitae (CV) and resume in minutes. Modern executive templates, custom sections, live preview, and instant vector PDF export.",
+    "keywords": [
+        "cv maker online free",
+        "resume builder pakistan",
+        "free cv generator",
+        "ats friendly resume templates",
+        "curriculum vitae creator online",
+        "professional cv maker lahore karachi",
+        "job cv maker free download",
+        "modern resume builder no signup",
+        "executive cv templates pdf",
+        "fresh graduate cv maker"
+    ],
+    "category": "BusinessApplication",
+    "geoRegions": [
+        "PK",
+        "US",
+        "GB",
+        "AE",
+        "CA",
+        "GLOBAL"
+    ],
+    "faqs": [
+        {
+            "question": "Are the CV templates ATS-compliant?",
+            "answer": "Yes. All templates use standard machine-readable typography, semantic hierarchy, and clean single-column or dual-column structures optimized for Applicant Tracking Systems."
+        },
+        {
+            "question": "Do I need to sign up to download my CV PDF?",
+            "answer": "No. You can design, edit, and export your high-resolution PDF resume completely free without creating an account."
+        }
+    ]
+},
+
+  "edit-pdf": {
+    "slug": "edit-pdf",
+    "title": "Edit PDF Online Free",
+    "h1": "Free In-Browser PDF Editor (Add Text, Shapes, Images & Annotations)",
+    "metaTitle": "Edit PDF Online Free | Add Text, Images & Annotations | SamToolbox",
+    "description": "Edit PDF documents directly in your web browser. Add text, draw signatures, insert images, highlight paragraphs, and blackout content with 100% private client-side processing.",
+    "keywords": [
+        "edit pdf online free",
+        "free pdf editor no upload",
+        "add text to pdf online",
+        "pdf annotation tool",
+        "edit pdf without acrobat",
+        "browser based pdf editor",
+        "draw on pdf online",
+        "highlight pdf free",
+        "insert image into pdf",
+        "online pdf modifier",
+        "best free pdf editor"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "Can I edit existing text in a PDF?",
+            "answer": "You can overlay new text, blackout confidential content, add custom annotations, insert images, and append freehand drawings directly on top of any PDF page."
+        },
+        {
+            "question": "Is there a limit on how many pages I can edit?",
+            "answer": "No. SamToolbox imposes no page limits or document size restrictions."
+        }
+    ]
+},
+
+  "excel-reader": {
+    "slug": "excel-reader",
+    "title": "Excel File Viewer Online",
+    "h1": "Free Online Excel Spreadsheet Viewer (XLSX, XLS, CSV)",
+    "metaTitle": "Excel Reader Online | Open XLSX & XLS Spreadsheets Free | SamToolbox",
+    "description": "Open and view Microsoft Excel spreadsheets (.xlsx, .xls) and CSV files in your browser without Microsoft Office. Interactive sheet tabs, cell formulas, and zero file uploads.",
+    "keywords": [
+        "excel reader online",
+        "view xlsx online free",
+        "open excel file in browser",
+        "free excel viewer",
+        "read xls file online",
+        "open spreadsheet without office",
+        "csv viewer online",
+        "private excel reader"
+    ],
+    "category": "BusinessApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "Can I open password-protected Excel files?",
+            "answer": "You can view standard encrypted spreadsheets by providing your password locally within the browser."
+        },
+        {
+            "question": "Does my spreadsheet data leave my computer?",
+            "answer": "Never. The SheetJS engine runs entirely client-side; zero rows or columns are uploaded to any server."
+        }
+    ]
+},
+
+  "font-generator": {
+    "slug": "font-generator",
+    "title": "Fancy Font Generator Online",
+    "h1": "Cool Fancy Font Generator (Copy & Paste Aesthetic Unicode Text)",
+    "metaTitle": "Fancy Font Generator | Cool Text Styles for Instagram & Bio | SamToolbox",
+    "description": "Generate stylish, aesthetic Unicode fonts for Instagram bio, Twitter, TikTok, and gaming nicknames. Bold, italic, cursive, gothic, and glitch styles to copy and paste.",
+    "keywords": [
+        "font generator",
+        "fancy text generator",
+        "instagram bio font maker",
+        "cool fonts copy and paste",
+        "aesthetic text generator",
+        "cursive font generator",
+        "bold text maker",
+        "gothic font generator",
+        "glitch text maker",
+        "pubg name font generator",
+        "stylish font converter online"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "PK",
+        "US",
+        "GB",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "How do fancy fonts work on social media?",
+            "answer": "They use mathematical and aesthetic characters from the universal Unicode standard that modern smartphones and social platforms render natively."
+        },
+        {
+            "question": "Will these fonts display correctly on iPhones and Android phones?",
+            "answer": "Yes, virtually all modern operating systems fully support standard Unicode character ranges."
+        }
+    ]
+},
+
+  "goal-planner": {
+    "slug": "goal-planner",
+    "title": "Daily Goal Planner & Productivity Tracker",
+    "h1": "Daily Goal Planner, Habit Tracker & Milestone Organizer",
+    "metaTitle": "Goal Planner & Habit Tracker Online | Private Task Organizer | SamToolbox",
+    "description": "Organize daily tasks, track habits, and achieve long-term milestones with our private productivity planner. Local storage persistence, zero tracking, and printable PDF export.",
+    "keywords": [
+        "goal planner online",
+        "daily habit tracker free",
+        "productivity task planner",
+        "milestone tracker online",
+        "free goal organizer",
+        "study goal planner",
+        "print goal planner pdf",
+        "minimalist task tracker"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "Where are my goals stored?",
+            "answer": "Your goals and task lists are stored strictly inside your browser's local storage (IndexedDB), ensuring total privacy."
+        },
+        {
+            "question": "Can I print a weekly progress sheet?",
+            "answer": "Yes, click 'Export PDF' to generate an itemized task and goal summary."
+        }
+    ]
+},
+
+  "html-to-pdf": {
+    "slug": "html-to-pdf",
+    "title": "HTML to PDF Converter Online",
+    "h1": "Client-Side HTML & Webpage to PDF Converter",
+    "metaTitle": "HTML to PDF Converter | Convert Web Code to Vector PDF | SamToolbox",
+    "description": "Convert raw HTML, CSS, and web snippets into clean vector PDF documents. Perfect for developers generating invoices, reports, and receipts directly in-browser.",
+    "keywords": [
+        "html to pdf converter online",
+        "convert web page to pdf",
+        "html code to pdf free",
+        "export html as pdf",
+        "developer html to pdf",
+        "convert css html to vector pdf",
+        "client side html to pdf generator"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "Does this tool support CSS styling?",
+            "answer": "Yes, inline CSS, standard styles, flexbox, and basic web fonts are accurately rendered into the PDF canvas."
+        },
+        {
+            "question": "Is my HTML source code sent to a remote API?",
+            "answer": "No. The entire rendering and PDF rasterization happen inside your local browser engine."
+        }
+    ]
+},
+
+  "image-compress": {
+    "slug": "image-compress",
+    "title": "Image Compressor Online",
+    "h1": "Compress Images Online (Reduce JPG, PNG, WebP File Size)",
+    "metaTitle": "Image Compressor | Reduce MB to KB Without Quality Loss | SamToolbox",
+    "description": "Compress images online without quality degradation. Reduce JPG, PNG, and WebP file sizes by up to 90% for faster website loading and email attachments. 100% private.",
+    "keywords": [
+        "image compressor online",
+        "reduce image size mb to kb",
+        "compress png without losing quality",
+        "shrink jpg file size online",
+        "webp image compressor",
+        "bulk image optimizer",
+        "compress photo for upload",
+        "photo size reducer free",
+        "best image compressor tool"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "How does SamToolbox reduce image file sizes without noticeable quality loss?",
+            "answer": "It uses adaptive Canvas quantization algorithms that discard redundant metadata and optimize color palettes while preserving edge sharpness."
+        },
+        {
+            "question": "Can I compress multiple photos at once?",
+            "answer": "Yes, batch compression is supported with individual and ZIP archive downloads."
+        }
+    ]
+},
+
+  "image-converter": {
+    "slug": "image-converter",
+    "title": "Batch Image Format Converter",
+    "h1": "Universal Online Image Format Converter (JPG, PNG, WebP, AVIF, SVG)",
+    "metaTitle": "Image Converter Online | Convert JPG, PNG, WebP, AVIF & SVG | SamToolbox",
+    "description": "Convert images between JPG, PNG, WebP, AVIF, GIF, and SVG formats in your browser. Batch processing, customizable quality slider, and zero server file uploads.",
+    "keywords": [
+        "image converter online",
+        "convert jpg to png",
+        "png to jpg converter",
+        "convert to webp online",
+        "heic to jpg converter",
+        "avif to png converter",
+        "svg to png high res",
+        "batch image format converter",
+        "free photo format switcher",
+        "transparent png converter"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "Can I convert transparent PNGs to WebP without losing transparency?",
+            "answer": "Yes. WebP natively supports alpha transparency channels, which our converter preserves."
+        },
+        {
+            "question": "Is there a limit on how many images I can convert at once?",
+            "answer": "No. You can convert dozens of images simultaneously using your local hardware."
+        }
+    ]
+},
+
+  "image-resize": {
+    "slug": "image-resize",
+    "title": "Image Resizer Online",
+    "h1": "Resize Images by Pixels, Millimeters & Social Media Presets",
+    "metaTitle": "Image Resizer Online | Scale Dimensions by Pixel & Percentage | SamToolbox",
+    "description": "Resize photos and images to exact pixel dimensions, millimeters, or percentages. Presets for Instagram, YouTube thumbnails, Facebook, and passport standards.",
+    "keywords": [
+        "image resizer online",
+        "resize photo by pixels",
+        "change image dimensions free",
+        "resize image for instagram",
+        "youtube thumbnail resizer",
+        "scale photo size percentage",
+        "crop and resize image online",
+        "aspect ratio image resizer"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "Can I lock the aspect ratio while resizing?",
+            "answer": "Yes. The aspect ratio lock ensures your image scales proportionally without stretching or distortion."
+        },
+        {
+            "question": "Does resizing images compromise image sharpness?",
+            "answer": "We use bicubic resampling to preserve crisp text and clear facial contours."
+        }
+    ]
+},
+
+  "image-to-pdf": {
+    "slug": "image-to-pdf",
+    "title": "Image to PDF Converter Online",
+    "h1": "Convert Photos & Images to a Consolidated PDF Document",
+    "metaTitle": "Image to PDF Converter | Combine JPG, PNG & WebP into PDF | SamToolbox",
+    "description": "Combine multiple photos, scans, and images into a single professional PDF document. Reorder pages, adjust margins and page orientation with zero server uploads.",
+    "keywords": [
+        "image to pdf converter",
+        "convert jpg to pdf online",
+        "combine photos into one pdf",
+        "png to pdf maker",
+        "scan photos to pdf free",
+        "pictures to pdf document",
+        "create pdf from gallery images",
+        "batch image to pdf"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "Can I rearrange the order of photos before creating the PDF?",
+            "answer": "Yes, you can drag and drop photo thumbnails into your desired sequence."
+        },
+        {
+            "question": "What page sizes are supported?",
+            "answer": "You can choose A4, US Letter, or match the exact original aspect ratio of each photo."
+        }
+    ]
+},
+
+  "notes-to-pdf": {
+    "slug": "notes-to-pdf",
+    "title": "Notes to PDF Formatter & Converter",
+    "h1": "Convert Text Notes to Beautifully Formatted PDF Documents",
+    "metaTitle": "Notes to PDF Converter | Export Formatted Study Notes | SamToolbox",
+    "description": "Convert plain text and study notes into formatted PDF documents with headings, bullet points, and headers. Ideal for students, researchers, and lecture summaries.",
+    "keywords": [
+        "notes to pdf converter",
+        "convert text notes to pdf",
+        "study notes to pdf maker",
+        "lecture notes pdf export",
+        "markdown notes to pdf",
+        "text to printable pdf",
+        "student notes formatter online"
+    ],
+    "category": "EducationalApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "PK",
+        "US",
+        "GB",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "Can I add page numbers and custom headers to my notes PDF?",
+            "answer": "Yes, enable headers and footers to automatically insert your subject title and page numbering."
+        },
+        {
+            "question": "Does it support bullet points and lists?",
+            "answer": "Yes, clean typographic lists and indented outlines are fully formatted."
+        }
+    ]
+},
+
+  "organize-pdf": {
+    "slug": "organize-pdf",
+    "title": "Organize PDF Pages Online",
+    "h1": "Visual PDF Page Organizer (Reorder, Delete & Rotate Pages)",
+    "metaTitle": "Organize PDF Pages Online | Drag & Drop Page Reordering | SamToolbox",
+    "description": "Rearrange, delete, duplicate, and rotate PDF pages with an intuitive visual thumbnail organizer. Combine or restructure documents with 100% in-browser processing.",
+    "keywords": [
+        "organize pdf pages online",
+        "reorder pdf pages free",
+        "delete pages from pdf",
+        "rotate individual pdf pages",
+        "rearrange pdf thumbnails",
+        "resequence pdf pages",
+        "pdf page sorter online",
+        "drag and drop pdf page reorder"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "Can I delete multiple pages simultaneously?",
+            "answer": "Yes, click on unwanted page thumbnails to select and delete them in one click."
+        },
+        {
+            "question": "Can I rotate a single landscape page to portrait?",
+            "answer": "Yes, each thumbnail has individual 90-degree clockwise and counter-clockwise rotation controls."
+        }
+    ]
+},
+
+  "password-generator": {
+    "slug": "password-generator",
+    "title": "Secure Hardware-Entropy Password Generator",
+    "h1": "Cryptographically Secure Password & Passphrase Generator",
+    "metaTitle": "Secure Password Generator | Cryptographic Entropy & Passphrases | SamToolbox",
+    "description": "Generate unbreakable, random passwords using your device's cryptographic Web Crypto API entropy. Configure character sets, lengths, and memorable passphrases with zero telemetry.",
+    "keywords": [
+        "secure password generator",
+        "random password maker online",
+        "cryptographic password generator",
+        "generate strong password free",
+        "memorable passphrase generator",
+        "hardware entropy password",
+        "unbreakable password maker",
+        "password generator no telemetry",
+        "cybersecurity password tool"
+    ],
+    "category": "SecurityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "How secure are passwords generated by SamToolbox?",
+            "answer": "They use window.crypto.getRandomValues(), the gold standard for cryptographically secure pseudo-random number generation."
+        },
+        {
+            "question": "Are generated passwords sent to any server?",
+            "answer": "Never. Passwords are generated exclusively inside your browser's execution thread and disappear when you close the tab."
+        }
+    ]
+},
+
+  "password-strength": {
+    "slug": "password-strength",
+    "title": "Password Strength Auditor & Crack-Time Analyzer",
+    "h1": "Password Security Audit & Entropy Crack-Time Estimator",
+    "metaTitle": "Password Strength Checker | Crack Time & Entropy Audit | SamToolbox",
+    "description": "Audit your password security instantly. Calculate information entropy bits, estimated brute-force crack time across supercomputers, and detect common dictionary vulnerabilities.",
+    "keywords": [
+        "password strength checker",
+        "password entropy calculator",
+        "how long to crack my password",
+        "password security audit online",
+        "test password strength free",
+        "brute force crack time estimator",
+        "check password vulnerability",
+        "safe password test no upload"
+    ],
+    "category": "SecurityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "Is it safe to test my real password here?",
+            "answer": "Yes, because the audit algorithm runs 100% locally via JavaScript. Zero characters are sent over the network."
+        },
+        {
+            "question": "What constitutes a strong password in 2026?",
+            "answer": "A strong password has at least 16 characters with high entropy (uppercase, lowercase, numbers, symbols), requiring millions of years to brute-force."
+        }
+    ]
+},
+
+  "pdf-reader": {
+    "slug": "pdf-reader",
+    "title": "Lightweight Online PDF Reader",
+    "h1": "Fast, Private In-Browser PDF Document Reader",
+    "metaTitle": "Free PDF Reader Online | Fast In-Browser PDF Viewer | SamToolbox",
+    "description": "Open and read PDF documents instantly in your web browser without installing heavy software. Features thumbnail navigation, text search, zoom, and 100% offline privacy.",
+    "keywords": [
+        "online pdf reader free",
+        "open pdf in browser",
+        "fast pdf viewer online",
+        "lightweight pdf reader",
+        "read pdf without acrobat",
+        "view pdf online private",
+        "browser based pdf reader",
+        "no install pdf viewer"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "Do I need Adobe Acrobat to read PDFs on SamToolbox?",
+            "answer": "No. Our lightweight HTML5 viewer renders standard PDF documents natively in your web browser."
+        },
+        {
+            "question": "Can I search for text inside the PDF?",
+            "answer": "Yes, full text search with jump-to-keyword highlights is built-in."
+        }
+    ]
+},
+
+  "pdf-to-excel": {
+    "slug": "pdf-to-excel",
+    "title": "PDF to Excel Converter Online",
+    "h1": "Extract Tables from PDF to Editable Excel (XLSX & CSV)",
+    "metaTitle": "PDF to Excel Converter | Extract Tables to XLSX & CSV Free | SamToolbox",
+    "description": "Extract tabular data and financial statements from PDF files into editable Microsoft Excel (.xlsx) and CSV spreadsheets. High table structure fidelity with 0 server uploads.",
+    "keywords": [
+        "pdf to excel converter online",
+        "convert pdf table to excel free",
+        "extract pdf data to spreadsheet",
+        "pdf to xlsx converter",
+        "convert bank statement pdf to excel",
+        "pdf to csv converter online",
+        "accurate pdf to excel table extractor",
+        "free pdf to excel no email"
+    ],
+    "category": "BusinessApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "How does the table extraction algorithm work?",
+            "answer": "It analyzes text coordinates and bounding boxes in the PDF to reconstruct rows, columns, and numeric cells accurately."
+        },
+        {
+            "question": "Can I convert bank statements and invoices to Excel?",
+            "answer": "Yes, structured financial tables convert cleanly into editable Excel rows and columns."
+        }
+    ]
+},
+
+  "pdf-to-jpg": {
+    "slug": "pdf-to-jpg",
+    "title": "PDF to JPG Converter Online",
+    "h1": "Convert PDF Pages into High-Resolution JPG & PNG Images",
+    "metaTitle": "PDF to JPG Converter | High-Res 300 DPI Images from PDF | SamToolbox",
+    "description": "Convert PDF pages into high-resolution JPG or PNG images. Extract all pages or specific sheets as crystal-clear images with batch ZIP download and zero server uploads.",
+    "keywords": [
+        "pdf to jpg converter online",
+        "convert pdf to images free",
+        "extract images from pdf",
+        "pdf to png converter high res",
+        "save pdf page as image",
+        "300 dpi pdf to jpg",
+        "pdf to picture converter online",
+        "convert pdf to jpeg zip"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "What image resolution does the converter output?",
+            "answer": "You can choose between standard web resolution (150 DPI) or ultra-crisp print quality (300 DPI)."
+        },
+        {
+            "question": "How do I download multiple converted pages?",
+            "answer": "You can download pages individually or bundle all converted images into a single ZIP archive."
+        }
+    ]
+},
+
+  "pdf-to-powerpoint": {
+    "slug": "pdf-to-powerpoint",
+    "title": "PDF to PowerPoint Converter Online",
+    "h1": "Convert PDF Slides into Editable PowerPoint (PPTX) Presentations",
+    "metaTitle": "PDF to PowerPoint Converter | Convert PDF to Editable PPTX | SamToolbox",
+    "description": "Convert PDF presentations and slide decks into editable Microsoft PowerPoint (.pptx) files. Maintain slide layouts, text blocks, and vector visuals with zero cloud uploads.",
+    "keywords": [
+        "pdf to powerpoint converter online",
+        "convert pdf to pptx free",
+        "pdf slides to powerpoint presentation",
+        "editable pdf to powerpoint",
+        "export pdf as pptx",
+        "free pdf to ppt converter no email",
+        "convert slides pdf to presentation"
+    ],
+    "category": "BusinessApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "Are text and images editable in the generated PPTX file?",
+            "answer": "Yes, slide content is structured as editable text boxes and positioned image layers."
+        },
+        {
+            "question": "Does this require Microsoft Office installed?",
+            "answer": "No, the conversion is performed natively in-browser."
+        }
+    ]
+},
+
+  "pdf-watermark": {
+    "slug": "pdf-watermark",
+    "title": "Add Watermark to PDF Online",
+    "h1": "Stamp Custom Text & Image Watermarks on PDF Pages",
+    "metaTitle": "Add Watermark to PDF Online | Custom Text & Logo Stamping | SamToolbox",
+    "description": "Apply custom text or transparent image logos as watermarks across PDF documents. Customize opacity, rotation, font size, and page ranges with 100% private in-browser processing.",
+    "keywords": [
+        "add watermark to pdf online",
+        "watermark pdf free",
+        "stamp logo on pdf",
+        "confidential watermark on pdf",
+        "text watermark pdf maker",
+        "transparent watermark pdf",
+        "batch watermark pdf pages",
+        "protect pdf with watermark"
+    ],
+    "category": "SecurityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "Can I adjust watermark transparency so the document text remains readable?",
+            "answer": "Yes, you can slide opacity from 10% to 100% to create subtle background security marks."
+        },
+        {
+            "question": "Can I choose which pages receive the watermark?",
+            "answer": "Yes, you can apply watermarks to all pages, odd/even pages, or a custom page range."
+        }
+    ]
+},
+
+  "percentage-calculator": {
+    "slug": "percentage-calculator",
+    "title": "Multi-Purpose Percentage Calculator",
+    "h1": "All-in-One Percentage & Discount Calculator",
+    "metaTitle": "Percentage Calculator Online | 6-in-1 Increase, Discount & Margin | SamToolbox",
+    "description": "Calculate percentage changes, markups, discounts, profit margins, and ratios instantly. 6-in-1 financial and mathematical percentage calculator with step-by-step formula breakdown.",
+    "keywords": [
+        "percentage calculator online",
+        "percentage increase calculator",
+        "percentage discount calculator",
+        "calculate profit margin percentage",
+        "percentage change formula",
+        "how to calculate percentage of a number",
+        "markup percentage calculator",
+        "free math percentage calculator"
+    ],
+    "category": "FinancialApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "PK",
+        "US",
+        "GB",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "How do I calculate percentage discount?",
+            "answer": "Discount Amount = Original Price × (Discount % ÷ 100). The final sale price is Original Price minus Discount Amount."
+        },
+        {
+            "question": "What is the difference between markup and margin?",
+            "answer": "Margin is profit divided by revenue, whereas markup is profit divided by the original cost."
+        }
+    ]
+},
+
+  "ppt-reader": {
+    "slug": "ppt-reader",
+    "title": "PowerPoint Presentation Viewer Online",
+    "h1": "Free Online PowerPoint Viewer (PPTX & PPT Slide Decks)",
+    "metaTitle": "PowerPoint Reader Online | View PPTX Slides in Browser | SamToolbox",
+    "description": "Open and view Microsoft PowerPoint slide decks (.pptx, .ppt) directly in your web browser. Slide preview, full-screen presentation mode, and zero server file uploads.",
+    "keywords": [
+        "powerpoint reader online",
+        "view pptx online free",
+        "open powerpoint in browser",
+        "slide viewer online",
+        "read ppt file without office",
+        "free presentation viewer",
+        "open slide deck online private"
+    ],
+    "category": "EducationalApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "Can I present slide decks in full-screen mode?",
+            "answer": "Yes, click 'Present' to expand slides into an immersive full-screen presentation view."
+        },
+        {
+            "question": "Are my slide contents uploaded anywhere?",
+            "answer": "No. The presentation parser operates strictly on your local computer."
+        }
+    ]
+},
+
+  "qr-generator": {
+    "slug": "qr-generator",
+    "title": "Custom High-Resolution QR Code Generator",
+    "h1": "Free Custom QR Code Generator (URLs, WiFi, vCard, WhatsApp & Text)",
+    "metaTitle": "Free QR Code Generator | Custom Colors, Logos & High-Res PNG | SamToolbox",
+    "description": "Create custom high-resolution QR codes for websites, WiFi networks, vCards, WhatsApp messages, and text. Customize colors, add logos, and export vector SVG or PNG with zero expiration.",
+    "keywords": [
+        "qr code generator free",
+        "create qr code online",
+        "custom qr code with logo",
+        "wifi qr code generator",
+        "vcard qr code maker",
+        "whatsapp qr code generator",
+        "high resolution qr code png svg",
+        "free qr code no expiration",
+        "vector qr code generator",
+        "business card qr code maker"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "Do generated QR codes ever expire?",
+            "answer": "No. Static QR codes encode the data directly into the pixel matrix and remain functional indefinitely without expiration."
+        },
+        {
+            "question": "Can I download vector SVG format for professional printing?",
+            "answer": "Yes, both SVG (scalable vector graphics) and crisp high-DPI PNG exports are available."
+        }
+    ]
+},
+
+  "question-generator": {
+    "slug": "question-generator",
+    "title": "MCQ & Quiz Question Generator",
+    "h1": "Multiple Choice Question (MCQ) & Exam Paper Generator",
+    "metaTitle": "MCQ & Question Generator | Create Custom Quizzes & Printable PDF | SamToolbox",
+    "description": "Generate customized multiple choice questions, quizzes, and exam test papers. Add answer keys, configure difficulty levels, and export to printable PDF format.",
+    "keywords": [
+        "question generator online",
+        "mcq maker for teachers",
+        "quiz generator free",
+        "exam paper builder online",
+        "multiple choice question creator",
+        "printable test paper maker",
+        "student assessment builder pdf"
+    ],
+    "category": "EducationalApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "PK",
+        "US",
+        "GB",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "Can I generate answer keys on a separate page?",
+            "answer": "Yes, choose 'Include Answer Key' to generate a student question sheet followed by a teacher's scoring page."
+        },
+        {
+            "question": "Can teachers use this offline?",
+            "answer": "Yes, SamToolbox functions completely offline in your browser."
+        }
+    ]
+},
+
+  "redact-pdf": {
+    "slug": "redact-pdf",
+    "title": "Redact PDF Online - Black Out Sensitive Text",
+    "h1": "Permanently Redact & Blackout Sensitive Information in PDF Files",
+    "metaTitle": "Redact PDF Online | Permanently Black Out Text & CNIC Numbers | SamToolbox",
+    "description": "Permanently remove and blackout confidential text, CNIC numbers, credit cards, and personal data from PDF files. True cryptographic sanitization with zero server uploads.",
+    "keywords": [
+        "redact pdf online free",
+        "black out text in pdf",
+        "permanently remove text from pdf",
+        "pdf sanitization tool",
+        "redact cnic from pdf",
+        "hide sensitive data in pdf",
+        "secure pdf redaction online",
+        "black out pdf private"
+    ],
+    "category": "SecurityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "Is this true redaction or just a black box overlay?",
+            "answer": "True redaction: the underlying text streams, vector paths, and metadata are permanently removed from the PDF binary so they cannot be selected or copied."
+        },
+        {
+            "question": "Is it safe for medical and legal filings?",
+            "answer": "Yes. Processing occurs 100% in local device memory, guaranteeing zero network exposure."
+        }
+    ]
+},
+
+  "remove-pages": {
+    "slug": "remove-pages",
+    "title": "Remove Pages from PDF Online",
+    "h1": "Delete Unwanted Pages from PDF Documents Instantly",
+    "metaTitle": "Remove Pages from PDF | Delete Specific Pages Free | SamToolbox",
+    "description": "Select and permanently delete specific pages or page ranges from any PDF document. Fast visual thumbnail preview, zero quality loss, and 100% private in-browser processing.",
+    "keywords": [
+        "remove pages from pdf online",
+        "delete pages from pdf free",
+        "cut pages from pdf",
+        "extract out unwanted pdf pages",
+        "remove single page from pdf",
+        "delete multiple pages from pdf online",
+        "pdf page remover tool"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "How do I specify which pages to remove?",
+            "answer": "You can click on visual page thumbnails or type a comma-separated list of page numbers (e.g., 2, 4-7)."
+        },
+        {
+            "question": "Will the remaining pages retain their original resolution?",
+            "answer": "Yes, the remaining PDF pages and embedded vector streams are preserved exactly as in the original."
+        }
+    ]
+},
+
+  "repair-pdf": {
+    "slug": "repair-pdf",
+    "title": "Repair Corrupted PDF Online",
+    "h1": "Recover & Reconstruct Damaged, Broken or Corrupted PDF Files",
+    "metaTitle": "Repair PDF Online | Recover Damaged & Corrupted PDF Files | SamToolbox",
+    "description": "Repair broken, damaged, or unreadable PDF files online. Reconstruct damaged cross-reference tables, fix corrupt file headers, and recover text streams in your browser.",
+    "keywords": [
+        "repair pdf online",
+        "fix corrupted pdf file",
+        "recover damaged pdf free",
+        "unreadable pdf repair tool",
+        "repair invalid pdf format",
+        "reconstruct broken pdf",
+        "open damaged pdf online",
+        "pdf recovery free"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "Can all corrupted PDFs be repaired?",
+            "answer": "Most PDFs with damaged xref tables, truncated footers, or stream encoding anomalies can be successfully recovered."
+        },
+        {
+            "question": "Does repairing compromise document contents?",
+            "answer": "No, valid pages and existing text objects are re-indexed into a clean, compliant PDF structure."
+        }
+    ]
+},
+
+  "resume-score": {
+    "slug": "resume-score",
+    "title": "ATS Resume Checker & Score Analyzer",
+    "h1": "Audit Resume ATS Compatibility & Get Instant Feedback",
+    "metaTitle": "ATS Resume Checker & Score | Optimize CV for Job Applications | SamToolbox",
+    "description": "Audit your resume against modern Applicant Tracking System (ATS) hiring standards. Check keyword density, formatting red flags, typography, and get an instant score.",
+    "keywords": [
+        "ats resume checker free",
+        "resume score analyzer online",
+        "check cv ats compatibility",
+        "resume scanner for job application",
+        "optimize resume for ats",
+        "cv score checker free",
+        "ats friendly resume test",
+        "job application resume optimizer"
+    ],
+    "category": "BusinessApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "PK",
+        "US",
+        "GB",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "What does the ATS score measure?",
+            "answer": "It checks section headers, chronological formatting, font readability, contact information placement, and keyword density."
+        },
+        {
+            "question": "Is my resume stored or shared with recruiters?",
+            "answer": "Never. The analysis runs completely inside your browser without recording any personal data."
+        }
+    ]
+},
+
+  "robots-txt-builder": {
+    "slug": "robots-txt-builder",
+    "title": "Robots.txt Builder & Generator",
+    "h1": "Visual Robots.txt Generator for Search Engine Crawlers",
+    "metaTitle": "Robots.txt Builder Online | Generate Crawler Rules & Directives | SamToolbox",
+    "description": "Build perfectly formatted robots.txt files for Googlebot, Bingbot, and AI crawlers. Configure allow/disallow rules, sitemap links, and crawl delays with 1-click download.",
+    "keywords": [
+        "robots.txt builder",
+        "robots.txt generator online",
+        "create robots.txt for seo",
+        "googlebot disallow generator",
+        "ai crawler block robots.txt",
+        "technical seo robots builder",
+        "sitemap directive robots.txt"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "Where should the generated robots.txt file be uploaded?",
+            "answer": "Place it in the root public directory of your domain (e.g., yourdomain.com/robots.txt)."
+        },
+        {
+            "question": "Can I block AI web scrapers in robots.txt?",
+            "answer": "Yes, our presets include rules for blocking GPTBot, CCBot, Anthropic-ai, and Google-Extended."
+        }
+    ]
+},
+
+  "scan-to-pdf": {
+    "slug": "scan-to-pdf",
+    "title": "Scan to PDF Online Free",
+    "h1": "Scan Physical Documents via Webcam or Mobile Camera to PDF",
+    "metaTitle": "Scan to PDF Online | Capture Documents via Camera to PDF | SamToolbox",
+    "description": "Scan documents, receipts, and notes using your mobile phone or laptop camera directly into clean, high-contrast PDF files. Auto-cropping, contrast enhancement, and zero uploads.",
+    "keywords": [
+        "scan to pdf online free",
+        "camera to pdf converter",
+        "scan document with phone camera to pdf",
+        "receipt scanner to pdf",
+        "webcam document scanner",
+        "free online scanner app no download"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "PK",
+        "US",
+        "GB",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "Do I need a physical scanner machine?",
+            "answer": "No, you can capture pages directly using your smartphone or laptop webcam with automatic edge enhancement."
+        },
+        {
+            "question": "Can I scan multi-page contracts into one PDF?",
+            "answer": "Yes, capture consecutive pages and bundle them into a single consolidated PDF."
+        }
+    ]
+},
+
+  "seo-meta-generator": {
+    "slug": "seo-meta-generator",
+    "title": "SEO Meta Tag Generator Online",
+    "h1": "Comprehensive SEO Meta Tag & Social Graph Generator",
+    "metaTitle": "SEO Meta Tag Generator | Title, Description & OpenGraph Tags | SamToolbox",
+    "description": "Generate perfectly optimized SEO title tags, meta descriptions, OpenGraph social cards, Twitter cards, and Schema markup for your website in seconds.",
+    "keywords": [
+        "seo meta tag generator",
+        "meta tags maker online",
+        "open graph tags generator",
+        "twitter card generator",
+        "meta description tag maker",
+        "technical seo meta tags",
+        "html meta tags builder free"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "What is the recommended length for an SEO title tag?",
+            "answer": "50 to 60 characters (approximately 580 pixels) to avoid truncation in Google search results."
+        },
+        {
+            "question": "What is the optimal meta description length?",
+            "answer": "150 to 160 characters providing a concise summary and clear call to action."
+        }
+    ]
+},
+
+  "study-timer": {
+    "slug": "study-timer",
+    "title": "Focus Study Timer & Pomodoro Clock",
+    "h1": "Scientific Pomodoro Study Timer & Deep Work Clock",
+    "metaTitle": "Focus Study Timer | Pomodoro Clock with Interval Tracking | SamToolbox",
+    "description": "Maximize academic concentration and deep work productivity with our customizable Pomodoro study timer. 25-minute intervals, short/long break timers, and session audio cues.",
+    "keywords": [
+        "study timer online",
+        "pomodoro timer free",
+        "focus clock for studying",
+        "deep work timer",
+        "exam preparation clock",
+        "interval study timer online",
+        "aesthetic study timer with sound"
+    ],
+    "category": "EducationalApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "PK",
+        "US",
+        "GB",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "What is the Pomodoro technique?",
+            "answer": "A proven productivity method consisting of 25 minutes of uninterrupted deep focus followed by a 5-minute restorative break."
+        },
+        {
+            "question": "Does the timer keep running if I switch tabs?",
+            "answer": "Yes, the web worker timer continues counting accurately even when working in background tabs."
+        }
+    ]
+},
+
+  "word-counter": {
+    "slug": "word-counter",
+    "title": "Real-Time Word & Character Counter",
+    "h1": "Word Counter, Character Counter & Reading Time Analyzer",
+    "metaTitle": "Word Counter Online | Real-Time Character & Keyword Density | SamToolbox",
+    "description": "Accurate real-time word counter, character counter (with and without spaces), sentence tracker, paragraph counter, reading time calculator, and keyword density analyzer.",
+    "keywords": [
+        "word counter online",
+        "character counter free",
+        "word count tool",
+        "count characters with spaces",
+        "essay word count checker",
+        "reading time calculator online",
+        "keyword density analyzer",
+        "article length calculator"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE",
+        "CA"
+    ],
+    "faqs": [
+        {
+            "question": "How is reading time calculated?",
+            "answer": "Based on the average adult silent reading speed of 225 words per minute."
+        },
+        {
+            "question": "Can it check keyword density for SEO writing?",
+            "answer": "Yes, it tabulates single, two-word, and three-word phrase frequencies and percentages automatically."
+        }
+    ]
+},
+
+  "word-reader": {
+    "slug": "word-reader",
+    "title": "Word Document Reader Online (DOCX)",
+    "h1": "Free Online Microsoft Word (.DOCX) Document Reader",
+    "metaTitle": "Word Reader Online | View DOCX & DOC Files in Browser | SamToolbox",
+    "description": "Open and read Microsoft Word documents (.docx, .doc) in your browser without Microsoft Office. Clean typography, table rendering, fast loading, and zero server file uploads.",
+    "keywords": [
+        "word reader online",
+        "view docx online free",
+        "open word file without office",
+        "free docx viewer",
+        "read docx in browser",
+        "open word document online private",
+        "lightweight word viewer"
+    ],
+    "category": "BusinessApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "Do I need Microsoft Word installed on my computer?",
+            "answer": "No. The Mammoth document engine parses the DOCX package and renders it directly as native HTML in your browser."
+        },
+        {
+            "question": "Are my confidential Word reports uploaded to any server?",
+            "answer": "No. All text parsing happens locally inside your device's browser memory."
+        }
+    ]
+},
+
   // === TOP PAKISTAN & GLOBAL UTILITIES ===
   "salary-tax-calculator": {
     slug: "salary-tax-calculator",
@@ -692,6 +2064,20 @@ export function getToolMetadata(slug: string): Metadata {
     title: entry.metaTitle,
     description: entry.description,
     keywords: entry.keywords,
+    authors: [{ name: "Suleman Zaheer", url: "https://samtoolbox.vercel.app/suleman-zaheer" }],
+    creator: "Suleman Zaheer",
+    publisher: "SamToolbox",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     alternates: {
       canonical: url,
       languages: {
@@ -703,6 +2089,8 @@ export function getToolMetadata(slug: string): Metadata {
         "ur-PK": url,
         "en-AE": url,
         "en-SA": url,
+        "en-CA": url,
+        "en-AU": url,
       },
     },
     openGraph: {
@@ -716,6 +2104,7 @@ export function getToolMetadata(slug: string): Metadata {
           width: 1200,
           height: 630,
           alt: `${entry.title} - SamToolbox`,
+          type: "image/jpeg",
         },
       ],
       type: "website",
@@ -725,12 +2114,21 @@ export function getToolMetadata(slug: string): Metadata {
       title: entry.metaTitle,
       description: entry.description,
       images: ["https://samtoolbox.vercel.app/og-image.jpg"],
+      creator: "@imsuleman_10",
+      site: "@SamToolbox",
     },
     other: {
       "geo.region": entry.geoRegions ? entry.geoRegions.join(", ") : "PK-PB, US, GB, AE, SA, CA, AU",
       "geo.placename": "Islamabad, Lahore, Karachi, New York, London, Dubai",
       "geo.position": "31.5204;74.3587",
       "ICBM": "31.5204, 74.3587",
+      "dc:creator": "Suleman Zaheer",
+      "citation": url,
+      "application:name": entry.title,
+      "application:category": entry.category,
+      "entity:creator": "Suleman Zaheer",
+      "entity:creatorProfile": "https://samtoolbox.vercel.app/suleman-zaheer",
+      "entity:publisher": "SamToolbox",
     },
   };
 }
@@ -746,12 +2144,15 @@ export function getToolJsonLd(slug: string) {
   const category = entry ? entry.category : "UtilityApplication";
 
   const appSchema = {
-    "@type": "SoftwareApplication",
+    "@type": ["SoftwareApplication", "WebApplication"],
+    "@id": `${url}#webapp`,
     name: title,
     url,
     applicationCategory: category,
-    operatingSystem: "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
-    browserRequirements: "Requires modern HTML5 web browser",
+    operatingSystem: "All (Windows, macOS, Linux, Android, iOS, ChromeOS)",
+    browserRequirements: "Requires modern web browser with HTML5 Canvas and WebAssembly support",
+    memoryRequirements: "Runs 100% in local device RAM with zero server file uploads",
+    featureList: "100% Client-Side Processing, Zero Cloud Uploads, Unlimited Free Operations, No Registration Required",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -766,10 +2167,23 @@ export function getToolJsonLd(slug: string) {
       worstRating: "1",
     },
     author: {
+      "@type": "Person",
+      "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person",
+      name: "Suleman Zaheer",
+      url: "https://samtoolbox.vercel.app/suleman-zaheer",
+    },
+    creator: {
+      "@type": "Person",
+      "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person",
+      name: "Suleman Zaheer",
+    },
+    publisher: {
       "@type": "Organization",
+      "@id": "https://samtoolbox.vercel.app/#organization",
       name: "SamToolbox",
       url: BASE_URL,
     },
+    image: "https://samtoolbox.vercel.app/og-image.jpg",
   };
 
   const breadcrumbSchema = {
@@ -809,6 +2223,7 @@ export function getToolJsonLd(slug: string) {
 
   const faqSchema = {
     "@type": "FAQPage",
+    "@id": `${url}#faq`,
     mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.question,
