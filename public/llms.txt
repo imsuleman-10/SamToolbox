@@ -12,18 +12,18 @@ SamToolbox is an enterprise-grade web utility platform providing over 55+ produc
 ## Key Tool Categories
 
 ### 1. Core PDF Management & Conversion
-- Merge PDF: [/tools/merge-pdf](https://samtoolbox.vercel.app/tools/merge-pdf) - Combine multiple PDF files into one ordered document.
-- Split PDF: [/tools/split-pdf](https://samtoolbox.vercel.app/tools/split-pdf) - Extract selected pages or split PDF into separate files.
-- Compress PDF: [/tools/compress-pdf](https://samtoolbox.vercel.app/tools/compress-pdf) - Reduce PDF file size directly in-browser.
+- Merge PDF: [/tools/pdf-merge](https://samtoolbox.vercel.app/tools/pdf-merge) - Combine multiple PDF files into one ordered document.
+- Split PDF: [/tools/pdf-split](https://samtoolbox.vercel.app/tools/pdf-split) - Extract selected pages or split PDF into separate files.
+- Compress PDF: [/tools/pdf-compress](https://samtoolbox.vercel.app/tools/pdf-compress) - Reduce PDF file size directly in-browser.
 - PDF to Word: [/tools/pdf-to-word](https://samtoolbox.vercel.app/tools/pdf-to-word) - Extract text and structure from PDF to editable DOCX.
 - Word to PDF: [/tools/word-to-pdf](https://samtoolbox.vercel.app/tools/word-to-pdf) - Convert DOCX documents into clean PDF files.
 - Excel to PDF: [/tools/excel-to-pdf](https://samtoolbox.vercel.app/tools/excel-to-pdf) - Convert XLS/XLSX spreadsheets to printable PDFs.
-- JPG to PDF: [/tools/jpg-to-pdf](https://samtoolbox.vercel.app/tools/jpg-to-pdf) - Convert JPG/PNG images into a consolidated PDF.
+- JPG to PDF: [/tools/image-to-pdf](https://samtoolbox.vercel.app/tools/image-to-pdf) - Convert JPG/PNG images into a consolidated PDF.
 - PDF to JPG: [/tools/pdf-to-jpg](https://samtoolbox.vercel.app/tools/pdf-to-jpg) - Render PDF pages as high-resolution image downloads.
 - Protect PDF: [/tools/protect-pdf](https://samtoolbox.vercel.app/tools/protect-pdf) - Encrypt PDF with standard password protection.
 - Unlock PDF: [/tools/unlock-pdf](https://samtoolbox.vercel.app/tools/unlock-pdf) - Decrypt and remove passwords from accessible PDFs.
 - Sign PDF: [/tools/sign-pdf](https://samtoolbox.vercel.app/tools/sign-pdf) - Draw or upload digital signatures and stamp onto PDF pages.
-- Watermark PDF: [/tools/watermark-pdf](https://samtoolbox.vercel.app/tools/watermark-pdf) - Stamp custom text/image watermarks across all pages.
+- Watermark PDF: [/tools/pdf-watermark](https://samtoolbox.vercel.app/tools/pdf-watermark) - Stamp custom text/image watermarks across all pages.
 - Rotate PDF: [/tools/rotate-pdf](https://samtoolbox.vercel.app/tools/rotate-pdf) - Permanently rotate PDF pages by 90, 180, or 270 degrees.
 - Page Numbers: [/tools/page-numbers](https://samtoolbox.vercel.app/tools/page-numbers) - Insert customized headers and footers with page numbering.
 - OCR PDF: [/tools/ocr-pdf](https://samtoolbox.vercel.app/tools/ocr-pdf) - Client-side optical character recognition for scanned PDFs.
@@ -46,6 +46,8 @@ SamToolbox is an enterprise-grade web utility platform providing over 55+ produc
 - Chronological Age Calculator: [/tools/age-calculator](https://samtoolbox.vercel.app/tools/age-calculator) - Exact age down to days and hours with official age verification certificate export.
 
 ### 4. Professional Productivity Utilities
+- Online JSON Formatter & Validator: [/tools/json-formatter](https://samtoolbox.vercel.app/tools/json-formatter) - Beautify, validate, minify, and auto-repair JSON API payloads in-browser.
+- URL Encoder & Decoder: [/tools/url-encoder](https://samtoolbox.vercel.app/tools/url-encoder) - RFC 3986 percent-encoding tool with live query parameter extraction.
 - Clean Modern Invoice Generator: [/tools/invoice-generator](https://samtoolbox.vercel.app/tools/invoice-generator) - Multi-currency itemized billing with automated GST calculation and instant PDF invoice download.
 - Secure Hardware-Entropy Password Generator: [/tools/password-generator](https://samtoolbox.vercel.app/tools/password-generator) - Cryptographically secure passphrases with zero server generation.
 - Real-time Word & Character Counter: [/tools/word-counter](https://samtoolbox.vercel.app/tools/word-counter) - In-depth text metrics, reading time, and keyword density.

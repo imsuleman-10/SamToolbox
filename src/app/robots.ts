@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/private/", "/.git/"],
+        disallow: ["/api/"],
       },
       {
         userAgent: [
@@ -17,8 +17,15 @@ export default function robots(): MetadataRoute.Robots {
           "PerplexityBot",
           "Google-Extended",
           "Applebot-Extended",
+          "CCBot",
+          "cohere-ai",
+          "OAI-SearchBot",
+          "Meta-ExternalAgent",
+          "Bytespider",
+          "Diffbot",
         ],
         allow: ["/", "/llms.txt", "/llms-full.txt", "/.well-known/ai-plugin.json"],
+        disallow: ["/api/"],
       },
     ],
     sitemap: "https://samtoolbox.vercel.app/sitemap.xml",

@@ -48,6 +48,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
       images: [`${BASE_URL}/og-image.jpg`],
     },
+    {
+      url: `${BASE_URL}/privacy`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.7,
+      images: [`${BASE_URL}/og-image.jpg`],
+    },
+    {
+      url: `${BASE_URL}/terms`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.7,
+      images: [`${BASE_URL}/og-image.jpg`],
+    },
   ];
 
   // All 62 Enterprise Tool Pages from TOOL_SEO_REGISTRY

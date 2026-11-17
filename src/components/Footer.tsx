@@ -16,7 +16,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm text-slate-400 max-w-sm mb-6 leading-relaxed">
-              Industrial-grade suite of 26+ free online PDF & document tools. All processing happens 100% locally in your web browser for absolute privacy and zero-latency performance.
+              Enterprise-grade suite of 62+ free online PDF, document &amp; regional utility tools. All processing happens 100% locally in your web browser for absolute privacy and zero-latency performance.
             </p>
             <div className="flex items-center gap-3 text-xs text-slate-400">
               <span className="flex items-center gap-1.5 text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2.5 py-1 rounded-full font-medium">
@@ -92,10 +92,13 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} SamToolbox. All rights reserved.</p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <Link href="/about" className="hover:text-slate-300 transition-colors">About</Link>
+            <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms</Link>
             <Link href="/contact" className="hover:text-slate-300 transition-colors">Contact</Link>
-            <span className="flex items-center gap-1">
+            <Link href="/suleman-zaheer" className="text-slate-400 hover:text-red-400 font-medium transition-colors">Creator Dossier</Link>
+            <span className="flex items-center gap-1 text-slate-400">
               Built with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> for global productivity
             </span>
           </div>

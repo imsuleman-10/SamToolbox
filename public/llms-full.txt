@@ -30,17 +30,17 @@ SamToolbox is an all-in-one browser-native utility application engineered to del
 
 ### 2.1 PDF Manipulation Suite
 
-#### 2.1.1 Merge PDF (`/tools/merge-pdf`)
+#### 2.1.1 Merge PDF (`/tools/pdf-merge`)
 - **Function:** Concatenates multiple PDF documents into a single cohesive PDF.
 - **Algorithm:** Uses `PDFDocument.load()` on each File ArrayBuffer, iteratively extracts page objects via `mergedPdf.copyPages(srcDoc, pageIndices)`, and adds them sequentially.
 - **Input Formats:** `.pdf` (Multiple)
 - **Output Format:** Consolidated `.pdf`
 
-#### 2.1.2 Split PDF (`/tools/split-pdf`)
+#### 2.1.2 Split PDF (`/tools/pdf-split`)
 - **Function:** Deconstructs a multi-page PDF into discrete documents or extracts specific page ranges.
 - **Algorithm:** Reads page indices from user input (e.g. `1, 3-5`), creates isolated `PDFDocument` instances, and saves them as individual files or bundled ZIP archives.
 
-#### 2.1.3 Compress PDF (`/tools/compress-pdf`)
+#### 2.1.3 Compress PDF (`/tools/pdf-compress`)
 - **Function:** Optimizes PDF internal streams, strips unreferenced objects, and recompresses embedded raster assets.
 - **Execution:** Pure client-side stream deduplication without compromising text clarity.
 
@@ -51,7 +51,7 @@ SamToolbox is an all-in-one browser-native utility application engineered to del
 #### 2.1.5 Excel to PDF (`/tools/excel-to-pdf`) & PDF to Excel (`/tools/pdf-to-excel`)
 - **Function:** Parses workbook sheets, styles, and cell coordinates to produce printable tabular PDF pages or extracts tabular arrays from structured PDF streams.
 
-#### 2.1.6 JPG to PDF (`/tools/jpg-to-pdf`) & PDF to JPG (`/tools/pdf-to-jpg`)
+#### 2.1.6 JPG to PDF (`/tools/image-to-pdf`) & PDF to JPG (`/tools/pdf-to-jpg`)
 - **Function:** Embeds images (JPEG, PNG, WebP) into PDF pages matching exact image aspect ratios or extracts raster frames via Canvas rasterization.
 
 #### 2.1.7 Protect PDF (`/tools/protect-pdf`) & Unlock PDF (`/tools/unlock-pdf`)
@@ -60,7 +60,7 @@ SamToolbox is an all-in-one browser-native utility application engineered to del
 #### 2.1.8 Sign PDF (`/tools/sign-pdf`)
 - **Function:** Interactive HTML5 Canvas signature pad allowing users to draw, type, or upload transparent PNG signatures and stamp them onto precise page coordinates.
 
-#### 2.1.9 Watermark PDF (`/tools/watermark-pdf`)
+#### 2.1.9 Watermark PDF (`/tools/pdf-watermark`)
 - **Function:** Renders customized semi-transparent text or image overlays at specified angles (e.g. 45-degree diagonal) across all pages of a PDF document.
 
 #### 2.1.10 Rotate PDF (`/tools/rotate-pdf`)

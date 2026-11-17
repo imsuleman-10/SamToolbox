@@ -15,6 +15,93 @@ export interface ToolSeoEntry {
 export const BASE_URL = "https://samtoolbox.vercel.app";
 
 export const TOOL_SEO_REGISTRY: Record<string, ToolSeoEntry> = {
+  "json-formatter": {
+    "slug": "json-formatter",
+    "title": "Online JSON Formatter & Validator",
+    "h1": "Free Online JSON Formatter, Beautifier & Validator",
+    "metaTitle": "JSON Formatter Online | Beautifier, Validator & Minifier | SamToolbox",
+    "description": "Format, beautify, validate, minify, and auto-repair JSON data online. Fast client-side JSON parser with syntax error highlighting and zero cloud uploads.",
+    "keywords": [
+      "json formatter online",
+      "free online json formatter",
+      "json beautifier",
+      "json validator",
+      "format json online",
+      "json pretty printer",
+      "json viewer online",
+      "json editor online",
+      "minify json online",
+      "json compressor",
+      "validate json syntax",
+      "json auto repair",
+      "best json formatter",
+      "private json formatter no upload",
+      "json beautify 2 spaces",
+      "client side json formatter",
+      "format api json payload",
+      "developer json tools",
+      "free json parser"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": ["GLOBAL", "US", "GB", "PK", "IN", "CA", "DE", "AE"],
+    "faqs": [
+      {
+        "question": "What is a JSON Formatter and why is it used?",
+        "answer": "A JSON Formatter takes unformatted or minified JSON strings and structures them with clean indentation, newlines, and color coding so developers can easily read, debug, and validate API responses."
+      },
+      {
+        "question": "Is my JSON payload or confidential API data uploaded to a server?",
+        "answer": "No. SamToolbox executes all JSON parsing and validation 100% inside your browser's local memory using native JavaScript JSON.parse and JSON.stringify. Zero bytes are transmitted to any server."
+      },
+      {
+        "question": "Can this tool fix invalid JSON syntax with trailing commas or unquoted keys?",
+        "answer": "Yes. Clicking the 'Auto-Fix Syntax' button automatically strips trailing commas, converts single quotes to double quotes, and wraps unquoted object keys according to RFC 8259 specifications."
+      },
+      {
+        "question": "What is the difference between 2-space and 4-space formatting?",
+        "answer": "2-space indentation is the industry standard for modern web and mobile APIs (saving horizontal width), while 4-space indentation is preferred in classical Python, Java, and C++ documentation."
+      }
+    ]
+  },
+  "url-encoder": {
+    "slug": "url-encoder",
+    "title": "URL Encoder & Decoder Online",
+    "h1": "Free Online URL Encoder & Decoder with Query Parser",
+    "metaTitle": "URL Encoder & Decoder Online | Percent-Encoding Tool | SamToolbox",
+    "description": "Encode and decode URLs, URI components, and query strings online according to RFC 3986. Fast in-browser percent-encoding tool with instant query parameter inspection.",
+    "keywords": [
+      "url encoder online",
+      "url decoder online",
+      "percent encoding online",
+      "uri encode decode",
+      "url encode decode online free",
+      "encode uri component online",
+      "decode url online",
+      "url escape tool",
+      "query string encoder",
+      "parse url parameters online",
+      "online url converter",
+      "convert text to url safe",
+      "developer url encoder",
+      "safe url encode no upload"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": ["GLOBAL", "US", "GB", "PK", "IN", "CA", "AE"],
+    "faqs": [
+      {
+        "question": "What is URL encoding (percent-encoding)?",
+        "answer": "URL encoding replaces reserved, unprintable, or non-ASCII characters in a URL with a '%' symbol followed by two hexadecimal digits representing the character's UTF-8 byte value (e.g., spaces become '%20')."
+      },
+      {
+        "question": "When should I use encodeURIComponent vs encodeURI?",
+        "answer": "Use encodeURIComponent when encoding individual query string values or parameter keys (it encodes reserved characters like '&', '=', '?', and '/'). Use encodeURI when encoding a complete URL without breaking its scheme and path structure."
+      },
+      {
+        "question": "Are the URLs I encode or decode stored on SamToolbox servers?",
+        "answer": "No. All encoding, decoding, and query string parsing operations happen strictly within your local browser environment. No URLs, query parameters, or tokens are logged or transmitted."
+      }
+    ]
+  },
   "assignment-formatter": {
     "slug": "assignment-formatter",
     "title": "Academic Assignment Formatter Online",
