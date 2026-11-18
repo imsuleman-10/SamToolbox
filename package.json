@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "indexnow": "node scripts/submit-indexnow.js",
+    "index-google": "node scripts/submit-google-indexing.js"
   },
   "dependencies": {
     "compressorjs": "^1.3.0",
