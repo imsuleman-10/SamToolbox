@@ -169,6 +169,11 @@ export const metadata: Metadata = {
     "rating": "General",
     "distribution": "Global",
   },
+  verification: {
+    other: {
+      "msvalidate.01": "B036193B0CBC01502907165B16C7DF9E",
+    },
+  },
 };
 
 export default function RootLayout({

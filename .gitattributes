@@ -1,0 +1,9 @@
+# Linguist configuration
+# Treat all Next.js TSX as TypeScript
+*.tsx linguist-language=TypeScript
+*.ts linguist-language=TypeScript
+*.mjs linguist-language=JavaScript
+
+# Vendored and generated files
+public/*.txt linguist-documentation
+public/*.yaml linguist-documentation
