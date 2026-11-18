@@ -3,72 +3,23 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { 
-  Search, ArrowRight, Layers, Scissors, Minimize2, FileText, 
-  Presentation, Sheet, FileImage, RotateCw, Hash, Stamp, 
-  PenTool, Lock, Unlock, FileCheck2, Camera, Wrench, ScanText, 
-  Trash2, LayoutGrid, FileCode, FileSpreadsheet, Archive, EyeOff, 
-  GitCompare, Code, Sparkles, QrCode, Cpu
+  Search, ArrowRight, Sparkles
 } from "lucide-react";
 import { ALL_TOOLS, CATEGORIES } from "@/lib/allToolsList";
-
-// Additional productivity tools from the original suite
-const EXTRA_TOOLS = [
-  {
-    id: "cv-maker",
-    title: "CV / Resume Maker",
-    description: "Professional job-winning recruitment templates with instant A4 PDF generation.",
-    href: "/tools/cv-maker",
-    category: "more",
-    categoryLabel: "More Utilities",
-    color: "blue",
-    icon: FileText,
-  },
-  {
-    id: "qr-generator",
-    title: "QR Code Generator",
-    description: "High-density QR codes for URLs, WiFi credentials, vCards, and custom text.",
-    href: "/tools/qr-generator",
-    category: "more",
-    categoryLabel: "More Utilities",
-    color: "blue",
-    icon: QrCode,
-  },
-  {
-    id: "gpa-calculator",
-    title: "GPA Calculator",
-    description: "Multi-semester academic GPA and CGPA credit calculator with honors projection.",
-    href: "/tools/gpa-calculator",
-    category: "more",
-    categoryLabel: "More Utilities",
-    color: "blue",
-    icon: Cpu,
-  },
-  {
-    id: "image-compress",
-    title: "Image Compressor",
-    description: "Reduce image file sizes (MB to KB) without sacrificing visual quality.",
-    href: "/tools/image-compress",
-    category: "more",
-    categoryLabel: "More Utilities",
-    color: "blue",
-    icon: FileImage,
-  },
-];
 
 export default function ToolsDirectoryPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
 
   const filteredAll = useMemo(() => {
-    const list = [...ALL_TOOLS, ...EXTRA_TOOLS];
-    return list.filter((tool) => {
+    return ALL_TOOLS.filter((tool) => {
       const matchSearch =
         tool.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tool.description.toLowerCase().includes(searchQuery.toLowerCase());
+        tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        tool.id.toLowerCase().includes(searchQuery.toLowerCase());
       const matchCat =
         activeCategory === "all" ||
-        tool.category === activeCategory ||
-        (activeCategory === "more" && tool.category === "more");
+        tool.category === activeCategory;
       return matchSearch && matchCat;
     });
   }, [searchQuery, activeCategory]);
@@ -79,10 +30,10 @@ export default function ToolsDirectoryPage() {
       <div className="text-center max-w-3xl mx-auto mb-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-50 text-[#e5322d] rounded-full text-xs font-bold mb-4 border border-red-100">
           <Sparkles className="w-3.5 h-3.5" />
-          Complete Tool Index
+          Complete 84+ Tools Index
         </div>
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
-          All Online PDF & Document Tools
+          All Online PDF &amp; Productivity Tools
         </h1>
         <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
           Explore our complete collection of fast, private, and 100% free browser tools. Everything runs locally on your device with no file uploads.
@@ -97,7 +48,7 @@ export default function ToolsDirectoryPage() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search across all tools..."
+            placeholder="Search across all 84+ tools (e.g. merge, compress, json, tax)..."
             className="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-white border border-slate-200 shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#e5322d]"
           />
         </div>
@@ -116,16 +67,6 @@ export default function ToolsDirectoryPage() {
               {cat.label}
             </button>
           ))}
-          <button
-            onClick={() => setActiveCategory("more")}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-              activeCategory === "more"
-                ? "bg-[#e5322d] text-white shadow-sm"
-                : "bg-white text-slate-600 hover:text-slate-900 border border-slate-200"
-            }`}
-          >
-            More Utilities
-          </button>
         </div>
       </div>
 
@@ -135,14 +76,14 @@ export default function ToolsDirectoryPage() {
           <Link
             key={tool.id}
             href={tool.href || `/tools/${tool.id}`}
-            className="tool-card group bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm flex flex-col justify-between hover:border-slate-300"
+            className="tool-card group bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all hover:shadow-md"
           >
             <div>
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                   {tool.categoryLabel}
                 </span>
-                {"badge" in tool && tool.badge && (
+                {tool.badge && (
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-[#e5322d]">
                     {tool.badge}
                   </span>
@@ -153,7 +94,7 @@ export default function ToolsDirectoryPage() {
                 {tool.title}
               </h3>
 
-              <p className="text-xs text-slate-500 leading-relaxed font-normal">
+              <p className="text-xs text-slate-500 leading-relaxed font-normal line-clamp-3">
                 {tool.description}
               </p>
             </div>

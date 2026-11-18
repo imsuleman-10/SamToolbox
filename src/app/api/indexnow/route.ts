@@ -42,20 +42,30 @@ export async function GET() {
       urlList: allUrls,
     };
 
-    // Submit to IndexNow
-    const response = await fetch("https://api.indexnow.org/indexnow", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-      body: JSON.stringify(payload),
-    });
+    // Submit to IndexNow (Central & Bing) and Ping Sitemaps
+    const results = await Promise.allSettled([
+      fetch("https://api.indexnow.org/indexnow", {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: JSON.stringify(payload),
+      }),
+      fetch("https://www.bing.com/indexnow", {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: JSON.stringify(payload),
+      }),
+      fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent(`${BASE_URL}/sitemap.xml`)}`),
+      fetch(`https://www.bing.com/ping?sitemap=${encodeURIComponent(`${BASE_URL}/sitemap.xml`)}`),
+    ]);
 
     return NextResponse.json({
       success: true,
-      statusCode: response.status,
       submittedUrls: allUrls.length,
       sampleUrls: allUrls.slice(0, 5),
+      results: results.map((r, i) => ({
+        target: ["IndexNow Central", "Microsoft Bing IndexNow", "Google Sitemap Ping", "Bing Sitemap Ping"][i],
+        status: r.status,
+      })),
       timestamp: new Date().toISOString(),
     });
   } catch (error: any) {
