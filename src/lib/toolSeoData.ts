@@ -15,6 +15,1040 @@ export interface ToolSeoEntry {
 export const BASE_URL = "https://samtoolbox.vercel.app";
 
 export const TOOL_SEO_REGISTRY: Record<string, ToolSeoEntry> = {
+  "base64-encoder": {
+    "slug": "base64-encoder",
+    "title": "Base64 Encoder & Decoder Online",
+    "h1": "Free Online Base64 Encoder & Decoder",
+    "metaTitle": "Base64 Encoder & Decoder Online | Text, Image & File | SamToolbox",
+    "description": "Encode text, files, and images into Base64 strings or decode Base64 into clean UTF-8 text. Fast in-browser Base64 converter with zero cloud file storage.",
+    "keywords": [
+        "base64 encoder online",
+        "base64 decoder online",
+        "encode to base64",
+        "decode base64 to text",
+        "base64 image converter",
+        "base64 string encoder",
+        "utf8 to base64",
+        "base64 converter free",
+        "online base64 tool",
+        "file to base64 online",
+        "image to base64 string",
+        "base64 to file converter",
+        "fast base64 encoder",
+        "developer base64 tool",
+        "secure base64 decoder",
+        "base64 tool no upload",
+        "client side base64 encode",
+        "base64 binary decoder",
+        "base64 decode usa",
+        "base64 converter uk",
+        "base64 tool india",
+        "base64 encoder canada",
+        "base64 encoder australia",
+        "base64 tool uae",
+        "rfc 4648 base64 converter"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "FR",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "What is Base64 encoding and why is it used?",
+            "answer": "Base64 is a binary-to-text encoding scheme that translates binary data into a set of 64 ASCII characters, allowing images, files, and binary strings to be safely transmitted across text-based protocols like HTTP and email."
+        },
+        {
+            "question": "Can I decode Base64 strings back to original text or files?",
+            "answer": "Yes. Switch to 'Base64 Decode' mode, paste your encoded string, and SamToolbox will decode it back to readable UTF-8 text with an instant download option."
+        },
+        {
+            "question": "Are my sensitive encoded files or tokens stored on a server?",
+            "answer": "No. All encoding and decoding runs 100% inside your web browser's local memory using Web APIs. Zero bytes are uploaded to remote servers."
+        }
+    ]
+},
+  "markdown-to-html": {
+    "slug": "markdown-to-html",
+    "title": "Markdown to HTML Converter Online",
+    "h1": "Free Online Markdown to HTML Converter with Live Preview",
+    "metaTitle": "Markdown to HTML Converter Online | Instant AST Preview | SamToolbox",
+    "description": "Convert Markdown syntax into clean, semantic HTML with instant split-pane preview. Format headings, lists, code blocks, and blockquotes with 0 server uploads.",
+    "keywords": [
+        "markdown to html converter",
+        "convert md to html online",
+        "markdown to html free",
+        "markdown previewer online",
+        "online markdown editor",
+        "md to html generator",
+        "commonmark to html",
+        "github flavored markdown to html",
+        "markdown table to html",
+        "markdown code block to html",
+        "convert readme to html",
+        "markdown compiler online",
+        "developer markdown tool",
+        "export markdown to html file",
+        "fast md converter",
+        "markdown parser client side",
+        "markdown to html usa",
+        "markdown converter uk",
+        "markdown tool india",
+        "markdown editor australia",
+        "markdown to html canada"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "FR",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "How does the Markdown to HTML converter work?",
+            "answer": "It parses Markdown syntax tokens (headings, lists, bold text, links, code blocks) in real-time using an in-browser Abstract Syntax Tree (AST) engine to render valid semantic HTML5."
+        },
+        {
+            "question": "Can I download the converted document as a standalone HTML file?",
+            "answer": "Yes. Click 'Download .html' to export a complete, self-contained HTML5 file with standard typography and code styling ready for web hosting."
+        },
+        {
+            "question": "Is my proprietary documentation uploaded to the cloud?",
+            "answer": "No. All parsing happens strictly in your browser. Your markdown notes and documentation are never uploaded or retained."
+        }
+    ]
+},
+  "csv-to-json": {
+    "slug": "csv-to-json",
+    "title": "CSV to JSON & JSON to CSV Converter",
+    "h1": "Free Online CSV to JSON & JSON to CSV Converter",
+    "metaTitle": "CSV to JSON Converter Online | JSON to CSV Spreadsheet | SamToolbox",
+    "description": "Convert CSV spreadsheets into clean JSON arrays or turn JSON objects into standard CSV files. Supports comma, semicolon, tab, and pipe delimiters with zero uploads.",
+    "keywords": [
+        "csv to json converter",
+        "json to csv converter",
+        "convert csv to json online",
+        "convert json to csv free",
+        "csv to json array",
+        "spreadsheet to json",
+        "csv json parser online",
+        "excel csv to json converter",
+        "json to excel csv",
+        "csv delimiter converter",
+        "tab separated to json",
+        "semicolon csv to json",
+        "developer csv tool",
+        "data migration csv to json",
+        "fast csv converter online",
+        "client side csv to json",
+        "csv to json usa",
+        "csv to json uk",
+        "csv to json india"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "How does CSV to JSON conversion work?",
+            "answer": "The first row of your CSV file is treated as JSON object keys (headers), and subsequent rows are converted into typed JSON array items (numbers, booleans, and strings)."
+        },
+        {
+            "question": "Does it support custom delimiters like semicolon or tab?",
+            "answer": "Yes. You can select Comma (,), Semicolon (;), Tab (\\t), or Pipe (|) to handle international European and database CSV export standards."
+        },
+        {
+            "question": "Are customer or financial CSV records uploaded to a server?",
+            "answer": "No. All conversion operations occur within client-side browser memory. Your confidential business spreadsheets never touch remote servers."
+        }
+    ]
+},
+  "diff-checker": {
+    "slug": "diff-checker",
+    "title": "Text & Code Diff Checker Online",
+    "h1": "Free Online Text & Code Diff Checker with Visual Split View",
+    "metaTitle": "Text & Code Diff Checker Online | Side-by-Side Comparison | SamToolbox",
+    "description": "Compare two text documents, code snippets, or revision drafts to highlight additions, deletions, and line changes. Side-by-side split and unified diff with zero uploads.",
+    "keywords": [
+        "diff checker online",
+        "text diff checker",
+        "code difference checker",
+        "compare two text files",
+        "online text comparison tool",
+        "file diff tool free",
+        "side by side diff checker",
+        "visual text compare",
+        "code diff viewer",
+        "compare code online",
+        "find differences in text",
+        "document revision compare",
+        "legal text diff checker",
+        "git diff online viewer",
+        "fast text compare",
+        "private diff checker no upload",
+        "diff checker usa",
+        "diff checker uk",
+        "diff checker india"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "FR",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "What is a Diff Checker and what does it compare?",
+            "answer": "A Diff Checker inspects two versions of a text or code document (Original vs. Modified) and highlights exactly which lines have been added, deleted, or altered."
+        },
+        {
+            "question": "What is the difference between Split Comparison and Unified Diff?",
+            "answer": "Split view places the original and modified documents side-by-side, while Unified view combines changes into a single chronological stream with color-coded diff markers."
+        },
+        {
+            "question": "Is it safe to compare confidential source code or legal agreements?",
+            "answer": "Yes. The diff algorithm executes 100% in your local browser sandbox. No source code or text bytes are uploaded to remote servers."
+        }
+    ]
+},
+  "color-picker": {
+    "slug": "color-picker",
+    "title": "Color Picker & Converter (HEX, RGB, HSL, CMYK)",
+    "h1": "Free Online Color Picker, Palette & Format Converter",
+    "metaTitle": "Color Picker & Converter Online | HEX, RGB, HSL, CMYK | SamToolbox",
+    "description": "Pick colors, extract color codes across HEX, RGB, HSL, and CMYK formats, and generate harmonized tints and monochromatic shades. 100% free web designer tool.",
+    "keywords": [
+        "color picker online",
+        "hex to rgb converter",
+        "rgb to hex online",
+        "color code converter",
+        "hsl to hex",
+        "cmyk to rgb converter",
+        "online color palette generator",
+        "hex color finder",
+        "web color picker",
+        "html color codes",
+        "color shades generator",
+        "ui design color picker",
+        "css color converter",
+        "eyedropper tool online",
+        "best color picker",
+        "color picker usa",
+        "color picker uk",
+        "color picker india",
+        "color picker australia"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "FR",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "How do I convert between HEX, RGB, HSL, and CMYK?",
+            "answer": "Select or input any color, and SamToolbox automatically calculates mathematical conversions across HEX, RGB (screen), HSL (design), and CMYK (print) simultaneously."
+        },
+        {
+            "question": "What are monochromatic tints and shades?",
+            "answer": "Tints and shades are harmonized variations created by lightening or darkening the base color, providing a consistent palette for UI design, buttons, and backgrounds."
+        },
+        {
+            "question": "Is this color picker suitable for print design?",
+            "answer": "Yes. It provides standard four-color CMYK values for physical print production alongside standard sRGB web color codes."
+        }
+    ]
+},
+  "lorem-ipsum-generator": {
+    "slug": "lorem-ipsum-generator",
+    "title": "Lorem Ipsum & Dummy Text Generator",
+    "h1": "Free Online Lorem Ipsum Placeholder Text Generator",
+    "metaTitle": "Lorem Ipsum Generator Online | Dummy Text for Designers | SamToolbox",
+    "description": "Generate classic Lorem Ipsum placeholder dummy text by paragraphs, sentences, or word count. Optional HTML tag wrapping and instant copy for designers & developers.",
+    "keywords": [
+        "lorem ipsum generator",
+        "dummy text generator",
+        "placeholder text generator",
+        "generate lorem ipsum online",
+        "lorem ipsum paragraphs",
+        "lipsum generator",
+        "dummy content for website",
+        "mockup text generator",
+        "lorem ipsum words generator",
+        "html paragraph generator",
+        "filler text generator",
+        "design dummy text",
+        "lorem ipsum free online",
+        "lorem ipsum usa",
+        "lorem ipsum uk",
+        "lorem ipsum india"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "What is Lorem Ipsum dummy text?",
+            "answer": "Lorem Ipsum is standard placeholder text derived from classical Latin literature (Cicero, 45 BC) used in typography and graphic design to demonstrate layout without distracting readable content."
+        },
+        {
+            "question": "Can I generate Lorem Ipsum wrapped with HTML <p> tags?",
+            "answer": "Yes. Check the 'Wrap with <p> tags' option to generate markup ready to paste directly into your HTML, JSX, or CMS editor."
+        },
+        {
+            "question": "Is there a limit on how many words or paragraphs I can generate?",
+            "answer": "No. You can generate custom paragraph, sentence, or word counts instantly in your browser."
+        }
+    ]
+},
+  "slug-generator": {
+    "slug": "slug-generator",
+    "title": "URL Slug & Permalink Generator",
+    "h1": "Free Online URL Slug & SEO Permalink Generator",
+    "metaTitle": "URL Slug Generator Online | SEO-Friendly Permalinks | SamToolbox",
+    "description": "Convert article titles, product names, and headlines into clean, search-engine-friendly URL slugs. Handles accents, punctuation, and separator selection with zero tracking.",
+    "keywords": [
+        "slug generator online",
+        "url slug generator",
+        "seo permalink generator",
+        "convert title to url slug",
+        "clean url generator",
+        "kebab case url generator",
+        "seo friendly url generator",
+        "remove accents from url",
+        "slugify text online",
+        "wordpress slug generator",
+        "blog permalink creator",
+        "clean permalinks",
+        "slug generator usa",
+        "slug generator uk",
+        "slug generator india"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "What is a URL slug in SEO?",
+            "answer": "A URL slug is the user-friendly, human-readable part of a web address that describes a specific page (e.g. /tools/slug-generator), helping search engines and visitors understand page topic."
+        },
+        {
+            "question": "How does this tool handle special characters and accents?",
+            "answer": "It normalizes accented Unicode characters (like 'é' to 'e') and strips punctuation, quotes, and symbols according to strict RFC 3986 URL guidelines."
+        },
+        {
+            "question": "Can I choose between hyphens and underscores?",
+            "answer": "Yes. Google officially recommends hyphens (-) for URL word separation, but you can select underscores (_) or dots (.) if needed."
+        }
+    ]
+},
+  "bmi-calculator": {
+    "slug": "bmi-calculator",
+    "title": "Body Mass Index (BMI) Calculator",
+    "h1": "Free Online Body Mass Index (BMI) & Ideal Weight Calculator",
+    "metaTitle": "BMI Calculator Online | Metric & Imperial Health Standards | SamToolbox",
+    "description": "Calculate your Body Mass Index (BMI), ideal weight range, and WHO fitness category. Supports metric (kg/cm) and imperial (lbs/ft/in) with zero health data tracking.",
+    "keywords": [
+        "bmi calculator online",
+        "calculate body mass index",
+        "free bmi calculator",
+        "bmi calculator metric",
+        "bmi calculator lbs and feet",
+        "ideal weight calculator",
+        "who bmi classification",
+        "healthy weight range calculator",
+        "bmi chart men women",
+        "body mass ratio calculator",
+        "fitness bmi score",
+        "bmi calculator usa",
+        "bmi calculator uk",
+        "bmi calculator india",
+        "bmi calculator australia",
+        "bmi calculator canada"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "IN",
+        "PK",
+        "AE",
+        "DE",
+        "FR"
+    ],
+    "faqs": [
+        {
+            "question": "What is BMI and how is it calculated?",
+            "answer": "BMI (Body Mass Index) is a screening metric defined by dividing a person's weight in kilograms by the square of their height in meters (kg/m²), or using pounds and inches via standard conversion factors."
+        },
+        {
+            "question": "What are the official WHO BMI categories?",
+            "answer": "Underweight: < 18.5 | Normal Weight: 18.5 – 24.9 | Overweight: 25.0 – 29.9 | Obese: ≥ 30.0."
+        },
+        {
+            "question": "Is my personal weight or health data recorded?",
+            "answer": "No. All calculations run strictly in your web browser memory. Zero health metrics are stored or transmitted."
+        }
+    ]
+},
+  "time-zone-converter": {
+    "slug": "time-zone-converter",
+    "title": "World Time Zone Converter & Scheduler",
+    "h1": "Free Online World Time Zone Converter & Remote Meeting Planner",
+    "metaTitle": "Time Zone Converter Online | World Clock & Meeting Scheduler | SamToolbox",
+    "description": "Convert international time zones and plan cross-border meetings across London, New York, Dubai, Lahore, Delhi, Tokyo, and Sydney with an interactive time slider.",
+    "keywords": [
+        "time zone converter online",
+        "world clock converter",
+        "meeting planner time zone",
+        "convert est to gmt",
+        "convert utc to pkt",
+        "convert ist to est",
+        "dubai to london time converter",
+        "international meeting time planner",
+        "cross border time converter",
+        "world time difference calculator",
+        "pst to gmt converter",
+        "time zone converter usa",
+        "time zone converter uk",
+        "time zone converter india",
+        "time zone converter uae",
+        "time zone converter australia"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "AE",
+        "SA",
+        "IN",
+        "PK",
+        "SG",
+        "JP"
+    ],
+    "faqs": [
+        {
+            "question": "How does the interactive time zone slider work?",
+            "answer": "Drag the 24-hour UTC slider, and SamToolbox dynamically calculates and displays the exact corresponding local time and day across major world capitals in real-time."
+        },
+        {
+            "question": "Does it account for Daylight Saving Time (DST)?",
+            "answer": "Yes. It uses your browser's native Intl DateTimeFormat API backed by the official IANA Time Zone database, automatically adjusting for summer and winter clock changes."
+        },
+        {
+            "question": "Can I use this tool offline?",
+            "answer": "Yes. Once the page is loaded, time conversions calculate entirely client-side without pinging external time servers."
+        }
+    ]
+},
+  "hash-generator": {
+    "slug": "hash-generator",
+    "title": "SHA-256, SHA-512 & MD5 Hash Generator",
+    "h1": "Free Online SHA-256, SHA-512, SHA-1 & MD5 Hash Generator",
+    "metaTitle": "Hash Generator Online | SHA-256, SHA-512, SHA-1 & MD5 | SamToolbox",
+    "description": "Generate cryptographic hashes directly in your browser using hardware-accelerated Web Crypto API. Support for SHA-256, SHA-512, SHA-384, SHA-1, and MD5 with zero server logs.",
+    "keywords": [
+        "hash generator online",
+        "sha256 generator online",
+        "sha512 generator free",
+        "md5 hash generator",
+        "sha1 generator online",
+        "cryptographic hash tool",
+        "generate checksum online",
+        "text to sha256",
+        "password hash generator",
+        "secure hash algorithm online",
+        "web crypto hash generator",
+        "fips 180 compliant hash",
+        "hash generator usa",
+        "hash generator uk",
+        "hash generator india",
+        "hash generator germany"
+    ],
+    "category": "SecurityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "FR",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "How does the in-browser hash generator work?",
+            "answer": "It uses the native Web Crypto API (crypto.subtle.digest) to compute cryptographically secure one-way hashes directly on your computer's CPU/hardware with zero network latency."
+        },
+        {
+            "question": "What is the difference between SHA-256 and MD5?",
+            "answer": "SHA-256 produces a 256-bit (64-hex character) collision-resistant digest suitable for modern security and blockchain, while MD5 produces a 128-bit hash typically used for basic file integrity checks."
+        },
+        {
+            "question": "Are my passwords or secret keys sent to any server?",
+            "answer": "No. The hashing executes 100% locally in your browser memory. Your confidential strings never travel over the network."
+        }
+    ]
+},
+  "css-minifier": {
+    "slug": "css-minifier",
+    "title": "CSS Minifier & Beautifier Online",
+    "h1": "Free Online CSS Minifier, Compressor & Beautifier",
+    "metaTitle": "CSS Minifier Online | Compress Stylesheets for Fast Loading | SamToolbox",
+    "description": "Minify CSS code by stripping comments and redundant whitespace, or beautify CSS with clean indentation. Boost Core Web Vitals and page speed with zero uploads.",
+    "keywords": [
+        "css minifier online",
+        "minify css online free",
+        "css compressor",
+        "css beautifier online",
+        "format css code",
+        "clean css stylesheet",
+        "reduce css file size",
+        "optimize css online",
+        "css formatter free",
+        "core web vitals css minifier",
+        "developer css optimizer",
+        "css minifier usa",
+        "css minifier uk",
+        "css minifier india",
+        "css compressor online"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "How does CSS minification improve website performance?",
+            "answer": "Minification strips comments, line breaks, and unnecessary spaces, reducing stylesheet file size by up to 30–50% for faster downloading and improved First Contentful Paint (FCP)."
+        },
+        {
+            "question": "Will minifying my CSS break any styling rules?",
+            "answer": "No. The parser respects W3C CSS syntax, removing only non-functional whitespace while preserving media queries, selectors, and property declarations."
+        },
+        {
+            "question": "Can I un-minify or beautify minified CSS?",
+            "answer": "Yes. Click 'Beautify CSS' to reformat compact code into clean, readable multi-line CSS with proper indentation."
+        }
+    ]
+},
+  "html-minifier": {
+    "slug": "html-minifier",
+    "title": "HTML Minifier & Code Compressor",
+    "h1": "Free Online HTML Minifier & Markup Compressor",
+    "metaTitle": "HTML Minifier Online | Compress HTML Code for SEO Speed | SamToolbox",
+    "description": "Minify HTML markup by collapsing whitespace, removing comments, and stripping tag spacing. Boost website speed and Core Web Vitals with 100% private in-browser compression.",
+    "keywords": [
+        "html minifier online",
+        "minify html free",
+        "html code compressor",
+        "compress html online",
+        "clean html markup",
+        "strip html comments",
+        "optimize html file size",
+        "html page speed optimizer",
+        "developer html tool",
+        "fast html compressor",
+        "core web vitals html minifier",
+        "html minifier usa",
+        "html minifier uk",
+        "html minifier india"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "Why should I minify my HTML code?",
+            "answer": "Minifying HTML removes comments and unnecessary whitespace between tags, reducing HTML payload transfer size and speeding up DOM parsing for mobile and desktop crawlers."
+        },
+        {
+            "question": "Does it strip HTML comments?",
+            "answer": "Yes. It removes all <!-- comments --> automatically, while preserving essential script tags and page content."
+        },
+        {
+            "question": "Is my proprietary HTML code uploaded to a remote server?",
+            "answer": "No. The compression algorithm executes purely in your browser's JavaScript sandbox."
+        }
+    ]
+},
+  "unit-converter": {
+    "slug": "unit-converter",
+    "title": "Universal Unit & Measurement Converter",
+    "h1": "Free Online Universal Unit & Measurement Converter",
+    "metaTitle": "Unit Converter Online | Length, Weight, Temp, Speed, Data | SamToolbox",
+    "description": "Convert length, mass, temperature, speed, digital storage, and volume measurements across metric and imperial systems. Certified international standards with 0 tracking.",
+    "keywords": [
+        "unit converter online",
+        "universal measurement converter",
+        "length converter online",
+        "weight converter kg to lbs",
+        "temperature converter c to f",
+        "speed converter kmh to mph",
+        "digital storage converter mb to gb",
+        "volume converter liters to gallons",
+        "metric to imperial converter",
+        "metric converter online",
+        "measurement conversion free",
+        "unit converter usa",
+        "unit converter uk",
+        "unit converter india",
+        "unit converter canada"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "IN",
+        "PK",
+        "AE",
+        "DE",
+        "FR"
+    ],
+    "faqs": [
+        {
+            "question": "What measurement categories are supported?",
+            "answer": "SamToolbox supports Length (m, km, ft, in, mi), Weight (kg, g, lbs, oz), Temperature (°C, °F, K), Speed (km/h, mph, knots), Digital Storage (B, KB, MB, GB, TB), and Volume (L, mL, gal, cups)."
+        },
+        {
+            "question": "Are the conversion ratios accurate?",
+            "answer": "Yes. All ratios follow official BIPM (International Bureau of Weights and Measures) and NIST international scientific standards."
+        },
+        {
+            "question": "Can I swap 'From' and 'To' units with one click?",
+            "answer": "Yes. Simply click the Swap button between the inputs to invert the conversion instantly."
+        }
+    ]
+},
+  "jwt-decoder": {
+    "slug": "jwt-decoder",
+    "title": "JSON Web Token (JWT) Decoder & Debugger",
+    "h1": "Free Online JWT Decoder & Claims Inspector (100% Client-Side Safe)",
+    "metaTitle": "JWT Decoder Online | Secure In-Browser Token Inspector | SamToolbox",
+    "description": "Decode and inspect JWT headers, payload claims, and expiration timestamps. Unlike third-party token decoders, your sensitive tokens are 100% private and never sent to a server.",
+    "keywords": [
+        "jwt decoder online",
+        "decode jwt token",
+        "json web token debugger",
+        "jwt inspector online",
+        "jwt claims viewer",
+        "safe jwt decoder no upload",
+        "jwt payload decoder",
+        "check jwt expiration date",
+        "decode bearer token online",
+        "private jwt tool",
+        "developer jwt debugger",
+        "jwt decoder usa",
+        "jwt decoder uk",
+        "jwt decoder india",
+        "jwt decoder germany"
+    ],
+    "category": "SecurityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "FR",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "Why is an in-browser JWT decoder safer than traditional online decoders?",
+            "answer": "Traditional online JWT tools frequently send your authentication token over the wire to remote backends. SamToolbox executes 100% in client-side JavaScript, ensuring confidential tokens never leave your machine."
+        },
+        {
+            "question": "Can it tell me if my JWT token is expired?",
+            "answer": "Yes. It inspects the 'exp' claim in the payload and highlights whether the token is currently ACTIVE or EXPIRED relative to UTC time."
+        },
+        {
+            "question": "Does this tool verify token cryptographic signatures?",
+            "answer": "It displays signature data and algorithms (e.g. HS256, RS256). Full cryptographic signature verification requires supplying secret keys, which is handled in your private backend."
+        }
+    ]
+},
+  "svg-to-png": {
+    "slug": "svg-to-png",
+    "title": "SVG to PNG & WebP Converter Online",
+    "h1": "Free Online SVG to PNG & WebP High-Resolution Converter",
+    "metaTitle": "SVG to PNG Converter Online | High-DPI Vector Rasterizer | SamToolbox",
+    "description": "Convert SVG vector graphics into high-resolution PNG or WebP images with custom resolution scaling (1x, 2x, 4x, 8x). 100% private in-browser vector rendering.",
+    "keywords": [
+        "svg to png converter",
+        "convert svg to png online",
+        "svg to png high resolution",
+        "svg to webp converter",
+        "vector to png converter",
+        "svg to png transparent",
+        "svg rasterizer online",
+        "convert svg to 4k png",
+        "svg to png 300 dpi",
+        "svg image converter free",
+        "developer svg tool",
+        "svg to png usa",
+        "svg to png uk",
+        "svg to png india",
+        "svg to png australia"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "FR",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "How do I convert SVG to high-resolution PNG?",
+            "answer": "Paste your SVG code or upload an .svg file, select your desired resolution scale (1x, 2x, 4x, or 8x for ultra-sharp print quality), and click 'Download PNG'."
+        },
+        {
+            "question": "Does it support transparent backgrounds?",
+            "answer": "Yes. Transparent background is the default, but you can also choose solid white or black canvas backing."
+        },
+        {
+            "question": "Are my SVG graphics uploaded to any cloud server?",
+            "answer": "No. Conversion uses native HTML5 Canvas rasterization directly inside your browser memory with zero network uploads."
+        }
+    ]
+},
+  "regex-tester": {
+    "slug": "regex-tester",
+    "title": "Online Regular Expression (RegEx) Tester",
+    "h1": "Free Online RegEx Tester & Real-Time JavaScript Debugger",
+    "metaTitle": "RegEx Tester Online | Real-Time Match Highlighter & Debugger | SamToolbox",
+    "description": "Test and debug regular expressions with real-time match highlighting, flag toggles (g, i, m, s), and pre-built pattern libraries. 100% in-browser evaluation with zero logs.",
+    "keywords": [
+        "regex tester online",
+        "regular expression tester",
+        "regex debugger online",
+        "test regex javascript",
+        "regex match highlighter",
+        "online regex checker",
+        "email regex tester",
+        "url regex tester",
+        "regex pattern library",
+        "developer regex tool",
+        "regex flags tester",
+        "regex tester usa",
+        "regex tester uk",
+        "regex tester india",
+        "regex tester germany"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "FR",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "How does the in-browser regex tester work?",
+            "answer": "It executes JavaScript RegExp directly within your browser, evaluating input patterns against test strings in real-time and highlighting every captured match index."
+        },
+        {
+            "question": "What regex flags can I toggle?",
+            "answer": "You can toggle Global (g), Case-Insensitive (i), Multiline (m), and DotAll (s) flags individually."
+        },
+        {
+            "question": "Does it provide common pattern presets?",
+            "answer": "Yes. Quick-click presets are provided for Email addresses, URLs, IPv4 addresses, phone numbers, and Hex color codes."
+        }
+    ]
+},
+  "cron-generator": {
+    "slug": "cron-generator",
+    "title": "Cron Expression Generator & Explainer",
+    "h1": "Free Online Cron Expression Generator & Schedule Explainer",
+    "metaTitle": "Cron Expression Generator Online | Crontab Schedule Builder | SamToolbox",
+    "description": "Build, validate, and understand standard Unix / Linux crontab expressions with instant human-readable descriptions. Free DevOps schedule builder with zero tracking.",
+    "keywords": [
+        "cron expression generator",
+        "crontab generator online",
+        "cron schedule builder",
+        "explain cron expression",
+        "crontab guru alternative",
+        "linux cron generator",
+        "cron syntax checker",
+        "generate cron expression online",
+        "crontab every minute",
+        "crontab every hour",
+        "devops cron tool",
+        "cron generator usa",
+        "cron generator uk",
+        "cron generator india",
+        "cron generator germany"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "DE",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "What are the 5 fields of a standard cron expression?",
+            "answer": "Minute (0–59), Hour (0–23), Day of Month (1–31), Month (1–12), and Day of Week (0–6, where 0 is Sunday)."
+        },
+        {
+            "question": "How does the tool explain cron schedules?",
+            "answer": "It parses your 5 cron fields and translates them into plain English (e.g., 'Runs every Sunday at midnight')."
+        },
+        {
+            "question": "Can I use common preset schedules?",
+            "answer": "Yes. Quick presets are available for Every Minute, Every 15 Minutes, Hourly, Daily (Midnight), and Monthly schedules."
+        }
+    ]
+},
+  "morse-code-translator": {
+    "slug": "morse-code-translator",
+    "title": "Morse Code Translator & Audio Player",
+    "h1": "Free Online Morse Code Translator & Audio Synthesizer",
+    "metaTitle": "Morse Code Translator Online | Audio Sound Player & Decoder | SamToolbox",
+    "description": "Translate text to Morse code and Morse code to plain English. Listen to audio beeps with real-time Web Audio API sound synthesis. 100% free educational tool.",
+    "keywords": [
+        "morse code translator",
+        "text to morse code",
+        "morse code to text",
+        "morse code audio player",
+        "listen to morse code online",
+        "morse code sound generator",
+        "international morse code translator",
+        "sos morse code generator",
+        "morse code alphabet",
+        "learn morse code online",
+        "morse code translator usa",
+        "morse code translator uk"
+    ],
+    "category": "EducationalApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "How does the Morse code audio synthesizer work?",
+            "answer": "It uses the browser's Web Audio API to generate pure 600 Hz sine-wave tones for dots (short) and dashes (long) with standard ITU-R timing intervals."
+        },
+        {
+            "question": "How do I translate Morse code back into English?",
+            "answer": "Switch to 'Morse Code → Text' mode, enter dots (.) and dashes (-) separated by spaces for letters and forward slashes (/) for words."
+        },
+        {
+            "question": "Is this compliant with international Morse code standards?",
+            "answer": "Yes. It adheres to ITU-R M.1677-1 International Morse Code specifications."
+        }
+    ]
+},
+  "aspect-ratio-calculator": {
+    "slug": "aspect-ratio-calculator",
+    "title": "Aspect Ratio & Resolution Calculator",
+    "h1": "Free Online Aspect Ratio & Screen Resolution Scaler",
+    "metaTitle": "Aspect Ratio Calculator Online | 16:9, 4:3, 9:16 Resolution Scaler | SamToolbox",
+    "description": "Calculate image dimensions, video aspect ratios, and pixel scaling for 16:9 (HD/4K), 4:3, 1:1, 9:16 (TikTok/Reels), and 21:9 ultrawide screens. 100% free.",
+    "keywords": [
+        "aspect ratio calculator",
+        "screen resolution calculator",
+        "calculate 16:9 resolution",
+        "video aspect ratio scaler",
+        "image aspect ratio calculator",
+        "4:3 to 16:9 converter",
+        "9:16 reels resolution calculator",
+        "find aspect ratio from width height",
+        "calculate image dimensions online",
+        "aspect ratio calculator usa",
+        "aspect ratio calculator uk",
+        "aspect ratio calculator india"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "IN",
+        "PK",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "How do I calculate the height for a specific aspect ratio?",
+            "answer": "Enter your desired width and choose a preset ratio (e.g. 16:9), and the calculator automatically computes the proportional height in pixels."
+        },
+        {
+            "question": "What are the most common aspect ratios for social media and video?",
+            "answer": "16:9 for YouTube and widescreen monitors, 9:16 for TikTok, Instagram Reels, and YouTube Shorts, and 1:1 for square Instagram posts."
+        },
+        {
+            "question": "Does it reduce dimensions to their lowest common ratio?",
+            "answer": "Yes. Using the Euclidean GCD algorithm, it simplifies any pixel dimensions (e.g. 1920x1080) to its lowest fractional ratio (16:9)."
+        }
+    ]
+},
+  "barcode-generator": {
+    "slug": "barcode-generator",
+    "title": "Free Online Barcode Generator",
+    "h1": "Free Online 1D Barcode Generator (Code 128, EAN-13, Code 39)",
+    "metaTitle": "Barcode Generator Online | Code 128, EAN-13, UPC | SamToolbox",
+    "description": "Create linear barcodes for retail products, shipping labels, inventory SKUs, and packaging. High-resolution PNG download with zero server uploads.",
+    "keywords": [
+        "barcode generator online",
+        "free online barcode generator",
+        "code 128 barcode generator",
+        "ean 13 barcode generator",
+        "generate barcode png",
+        "product barcode maker",
+        "shipping label barcode generator",
+        "inventory sku barcode maker",
+        "print barcode online",
+        "barcode maker free download",
+        "barcode generator usa",
+        "barcode generator uk",
+        "barcode generator india",
+        "barcode generator canada",
+        "barcode generator australia"
+    ],
+    "category": "BusinessApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "IN",
+        "PK",
+        "AE",
+        "DE"
+    ],
+    "faqs": [
+        {
+            "question": "Which barcode symbologies are supported?",
+            "answer": "SamToolbox supports Code 128 (general purpose alphanumeric), EAN-13 (global retail products), and Code 39 (industrial and logistics)."
+        },
+        {
+            "question": "Can I download the barcode for commercial printing?",
+            "answer": "Yes. Click 'Download Barcode (PNG)' to save a high-contrast black-and-white graphic ready for thermal printers, packaging, or product labels."
+        },
+        {
+            "question": "Are my internal inventory SKUs or product codes saved?",
+            "answer": "No. Barcodes are rendered directly onto an HTML5 Canvas in your browser memory without cloud transmission."
+        }
+    ]
+},
+
   "json-formatter": {
     "slug": "json-formatter",
     "title": "Online JSON Formatter & Validator",

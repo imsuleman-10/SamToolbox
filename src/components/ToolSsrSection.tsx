@@ -290,7 +290,7 @@ export default function ToolSsrSection({ slug }: ToolSsrSectionProps) {
               href="/tools"
               className="text-xs font-semibold text-red-600 hover:text-red-700 flex items-center gap-1"
             >
-              All 62 Tools <ArrowRight className="w-3.5 h-3.5" />
+              All 84 Tools <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 

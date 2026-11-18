@@ -18,9 +18,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About SamToolbox | 62+ Privacy-First In-Browser Utilities",
+  title: "About SamToolbox | 84+ Privacy-First In-Browser Utilities",
   description:
-    "SamToolbox is a 100% free, privacy-first online utility suite. All 62+ tools run locally in your web browser with zero server uploads and zero data retention. Architected by Suleman Zaheer.",
+    "SamToolbox is a 100% free, privacy-first online utility suite. All 84+ tools run locally in your web browser with zero server uploads and zero data retention. Architected by Suleman Zaheer.",
   keywords: [
     "about samtoolbox",
     "privacy browser tools",
@@ -35,16 +35,16 @@ export const metadata: Metadata = {
     canonical: "https://samtoolbox.vercel.app/about",
   },
   openGraph: {
-    title: "About SamToolbox | 62+ Privacy-First Browser Tools",
-    description: "62+ free professional tools. Zero servers. Zero uploads. Powered 100% by your browser memory.",
+    title: "About SamToolbox | 84+ Privacy-First Browser Tools",
+    description: "84+ free professional tools. Zero servers. Zero uploads. Powered 100% by your browser memory.",
     url: "https://samtoolbox.vercel.app/about",
     images: ["https://samtoolbox.vercel.app/og-image.jpg"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "About SamToolbox | 62+ Privacy-First Browser Tools",
-    description: "62+ free professional tools. Zero servers. Zero uploads. Powered 100% by your browser memory.",
+    title: "About SamToolbox | 84+ Privacy-First Browser Tools",
+    description: "84+ free professional tools. Zero servers. Zero uploads. Powered 100% by your browser memory.",
     images: ["https://samtoolbox.vercel.app/og-image.jpg"],
   },
 };
@@ -57,7 +57,7 @@ const principles = [
     accent: "text-emerald-600",
     bg: "bg-emerald-50",
     border: "border-emerald-200",
-    body: "At SamToolbox, we believe utility tasks should never require uploading confidential documents to third-party servers. All 62+ tools run 100% inside your local device RAM using WebAssembly and client-side JavaScript. No registration, no tracking, just pure utility.",
+    body: "At SamToolbox, we believe utility tasks should never require uploading confidential documents to third-party servers. All 84+ tools run 100% inside your local device RAM using WebAssembly and client-side JavaScript. No registration, no tracking, just pure utility.",
   },
   {
     num: "02",
@@ -93,7 +93,7 @@ export default function AboutPage() {
     "@context": "https://schema.org",
     "@type": "AboutPage",
     "@id": "https://samtoolbox.vercel.app/about#webpage",
-    name: "About SamToolbox — 62+ Privacy-First Browser Tools",
+    name: "About SamToolbox — 84+ Privacy-First Browser Tools",
     url: "https://samtoolbox.vercel.app/about",
     description: "Learn about SamToolbox: a free, 100% client-side online utility suite engineered by Suleman Zaheer.",
     mainEntity: {
@@ -134,7 +134,7 @@ export default function AboutPage() {
           </h1>
           
           <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            SamToolbox eliminates the cloud middleman. We provide <strong>62+ enterprise-grade PDF, document, and calculator tools</strong> that execute entirely within your device's browser memory for total privacy and unmatched speed.
+            SamToolbox eliminates the cloud middleman. We provide <strong>84+ enterprise-grade PDF, document, and calculator tools</strong> that execute entirely within your device's browser memory for total privacy and unmatched speed.
           </p>
         </div>
       </section>
@@ -190,7 +190,7 @@ export default function AboutPage() {
               href="/tools"
               className="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-sm border border-white/20 transition-all text-center"
             >
-              Explore 62+ Tools
+              Explore 84+ Tools
             </Link>
           </div>
         </div>

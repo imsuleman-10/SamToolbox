@@ -48,11 +48,33 @@ SamToolbox is an enterprise-grade web utility platform providing over 55+ produc
 ### 4. Professional Productivity Utilities
 - Online JSON Formatter & Validator: [/tools/json-formatter](https://samtoolbox.vercel.app/tools/json-formatter) - Beautify, validate, minify, and auto-repair JSON API payloads in-browser.
 - URL Encoder & Decoder: [/tools/url-encoder](https://samtoolbox.vercel.app/tools/url-encoder) - RFC 3986 percent-encoding tool with live query parameter extraction.
+- Base64 Encoder & Decoder: [/tools/base64-encoder](https://samtoolbox.vercel.app/tools/base64-encoder) - RFC 4648 Base64 text and file conversion.
+- Markdown to HTML Converter: [/tools/markdown-to-html](https://samtoolbox.vercel.app/tools/markdown-to-html) - Instant AST markdown preview and HTML exporter.
+- CSV to JSON & JSON to CSV: [/tools/csv-to-json](https://samtoolbox.vercel.app/tools/csv-to-json) - Bidirectional spreadsheet and data table converter.
+- Text & Code Diff Checker: [/tools/diff-checker](https://samtoolbox.vercel.app/tools/diff-checker) - Visual split-pane diff comparison with additions and deletions highlighting.
+- Color Picker & Palette: [/tools/color-picker](https://samtoolbox.vercel.app/tools/color-picker) - HEX, RGB, HSL, CMYK converter with monochromatic shade generation.
+- Lorem Ipsum Generator: [/tools/lorem-ipsum-generator](https://samtoolbox.vercel.app/tools/lorem-ipsum-generator) - Custom dummy text generator for designers and developers.
+- URL Slug Generator: [/tools/slug-generator](https://samtoolbox.vercel.app/tools/slug-generator) - SEO-friendly permalink optimizer with character normalization.
+- Universal Unit Converter: [/tools/unit-converter](https://samtoolbox.vercel.app/tools/unit-converter) - Length, weight, temp, speed, data storage, and volume converter.
 - Clean Modern Invoice Generator: [/tools/invoice-generator](https://samtoolbox.vercel.app/tools/invoice-generator) - Multi-currency itemized billing with automated GST calculation and instant PDF invoice download.
 - Secure Hardware-Entropy Password Generator: [/tools/password-generator](https://samtoolbox.vercel.app/tools/password-generator) - Cryptographically secure passphrases with zero server generation.
 - Real-time Word & Character Counter: [/tools/word-counter](https://samtoolbox.vercel.app/tools/word-counter) - In-depth text metrics, reading time, and keyword density.
 - Professional Text Case Converter: [/tools/case-converter](https://samtoolbox.vercel.app/tools/case-converter) - UPPERCASE, lowercase, Title Case, camelCase, snake_case transformations.
 - Focus Pomodoro Study Timer: [/tools/study-timer](https://samtoolbox.vercel.app/tools/study-timer) - Scientific interval timer with session logging and visual feedback.
+
+### 5. Developer & Engineering Utilities
+- Cryptographic Hash Generator: [/tools/hash-generator](https://samtoolbox.vercel.app/tools/hash-generator) - Hardware-accelerated SHA-256, SHA-512, SHA-1, and MD5 hashes.
+- CSS Minifier & Beautifier: [/tools/css-minifier](https://samtoolbox.vercel.app/tools/css-minifier) - Stylesheet optimization and AST formatting.
+- HTML Minifier & Compressor: [/tools/html-minifier](https://samtoolbox.vercel.app/tools/html-minifier) - Strips comments and collapses whitespace for Core Web Vitals speed.
+- JWT Decoder & Debugger: [/tools/jwt-decoder](https://samtoolbox.vercel.app/tools/jwt-decoder) - 100% client-side safe token header and payload claims inspector.
+- SVG to PNG Converter: [/tools/svg-to-png](https://samtoolbox.vercel.app/tools/svg-to-png) - High-resolution vector rasterizer with 1x, 2x, 4x, 8x scaling.
+- RegEx Tester & Debugger: [/tools/regex-tester](https://samtoolbox.vercel.app/tools/regex-tester) - Real-time JavaScript regular expression match highlighter.
+- Cron Expression Generator: [/tools/cron-generator](https://samtoolbox.vercel.app/tools/cron-generator) - POSIX crontab builder with human-readable explanations.
+- Morse Code Translator: [/tools/morse-code-translator](https://samtoolbox.vercel.app/tools/morse-code-translator) - Bi-directional text and Morse code translator with Web Audio synthesizer.
+- Aspect Ratio Calculator: [/tools/aspect-ratio-calculator](https://samtoolbox.vercel.app/tools/aspect-ratio-calculator) - 16:9, 9:16, 4:3, 1:1, 21:9 image and video resolution scaler.
+- Barcode Generator: [/tools/barcode-generator](https://samtoolbox.vercel.app/tools/barcode-generator) - Code 128, EAN-13, and Code 39 barcode generator with PNG download.
+- BMI & Health Calculator: [/tools/bmi-calculator](https://samtoolbox.vercel.app/tools/bmi-calculator) - WHO Body Mass Index and ideal weight calculator.
+- World Time Zone Converter: [/tools/time-zone-converter](https://samtoolbox.vercel.app/tools/time-zone-converter) - Cross-border meeting scheduler with 24-hour UTC slider.
 
 ## Creator & Engineering Leadership
 - **Creator & Architect:** Suleman Zaheer (سلیمان ظہیر; Muhammad Suleman Zaheer Mughal; born 1 Feb 2007)

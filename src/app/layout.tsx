@@ -30,11 +30,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "SamToolbox | 64+ Free Online PDF Tools & Calculators — 100% Private",
+    default: "SamToolbox | 84+ Free Online PDF Tools, Developer Utilities & Calculators — 100% Private",
     template: "%s | SamToolbox",
   },
   description:
-    "Enterprise-grade suite of 64+ free in-browser PDF tools, developer utilities, and calculators. Merge, compress, convert, edit & sign PDFs. 100% client-side with zero server uploads.",
+    "Enterprise-grade suite of 84+ free in-browser PDF tools, developer utilities, and calculators. Merge, compress, convert, edit & sign PDFs. 100% client-side with zero server uploads.",
   keywords: [
     "SamToolbox",
     "SamToolbox PDF",
@@ -118,9 +118,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "SamToolbox | 64+ Free Online PDF Tools & Regional Utilities Suite",
+    title: "SamToolbox | 84+ Free Online PDF Tools & Developer Utilities Suite",
     description:
-      "Every tool you need to work with PDFs and calculations at your fingertips. 100% free, private, and instant with zero server uploads.",
+      "Every tool you need to work with PDFs, code, and calculations at your fingertips. 100% free, private, and instant with zero server uploads.",
     url: "https://samtoolbox.vercel.app",
     siteName: "SamToolbox",
     images: [
@@ -128,7 +128,7 @@ export const metadata: Metadata = {
         url: "https://samtoolbox.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "SamToolbox - 64+ Free Online PDF Tools & Productivity Suite",
+        alt: "SamToolbox - 84+ Free Online PDF Tools & Developer Suite",
       },
     ],
     locale: "en_US",

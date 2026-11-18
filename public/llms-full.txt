@@ -138,6 +138,69 @@ SamToolbox is an all-in-one browser-native utility application engineered to del
 #### 2.3.4 Invoice Generator (`/tools/invoice-generator`)
 - **Features:** Itemized line items, quantity, unit price, multi-currency (PKR, USD, EUR, GBP, AED, SAR), configurable GST/VAT rates, and instant vector PDF invoice generation.
 
+### 2.4 Developer, Text & General Productivity Utilities
+
+#### 2.4.1 Base64 Encoder & Decoder (`/tools/base64-encoder`)
+- **Standards:** RFC 4648 Base64 specification with UTF-8 safe Unicode character encoding and binary file-to-DataURI processing.
+- **Client-Side Engine:** Native browser `btoa()` / `atob()` with Uint8Array TextEncoder and TextDecoder. Zero server latency.
+
+#### 2.4.2 Markdown to HTML Converter (`/tools/markdown-to-html`)
+- **Functionality:** Real-time GFM (GitHub Flavored Markdown) to semantic HTML parser with live split preview, sanitized HTML output, and instant .html file export.
+
+#### 2.4.3 CSV to JSON & JSON to CSV Converter (`/tools/csv-to-json`)
+- **Functionality:** Bidirectional tabular data parser. Auto-detects delimiters (comma, tab, semicolon, pipe) and parses raw CSV into JSON arrays or converts JSON structures into clean CSV data.
+
+#### 2.4.4 Text & Code Diff Checker (`/tools/diff-checker`)
+- **Functionality:** Side-by-side split and unified inline difference viewer for source code and prose. Highlights added, deleted, and unmodified lines with line-number indexing.
+
+#### 2.4.5 Color Picker & Palette Generator (`/tools/color-picker`)
+- **Functionality:** Real-time color space conversion between HEX, RGB, HSL, and CMYK. Generates monochromatic shade ramps and provides one-click CSS color value copying.
+
+#### 2.4.6 Lorem Ipsum Dummy Text Generator (`/tools/lorem-ipsum-generator`)
+- **Functionality:** Classical Cicero dummy text generator with paragraph, sentence, and word count controls. Supports wrapping in `<p>` and `<li>` HTML markup for web designers.
+
+#### 2.4.7 URL Slug Generator & Permalink Formatter (`/tools/slug-generator`)
+- **Functionality:** Sanitizes arbitrary text into clean, URL-safe slugs. Strips diacritics/accents, removes punctuation, and enforces configurable hyphen/underscore separators for programmatic SEO.
+
+#### 2.4.8 BMI Calculator (`/tools/bmi-calculator`)
+- **Methodology:** World Health Organization (WHO) adult body mass index: `BMI = kg / (m^2)`. Supports both Metric (cm/kg) and Imperial (ft/in/lbs) units with ideal weight range calculation.
+
+#### 2.4.9 World Time Zone Converter (`/tools/time-zone-converter`)
+- **Functionality:** Interactive international time zone coordinator. Features a 24-hour UTC scrubber that recalculates local times across London, New York, Tokyo, Dubai, Karachi, and Sydney simultaneously.
+
+#### 2.4.10 Cryptographic Hash Generator (`/tools/hash-generator`)
+- **Security:** Hardware-accelerated Web Crypto API computing SHA-256, SHA-512, SHA-1, and MD5 message digests 100% locally on the user's CPU without transmitting plaintexts.
+
+#### 2.4.11 CSS Minifier & Beautifier (`/tools/css-minifier`)
+- **Functionality:** Compresses CSS stylesheets by stripping comments, redundant whitespace, and trailing semicolons. Provides compression ratio percentages and indentation beautification.
+
+#### 2.4.12 HTML Minifier & Markup Compressor (`/tools/html-minifier`)
+- **Functionality:** Strips comments, collapses duplicate whitespace, and preserves inline script/style tags to accelerate web page loading speeds and Core Web Vitals.
+
+#### 2.4.13 Universal Unit Converter (`/tools/unit-converter`)
+- **Functionality:** Multi-system unit converter spanning Length (m, km, mi, ft, in), Mass (kg, g, lb, oz), Temperature (°C, °F, K), Speed (km/h, mph, m/s), Data (B, KB, MB, GB, TB), and Volume.
+
+#### 2.4.14 JWT Token Decoder & Claims Inspector (`/tools/jwt-decoder`)
+- **Security:** In-browser JSON Web Token parser. Decodes Header and Payload base64url segments, formats JSON claims, and validates expiration (`exp`) timestamps without sharing tokens.
+
+#### 2.4.15 SVG to PNG Converter (`/tools/svg-to-png`)
+- **Functionality:** Rasterizes scalable vector graphics (SVG) into high-resolution PNG images via HTML5 Canvas with 1x, 2x, 4x, and 8x super-sampling multipliers and alpha transparency preservation.
+
+#### 2.4.16 Regular Expression (RegEx) Tester (`/tools/regex-tester`)
+- **Functionality:** Live JavaScript RegExp engine with match highlighting, capture group inspection, and flag toggles (`g`, `i`, `m`, `s`). Includes common regex presets (Email, URL, IP).
+
+#### 2.4.17 Cron Expression Generator & Explainer (`/tools/cron-generator`)
+- **Functionality:** Visual scheduler building standard 5-part POSIX cron syntax (`minute hour dom month dow`) with plain-English schedule translations and next-execution timetables.
+
+#### 2.4.18 Morse Code Translator & Player (`/tools/morse-code-translator`)
+- **Functionality:** Bidirectional text-to-Morse and Morse-to-text audio engine. Synthesizes 600 Hz audio sine tones via the Web Audio API with configurable transmission speed (WPM).
+
+#### 2.4.19 Aspect Ratio & Resolution Calculator (`/tools/aspect-ratio-calculator`)
+- **Methodology:** Euclidean greatest common divisor (GCD) calculation for image and video dimensions (16:9, 4:3, 1:1, 9:16, 21:9) with automatic proportional dimension resizing.
+
+#### 2.4.20 Barcode Generator (`/tools/barcode-generator`)
+- **Functionality:** Generates scannable 1D barcodes in Code 128, EAN-13, and Code 39 symbologies rendered on HTML5 Canvas with instant high-resolution PNG download.
+
 ---
 
 ## 3. SEO, GEO, AEO, and LLMO Integration

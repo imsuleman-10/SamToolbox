@@ -16,7 +16,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm text-slate-400 max-w-sm mb-6 leading-relaxed">
-              Enterprise-grade suite of 62+ free online PDF, document &amp; regional utility tools. All processing happens 100% locally in your web browser for absolute privacy and zero-latency performance.
+              Enterprise-grade suite of 84+ free online PDF, developer, document &amp; regional utility tools. All processing happens 100% locally in your web browser for absolute privacy and zero-latency performance.
             </p>
             <div className="flex items-center gap-3 text-xs text-slate-400">
               <span className="flex items-center gap-1.5 text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2.5 py-1 rounded-full font-medium">
