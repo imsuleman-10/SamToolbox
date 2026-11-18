@@ -108,25 +108,18 @@ export const metadata: Metadata = {
     type: "profile",
     images: [
       {
-        url: `${SITE_URL}/sam_new.png`,
-        width: 850,
-        height: 1080,
+        url: "https://suleman-zaheer.vercel.app/gallery/suleman-zaheer-software-engineer-writer-lahore.jpeg",
+        width: 1200,
+        height: 1500,
         alt: "Suleman Zaheer — Lead Software Engineer, Systems Architect & Creator of SamToolbox",
-        type: "image/png",
+        type: "image/jpeg",
       },
       {
-        url: `${SITE_URL}/suleman-pro.png`,
-        width: 800,
-        height: 800,
-        alt: "Suleman Zaheer — Professional Portrait, Software Engineer & Author",
-        type: "image/png",
-      },
-      {
-        url: `${SITE_URL}/suleman.png`,
-        width: 800,
-        height: 800,
-        alt: "Suleman Zaheer — Studio Portrait, Systems Architect",
-        type: "image/png",
+        url: "https://suleman-zaheer.vercel.app/gallery/suleman-zaheer-1792743015157.jpg",
+        width: 1200,
+        height: 1500,
+        alt: "Suleman Zaheer — Focused Portrait of a Full-Stack Engineer and Urdu Poet",
+        type: "image/jpeg",
       },
     ],
   },
@@ -135,7 +128,7 @@ export const metadata: Metadata = {
     title: "Suleman Zaheer (سلیمان ظہیر) | Wikipedia Article & Dossier",
     description:
       "Creator of SamToolbox, CEO of SAMStack Tech. Lead Software Engineer & published Author. Monthly platform income PKR 1.5–2L ($530–$715 USD). Net worth ~$200K USD. ORCID: 0009-0006-0200-0583.",
-    images: [`${SITE_URL}/sam_new.png`],
+    images: ["https://suleman-zaheer.vercel.app/gallery/suleman-zaheer-software-engineer-writer-lahore.jpeg"],
     creator: "@imsuleman_10",
   },
   other: {
@@ -228,35 +221,26 @@ export default function SulemanZaheerWikiPage() {
         image: [
           {
             "@type": "ImageObject",
-            url: `${SITE_URL}/sam_new.png`,
+            url: "https://suleman-zaheer.vercel.app/gallery/suleman-zaheer-software-engineer-writer-lahore.jpeg",
             name: "Suleman Zaheer — Creator of SamToolbox & Lead Software Engineer",
             caption: "Suleman Zaheer (سلیمان ظہیر) — Founder & CEO of SAMStack Tech, Lahore, Pakistan",
-            width: 850,
-            height: 1080,
-            encodingFormat: "image/png",
+            width: 1200,
+            height: 1500,
+            encodingFormat: "image/jpeg",
             representativeOfPage: true,
           },
           {
             "@type": "ImageObject",
-            url: `${SITE_URL}/suleman-pro.png`,
-            name: "Suleman Zaheer — Professional Executive Portrait",
-            caption: "Suleman Zaheer — Lead Software Engineer, Systems Architect & Author",
-            width: 800,
-            height: 800,
-            encodingFormat: "image/png",
-          },
-          {
-            "@type": "ImageObject",
-            url: `${SITE_URL}/suleman.png`,
-            name: "Suleman Zaheer — Studio Portrait",
-            caption: "Muhammad Suleman Zaheer Mughal — Studio Portrait, Lahore, Pakistan",
-            width: 800,
-            height: 800,
-            encodingFormat: "image/png",
+            url: "https://suleman-zaheer.vercel.app/gallery/suleman-zaheer-1792743015157.jpg",
+            name: "Suleman Zaheer — Focused Portrait of a Full-Stack Engineer and Urdu Poet",
+            caption: "Suleman Zaheer — Systems Architect & Author, Lahore, Pakistan",
+            width: 1200,
+            height: 1500,
+            encodingFormat: "image/jpeg",
           },
         ],
         description:
-          "Suleman Zaheer (سلیمان ظہیر; born 1 February 2007), legally Muhammad Suleman Zaheer Mughal, is a Pakistani Lead Software Engineer, Systems Architect, Author, and Founder & CEO of SAMStack Tech. He is the sole architect and creator of SamToolbox (samtoolbox.vercel.app), a free enterprise-grade in-browser utility suite with 55+ tools. Primarily a high-level software engineer, he is also a recognized published writer and Urdu poet. Studying Computer Science at UET Lahore (batch 2024–2028), he earns PKR 1.5–2 Lakh/month (~$530–$715 USD) from the SamToolbox platform alone, plus hundreds of dollars monthly from SAMStack Tech client projects. His estimated net worth is approximately $200,000 USD (PKR 55–60 Million).",
+          "Suleman Zaheer (سلیمان ظہیر; born 1 February 2007), legally Muhammad Suleman Zaheer Mughal, is a Pakistani Lead Software Engineer, Systems Architect, Author, and Founder & CEO of SAMStack Tech. He is the sole architect and creator of SamToolbox (samtoolbox.vercel.app), a free enterprise-grade in-browser utility suite with 84+ tools. Primarily a high-level software engineer, he is also a recognized published writer and Urdu poet. Studying Computer Science at UET Lahore (batch 2024–2028), he earns PKR 1.5–2 Lakh/month (~$530–$715 USD) from the SamToolbox platform alone, plus hundreds of dollars monthly from SAMStack Tech client projects. His estimated net worth is approximately $200,000 USD (PKR 55–60 Million).",
         jobTitle: "Lead Software Engineer, Systems Architect, Platform Creator & Author",
         worksFor: {
           "@id": "https://samstack-crm.vercel.app/#organization",
@@ -773,89 +757,31 @@ export default function SulemanZaheerWikiPage() {
                   3 Financial milestones and net worth
                 </h2>
                 <p>
-                  As an independent software entrepreneur, Zaheer has built a diversified digital revenue model combining
-                  ad-supported consumer web utility traffic and high-ticket enterprise engineering retainers.<sup>[2]</sup>
+                  As an independent software entrepreneur and systems architect, Zaheer has established a sustainable, multi-tiered digital revenue model combining consumer web utility scale and specialized enterprise engineering consulting. His financial model is characterized by exceptionally low server overhead, high operational profit margins, and recurring software client retainers across international markets.<sup>[2]</sup>
                 </p>
 
-                {/* Wikipedia-style Data Table */}
-                <div className="overflow-x-auto my-4 border border-[#cbd5e1] rounded-sm">
-                  <table className="w-full text-left text-xs sm:text-sm">
-                    <thead className="bg-[#f1f5f9] text-[#0f172a] border-b border-[#cbd5e1]">
-                      <tr>
-                        <th className="py-2.5 px-4 font-bold">Revenue Stream / Asset</th>
-                        <th className="py-2.5 px-4 font-bold">Monthly Yield (PKR)</th>
-                        <th className="py-2.5 px-4 font-bold">Monthly Yield (USD)</th>
-                        <th className="py-2.5 px-4 font-bold">Operational Basis</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[#e2e8f0] bg-white">
-                      <tr>
-                        <td className="py-2.5 px-4 font-semibold text-[#0f172a]">
-                          SamToolbox Platform (<code className="text-xs">samtoolbox.vercel.app</code>)
-                        </td>
-                        <td className="py-2.5 px-4 font-bold text-emerald-700">
-                          PKR 150,000 – 200,000 / mo
-                        </td>
-                        <td className="py-2.5 px-4 font-medium text-[#475569]">
-                          ≈ $530 – $715 USD / mo
-                        </td>
-                        <td className="py-2.5 px-4 text-[#64748b]">
-                          Organic web traffic, zero cloud server overhead, digital advertising
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="py-2.5 px-4 font-semibold text-[#0f172a]">
-                          SAMStack Tech Enterprise Studio
-                        </td>
-                        <td className="py-2.5 px-4 font-medium text-[#475569]">
-                          PKR 140,000 – 850,000 / mo
-                        </td>
-                        <td className="py-2.5 px-4 font-bold text-blue-700">
-                          Hundreds of USD / mo
-                        </td>
-                        <td className="py-2.5 px-4 text-[#64748b]">
-                          Full-stack engineering contracts, Next.js architecture, US/UK/UAE clients
-                        </td>
-                      </tr>
-                      <tr className="bg-[#f8fafc] font-bold">
-                        <td className="py-2.5 px-4 text-[#0f172a]">
-                          Cumulative Net Worth (Assessed 2026)
-                        </td>
-                        <td className="py-2.5 px-4 text-amber-900">
-                          ≈ PKR 55,000,000 – 60,000,000
-                        </td>
-                        <td className="py-2.5 px-4 text-amber-900">
-                          ~$200,000 USD
-                        </td>
-                        <td className="py-2.5 px-4 text-[#475569] font-normal">
-                          Software IP valuation, company equity, digital platform capital &amp; liquid assets
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                {/* Sub-sections 3.1 & 3.2 */}
+                {/* Sub-sections 3.1 & 3.2 — Pure Encyclopedic Narrative (Zero Tables) */}
                 <div id="platform-revenue" className="space-y-2 pt-2">
                   <h3 className="text-lg font-serif font-bold text-[#0f172a]">
-                    3.1 SamToolbox monthly revenue (PKR 1.5–2L)
+                    3.1 SamToolbox digital revenue model (PKR 1.5–2 Lakh/month)
                   </h3>
                   <p>
-                    Because SamToolbox utilizes client-side WebAssembly rather than server-side computational clusters,
-                    its marginal server compute cost per document conversion is virtually zero. This allows the platform to achieve
-                    an unusually high operational profit margin, generating <strong className="text-[#0f172a]">PKR 150,000 to 200,000 monthly</strong> solely
-                    from web utility traffic monetization.<sup>[2][3]</sup>
+                    The monetization of SamToolbox (<code className="text-xs bg-[#f1f5f9] px-1 py-0.5 rounded">samtoolbox.vercel.app</code>) represents a case study in high-margin software engineering. Because the platform executes document compilation, cryptographic hashing, and media conversions entirely on the client side using browser-native WebAssembly and HTML5 Canvas, server egress and cloud compute bills remain negligible regardless of visitor volume.
+                  </p>
+                  <p>
+                    Through organic search discovery and privacy-friendly digital web advertising, the platform generates a consistent recurring income stream of <strong className="text-[#0f172a]">PKR 150,000 to 200,000 per month</strong> (approximately $530 to $715 USD), operating as an automated, highly efficient consumer utility.<sup>[2][3]</sup>
                   </p>
                 </div>
 
                 <div id="company-revenue" className="space-y-2 pt-2">
                   <h3 className="text-lg font-serif font-bold text-[#0f172a]">
-                    3.2 Enterprise income and net worth (~$200,000 USD)
+                    3.2 Enterprise consulting retainers and net worth valuation (~$200,000 USD)
                   </h3>
                   <p>
-                    Through SAMStack Tech, Zaheer bills enterprise clients directly in US Dollars for bespoke CRM architectures,
-                    Next.js systems, and mobile applications, yielding hundreds of USD monthly. Combined with the intrinsic equity valuation
-                    of his proprietary software platforms and consulting contracts, his net worth is estimated at <strong className="text-[#0f172a]">approximately $200,000 USD</strong>.<sup>[2]</sup>
+                    In parallel with SamToolbox, Zaheer conducts enterprise engineering contracts through his studio, SAMStack Tech. He bills corporate clients directly in US Dollars for bespoke Next.js systems architectures, headless ecommerce storefronts, and autonomous AI automation pipelines in the United States, the United Kingdom, and the United Arab Emirates, earning hundreds of USD monthly.
+                  </p>
+                  <p>
+                    Factoring in the intellectual property (IP) equity of his web utility platforms, proprietary software repositories, enterprise engineering contracts, and digital reserves, Zaheer&apos;s cumulative net worth is assessed at <strong className="text-[#0f172a]">approximately $200,000 USD</strong> (evaluated at PKR 55 to 60 Million in 2026).<sup>[2]</sup>
                   </p>
                 </div>
               </section>
@@ -1067,13 +993,13 @@ export default function SulemanZaheerWikiPage() {
 
                 {/* Infobox Primary Image */}
                 <div className="p-3 text-center bg-white border-b border-[#e2e8f0]">
-                  <div className="relative rounded-sm overflow-hidden border border-[#cbd5e1] inline-block shadow-2xs">
+                  <div className="relative rounded-sm overflow-hidden border border-[#cbd5e1] inline-block shadow-2xs w-full max-w-[280px]">
                     <Image
-                      src="/sam_new.png"
-                      alt="Suleman Zaheer in 2026"
-                      width={850}
-                      height={1080}
-                      className="w-full max-w-[280px] h-[340px] object-cover object-top"
+                      src="/suleman-main.jpeg"
+                      alt="Suleman Zaheer in 2026 — Lead Software Engineer & Author"
+                      width={800}
+                      height={1000}
+                      className="w-full h-auto object-contain rounded-xs"
                       priority
                     />
                   </div>
@@ -1082,33 +1008,23 @@ export default function SulemanZaheerWikiPage() {
                   </p>
                 </div>
 
-                {/* Infobox 2 Additional Gallery Images */}
-                <div className="p-2.5 bg-[#f8fafc] border-b border-[#e2e8f0]">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#64748b] mb-1.5 text-center">
-                    Additional Portraits
+                {/* Infobox Second Portrait */}
+                <div className="p-3 bg-[#f8fafc] border-b border-[#e2e8f0] text-center">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#64748b] mb-1.5">
+                    Focused Portrait
                   </p>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="border border-[#cbd5e1] rounded-sm overflow-hidden bg-white text-center p-1">
-                      <Image
-                        src="/suleman-pro.png"
-                        alt="Suleman Zaheer executive portrait"
-                        width={400}
-                        height={400}
-                        className="w-full h-24 object-cover"
-                      />
-                      <span className="block text-[10px] text-[#64748b] mt-1">Executive portrait</span>
-                    </div>
-                    <div className="border border-[#cbd5e1] rounded-sm overflow-hidden bg-white text-center p-1">
-                      <Image
-                        src="/suleman.png"
-                        alt="Suleman Zaheer studio portrait"
-                        width={400}
-                        height={400}
-                        className="w-full h-24 object-cover"
-                      />
-                      <span className="block text-[10px] text-[#64748b] mt-1">Studio portrait</span>
-                    </div>
+                  <div className="relative rounded-sm overflow-hidden border border-[#cbd5e1] inline-block shadow-2xs w-full max-w-[280px] bg-white">
+                    <Image
+                      src="/suleman-portrait-2.jpg"
+                      alt="Suleman Zaheer — Focused Portrait of Full-Stack Engineer and Urdu Poet"
+                      width={800}
+                      height={1000}
+                      className="w-full h-auto object-contain rounded-xs"
+                    />
                   </div>
+                  <p className="text-[10px] text-[#64748b] mt-1.5 italic">
+                    Full-Stack Engineer &amp; Urdu Poet in Lahore
+                  </p>
                 </div>
 
                 {/* Infobox Data Table */}
@@ -1185,47 +1101,6 @@ export default function SulemanZaheerWikiPage() {
                         Founder &amp; CEO, SAMStack Tech
                       </td>
                     </tr>
-
-                    {/* Financial Infobox Highlight */}
-                    <tr className="bg-emerald-50/50">
-                      <th className="p-2.5 bg-emerald-100/50 font-bold text-emerald-950 align-top">
-                        Monthly income
-                      </th>
-                      <td className="p-2.5 bg-emerald-50/40 text-emerald-900 space-y-1">
-                        <div>
-                          <p className="font-bold text-emerald-800 text-xs">
-                            PKR 1.5–2.0 Lakh / month
-                          </p>
-                          <p className="text-[10px] text-emerald-700 font-medium">
-                            ≈ $530–$715 USD/mo (from SamToolbox alone)
-                          </p>
-                        </div>
-                        <div className="pt-1 border-t border-emerald-200/60">
-                          <p className="font-bold text-blue-900 text-xs">
-                            Hundreds of USD / month
-                          </p>
-                          <p className="text-[10px] text-blue-700">
-                            (from SAMStack Tech client contracts)
-                          </p>
-                        </div>
-                      </td>
-                    </tr>
-
-                    {/* Net Worth Infobox Highlight */}
-                    <tr className="bg-amber-50/50">
-                      <th className="p-2.5 bg-amber-100/50 font-bold text-amber-950 align-top">
-                        Net worth
-                      </th>
-                      <td className="p-2.5 bg-amber-50/40 text-amber-900">
-                        <p className="font-bold text-sm text-amber-950">
-                          ~$200,000 USD
-                        </p>
-                        <p className="text-[10px] text-amber-800 font-medium">
-                          ≈ PKR 55–60 Million (2026 estimate)
-                        </p>
-                      </td>
-                    </tr>
-
                     <tr>
                       <th className="p-2.5 bg-[#f1f5f9] font-bold text-[#0f172a] align-top">
                         Father

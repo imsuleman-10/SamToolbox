@@ -3323,13 +3323,6 @@ export function getToolJsonLd(slug: string) {
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      ratingCount: "18420",
-      bestRating: "5",
-      worstRating: "1",
-    },
     author: {
       "@type": "Person",
       "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person",
@@ -3348,6 +3341,43 @@ export function getToolJsonLd(slug: string) {
       url: BASE_URL,
     },
     image: "https://samtoolbox.vercel.app/og-image.jpg",
+  };
+
+  const howToSchema = {
+    "@type": "HowTo",
+    "@id": `${url}#howto`,
+    name: `How to Use ${title} Online`,
+    description: `Step-by-step instructions for using the free online ${title} tool with zero server uploads on SamToolbox.`,
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload or Select Your Files",
+        text: "Select or drag and drop your data directly into the tool interface on your device.",
+        url: `${url}#step-1`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Configure Settings & Options",
+        text: "Customize parameters, formatting, compression level, or target values with instant preview.",
+        url: `${url}#step-2`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "100% In-Browser Local Processing",
+        text: "Transformations and calculations execute inside browser RAM via client-side WebAssembly and Web Crypto.",
+        url: `${url}#step-3`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 4,
+        name: "Download or Copy Result",
+        text: "Save your processed file or copy the generated output directly to your device with zero watermarks.",
+        url: `${url}#step-4`,
+      },
+    ],
   };
 
   const breadcrumbSchema = {
@@ -3413,12 +3443,12 @@ export function getToolJsonLd(slug: string) {
       cssSelector: [".speakable-summary", ".speakable-faq-answer"],
     },
     mainEntity: {
-      "@id": `${url}#app`,
+      "@id": `${url}#webapp`,
     },
   };
 
   return {
     "@context": "https://schema.org",
-    "@graph": [webPageSchema, appSchema, breadcrumbSchema, faqSchema],
+    "@graph": [webPageSchema, appSchema, howToSchema, breadcrumbSchema, faqSchema],
   };
 }
