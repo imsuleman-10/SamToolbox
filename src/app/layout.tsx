@@ -140,9 +140,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SamToolbox | 64+ Free Online PDF & Productivity Suite",
+    title: "SamToolbox | 84+ Free Online PDF, Developer & Productivity Suite",
     description:
-      "Merge, split, compress, convert, edit, and sign PDFs directly in your browser. Complete zero-upload privacy.",
+      "Merge, split, compress, convert, edit, and code directly in your browser with 84+ tools. Complete zero-upload privacy.",
     images: ["https://samtoolbox.vercel.app/og-image.jpg"],
     creator: "@samtoolbox",
   },

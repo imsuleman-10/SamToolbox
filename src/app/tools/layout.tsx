@@ -3,7 +3,7 @@ import { BASE_URL } from "@/lib/toolSeoData";
 
 export const metadata: Metadata = {
   title: "All Free Online PDF & Productivity Tools | SamToolbox",
-  description: "Explore 55+ free, private online tools to merge, split, compress, convert, edit, and sign PDFs, alongside Pakistani tax, merit, and land area calculators. 100% private in-browser processing with zero server uploads.",
+  description: "Explore 84+ free, private online tools to merge, split, compress, convert, edit, and sign PDFs, alongside developer utilities, calculators, and productivity tools. 100% private in-browser processing with zero server uploads.",
   keywords: [
     "all pdf tools",
     "free online pdf converter suite",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "All Online PDF & Productivity Tools | SamToolbox",
-    description: "Browse 55+ free, fast, in-browser PDF manipulation and regional utility tools. Zero cloud uploads.",
+    description: "Browse 84+ free, fast, in-browser PDF manipulation, developer, and productivity tools. Zero cloud uploads.",
     url: `${BASE_URL}/tools`,
     siteName: "SamToolbox",
     images: [
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "All Online PDF & Productivity Tools | SamToolbox",
-    description: "Browse 55+ free, fast, in-browser PDF manipulation and regional utility tools. Zero cloud uploads.",
+    description: "Browse 84+ free, fast, in-browser PDF manipulation, developer, and productivity tools. Zero cloud uploads.",
     images: ["https://samtoolbox.vercel.app/og-image.jpg"],
   },
   other: {
@@ -68,7 +68,7 @@ export default function ToolsDirectoryLayout({
         "@type": "CollectionPage",
         name: "SamToolbox Tools Directory",
         url: `${BASE_URL}/tools`,
-        description: "Complete catalog of 55+ client-side PDF tools and regional calculators.",
+        description: "Complete catalog of 84+ client-side PDF tools, developer utilities, and regional calculators.",
       },
       {
         "@type": "BreadcrumbList",

@@ -90,11 +90,11 @@ export default function HomePage() {
         </div>
 
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 mb-6 leading-tight">
-          Every tool you need to work with PDFs in one place
+          84+ Free Online Tools — PDF, Developer & Productivity Suite
         </h1>
 
         <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
-          Every tool you need to use PDFs, at your fingertips. All are 100% FREE and easy to use! Merge, split, compress, convert, rotate, unlock and watermark PDFs with just a few clicks.
+          Everything you need in one place — merge, compress and convert PDFs, format JSON, encode Base64, generate QR codes, check diffs, convert units, and 80+ more tools. 100% FREE, in-browser, zero uploads, zero sign-up.
         </p>
 
         {/* Search Bar */}

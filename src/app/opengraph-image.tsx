@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "SamToolbox - 55+ Free Online PDF & Productivity Tools";
+export const alt = "SamToolbox - 84+ Free Online PDF, Developer & Productivity Tools";
 export const size = {
   width: 1200,
   height: 630,
@@ -128,11 +128,11 @@ export default async function Image() {
         {/* Bottom Feature Pills */}
         <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", width: "100%" }}>
           {[
-            "55+ Free Production Tools",
+            "84+ Free Production Tools",
             "Merge & Compress PDF",
-            "Word & Excel to PDF",
+            "JSON, Base64 & Diff",
             "FBR Tax 2024-2026",
-            "Marla Converter",
+            "Time Zone & Unit Tools",
             "100% Private WebAssembly",
           ].map((pill) => (
             <div

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Contact SamToolbox | Get Support & Share Feedback",
-    description: "Reach out to the SamToolbox team. We're here to help with 55+ private browser tools.",
+    description: "Reach out to the SamToolbox team. We're here to help with 84+ private browser tools.",
     url: "https://samtoolbox.vercel.app/contact",
     images: ["https://samtoolbox.vercel.app/og-image.jpg"],
     type: "website",

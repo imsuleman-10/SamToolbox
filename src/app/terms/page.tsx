@@ -58,7 +58,7 @@ export default function TermsOfServicePage() {
           <section className="space-y-3">
             <h2 className="text-xl font-bold text-slate-900">2. Free Lifetime Commercial &amp; Personal License</h2>
             <p>
-              All 62+ utility tools on SamToolbox—including PDF manipulation suites, academic assignment formatters, FBR income tax calculators, university merit aggregators, and land area converters—are provided <strong>100% free of charge</strong> for:
+              All 84+ utility tools on SamToolbox—including PDF manipulation suites, developer utilities, academic assignment formatters, FBR income tax calculators, university merit aggregators, and land area converters—are provided <strong>100% free of charge</strong> for:
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-xs">
               <li>Individual personal workflows and study requirements.</li>

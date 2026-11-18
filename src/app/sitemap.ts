@@ -68,9 +68,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: createLanguageAlternates(`${BASE_URL}/suleman-zaheer`),
       },
       images: [
-        `${BASE_URL}/sam_new.png`,
-        `${BASE_URL}/suleman-pro.png`,
-        `${BASE_URL}/suleman.png`,
+        "https://suleman-zaheer.vercel.app/gallery/suleman-zaheer-software-engineer-writer-lahore.jpeg",
+        "https://suleman-zaheer.vercel.app/gallery/suleman-zaheer-1792743015157.jpg",
       ],
     },
     {
@@ -115,7 +114,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // All 64 Enterprise Tool Pages from TOOL_SEO_REGISTRY
+  // All 84 Enterprise Tool Pages from TOOL_SEO_REGISTRY
   const toolSlugs = Object.keys(TOOL_SEO_REGISTRY);
   const toolPages: MetadataRoute.Sitemap = toolSlugs.map((slug) => {
     const url = `${BASE_URL}/tools/${slug}`;

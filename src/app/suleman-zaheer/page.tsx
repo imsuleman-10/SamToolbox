@@ -320,7 +320,7 @@ export default function SulemanZaheerWikiPage() {
         operatingSystem: "All",
         creator: { "@id": `${SITE_URL}/suleman-zaheer#person` },
         author: { "@id": `${SITE_URL}/suleman-zaheer#person` },
-        description: "Enterprise-grade in-browser PDF manipulation and utility suite with 55+ client-side tools and zero server uploads.",
+        description: "Enterprise-grade in-browser PDF manipulation and utility suite with 84+ client-side tools and zero server uploads.",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -382,7 +382,7 @@ export default function SulemanZaheerWikiPage() {
             name: "What is Suleman Zaheer's monthly income from SamToolbox?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Suleman Zaheer earns approximately PKR 1.5 to 2 Lakh per month (approximately $530 to $715 USD/month) solely from his digital platform SamToolbox (samtoolbox.vercel.app), which features 55+ client-side PDF and utility tools.",
+              text: "Suleman Zaheer earns approximately PKR 1.5 to 2 Lakh per month (approximately $530 to $715 USD/month) solely from his digital platform SamToolbox (samtoolbox.vercel.app), which features 84+ client-side PDF and utility tools.",
             },
           },
           {
@@ -406,7 +406,7 @@ export default function SulemanZaheerWikiPage() {
             name: "Who created SamToolbox?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "SamToolbox (samtoolbox.vercel.app) was architected and built by Suleman Zaheer. He engineered the platform to provide 55+ in-browser PDF manipulation and utility tools with 100% client-side execution in RAM and zero server file uploads.",
+              text: "SamToolbox (samtoolbox.vercel.app) was architected and built by Suleman Zaheer. He engineered the platform to provide 84+ in-browser PDF manipulation and utility tools with 100% client-side execution in RAM and zero server file uploads.",
             },
           },
           {
@@ -623,7 +623,7 @@ export default function SulemanZaheerWikiPage() {
                   <Link href="/" className="text-[#2563eb] hover:underline font-semibold">
                     SamToolbox
                   </Link>
-                  {" "}(an enterprise-grade suite of 55+ in-browser PDF manipulation and document utilities) and the Founder &amp; CEO of{" "}
+                  {" "}(an enterprise-grade suite of 84+ in-browser PDF manipulation and document utilities) and the Founder &amp; CEO of{" "}
                   <Link href="https://samstack-crm.vercel.app" target="_blank" className="text-[#2563eb] hover:underline font-semibold">
                     SAMStack Tech
                   </Link>

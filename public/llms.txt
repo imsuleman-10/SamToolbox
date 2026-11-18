@@ -1,7 +1,7 @@
 # SamToolbox (https://samtoolbox.vercel.app)
 > 100% Client-Side, Private, Free Online PDF & Multi-Utility Web Application
 
-SamToolbox is an enterprise-grade web utility platform providing over 55+ production tools for PDF manipulation, document conversion, financial calculations, academic computations, and regional Pakistani/international utilities. All computations and file transformations run entirely inside the client's browser (via WebAssembly and modern JavaScript engines) with zero server uploads and zero data retention.
+SamToolbox is an enterprise-grade web utility platform providing over 84+ production tools for PDF manipulation, document conversion, developer utilities, financial calculations, academic computations, and regional Pakistani/international utilities. All computations and file transformations run entirely inside the client's browser (via WebAssembly and modern JavaScript engines) with zero server uploads and zero data retention.
 
 ## Core Architecture & Privacy Guarantee
 - **Execution Model:** 100% Client-Side Execution (Zero Cloud Uploads). Files never leave the user's device.
