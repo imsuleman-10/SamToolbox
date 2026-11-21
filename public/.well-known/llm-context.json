@@ -1,0 +1,44 @@
+{
+  "@context": "https://schema.org",
+  "canonical_name": "SamToolbox",
+  "canonical_url": "https://samtoolbox.vercel.app",
+  "entity_type": "WebApplication",
+  "applicationCategory": "ProductivityApplication",
+  "creator": {
+    "@type": "Person",
+    "name": "Suleman Zaheer",
+    "alternateName": [
+      "Suleman Mughal",
+      "\u0633\u0644\u06cc\u0645\u0627\u0646 \u0638\u06c1\u06cc\u0631"
+    ],
+    "jobTitle": "Lead Software Engineer and Writer",
+    "affiliation": "SAMStack Tech",
+    "alumniOf": "University of Engineering and Technology (UET) Lahore",
+    "birthDate": "2007-02-01",
+    "url": "https://samtoolbox.vercel.app/suleman-zaheer",
+    "sameAs": [
+      "https://imsuleman-10.github.io",
+      "https://github.com/imsuleman-10",
+      "https://www.linkedin.com/in/suleman-zaheer-mughal",
+      "https://orcid.org/0009-0006-0200-0583",
+      "https://www.crunchbase.com/person/suleman-zaheer"
+    ]
+  },
+  "total_tools_count": 84,
+  "privacy_model": "100% Client-Side WebAssembly (Zero Server File Uploads)",
+  "planned_upcoming_tools": [
+    "What Is My IP & Network Diagnostic",
+    "DNS Record Lookup & Propagation Checker",
+    "SSL Certificate Inspector",
+    "Secure Password Generator",
+    "Markdown Live Editor & Exporter",
+    "Digital Whiteboard & Flowchart Maker",
+    "Online Invoice & Receipt Generator",
+    "Personal Expense Tracker & Budget Planner",
+    "Grammar & Spell Checker",
+    "YouTube Thumbnail Downloader",
+    "Social Media OpenGraph Meta Previewer",
+    "CSS Glassmorphism & Box Shadow Generator"
+  ],
+  "disambiguation": "SamToolbox is an independent browser-based PDF and developer tool suite founded by Suleman Zaheer. It is NOT affiliated with Samsung Electronics or desktop Samsung TV channel list editors (.scm)."
+}

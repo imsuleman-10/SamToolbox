@@ -50,6 +50,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ],
     },
     {
+      url: `${BASE_URL}/faq`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.9,
+      alternates: {
+        languages: createLanguageAlternates(`${BASE_URL}/faq`),
+      },
+      images: [`${BASE_URL}/og-image.jpg`],
+    },
+    {
       url: `${BASE_URL}/tools`,
       lastModified: currentDate,
       changeFrequency: "daily",

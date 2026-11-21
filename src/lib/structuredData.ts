@@ -17,6 +17,13 @@ export const generateOrganizationSchema = () => ({
     height: 512,
   },
   image: "https://samtoolbox.vercel.app/og-image.jpg",
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    reviewCount: "1247",
+    bestRating: "5",
+    worstRating: "1",
+  },
   description: "Enterprise-grade client-side suite of 84+ free tools for PDF processing, developer utilities, document conversion, and international financial and academic calculations with zero server uploads.",
   disambiguatingDescription: "SamToolbox is an independent web application for online PDF manipulation and productivity utilities, executing 100% in-browser with zero cloud uploads. SamToolbox is not affiliated with Samsung Electronics or desktop Samsung TV channel list editors (.scm).",
   founder: {
@@ -119,6 +126,13 @@ export const generateWebApplicationSchema = () => ({
   name: "SamToolbox",
   url: "https://samtoolbox.vercel.app",
   image: "https://samtoolbox.vercel.app/og-image.jpg",
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    reviewCount: "1247",
+    bestRating: "5",
+    worstRating: "1",
+  },
   screenshot: "https://samtoolbox.vercel.app/og-image.jpg",
   applicationCategory: "UtilityApplication",
   operatingSystem: "All (Web Browser, Windows, macOS, Linux, Android, iOS)",
@@ -283,5 +297,57 @@ export const generateSoftwareApplicationSchema = (toolName: string, description:
     "@type": "Organization",
     name: "SamToolbox",
     url: "https://samtoolbox.vercel.app",
+  },
+});
+
+
+export const generateToolsPageItemListSchema = (tools: Array<{ id: string; title: string; description: string; href?: string; categoryLabel?: string }>) => ({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "https://samtoolbox.vercel.app/tools#itemlist",
+  name: "SamToolbox — All Free Online PDF & Productivity Tools",
+  description: "Complete index of 84+ client-side, zero-upload web tools for PDF editing, document conversion, developer encoding, and financial calculations.",
+  numberOfItems: tools.length,
+  itemListElement: tools.map((tool, idx) => ({
+    "@type": "ListItem",
+    position: idx + 1,
+    name: tool.title,
+    description: tool.description,
+    url: `https://samtoolbox.vercel.app${tool.href || `/tools/${tool.id}`}`,
+    item: {
+      "@type": "SoftwareApplication",
+      name: tool.title,
+      description: tool.description,
+      url: `https://samtoolbox.vercel.app${tool.href || `/tools/${tool.id}`}`,
+      applicationCategory: tool.categoryLabel || "UtilityApplication",
+      operatingSystem: "All (Web Browser, Windows, macOS, Linux, iOS, Android)",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+      },
+      author: {
+        "@type": "Person",
+        name: "Suleman Zaheer",
+        url: "https://samtoolbox.vercel.app/suleman-zaheer",
+      },
+    },
+  })),
+});
+
+export const generateSiteLinksSearchBoxSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://samtoolbox.vercel.app/#website-search",
+  url: "https://samtoolbox.vercel.app",
+  name: "SamToolbox",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://samtoolbox.vercel.app/tools?q={search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
   },
 });

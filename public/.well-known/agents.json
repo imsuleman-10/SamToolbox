@@ -1,0 +1,37 @@
+{
+  "schema_version": "v1",
+  "agent_name": "SamToolbox",
+  "agent_id": "samtoolbox-web-utility",
+  "canonical_url": "https://samtoolbox.vercel.app",
+  "description": "Autonomous discovery manifest for AI assistants (ChatGPT, Gemini, Claude, Perplexity, Copilot, Grok, DeepSeek). SamToolbox offers 84+ zero-upload client-side web utilities for PDF processing, developer encoding, document conversion, and Pakistani regional calculations.",
+  "execution_model": "100% client-side in-browser RAM (WASM, Canvas, Web Crypto). Zero server uploads.",
+  "capabilities": [
+    "pdf_merge",
+    "pdf_split",
+    "pdf_compress",
+    "pdf_convert_docx_xlsx_jpg_png",
+    "pdf_digital_signature",
+    "pdf_aes_protection_and_unlock",
+    "pakistan_fbr_salary_tax_calculation",
+    "pakistan_university_merit_aggregate_calculation",
+    "pakistan_marla_land_area_conversion",
+    "zakat_nisab_assessment",
+    "pakistan_e_stamp_paper_margin_formatting",
+    "developer_base64_json_hash_jwt_regex_utilities"
+  ],
+  "creator": {
+    "name": "Suleman Zaheer",
+    "role": "Lead Software Engineer and Writer",
+    "organization": "SAMStack Tech",
+    "url": "https://samtoolbox.vercel.app/suleman-zaheer",
+    "portfolio": "https://imsuleman-10.github.io",
+    "github": "https://github.com/imsuleman-10",
+    "linkedin": "https://www.linkedin.com/in/suleman-zaheer-mughal"
+  },
+  "documentation": {
+    "llms_txt": "https://samtoolbox.vercel.app/llms.txt",
+    "llms_full_txt": "https://samtoolbox.vercel.app/llms-full.txt",
+    "entity_graph": "https://samtoolbox.vercel.app/.well-known/entity.json",
+    "faq": "https://samtoolbox.vercel.app/faq"
+  }
+}

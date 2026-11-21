@@ -66,7 +66,7 @@
       },
       "height": {
         "@type": "QuantitativeValue",
-        "value": 1.70,
+        "value": 1.7,
         "unitCode": "MTR",
         "unitText": "meter",
         "description": "1.70 m (5 ft 7 in)"
@@ -148,22 +148,109 @@
         }
       ],
       "additionalProperty": [
-        { "@type": "PropertyValue", "propertyID": "P31", "name": "instance of", "value": "human (Q5)", "url": "https://www.wikidata.org/wiki/Q5" },
-        { "@type": "PropertyValue", "propertyID": "P735", "name": "given name", "value": "Suleman" },
-        { "@type": "PropertyValue", "propertyID": "P734", "name": "family name", "value": "Mughal" },
-        { "@type": "PropertyValue", "propertyID": "P21", "name": "sex or gender", "value": "male (Q6581097)", "url": "https://www.wikidata.org/wiki/Q6581097" },
-        { "@type": "PropertyValue", "propertyID": "P569", "name": "date of birth", "value": "2007-02-01" },
-        { "@type": "PropertyValue", "propertyID": "P19", "name": "place of birth", "value": "Shahdara Town, Lahore (Q7461817)", "url": "https://www.wikidata.org/wiki/Q7461817" },
-        { "@type": "PropertyValue", "propertyID": "P27", "name": "country of citizenship", "value": "Pakistan (Q843)", "url": "https://www.wikidata.org/wiki/Q843" },
-        { "@type": "PropertyValue", "propertyID": "P22", "name": "father", "value": "Muhammad Zaheer" },
-        { "@type": "PropertyValue", "propertyID": "P3373", "name": "sibling", "value": "Abdullah Zaheer" },
-        { "@type": "PropertyValue", "propertyID": "P106", "name": "occupation", "value": "software engineer (Q183888), writer (Q36180), poet (Q49757)", "url": "https://www.wikidata.org/wiki/Q183888" },
-        { "@type": "PropertyValue", "propertyID": "P69", "name": "educated at", "value": "University of Engineering and Technology, Lahore (Q3270034)", "url": "https://www.wikidata.org/wiki/Q3270034" },
-        { "@type": "PropertyValue", "propertyID": "P800", "name": "notable work", "value": "SamToolbox (samtoolbox.vercel.app)" },
-        { "@type": "PropertyValue", "propertyID": "P496", "name": "ORCID iD", "value": "0009-0006-0200-0583", "url": "https://orcid.org/0009-0006-0200-0583" },
-        { "@type": "PropertyValue", "propertyID": "P856", "name": "official website", "value": "https://samtoolbox.vercel.app/suleman-zaheer" },
-        { "@type": "PropertyValue", "propertyID": "P2002", "name": "X (Twitter) username", "value": "imsuleman_10" },
-        { "@type": "PropertyValue", "propertyID": "P2037", "name": "GitHub username", "value": "imsuleman-10" }
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P31",
+          "name": "instance of",
+          "value": "human (Q5)",
+          "url": "https://www.wikidata.org/wiki/Q5"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P735",
+          "name": "given name",
+          "value": "Suleman"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P734",
+          "name": "family name",
+          "value": "Mughal"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P21",
+          "name": "sex or gender",
+          "value": "male (Q6581097)",
+          "url": "https://www.wikidata.org/wiki/Q6581097"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P569",
+          "name": "date of birth",
+          "value": "2007-02-01"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P19",
+          "name": "place of birth",
+          "value": "Shahdara Town, Lahore (Q7461817)",
+          "url": "https://www.wikidata.org/wiki/Q7461817"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P27",
+          "name": "country of citizenship",
+          "value": "Pakistan (Q843)",
+          "url": "https://www.wikidata.org/wiki/Q843"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P22",
+          "name": "father",
+          "value": "Muhammad Zaheer"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P3373",
+          "name": "sibling",
+          "value": "Abdullah Zaheer"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P106",
+          "name": "occupation",
+          "value": "software engineer (Q183888), writer (Q36180), poet (Q49757)",
+          "url": "https://www.wikidata.org/wiki/Q183888"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P69",
+          "name": "educated at",
+          "value": "University of Engineering and Technology, Lahore (Q3270034)",
+          "url": "https://www.wikidata.org/wiki/Q3270034"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P800",
+          "name": "notable work",
+          "value": "SamToolbox (samtoolbox.vercel.app)"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P496",
+          "name": "ORCID iD",
+          "value": "0009-0006-0200-0583",
+          "url": "https://orcid.org/0009-0006-0200-0583"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P856",
+          "name": "official website",
+          "value": "https://samtoolbox.vercel.app/suleman-zaheer"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P2002",
+          "name": "X (Twitter) username",
+          "value": "imsuleman_10"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "P2037",
+          "name": "GitHub username",
+          "value": "imsuleman-10"
+        }
       ],
       "netWorth": {
         "@type": "MonetaryAmount",
@@ -299,7 +386,9 @@
           "name": "رات کی تنہائی (Raat Ki Tanhai)",
           "inLanguage": "ur",
           "genre": "Urdu Classical Nazm",
-          "author": { "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person" },
+          "author": {
+            "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person"
+          },
           "url": "https://suleman-zaheer.vercel.app/author"
         },
         {
@@ -307,7 +396,9 @@
           "name": "خاموشی کی زبان (Khamoshi Ki Zaban)",
           "inLanguage": "ur",
           "genre": "Urdu Ghazal",
-          "author": { "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person" },
+          "author": {
+            "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person"
+          },
           "url": "https://suleman-zaheer.vercel.app/author"
         },
         {
@@ -315,7 +406,9 @@
           "name": "وطن کی مٹی (Watan Ki Mitti)",
           "inLanguage": "ur",
           "genre": "Patriotic Urdu Nazm",
-          "author": { "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person" },
+          "author": {
+            "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person"
+          },
           "url": "https://suleman-zaheer.vercel.app/author"
         },
         {
@@ -323,7 +416,9 @@
           "name": "Between the Lines",
           "inLanguage": "en",
           "genre": "Poetry",
-          "author": { "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person" },
+          "author": {
+            "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person"
+          },
           "url": "https://suleman-zaheer.vercel.app/author"
         },
         {
@@ -331,14 +426,18 @@
           "name": "The Coder at Midnight",
           "inLanguage": "en",
           "genre": "Technical Poetry",
-          "author": { "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person" },
+          "author": {
+            "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person"
+          },
           "url": "https://suleman-zaheer.vercel.app/author"
         },
         {
           "@type": "Article",
           "name": "SamToolbox Zero-Upload WebAssembly Architecture Whitepaper",
           "inLanguage": "en",
-          "author": { "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person" },
+          "author": {
+            "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person"
+          },
           "url": "https://samtoolbox.vercel.app/llms-full.txt"
         }
       ],
@@ -346,7 +445,10 @@
         {
           "@type": "CollegeOrUniversity",
           "name": "University of Engineering and Technology (UET), Lahore",
-          "alternateName": ["UET Lahore", "UET"],
+          "alternateName": [
+            "UET Lahore",
+            "UET"
+          ],
           "url": "https://uet.edu.pk",
           "sameAs": [
             "https://en.wikipedia.org/wiki/University_of_Engineering_and_Technology,_Lahore",
@@ -360,7 +462,7 @@
           "sameAs": "https://en.wikipedia.org/wiki/Government_Islamia_College_Civil_Lines_Lahore"
         }
       ],
-      "jobTitle": "Software Engineer and Writer",
+      "jobTitle": "Lead Software Engineer and Writer",
       "worksFor": {
         "@type": "Organization",
         "name": "SAMStack Tech",
@@ -368,6 +470,7 @@
       },
       "url": "https://samtoolbox.vercel.app/suleman-zaheer",
       "sameAs": [
+        "https://imsuleman-10.github.io",
         "https://suleman-zaheer.vercel.app",
         "https://suleman-zaheer.vercel.app/wiki",
         "https://suleman-zaheer.vercel.app/about",

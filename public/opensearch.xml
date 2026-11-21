@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>SamToolbox</ShortName>
+  <Description>Search 84+ free online PDF tools, developer utilities, and calculators at SamToolbox</Description>
+  <Tags>PDF tools converter calculator free online zero-upload</Tags>
+  <Contact>support@samtoolbox.com</Contact>
+  <Url type="text/html" template="https://samtoolbox.vercel.app/tools?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://samtoolbox.vercel.app/opensearch.xml"/>
+  <Image height="16" width="16" type="image/png">https://samtoolbox.vercel.app/favicon.png</Image>
+  <Image height="64" width="64" type="image/png">https://samtoolbox.vercel.app/logo.png</Image>
+  <Language>en-us</Language>
+  <OutputEncoding>UTF-8</OutputEncoding>
+  <InputEncoding>UTF-8</InputEncoding>
+</OpenSearchDescription>

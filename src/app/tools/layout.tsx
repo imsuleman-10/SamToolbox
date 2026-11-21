@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/toolSeoData";
+import { ALL_TOOLS } from "@/lib/allToolsList";
+import { generateToolsPageItemListSchema } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "All Free Online PDF & Productivity Tools | SamToolbox",
@@ -61,6 +63,8 @@ export default function ToolsDirectoryLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const itemListSchema = generateToolsPageItemListSchema(ALL_TOOLS);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -68,7 +72,7 @@ export default function ToolsDirectoryLayout({
         "@type": "CollectionPage",
         name: "SamToolbox Tools Directory",
         url: `${BASE_URL}/tools`,
-        description: "Complete catalog of 84+ client-side PDF tools, developer utilities, and regional calculators.",
+        description: "Complete catalog of 84+ client-side PDF tools, developer utilities, and regional calculators created by Suleman Zaheer.",
       },
       {
         "@type": "BreadcrumbList",
@@ -87,12 +91,13 @@ export default function ToolsDirectoryLayout({
           },
         ],
       },
+      itemListSchema,
     ],
   };
 
   return (
     <>
-      {/* 100% Server-Side Rendered (SSR) CollectionPage Schema */}
+      {/* 100% Server-Side Rendered (SSR) CollectionPage & ItemList Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
