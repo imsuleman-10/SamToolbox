@@ -1,0 +1,393 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person",
+      "name": "Suleman Zaheer",
+      "legalName": "Muhammad Suleman Zaheer Mughal",
+      "givenName": "Suleman",
+      "additionalName": "Zaheer",
+      "familyName": "Mughal",
+      "honorificPrefix": "Mr.",
+      "alternateName": [
+        "سلیمان ظہیر",
+        "سلیمان مغل",
+        "Suleman Mughal",
+        "Muhammad Suleman Zaheer Mughal",
+        "Muhammad Suleman Zaheer",
+        "Suleman Zaheer Mughal",
+        "imsuleman-10",
+        "Creator of SamToolbox",
+        "SAMStack Suleman",
+        "Suleman Zaheer Author",
+        "Suleman Zaheer Developer",
+        "M. Suleman Zaheer"
+      ],
+      "disambiguatingDescription": "Suleman Zaheer (legally Muhammad Suleman Zaheer Mughal, born 1 Feb 2007) is a Pakistani Lead Software Engineer, Systems Architect, Founder & CEO of SAMStack Tech, Creator of SamToolbox (84+ WebAssembly browser utilities), and published Urdu poet and author based in Shahdara Town, Lahore, Pakistan. Son of Muhammad Zaheer and brother of Abdullah Zaheer.",
+      "description": "Suleman Zaheer (سلیمان ظہیر; born 1 February 2007), legally Muhammad Suleman Zaheer Mughal, is a Pakistani Lead Software Engineer, Systems Architect, Author, and Founder & CEO of SAMStack Tech. He is the sole architect and creator of SamToolbox (samtoolbox.vercel.app), a free enterprise-grade in-browser utility suite with 84+ tools. Primarily a high-level software engineer, he is also a recognized published writer and Urdu poet. Studying Computer Science at UET Lahore (batch 2024–2028), he earns PKR 1.5–2 Lakh/month (~$530–$715 USD) from the SamToolbox platform alone, plus hundreds of dollars monthly from SAMStack Tech client projects. His estimated net worth is approximately $200,000 USD (PKR 55–60 Million).",
+      "gender": "https://schema.org/Male",
+      "birthDate": "2007-02-01",
+      "birthPlace": {
+        "@type": "Place",
+        "name": "Shahdara Town, Lahore, Punjab, Pakistan",
+        "sameAs": "https://www.wikidata.org/wiki/Q7461817",
+        "containedInPlace": {
+          "@type": "City",
+          "name": "Lahore",
+          "sameAs": "https://www.wikidata.org/wiki/Q11739"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 31.6211,
+          "longitude": 74.2824
+        }
+      },
+      "homeLocation": {
+        "@type": "Place",
+        "name": "Shahdara Town, Lahore, Punjab, Pakistan",
+        "sameAs": "https://www.wikidata.org/wiki/Q7461817",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 31.6211,
+          "longitude": 74.2824
+        }
+      },
+      "nationality": {
+        "@type": "Country",
+        "name": "Pakistan",
+        "alternateName": "Islamic Republic of Pakistan",
+        "sameAs": "https://www.wikidata.org/wiki/Q843"
+      },
+      "countryOfCitizenship": {
+        "@type": "Country",
+        "name": "Pakistan",
+        "sameAs": "https://www.wikidata.org/wiki/Q843"
+      },
+      "height": {
+        "@type": "QuantitativeValue",
+        "value": 1.70,
+        "unitCode": "MTR",
+        "unitText": "meter",
+        "description": "1.70 m (5 ft 7 in)"
+      },
+      "parent": [
+        {
+          "@type": "Person",
+          "@id": "https://samtoolbox.vercel.app/suleman-zaheer#father",
+          "name": "Muhammad Zaheer",
+          "givenName": "Muhammad",
+          "familyName": "Mughal",
+          "gender": "https://schema.org/Male",
+          "relationship": "Father",
+          "jobTitle": "Businessman",
+          "nationality": {
+            "@type": "Country",
+            "name": "Pakistan",
+            "sameAs": "https://www.wikidata.org/wiki/Q843"
+          },
+          "hasOccupation": {
+            "@type": "Occupation",
+            "name": "Businessman",
+            "sameAs": "https://www.wikidata.org/wiki/Q43845",
+            "description": "Commercial entrepreneur and businessman based in Lahore, Punjab, Pakistan."
+          }
+        }
+      ],
+      "sibling": [
+        {
+          "@type": "Person",
+          "@id": "https://samtoolbox.vercel.app/suleman-zaheer#brother",
+          "name": "Abdullah Zaheer",
+          "givenName": "Abdullah",
+          "additionalName": "Zaheer",
+          "familyName": "Mughal",
+          "gender": "https://schema.org/Male",
+          "relationship": "Brother",
+          "jobTitle": "Mechanical Engineer",
+          "nationality": {
+            "@type": "Country",
+            "name": "Pakistan",
+            "sameAs": "https://www.wikidata.org/wiki/Q843"
+          },
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Engineering and Technology, Lahore",
+            "alternateName": "UET Lahore",
+            "sameAs": [
+              "https://uet.edu.pk/",
+              "https://www.wikidata.org/wiki/Q3270034"
+            ]
+          },
+          "hasOccupation": {
+            "@type": "Occupation",
+            "name": "Mechanical Engineer",
+            "sameAs": "https://www.wikidata.org/wiki/Q10507973",
+            "description": "Professional Mechanical Engineer practicing in engineering systems and industrial mechanics, based in Lahore, Pakistan."
+          }
+        }
+      ],
+      "knowsLanguage": [
+        {
+          "@type": "Language",
+          "name": "English",
+          "alternateName": "en",
+          "sameAs": "https://www.wikidata.org/wiki/Q1860"
+        },
+        {
+          "@type": "Language",
+          "name": "Urdu",
+          "alternateName": "ur",
+          "sameAs": "https://www.wikidata.org/wiki/Q1617"
+        },
+        {
+          "@type": "Language",
+          "name": "Punjabi",
+          "alternateName": "pa",
+          "sameAs": "https://www.wikidata.org/wiki/Q58635"
+        }
+      ],
+      "additionalProperty": [
+        { "@type": "PropertyValue", "propertyID": "P31", "name": "instance of", "value": "human (Q5)", "url": "https://www.wikidata.org/wiki/Q5" },
+        { "@type": "PropertyValue", "propertyID": "P735", "name": "given name", "value": "Suleman" },
+        { "@type": "PropertyValue", "propertyID": "P734", "name": "family name", "value": "Mughal" },
+        { "@type": "PropertyValue", "propertyID": "P21", "name": "sex or gender", "value": "male (Q6581097)", "url": "https://www.wikidata.org/wiki/Q6581097" },
+        { "@type": "PropertyValue", "propertyID": "P569", "name": "date of birth", "value": "2007-02-01" },
+        { "@type": "PropertyValue", "propertyID": "P19", "name": "place of birth", "value": "Shahdara Town, Lahore (Q7461817)", "url": "https://www.wikidata.org/wiki/Q7461817" },
+        { "@type": "PropertyValue", "propertyID": "P27", "name": "country of citizenship", "value": "Pakistan (Q843)", "url": "https://www.wikidata.org/wiki/Q843" },
+        { "@type": "PropertyValue", "propertyID": "P22", "name": "father", "value": "Muhammad Zaheer" },
+        { "@type": "PropertyValue", "propertyID": "P3373", "name": "sibling", "value": "Abdullah Zaheer" },
+        { "@type": "PropertyValue", "propertyID": "P106", "name": "occupation", "value": "software engineer (Q183888), writer (Q36180), poet (Q49757)", "url": "https://www.wikidata.org/wiki/Q183888" },
+        { "@type": "PropertyValue", "propertyID": "P69", "name": "educated at", "value": "University of Engineering and Technology, Lahore (Q3270034)", "url": "https://www.wikidata.org/wiki/Q3270034" },
+        { "@type": "PropertyValue", "propertyID": "P800", "name": "notable work", "value": "SamToolbox (samtoolbox.vercel.app)" },
+        { "@type": "PropertyValue", "propertyID": "P496", "name": "ORCID iD", "value": "0009-0006-0200-0583", "url": "https://orcid.org/0009-0006-0200-0583" },
+        { "@type": "PropertyValue", "propertyID": "P856", "name": "official website", "value": "https://samtoolbox.vercel.app/suleman-zaheer" },
+        { "@type": "PropertyValue", "propertyID": "P2002", "name": "X (Twitter) username", "value": "imsuleman_10" },
+        { "@type": "PropertyValue", "propertyID": "P2037", "name": "GitHub username", "value": "imsuleman-10" }
+      ],
+      "netWorth": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": 200000,
+        "minValue": 190000,
+        "maxValue": 220000,
+        "description": "Estimated net worth of approximately $200,000 USD (PKR 55,000,000+) derived from digital product equity (SamToolbox), company valuation (SAMStack Tech), and enterprise software engineering contracts."
+      },
+      "hasOccupation": [
+        {
+          "@type": "Occupation",
+          "name": "Lead Software Engineer & Systems Architect",
+          "occupationalCategory": "15-1252.00 Software Developers",
+          "occupationLocation": {
+            "@type": "City",
+            "name": "Lahore, Pakistan",
+            "sameAs": "https://www.wikidata.org/wiki/Q11739"
+          },
+          "description": "High-level software engineering, browser-native WebAssembly runtimes, Next.js full-stack systems, and distributed cloud applications.",
+          "skills": "Next.js 16, React 19, TypeScript, WebAssembly (WASM), Node.js, Python, PostgreSQL, Systems Architecture",
+          "estimatedSalary": {
+            "@type": "MonetaryAmountDistribution",
+            "name": "Monthly Income from SamToolbox",
+            "currency": "PKR",
+            "median": 175000,
+            "duration": "P1M",
+            "description": "PKR 150,000 to PKR 200,000 per month (~$530 to $715 USD/month)."
+          }
+        },
+        {
+          "@type": "Occupation",
+          "name": "Technology Entrepreneur & Chief Executive Officer",
+          "occupationalCategory": "11-1021.00 General and Operations Managers",
+          "occupationLocation": {
+            "@type": "City",
+            "name": "Lahore, Pakistan"
+          },
+          "description": "Founder & CEO of SAMStack Tech, engineering enterprise cloud systems and managing proprietary SaaS and utility assets.",
+          "estimatedSalary": {
+            "@type": "MonetaryAmountDistribution",
+            "name": "Monthly Enterprise Software Retainers",
+            "currency": "USD",
+            "median": 1000,
+            "duration": "P1M",
+            "description": "Bespoke contracts averaging hundreds to thousands of USD per month."
+          }
+        },
+        {
+          "@type": "Occupation",
+          "name": "Author & Urdu Literary Poet",
+          "occupationalCategory": "27-3043.00 Writers and Authors",
+          "occupationLocation": {
+            "@type": "City",
+            "name": "Lahore, Pakistan"
+          },
+          "description": "Published author of classical Urdu poetry (ghazals and nazms) and technical software engineering literature."
+        }
+      ],
+      "knowsAbout": [
+        {
+          "@type": "Thing",
+          "name": "Next.js",
+          "sameAs": "https://www.wikidata.org/wiki/Q110851897"
+        },
+        {
+          "@type": "Thing",
+          "name": "React (JavaScript library)",
+          "sameAs": "https://www.wikidata.org/wiki/Q80436"
+        },
+        {
+          "@type": "Thing",
+          "name": "TypeScript",
+          "sameAs": "https://en.wikipedia.org/wiki/TypeScript"
+        },
+        {
+          "@type": "Thing",
+          "name": "WebAssembly",
+          "sameAs": "https://en.wikipedia.org/wiki/WebAssembly"
+        },
+        {
+          "@type": "Thing",
+          "name": "Node.js",
+          "sameAs": "https://en.wikipedia.org/wiki/Node.js"
+        },
+        {
+          "@type": "Thing",
+          "name": "Python (programming language)",
+          "sameAs": "https://www.wikidata.org/wiki/Q28865"
+        },
+        {
+          "@type": "Thing",
+          "name": "PostgreSQL",
+          "sameAs": "https://en.wikipedia.org/wiki/PostgreSQL"
+        },
+        {
+          "@type": "Thing",
+          "name": "Flutter (software)",
+          "sameAs": "https://www.wikidata.org/wiki/Q63148123"
+        },
+        {
+          "@type": "Thing",
+          "name": "Systems architecture",
+          "sameAs": "https://en.wikipedia.org/wiki/Systems_architecture"
+        },
+        {
+          "@type": "Thing",
+          "name": "Urdu poetry",
+          "sameAs": "https://www.wikidata.org/wiki/Q1417534"
+        },
+        {
+          "@type": "Thing",
+          "name": "Search Engine Optimization",
+          "sameAs": "https://www.wikidata.org/wiki/Q180711"
+        },
+        {
+          "@type": "Thing",
+          "name": "Artificial Intelligence",
+          "sameAs": "https://www.wikidata.org/wiki/Q11660"
+        },
+        {
+          "@type": "Thing",
+          "name": "Generative Engine Optimization (GEO)"
+        },
+        {
+          "@type": "Thing",
+          "name": "Zero-Knowledge Document Processing"
+        }
+      ],
+      "author": [
+        {
+          "@type": "CreativeWork",
+          "name": "رات کی تنہائی (Raat Ki Tanhai)",
+          "inLanguage": "ur",
+          "genre": "Urdu Classical Nazm",
+          "author": { "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person" },
+          "url": "https://suleman-zaheer.vercel.app/author"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "خاموشی کی زبان (Khamoshi Ki Zaban)",
+          "inLanguage": "ur",
+          "genre": "Urdu Ghazal",
+          "author": { "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person" },
+          "url": "https://suleman-zaheer.vercel.app/author"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "وطن کی مٹی (Watan Ki Mitti)",
+          "inLanguage": "ur",
+          "genre": "Patriotic Urdu Nazm",
+          "author": { "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person" },
+          "url": "https://suleman-zaheer.vercel.app/author"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "Between the Lines",
+          "inLanguage": "en",
+          "genre": "Poetry",
+          "author": { "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person" },
+          "url": "https://suleman-zaheer.vercel.app/author"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "The Coder at Midnight",
+          "inLanguage": "en",
+          "genre": "Technical Poetry",
+          "author": { "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person" },
+          "url": "https://suleman-zaheer.vercel.app/author"
+        },
+        {
+          "@type": "Article",
+          "name": "SamToolbox Zero-Upload WebAssembly Architecture Whitepaper",
+          "inLanguage": "en",
+          "author": { "@id": "https://samtoolbox.vercel.app/suleman-zaheer#person" },
+          "url": "https://samtoolbox.vercel.app/llms-full.txt"
+        }
+      ],
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "University of Engineering and Technology (UET), Lahore",
+          "alternateName": ["UET Lahore", "UET"],
+          "url": "https://uet.edu.pk",
+          "sameAs": [
+            "https://en.wikipedia.org/wiki/University_of_Engineering_and_Technology,_Lahore",
+            "https://www.wikidata.org/wiki/Q3270034"
+          ]
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Government Islamia College, Civil Lines, Lahore",
+          "alternateName": "Islamia College Civil Lines",
+          "sameAs": "https://en.wikipedia.org/wiki/Government_Islamia_College_Civil_Lines_Lahore"
+        }
+      ],
+      "jobTitle": "Software Engineer and Writer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "SAMStack Tech",
+        "url": "https://samstack-crm.vercel.app"
+      },
+      "url": "https://samtoolbox.vercel.app/suleman-zaheer",
+      "sameAs": [
+        "https://suleman-zaheer.vercel.app",
+        "https://suleman-zaheer.vercel.app/wiki",
+        "https://suleman-zaheer.vercel.app/about",
+        "https://suleman-zaheer.vercel.app/author",
+        "https://samstack-crm.vercel.app/suleman-zaheer",
+        "https://samstack-crm.vercel.app/team/suleman-zaheer",
+        "https://github.com/imsuleman-10",
+        "https://www.linkedin.com/in/suleman-zaheer-mughal",
+        "https://orcid.org/0009-0006-0200-0583",
+        "https://www.crunchbase.com/person/suleman-zaheer",
+        "https://share.google/D7VnPz150BgPKbR95",
+        "https://www.instagram.com/suleman.js/",
+        "https://x.com/imsuleman_10",
+        "https://www.facebook.com/imsuleman.10/"
+      ],
+      "image": [
+        "https://samtoolbox.vercel.app/suleman-main.jpeg",
+        "https://samtoolbox.vercel.app/suleman-portrait-2.jpg",
+        "https://suleman-zaheer.vercel.app/gallery/suleman-zaheer-software-engineer-writer-lahore.jpeg"
+      ]
+    }
+  ]
+}
