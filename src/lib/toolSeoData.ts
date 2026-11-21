@@ -15,6 +15,705 @@ export interface ToolSeoEntry {
 export const BASE_URL = "https://samtoolbox.vercel.app";
 
 export const TOOL_SEO_REGISTRY: Record<string, ToolSeoEntry> = {
+  "pdf-to-txt": {
+    "slug": "pdf-to-txt",
+    "title": "PDF to Plain Text (TXT) Converter Online",
+    "h1": "Free Online PDF to TXT Text Extractor",
+    "metaTitle": "PDF to TXT Converter Online | Extract Clean Plain Text | SamToolbox",
+    "description": "Extract raw text from PDF documents into clean, unformatted .txt files. Fast in-browser client-side batch text extraction with zero server uploads.",
+    "keywords": [
+        "pdf to txt converter",
+        "extract text from pdf online",
+        "convert pdf to notepad text",
+        "free pdf to text tool"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "Can I convert large PDFs to text without size limits?",
+            "answer": "Yes. Because parsing runs in your browser's local RAM, there are no artificial file upload limits."
+        }
+    ]
+},
+  "meta-tags-generator": {
+    "slug": "meta-tags-generator",
+    "title": "SEO Meta Tags & Social Header Generator",
+    "h1": "Free Online SEO Meta Tags & Social Graph Generator",
+    "metaTitle": "SEO Meta Tags Generator Online | Google, OpenGraph & Twitter | SamToolbox",
+    "description": "Generate optimized HTML meta tags, OpenGraph cards, Twitter cards, and canonical tags for websites. Copy clean, validated SEO markup instantly.",
+    "keywords": [
+        "seo meta tags generator",
+        "html meta tag maker",
+        "generate opengraph tags",
+        "website meta tag builder"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "What meta tags are generated?",
+            "answer": "Title, description, canonical link, OpenGraph (og:title, og:description, og:image), Twitter cards, and robots indexing directives."
+        }
+    ]
+},
+  "color-palette-generator": {
+    "slug": "color-palette-generator",
+    "title": "Color Palette Generator from Image & Harmony",
+    "h1": "Free Online Color Palette Generator & Color Extractor",
+    "metaTitle": "Color Palette Generator Online | Extract Hex Colors from Image | SamToolbox",
+    "description": "Generate cohesive color palettes or extract dominant HEX, RGB, and HSL color swatches from uploaded images. 100% in-browser designer utility.",
+    "keywords": [
+        "color palette generator online",
+        "extract colors from image",
+        "hex color palette tool",
+        "designer color generator"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "How do I extract colors from a photo?",
+            "answer": "Upload any JPG, PNG, or WebP photo into the canvas and SamToolbox will sample dominant color clusters with exact HEX values."
+        }
+    ]
+},
+  "speech-to-text": {
+    "slug": "speech-to-text",
+    "title": "Web Speech Recognition Audio to Text Transcriber",
+    "h1": "Free Online Voice Dictation & Speech to Text Transcriber",
+    "metaTitle": "Speech to Text Online Free | Voice Typing & Dictation | SamToolbox",
+    "description": "Transcribe your voice into written text in real time using your microphone. Features high-accuracy multilingual dictation and instant text copy.",
+    "keywords": [
+        "speech to text online free",
+        "voice typing tool",
+        "audio to text dictation",
+        "transcribe speech in browser"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "Is my voice recording stored on any server?",
+            "answer": "No. Voice input is processed through the browser's Web Speech API directly without persistent audio retention."
+        }
+    ]
+},
+  "text-to-speech": {
+    "slug": "text-to-speech",
+    "title": "In-Browser Text to Speech Voice Synthesizer",
+    "h1": "Free Online Text to Speech (TTS) Audio Synthesizer",
+    "metaTitle": "Text to Speech Online Free | Natural Browser Voices | SamToolbox",
+    "description": "Convert written text into natural spoken audio using the browser's native SpeechSynthesis API. Choose custom pitch, rate, and multilingual accents with 0 uploads.",
+    "keywords": [
+        "text to speech online free",
+        "tts tool in browser",
+        "read text aloud online",
+        "speech synthesis free"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "Does Text to Speech require an internet connection?",
+            "answer": "Once loaded, voice synthesis utilizes your device's built-in operating system speech engines, functioning completely offline."
+        }
+    ]
+},
+  "random-number-generator": {
+    "slug": "random-number-generator",
+    "title": "True Random Number & Dice Generator Online",
+    "h1": "Free Online Random Number Generator & Dice Roller",
+    "metaTitle": "Random Number Generator Online | Cryptographically Secure | SamToolbox",
+    "description": "Generate cryptographically secure random numbers between custom minimum and maximum ranges. Features non-repeating lists and virtual dice rolls.",
+    "keywords": [
+        "random number generator online",
+        "rng tool free",
+        "roll dice online",
+        "cryptographic random numbers"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "Is this generator cryptographically secure?",
+            "answer": "Yes. It uses the browser's crypto.getRandomValues() method for true cryptographic randomness."
+        }
+    ]
+},
+  "box-shadow-generator": {
+    "slug": "box-shadow-generator",
+    "title": "CSS Box Shadow & Layered Shadow Generator",
+    "h1": "Free Online CSS Box Shadow & Layered Elevation Generator",
+    "metaTitle": "CSS Box Shadow Generator | Interactive Elevation Tool | SamToolbox",
+    "description": "Design smooth layered CSS box shadows with interactive controls for blur, spread, X/Y offset, inset, and color. 1-click cross-browser CSS export.",
+    "keywords": [
+        "css box shadow generator",
+        "layered shadow generator",
+        "smooth box shadow css",
+        "interactive shadow maker"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "How do layered shadows look more realistic?",
+            "answer": "By stacking multiple subtle shadows with increasing blur radii, you mimic natural optical light diffusion rather than harsh computer-generated outlines."
+        }
+    ]
+},
+  "glassmorphism-generator": {
+    "slug": "glassmorphism-generator",
+    "title": "CSS Glassmorphism & Backdrop Blur Generator",
+    "h1": "Free Online CSS Glassmorphism & Frosted Glass Generator",
+    "metaTitle": "CSS Glassmorphism Generator | Copy Modern Frosted Glass CSS | SamToolbox",
+    "description": "Create modern UI frosted glass effects with interactive sliders for opacity, backdrop blur, border radius, and shadow. Instant 1-click CSS code copy.",
+    "keywords": [
+        "css glassmorphism generator",
+        "frosted glass css effect",
+        "backdrop filter blur generator",
+        "modern css ui generator"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "How does CSS glassmorphism work?",
+            "answer": "It combines semi-transparent background colors (RGBA), CSS backdrop-filter: blur(), and subtle translucent borders to simulate physical frosted glass."
+        }
+    ]
+},
+  "pomodoro-timer": {
+    "slug": "pomodoro-timer",
+    "title": "Pomodoro Study & Focus Countdown Timer",
+    "h1": "Free Online Pomodoro Timer for Focused Deep Work",
+    "metaTitle": "Pomodoro Focus Timer Online | 25/5 Study Clock & Alarm | SamToolbox",
+    "description": "Boost academic concentration and productivity using the proven 25-minute Pomodoro study technique with customizable break intervals and audio alerts.",
+    "keywords": [
+        "pomodoro timer online",
+        "study timer 25 minutes",
+        "focus timer with alarm",
+        "pomodoro clock free"
+    ],
+    "category": "EducationalApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "What is the standard Pomodoro interval?",
+            "answer": "25 minutes of uninterrupted deep focus followed by a 5-minute short break. After 4 sessions, a 15-30 minute long break is recommended."
+        }
+    ]
+},
+  "whiteboard": {
+    "slug": "whiteboard",
+    "title": "Free Online Collaborative Whiteboard & Sketch Canvas",
+    "h1": "Free Online Digital Whiteboard & Mind-Mapping Canvas",
+    "metaTitle": "Online Whiteboard & Sketch Canvas | Draw, Mind-Map & Export | SamToolbox",
+    "description": "Draw diagrams, sketch wireframes, create mind-maps, and brainstorm on an infinite digital canvas. 100% private in-browser drawing with PNG/SVG export.",
+    "keywords": [
+        "online whiteboard free",
+        "digital sketch canvas",
+        "draw diagrams online",
+        "free mind mapping canvas"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "Can I save my drawings as image files?",
+            "answer": "Yes. You can export your whiteboard diagrams as high-resolution PNG or vector SVG files at any time."
+        }
+    ]
+},
+  "yaml-to-json": {
+    "slug": "yaml-to-json",
+    "title": "YAML to JSON & JSON to YAML Converter",
+    "h1": "Free Online YAML to JSON & JSON to YAML Converter",
+    "metaTitle": "YAML to JSON Converter Online | Bidirectional Syntax Parser | SamToolbox",
+    "description": "Convert YAML configuration files into formatted JSON or translate JSON payloads into clean YAML. Fast in-browser syntax conversion with zero tracking.",
+    "keywords": [
+        "yaml to json converter",
+        "json to yaml online",
+        "convert yaml to json free",
+        "yaml validator online"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "Does this tool support Docker Compose and Kubernetes YAML?",
+            "answer": "Yes. It parses multi-level nested YAML structures commonly used in Docker Compose and Kubernetes manifests."
+        }
+    ]
+},
+  "sql-formatter": {
+    "slug": "sql-formatter",
+    "title": "SQL Query Beautifier & Formatter Online",
+    "h1": "Free Online SQL Query Beautifier & Syntax Formatter",
+    "metaTitle": "SQL Formatter Online | Beautify MySQL, PostgreSQL & SQLite | SamToolbox",
+    "description": "Format messy SQL queries with clean indentation, uppercase keywords, and readable alignment. Supports MySQL, PostgreSQL, SQLite, and T-SQL.",
+    "keywords": [
+        "sql formatter online",
+        "beautify sql queries",
+        "sql syntax beautifier",
+        "format sql script free"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "Which SQL dialects are supported?",
+            "answer": "Standard ANSI SQL, MySQL, PostgreSQL, SQLite, MariaDB, and Microsoft SQL Server (T-SQL)."
+        }
+    ]
+},
+  "pdf-summarizer": {
+    "slug": "pdf-summarizer",
+    "title": "Free In-Browser PDF Summarizer & Text Extractor",
+    "h1": "Free Online PDF Text Summarizer & Key Point Extractor",
+    "metaTitle": "PDF Summarizer Online | Extract Key Insights Privately | SamToolbox",
+    "description": "Extract text and generate concise key point summaries from lengthy PDF documents. 100% private in-browser text parsing with zero cloud data storage.",
+    "keywords": [
+        "pdf summarizer online free",
+        "summarize pdf without upload",
+        "extract key points from pdf",
+        "private pdf summary tool"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "Are my confidential PDF documents sent to cloud AI servers?",
+            "answer": "No. SamToolbox extracts text locally in browser memory and summarizes content on-device without uploading your files."
+        }
+    ]
+},
+  "epub-to-pdf": {
+    "slug": "epub-to-pdf",
+    "title": "EPUB eBook to PDF Document Converter",
+    "h1": "Free Online EPUB to PDF Converter",
+    "metaTitle": "EPUB to PDF Converter Online | Convert eBooks to Printable PDF | SamToolbox",
+    "description": "Convert EPUB digital books into readable, printable PDF documents. Preserves chapters, headings, and formatting with zero server file uploads.",
+    "keywords": [
+        "epub to pdf converter",
+        "convert ebook to pdf online",
+        "epub to pdf free no upload",
+        "epub file to pdf"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "Can I read EPUB files as PDF on any device?",
+            "answer": "Yes. Once converted to PDF, you can read, print, and highlight the eBook on Windows, macOS, Android, iPhone, or e-readers."
+        }
+    ]
+},
+  "png-to-webp": {
+    "slug": "png-to-webp",
+    "title": "PNG to WebP High-Compression Converter",
+    "h1": "Free Online PNG to WebP Image Converter",
+    "metaTitle": "PNG to WebP Converter Online | Reduce Image Size by 80% | SamToolbox",
+    "description": "Convert heavy PNG and JPG images into lightweight modern WebP format for faster website loading speeds. 100% in-browser compression.",
+    "keywords": [
+        "png to webp converter",
+        "compress png to webp",
+        "convert image to webp online",
+        "free webp creator"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "How much file size does WebP save over PNG?",
+            "answer": "WebP typically reduces file size by 25% to 35% compared to PNG while maintaining visual fidelity."
+        }
+    ]
+},
+  "webp-to-png": {
+    "slug": "webp-to-png",
+    "title": "WebP to PNG Image Converter Online",
+    "h1": "Free Online WebP to Transparent PNG Converter",
+    "metaTitle": "WebP to PNG Converter Online | Lossless Transparency | SamToolbox",
+    "description": "Convert modern WebP images into lossless transparent PNG files with original resolution preserved. Fast in-browser client-side image transformation.",
+    "keywords": [
+        "webp to png converter",
+        "convert webp to png online",
+        "webp to png free no upload",
+        "transparent webp to png"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "Does WebP to PNG preserve transparency?",
+            "answer": "Yes. Transparent alpha channels in WebP images are fully preserved in the resulting PNG files."
+        }
+    ]
+},
+  "heic-to-jpg": {
+    "slug": "heic-to-jpg",
+    "title": "HEIC to JPG Converter Online Free",
+    "h1": "Free Online Apple HEIC to JPG Image Converter",
+    "metaTitle": "HEIC to JPG Converter Online | Batch Convert iPhone Photos | SamToolbox",
+    "description": "Convert Apple iPhone HEIC and HEIF photos to universal high-quality JPG or PNG images. 100% private in-browser client-side batch conversion.",
+    "keywords": [
+        "heic to jpg converter",
+        "convert iphone photo to jpg",
+        "heic to jpg online free",
+        "heif to jpg converter no upload"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN",
+        "CA",
+        "AU"
+    ],
+    "faqs": [
+        {
+            "question": "Can I convert multiple HEIC files at once?",
+            "answer": "Yes! Drop all your iPhone HEIC photos into the tool and download them as individual JPGs or a consolidated ZIP archive."
+        }
+    ]
+},
+  "og-meta-previewer": {
+    "slug": "og-meta-previewer",
+    "title": "OpenGraph & Twitter Card Social Previewer",
+    "h1": "Free Social Media Meta Tag & OpenGraph Previewer",
+    "metaTitle": "OpenGraph Meta Tag Previewer Online | Twitter, LinkedIn & Facebook | SamToolbox",
+    "description": "Preview how your web pages look when shared across Twitter (X), LinkedIn, Facebook, Discord, and Slack. Inspect og:title, og:image, and Twitter cards.",
+    "keywords": [
+        "opengraph previewer online",
+        "social meta tags tester",
+        "twitter card validator",
+        "linkedin link preview tool"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "Why are OpenGraph tags important?",
+            "answer": "OpenGraph tags determine the title, description, and preview image displayed when a link is shared on social media, dramatically improving click-through rates."
+        }
+    ]
+},
+  "youtube-thumbnail-downloader": {
+    "slug": "youtube-thumbnail-downloader",
+    "title": "YouTube Thumbnail Downloader (HD, 4K & MaxRes)",
+    "h1": "Free Online YouTube Thumbnail Downloader",
+    "metaTitle": "YouTube Thumbnail Downloader Online | Full HD & 4K | SamToolbox",
+    "description": "Download high-resolution YouTube video thumbnails in Maximum Resolution (1080p), High Quality (720p), Medium, and Standard sizes with 1-click.",
+    "keywords": [
+        "youtube thumbnail downloader",
+        "download yt thumbnail hd",
+        "youtube cover image download",
+        "get thumbnail from video url"
+    ],
+    "category": "DesignApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "How do I download a YouTube thumbnail?",
+            "answer": "Paste the YouTube video link and SamToolbox will instantly extract the maximum resolution thumbnail directly from Google's CDN for instant download."
+        }
+    ]
+},
+  "plagiarism-checker": {
+    "slug": "plagiarism-checker",
+    "title": "Client-Side Text Similarity & Plagiarism Detector",
+    "h1": "Free In-Browser Text Similarity & Duplicate Checker",
+    "metaTitle": "Plagiarism & Similarity Checker Online | Free & Private | SamToolbox",
+    "description": "Compare documents to identify duplicated phrasing, text overlap, and sentence similarity. 100% private analysis with zero cloud storage.",
+    "keywords": [
+        "plagiarism checker free online",
+        "text similarity detector",
+        "check duplicate content",
+        "document comparison tool"
+    ],
+    "category": "EducationalApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "How does the similarity checker work?",
+            "answer": "It computes n-gram and Levenshtein distance metrics locally in your browser to highlight overlapping phrases between two texts."
+        }
+    ]
+},
+  "grammar-checker": {
+    "slug": "grammar-checker",
+    "title": "Free Online Grammar & Spell Checker",
+    "h1": "Free Online Grammar, Spelling & Style Checker",
+    "metaTitle": "Grammar & Spell Checker Online | Free Writing Assistant | SamToolbox",
+    "description": "Check English grammar, spelling errors, punctuation mistakes, and sentence clarity online. 100% private in-browser text analysis without storing documents.",
+    "keywords": [
+        "grammar checker online free",
+        "free spell checker",
+        "check grammar no signup",
+        "proofreading tool free",
+        "english punctuation checker"
+    ],
+    "category": "EducationalApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN",
+        "CA",
+        "AU"
+    ],
+    "faqs": [
+        {
+            "question": "Is my text saved or sent to external AI servers?",
+            "answer": "No. All text checking runs in your local browser memory, ensuring complete privacy for sensitive essays, emails, and manuscripts."
+        }
+    ]
+},
+  "markdown-editor": {
+    "slug": "markdown-editor",
+    "title": "Online Markdown Editor with Real-Time Preview",
+    "h1": "Free Online Markdown Editor with Split-Pane Live Preview",
+    "metaTitle": "Online Markdown Editor | Live HTML & PDF Export | SamToolbox",
+    "description": "Write and preview GitHub-flavored Markdown (GFM) in real time. Features split-pane editing, syntax highlighting, word count, and 1-click HTML/PDF export.",
+    "keywords": [
+        "markdown editor online",
+        "free md editor",
+        "markdown live preview",
+        "github markdown editor",
+        "export markdown to pdf"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN",
+        "CA",
+        "AU"
+    ],
+    "faqs": [
+        {
+            "question": "Can I export my Markdown to PDF or HTML?",
+            "answer": "Yes. SamToolbox converts your Markdown into clean HTML or formatted PDF directly in your browser with zero server uploads."
+        }
+    ]
+},
+  "ssl-checker": {
+    "slug": "ssl-checker",
+    "title": "SSL Certificate Validator & Expiration Checker",
+    "h1": "Free Online SSL/TLS Certificate Validator",
+    "metaTitle": "SSL Certificate Checker Online | Expiry & Issuer Diagnostic | SamToolbox",
+    "description": "Verify SSL/TLS certificate validity, issuer authority, expiration date, and cipher security for any HTTPS website with zero tracking.",
+    "keywords": [
+        "ssl certificate checker",
+        "check ssl expiry online",
+        "ssl test free",
+        "tls certificate validator",
+        "https security check"
+    ],
+    "category": "SecurityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN"
+    ],
+    "faqs": [
+        {
+            "question": "How do I check when an SSL certificate expires?",
+            "answer": "Enter any domain name and SamToolbox will inspect the public SSL/TLS certificate chain, display days until expiry, and identify the Certificate Authority (CA)."
+        }
+    ]
+},
+  "dns-lookup": {
+    "slug": "dns-lookup",
+    "title": "DNS Record Lookup & Propagation Checker",
+    "h1": "Free Online DNS Record Lookup (A, AAAA, MX, CNAME, TXT)",
+    "metaTitle": "DNS Record Lookup Online | Fast Nameserver & MX Checker | SamToolbox",
+    "description": "Inspect DNS records for any domain name: A, AAAA, MX, CNAME, TXT, NS, and SOA. Verify DNS propagation across global resolvers in real time.",
+    "keywords": [
+        "dns lookup online",
+        "check dns records",
+        "mx record lookup",
+        "cname checker",
+        "txt record lookup",
+        "dns propagation check"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN",
+        "CA",
+        "AU"
+    ],
+    "faqs": [
+        {
+            "question": "What DNS records can I check?",
+            "answer": "You can inspect A (IPv4), AAAA (IPv6), MX (Mail Exchange), CNAME (Aliases), TXT (SPF/DKIM), and NS (Nameserver) records."
+        }
+    ]
+},
+  "what-is-my-ip": {
+    "slug": "what-is-my-ip",
+    "title": "What Is My IP & Network Diagnostic Tool",
+    "h1": "What Is My IP Address Online \u2014 Free Network Diagnostic",
+    "metaTitle": "What Is My IP Address Online | IPv4, IPv6 & Network Checker | SamToolbox",
+    "description": "Check your public IPv4, IPv6 address, ISP, location, and WebRTC leak status instantly. 100% private in-browser diagnostic tool with zero tracking.",
+    "keywords": [
+        "what is my ip",
+        "my ip address",
+        "check public ip online",
+        "ipv4 lookup",
+        "ipv6 test",
+        "ip location finder",
+        "ip tool free"
+    ],
+    "category": "UtilityApplication",
+    "geoRegions": [
+        "GLOBAL",
+        "US",
+        "GB",
+        "PK",
+        "IN",
+        "CA",
+        "AU",
+        "AE"
+    ],
+    "faqs": [
+        {
+            "question": "What is my public IP address?",
+            "answer": "Your public IP address is the unique numerical label assigned to your internet connection by your Internet Service Provider (ISP), enabling websites to communicate with your device."
+        },
+        {
+            "question": "Does SamToolbox store or log my IP address?",
+            "answer": "No. SamToolbox executes 100% client-side. We do not store, log, or sell any user IP addresses or browsing history."
+        }
+    ]
+},
   "base64-encoder": {
     "slug": "base64-encoder",
     "title": "Base64 Encoder & Decoder Online",

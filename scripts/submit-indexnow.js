@@ -24,13 +24,25 @@ const staticPages = [
   `${BASE_URL}/suleman-zaheer`,
 ];
 
-// 2. Discover all tool slugs directly from src/app/tools directory
+// 2. Discover all tool slugs from TOOL_SEO_REGISTRY in src/lib/toolSeoData.ts
+const seoDataPath = path.join(__dirname, '../src/lib/toolSeoData.ts');
+let toolSlugs = [];
+if (fs.existsSync(seoDataPath)) {
+  const seoContent = fs.readFileSync(seoDataPath, 'utf-8');
+  const matches = [...seoContent.matchAll(/"([a-z0-9-]+)":\s*\{/g)];
+  toolSlugs = Array.from(new Set(matches.map(m => m[1]))).filter(s => s !== 'base_url');
+}
+
+// Also include directory slugs
 const toolsDir = path.join(__dirname, '../src/app/tools');
-const toolEntries = fs.readdirSync(toolsDir, { withFileTypes: true });
-const toolSlugs = toolEntries
-  .filter(d => d.isDirectory())
-  .filter(d => fs.existsSync(path.join(toolsDir, d.name, 'page.tsx')))
-  .map(d => d.name);
+if (fs.existsSync(toolsDir)) {
+  const toolEntries = fs.readdirSync(toolsDir, { withFileTypes: true });
+  toolEntries
+    .filter(d => d.isDirectory() && !d.name.startsWith('['))
+    .forEach(d => toolSlugs.push(d.name));
+}
+toolSlugs = Array.from(new Set(toolSlugs));
+
 
 const toolUrls = toolSlugs.map(slug => `${BASE_URL}/tools/${slug}`);
 const allUrls = Array.from(new Set([...staticPages, ...toolUrls]));
